@@ -1,6 +1,7 @@
 $(function() {
 	
 	function showStageSelection() {
+		//ich bin ein kommentar!
 		//Moi
 	}
 	
