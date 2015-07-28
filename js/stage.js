@@ -1,3 +1,6 @@
+//=== Stage ===
+
 function Stage(levels) {
-	this.level = levels;
+	if (levels === 'undefined') this.levels = [];
+	else this.levels = levels;
 }

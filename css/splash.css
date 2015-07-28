@@ -1,0 +1,26 @@
+body {
+	background-image: url(../images/splash.tif);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+input {
+	position: absolute;
+	font-size: 48px;
+}
+
+#continue {
+	left: calc(50% - 100px);
+	top: calc(70% - 50px);
+	width: 200px;
+	height: 100px;
+}
+
+#playerName_input {
+	left: calc(50% - 200px);
+	top: calc(50% - 20px);
+	width: 400px;
+	height: 40px;
+	font-size: 16px;
+	text-align: center;
+}

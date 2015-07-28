@@ -1,4 +1,12 @@
-// Walker
+//=== Walker ===
+
+/**
+ * Diese Klasse ist zuständig für das Abarbeiten der einzelnen Startpunkte und deren Verlauf.<br>
+ * Außerdem löst sie die entsprechenden Events aus, die währenddessen auftreten.
+ * 
+ * @author Steffen Müller
+ */
+
 function Walker(tile, ele, lvl) {
 	var where = tile;		// aktuelles Tile
 	var element = ele;

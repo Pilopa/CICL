@@ -1,0 +1,123 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif;
+}
+
+.unselectable {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+.combulix {
+	background-image: url(../images/combulix.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.speech-bubble {
+	background: #c0c0c0;
+  	background-image: -webkit-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: -moz-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: -ms-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: -o-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: linear-gradient(to bottom, #c0c0c0, #8080ff);
+	border-color: #408080;
+	border-style: outset;
+	border-width: 2px;
+	border-radius: 100px;
+	box-sizing: border-box;
+	padding: 40px;
+	text-align: center;
+	cursor: default;
+	font-size: 32px;
+}
+
+#list {
+	position: absolute;
+	width: 50%;
+	height: 80%;
+	left: calc(35% - 25%);
+	top: calc(50% - 40%);
+}
+
+.item {
+	width: calc(100% - 20px);
+	height: calc(20% - 20px);
+	text-align: center;
+	font-size: 32px;
+	padding: 20px;
+	margin: 10px;
+	display: inline-block;
+	float: left;
+	box-sizing: border-box;
+	-webkit-border-radius: 15px;
+  	-moz-border-radius: 15px;
+  	border-radius: 15px;
+}
+
+.active {
+	border-style: outset;
+	border-width: 2px;
+	border-color: black;
+	background: #c0c0c0;
+  	background-image: -webkit-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: -moz-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: -ms-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: -o-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: linear-gradient(to bottom, #c0c0c0, #8080ff);
+	color: black;
+	cursor: pointer;
+	box-shadow: 0 0 25px #ffff00;
+}
+
+.active:HOVER {
+	background: #e6e6e6;
+  	background-image: -webkit-linear-gradient(top, #e6e6e6, #aaaaff);
+  	background-image: -moz-linear-gradient(top, #e6e6e6, #aaaaff);
+  	background-image: -ms-linear-gradient(top, #e6e6e6, #aaaaff);
+  	background-image: -o-linear-gradient(top, #e6e6e6, #aaaaff);
+  	background-image: linear-gradient(to bottom, #e6e6e6, #aaaaff);
+  	box-shadow: 0 0 25px #ffff80;
+}
+
+.inactive {
+	background-color: #c0c0c0;
+	color: #808080;
+	border-style: inset;
+	border-width: 1px;
+	border-color: black;
+	cursor: not-allowed;
+}
+
+
+/**
+  * Danke an Omar Tariq von Stackoverflow: http://stackoverflow.com/questions/9249359/is-it-possible-to-vertically-align-text-within-a-div.
+  */
+.centered-text {
+
+	/* Internet Explorer 10 */
+	display:-ms-flexbox;
+	-ms-flex-pack:center;
+	-ms-flex-align:center;
+	
+	/* Firefox */
+	display:-moz-box;
+	-moz-box-pack:center;
+	-moz-box-align:center;
+	
+	/* Safari, Opera, and Chrome */
+	display:-webkit-box;
+	-webkit-box-pack:center;
+	-webkit-box-align:center;
+	
+	/* W3C */
+	display:box;
+	box-pack:center;
+	box-align:center;
+
+}

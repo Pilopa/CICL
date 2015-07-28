@@ -1,6 +1,6 @@
 //=== TileType ===
 
-var BASIC_TILE_POINT_VALUE = 10;
+var BASIC_TILE_POINT_VALUE = 10; //Gibt den Standardpunktwert für ein Tile an. Dieser wird verwendet, wenn sonst kein Punktewert angegeben wird.
 
 function TileType(exits, pointValue) {
 	if (!exits) exits = [];
