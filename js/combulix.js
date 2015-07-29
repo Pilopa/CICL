@@ -13,6 +13,9 @@ var combulix = {
 		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback();
 		this.current = index;
 		if (index < 0) return;
+		else if (index == 0) $(".arrow.left").fadeOut();
+		else if (index > 0) $(".arrow.left").fadeIn();
+		$(".arrow:not(.left)").fadeIn();
 		$(".speech-bubble").text(this.speeches[this.current].text);
 		if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.play();
 		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].onCallback();
@@ -22,7 +25,11 @@ var combulix = {
 	next: function() {
 		if (this.current + 1 < this.speeches.length) {
 			combulix.set(this.current + 1);
-		} else combulix.slideOut();
+		} else {
+			if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.pause();
+			if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback();
+			combulix.slideOut();
+		}
 	},
 	
 	previous: function() {
@@ -37,6 +44,7 @@ var combulix = {
 				$(".combulix")
 				.animate({ right: '-40%' }, function() {
 					$(".combulix").hide();
+					$(".arrow.left").css("right", "0%").css("top", "calc(50% - 32px)").fadeIn();
 				});
 			});
 		});
@@ -44,13 +52,15 @@ var combulix = {
 	},
 	
 	slideIn: function() {
+		$(".arrow.left").css("right", "calc(40% - 32px)").css("top", "calc(35% - 32px)").hide();
 		$(".combulix")
 		.show()
 		.animate({
 			right: '0%'
 		}, function() {
 			$(".speech-bubble").slideDown(function() {
-				$(".arrow").fadeIn();
+				if (typeof combulix.current !== 'undefined' && combulix.speeches.length > 0) combulix.set(combulix.current);
+				else if (combulix.speeches.length > 0) combulix.set(0);
 			});
 		});	
 		return this;
@@ -60,21 +70,25 @@ var combulix = {
 		$(document.createElement('div'))
 		.addClass("speech-bubble")
 		.addClass("unselectable")
+		.addClass("interactable")
 		.appendTo("body");
 		
 		$(document.createElement('div'))
 		.addClass("combulix")
 		.addClass("unselectable")
+		.addClass("interactable")
 		.appendTo("body");
 		
 		$(document.createElement('div'))
 		.addClass("arrow")
+		.addClass("interactable")
 		.addClass("unselectable")
 		.appendTo("body");
 		
 		$(document.createElement('div'))
 		.addClass("arrow")
 		.addClass("left")
+		.addClass("interactable")
 		.addClass("unselectable")
 		.appendTo("body");
 		
@@ -89,7 +103,12 @@ var combulix = {
 		});
 		
 		$(".arrow.left").click(function(event) {
-			combulix.previous();
+			if ($(".combulix").is(":hidden")) combulix.slideIn();
+			else combulix.previous();
+		});
+		
+		$("arrow.left").on("swipeleft", function (event) {
+			if ($(".combulix").is(":hidden")) combulix.slideIn();
 		});
 		
 		$(".arrow:not(.left)").click(function(event) {

@@ -9,13 +9,16 @@ $(function() {
 		
 		//Den gewählten Spielernamen für spätere Verwendung zwischenspeichern.
 		$("#splash").submit(function(event) {
-			localStorage["name"] = $("#playerName_input").val();
-			localStorage[localStorage["name"]] = JSON.stringify({
-				"scores": []
-			});
-			for (var i = 0; i < getStages().length; i++) JSON.parse(localStorage[localStorage["name"]]).scores[i] = [];
+			localStorage["name"] = $("#playerName_input").val().toLowerCase();
+			if (localStorage[localStorage["name"]] === undefined) {
+				localStorage[localStorage["name"]] = JSON.stringify({
+					scores: [],
+					first: true
+				});
+				for (var i = 0; i < getStages().length; i++) JSON.parse(localStorage[localStorage["name"]]).scores[i] = [];
+			}
 		});
 	
-	} //TODO: Fehlermeldung
+	} //else TODO: Fehlermeldung
 	
 });

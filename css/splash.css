@@ -24,3 +24,12 @@ input {
 	font-size: 16px;
 	text-align: center;
 }
+
+#title {
+	position: absolute;
+	top: 25%;
+	font-size: 64px;
+	font-family: Perpetua;
+	font-weight: bold;
+	width: 100%;
+}

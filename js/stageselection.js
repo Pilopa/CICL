@@ -5,34 +5,56 @@ $(function() {
 	//Lade die Auswahlliste der einzelnen Stages.
 	for (i = 0; i < getStages().length; i++) {
 		var stage = getStages()[i];
-		if (i == 0) var stateClass = "active";
-		else var stateClass = "inactive";
-		$(document.createElement('div'))
+		var element = $(document.createElement('div'))
 			.addClass("item")
 			.addClass("unselectable")
 			.addClass("centered-text")
-			.addClass(stateClass)
 			.attr("id", i)
 			.html("Bereich " + (i + 1))
 			.appendTo("#list");
+		
+		if (i == 0) element.addClass("active");
 	}
 	
 	//Behandle Auswahl einer Stage.
+	
 	$(".active").click(function(event) {
 		showLevelSelection($(this).attr("id"));
 	});
 	
-	
 	//Initialisiere Combulix
 	
 	combulix.initialize();
-	combulix.speeches = [
-         new Speech("Test 1"),
-         new Speech("Test 2"),
-         new Speech("Test 3")
-	];
+	var playerObject = getPlayerObject();
+	if (playerObject.first) {
+		playerObject.first = false;
+		savePlayerObject(playerObject);
+		combulix.speeches = [
+	         new Speech("Hallo, meine Name ist Combulix. Willkommen in meinem Labor! Klicke auf den grünen Pfeil, oder wische nach Links, um den nächsten Tipp zu lesen.",
+	        		 undefined, function () {
+	        	 $(".speech-bubble").addClass("highlighted");
+	         }),
+	         new Speech("Gut gemacht! Mir ist leider vorhin meine Apparatur kaputt gegangen. Du musst mir helfen, Sie zu reparieren!"),
+	         new Speech("Fangen wir doch zunächst in Bereich 1 an.", undefined, function () {
+	        	 $("#0").addClass("active").addClass("highlighted").click(function(event) {
+	    			showLevelSelection($(this).attr("id"));
+	    		});
+	         }, function () {
+	        	 $("#0").removeClass("highlighted");
+	         })
+		];
+		
+		
+	} else {
+		combulix.speeches = [
+	         new Speech("Wählen den Bereich aus, in welchem du weitermachen möchtest . . .", undefined, function() {
+	        	 $(".item.active").addClass("highlighted");
+	         }, function () {
+	        	 $(".item.active").removeClass("highlighted");
+	         })
+        ];
+	}
 	
 	combulix.slideIn();
-	combulix.set(0);
 	
 });

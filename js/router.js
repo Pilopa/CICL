@@ -6,6 +6,7 @@ function showStageSelection() {
 
 function showLevelSelection(stageId) {
 	location.href = "../html/levelselection.html?" + stageId;
+	
 }
 
 function showLevel(stageId, levelId) {
