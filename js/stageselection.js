@@ -22,4 +22,17 @@ $(function() {
 		showLevelSelection($(this).attr("id"));
 	});
 	
+	
+	//Initialisiere Combulix
+	
+	combulix.initialize();
+	combulix.speeches = [
+         new Speech("Test 1"),
+         new Speech("Test 2"),
+         new Speech("Test 3")
+	];
+	
+	combulix.slideIn();
+	combulix.set(0);
+	
 });

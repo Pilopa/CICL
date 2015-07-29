@@ -12,7 +12,6 @@ $(function() {
 			.addClass("item")
 			.addClass("unselectable")
 			.addClass("centered-text")
-			.addClass("highlighted")
 			.addClass(stateClass)
 			.attr("id", i)
 			.text("Level " + (i + 1))
