@@ -3,8 +3,8 @@
 $(function() {
 	
 	//Lade die Auswahlliste der einzelnen Stages.
-	for (i = 0; i < stages.length; i++) {
-		var stage = stages[i];
+	for (i = 0; i < getStages().length; i++) {
+		var stage = getStages()[i];
 		if (i == 0) var stateClass = "active";
 		else var stateClass = "inactive";
 		$(document.createElement('div'))

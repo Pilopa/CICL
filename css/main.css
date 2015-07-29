@@ -28,13 +28,24 @@
   	background-image: linear-gradient(to bottom, #c0c0c0, #8080ff);
 	border-color: #408080;
 	border-style: outset;
-	border-width: 2px;
-	border-radius: 100px;
+	border-width: 0px;
+	border-radius: 50px;
 	box-sizing: border-box;
 	padding: 40px;
-	text-align: center;
 	cursor: default;
-	font-size: 32px;
+	font-size: 28px;
+}
+
+.speech-bubble:after {
+  content: "";
+  display: block; /* reduce the damage in FF3.0 */
+  position: absolute;
+  bottom: -90px;
+  left: 80px;
+  width: 0;
+  border-width: 90px 25px 0;
+  border-style: solid;
+  border-color: #8080ff transparent;
 }
 
 #list {
@@ -43,6 +54,7 @@
 	height: 80%;
 	left: calc(35% - 25%);
 	top: calc(50% - 40%);
+	/* overflow: scroll; */
 }
 
 .item {
@@ -60,6 +72,14 @@
   	border-radius: 15px;
 }
 
+.highlighted {
+	box-shadow: 0 0 25px #ffff00;
+}
+
+.highlighted:HOVER {
+	box-shadow: 0 0 25px #ffff80;
+}
+
 .active {
 	border-style: outset;
 	border-width: 2px;
@@ -72,7 +92,6 @@
   	background-image: linear-gradient(to bottom, #c0c0c0, #8080ff);
 	color: black;
 	cursor: pointer;
-	box-shadow: 0 0 25px #ffff00;
 }
 
 .active:HOVER {
@@ -81,8 +100,7 @@
   	background-image: -moz-linear-gradient(top, #e6e6e6, #aaaaff);
   	background-image: -ms-linear-gradient(top, #e6e6e6, #aaaaff);
   	background-image: -o-linear-gradient(top, #e6e6e6, #aaaaff);
-  	background-image: linear-gradient(to bottom, #e6e6e6, #aaaaff);
-  	box-shadow: 0 0 25px #ffff80;
+  	background-image: linear-gradient(to bottom, #e6e6e6, #aaaaff);	
 }
 
 .inactive {

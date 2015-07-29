@@ -1,6 +1,6 @@
 //=== Level ===
 
-function Level(width, height) {
+function Level(width, height, title) {
 	this.width = width;
 	this.height = height;
 	this.playfield = [];
@@ -8,10 +8,12 @@ function Level(width, height) {
 	this.handlers = [];
 	this.destinationsCount = 0;
 	this.destinationsReached = 0;
+	this.title = title;
+	this.score = 0;
 }
 
 Level.prototype.put = function (x, y, tile, fireEvents) {
-	if (fireEvents == null) fireEvents = true;
+	if (typeof fireEvents === 'undefined') fireEvents = false;
 	tile.x = x;
 	tile.y = y;
 	this.playfield[x][y] = tile;
