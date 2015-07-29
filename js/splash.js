@@ -16,6 +16,6 @@ $(function() {
 			for (var i = 0; i < getStages().length; i++) JSON.parse(localStorage[localStorage["name"]]).scores[i] = [];
 		});
 	
-	} else alert("fuk u");
+	} //TODO: Fehlermeldung
 	
 });
