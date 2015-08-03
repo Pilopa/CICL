@@ -1,0 +1,41 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	font-size: 0;
+}
+
+.tile {
+	background-color: blue;
+	height: 100px;
+	width: 100px;
+	display: inline-block;
+	background-size: 100% 100%;
+}
+
+.tile:hover {
+	box-shadow: 0 0 25px #ffff80 inset;
+}
+
+#field {
+	width: 50%;
+	height: 80%;
+	position: absolute;
+	left: 40%;
+	margin: 50px;
+	background-color: black;
+}
+
+#toolbox {
+	height: 80%;
+	width: 30%;
+	position: absolute;
+	margin: 50px;
+	background-color: grey;
+}
+
+.tool {
+	margin: 5px;
+	background-color: green;
+	height: 100px;
+	width: 100px;
+}
