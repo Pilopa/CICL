@@ -14,19 +14,20 @@
 }
 
 #field {
-	width: 50%;
-	height: 80%;
+	width: 550px;
+	height: 550px;
 	position: absolute;
-	left: 40%;
+	left: 30%;
 	margin: 50px;
 	background-color: black;
 }
 
 #toolbox {
-	height: 80%;
-	width: 30%;
+	height: 600px;
+	width: 150px;
 	position: absolute;
-	margin: 50px;
+	margin: 35px 80px;
+	padding: 15px;
 	background-color: grey;
 }
 

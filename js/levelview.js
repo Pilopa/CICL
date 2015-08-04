@@ -11,8 +11,11 @@ $(function() {
 				.css('height', parseInt($('#field').css('height'))/level.height)
 				.appendTo('#field');
 			if(level.playfield[i][j] != null) {
-				//tileview.css('background-image', '../images/' + level.playfield[i][j].type + '-' + level.playfield[i][j].rotation + '.png'); // lädt Bilddateien nach TILE_TYPE_XYZ-0.png
+				alert(level.rotate(1,1)); // Error: level.rotate() is not a function!
+				//tileview.css('background-image', '../images/' + level.playfield[i][j].type.img + '-' + level.playfield[i][j].rotation + '.png');
 				tileview.css('background-color', 'blue');
+			} else {
+				tileview.css('background-image', 'url(../images/empty.png)');
 			}
 		}
 	}
