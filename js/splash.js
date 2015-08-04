@@ -11,13 +11,7 @@ $(function() {
 		$("#splash").submit(function(event) {
 			localStorage["name"] = $("#playerName_input").val().toLowerCase();
 			if (localStorage[localStorage["name"]] === undefined) {
-				localStorage[localStorage["name"]] = JSON.stringify({
-					scores: [], //Map mit den Punkteständen der einzelnen Levels für jede Stage.
-					stageAvailable: [], //Enthält für jede Stage einen Boolean welcher angibt, ob diese Stage für den Spieler vergfügbar ist.
-					firstStageSelection: true,
-					firstLevelSelection: true
-				});
-				var playerObject = getPlayerObject();
+				var playerObject = initializeCurrentPlayerObject();
 				for (var i = 0; i < getStages().length; i++) {
 					playerObject.scores[i] = [];
 					for (var n = 0; n < getStages()[i].length; n++) {
@@ -25,7 +19,7 @@ $(function() {
 					}
 					playerObject.stageAvailable[i] = false;
 				}
-				savePlayerObject(playerObject);
+				saveCurrentPlayerObject(playerObject);
 			}
 		});
 	

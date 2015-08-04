@@ -23,12 +23,12 @@ $(function() {
 	//Initialisiere Combulix
 	
 	combulix.initialize();
-	var playerObject = getPlayerObject();
+	var playerObject = getCurrentPlayerObject();
 	if (playerObject.firstStageSelection) {
 		//Setze die Werte, welche angeben, dass der Spieler die Stageauswahl einmal betreten hat.
 		playerObject.firstStageSelection = false;
 		playerObject.stageAvailable[0] = true;
-		savePlayerObject(playerObject);
+		saveCurrentPlayerObject(playerObject);
 		
 		//Definiere die Texte von Combulix
 		combulix.speeches = [

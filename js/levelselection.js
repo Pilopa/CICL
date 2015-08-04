@@ -23,10 +23,10 @@ $(function() {
 	
 	//Combulix
 	combulix.initialize();
-	var playerObject = getPlayerObject();
+	var playerObject = getCurrentPlayerObject();
 	if (playerObject.firstLevelSelection) { //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
 		playerObject.firstLevelSelection = false;
-		savePlayerObject(playerObject);
+		saveCurrentPlayerObject(playerObject);
 		combulix.speeches = [
 	         new Speech("Super! Du hast die Levelauswahl gefunden.",
 	        		 undefined, function () {
