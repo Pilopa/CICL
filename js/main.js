@@ -18,6 +18,11 @@ function getPlayerObject() {
 	}
 }
 
+/**
+ * Nach einem Satz von Änderungen an dem aktuellen Spielerobjekt, muss dieses wieder gespeichert werden.
+ * 
+ * @param object Das zu speichernde Spielerobjekt. Meist eine modifizierte Version von getPlayerObject().
+ */
 function savePlayerObject(object) {
 	localStorage[localStorage["name"]] = JSON.stringify(object);
 }

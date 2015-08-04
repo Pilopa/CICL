@@ -12,8 +12,6 @@ $(function() {
 			.attr("id", i)
 			.html("Bereich " + (i + 1))
 			.appendTo("#list");
-		
-		if (i == 0) element.addClass("active");
 	}
 	
 	//Behandle Auswahl einer Stage.
@@ -26,9 +24,13 @@ $(function() {
 	
 	combulix.initialize();
 	var playerObject = getPlayerObject();
-	if (playerObject.first) {
-		playerObject.first = false;
+	if (playerObject.firstStageSelection) {
+		//Setze die Werte, welche angeben, dass der Spieler die Stageauswahl einmal betreten hat.
+		playerObject.firstStageSelection = false;
+		playerObject.stageAvailable[0] = true;
 		savePlayerObject(playerObject);
+		
+		//Definiere die Texte von Combulix
 		combulix.speeches = [
 	         new Speech("Hallo, meine Name ist Combulix. Willkommen in meinem Labor! Klicke auf den grünen Pfeil, oder wische nach Links, um den nächsten Tipp zu lesen.",
 	        		 undefined, function () {
@@ -44,8 +46,15 @@ $(function() {
 	         })
 		];
 		
-		
 	} else {
+		//Lade Spielstand
+		for (i = 0; i < getStages().length; i++) {
+			if (playerObject.stageAvailable[i] == true) $("#" + i).addClass("active").addClass("highlighted").click(function(event) {
+    			showLevelSelection($(this).attr("id"));
+    		});
+		}
+		
+		//Definiere die Texte von Combulix
 		combulix.speeches = [
 	         new Speech("Wählen den Bereich aus, in welchem du weitermachen möchtest . . .", undefined, function() {
 	        	 $(".item.active").addClass("highlighted");
