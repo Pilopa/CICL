@@ -23,6 +23,7 @@ $(function() {
 	//Initialisiere Combulix
 	
 	combulix.initialize();
+	
 	var playerObject = getCurrentPlayerObject();
 	if (playerObject.firstStageSelection) {
 		//Setze die Werte, welche angeben, dass der Spieler die Stageauswahl einmal betreten hat.

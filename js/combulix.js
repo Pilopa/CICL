@@ -114,6 +114,8 @@ var combulix = {
 		$(".arrow:not(.left)").click(function(event) {
 			combulix.next();
 		});
+		
+		return combulix;
 	}
 	
 };
