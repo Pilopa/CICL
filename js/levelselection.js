@@ -33,7 +33,7 @@ $(function() {
 	        	 $(".speech-bubble").addClass("highlighted");
 	         }),
 	         new Speech("Lass uns zunächst mit der Einführung anfangen. Klicke dazu auf die hervorgehobene Schaltfläche.", undefined, function () {
-	        	 $("#0").addClass("active").click(function(event) {
+	        	 $("#0").addClass("active").addClass("highlighted").click(function(event) {
 	    			showLevel(stageId, $(this).attr("id"))
 	    		});
 	         }, function () {
