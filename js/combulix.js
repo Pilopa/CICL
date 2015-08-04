@@ -115,7 +115,7 @@ var combulix = {
 			combulix.next();
 		});
 		
-		return combulix;
+		return this;
 	}
 	
 };
