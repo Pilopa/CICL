@@ -7,13 +7,8 @@ $(function() {
 		for(var j = 0; j < level.width; j++) {
 			var tileview = $(document.createElement('div'))
 				.addClass('tile')
-<<<<<<< HEAD
 				.css('width', parseInt($('#field').css('width'))/level.width)
 				.css('height', parseInt($('#field').css('height'))/level.height)
-=======
-				.css('width', $('#field').css('width') / level.width)
-				.css('height', $('#field').css('height') / level.height)
->>>>>>> origin/master
 				.appendTo('#field');
 			if(level.playfield[i][j] != null) {
 				//tileview.css('background-image', '../images/' + level.playfield[i][j].type + '-' + level.playfield[i][j].rotation + '.png'); // lädt Bilddateien nach TILE_TYPE_XYZ-0.png
