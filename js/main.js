@@ -49,3 +49,8 @@ function resetCompleteGame() {
 function reloadGame() {
 	location.reload();
 }
+
+/**
+ * Benutze hydrate.stringify(object) (Schreiben) und hydrate.parse() (Lesen) zur Serialisierung von Objekten.
+ */
+var hydrate = new Hydrate();

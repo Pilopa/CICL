@@ -1,7 +1,7 @@
 //=== Stages ===
 
 if (typeof sessionStorage["stages"] === 'undefined') sessionStorage["stages"] = 
-	JSON.stringify([new Stage([new Level(5, 5, "Einführung")
+	hydrate.stringify([new Stage([new Level(5, 5, "Einführung")
 				.put(0, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
 				.put(0, 4, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
 				.put(4, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA)),
@@ -79,5 +79,5 @@ if (typeof sessionStorage["stages"] === 'undefined') sessionStorage["stages"] =
 ]);
 
 function getStages() {
-	return JSON.parse(sessionStorage["stages"]);
+	return hydrate.parse(sessionStorage["stages"]);
 }
