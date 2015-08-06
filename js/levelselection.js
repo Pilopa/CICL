@@ -59,6 +59,11 @@ $(function() {
         ];
 		
 	}
+	
 	combulix.slideIn();
+	
+	//Initialisiere Menüelemente
+	
+	optionsMenu.initialize("10px", "calc(100% - 74px)").showButton();
 	
 });

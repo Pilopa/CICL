@@ -69,6 +69,6 @@ $(function() {
 	
 	//Initialisiere Menüelemente
 	
-	optionsButton.initialize("10px", "calc(100% - 74px)").setVisible(true);
+	optionsMenu.initialize("10px", "calc(100% - 74px)").showButton();
 	
 });

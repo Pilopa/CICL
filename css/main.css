@@ -191,3 +191,42 @@
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
+
+.menu {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0%;
+	top: 0%;
+	background-color: rgba(0, 0, 0, 0.85);
+	z-index: 10;
+}
+
+.menu-content-container {
+	position: absolute;
+	width: 80%;
+	height: 80%;
+	left: 10%;
+	top: 10%;
+	background-color: gray;
+	z-index: 09;
+	border-style: outset;
+	border-width: 2px;
+	border-color: black;
+}
+
+.close-button {
+	background-image: url(../images/close.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 64px;
+	height: 64px;
+	position: absolute;
+	z-index: 10;
+	right: calc(10% - 32px);
+	top: calc(10% - 32px);
+}
+
+#options-menu {
+	
+}

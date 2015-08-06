@@ -18,6 +18,9 @@ $(function() {
 			}
 		}
 	}
+	
+	//Initialisiere Combulix
+	
 	combulix.initialize();
 	combulix.speeches = new Speech("Dummy", undefined, function() {}, function() {});
 	combulix.slideIn();
@@ -25,4 +28,8 @@ $(function() {
 	$('#flow').click(function() {
 		level.startRun();
 	});
+	
+	//Initialisiere Menüelemente
+	
+	optionsMenu.initialize("10px", "calc(100% - 74px)").showButton();
 });
