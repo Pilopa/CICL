@@ -11,8 +11,11 @@ $(function() {
 				.css('height', parseInt($('#field').css('height'))/level.height)
 				.appendTo('#field');
 			if(level.playfield[i][j] != '__hydrate_undef' && level.playfield[i][j] != null) { 
-				tileview.css('background-image', 'url(../images/' + level.playfield[i][j].type.img + '-' + level.playfield[i][j].rotation + '.png)');
-				//tileview.css('background-color', 'blue');
+				tileview.css('background-image', 'url(../images/' + level.playfield[i][j].type.img + '.png)');
+				var rot = 90 * parseInt(level.playfield[i][j].rotation);
+				tileview.css('transform', 'rotate(' + rot + 'deg)');
+				tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
+				tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
 			} else {
 				tileview.css('background-image', 'url(../images/empty.png)');
 			}
