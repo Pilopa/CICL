@@ -26,6 +26,7 @@ $(function() {
 	for(var i = 0; i < level.tools.length; i++) {
 		if(level.tools[i] == -2) {
 			$('#tname'+i).text('');
+			$('#tool'+i).css('background-image', 'url(../images/lock.png)');
 		} else if(level.tools[i] == -1) {
 			$('#tt'+i).text('99');
 		} else {
