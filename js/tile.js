@@ -23,7 +23,7 @@ function Tile(type, element, movable) {
 	this.y = 0;
 	this.type = type;
 	this.element = element;
-	this.rotation = DIRECTION_UP;
+	this.rotation = 0;
 	this.movable = movable;
 }
 

@@ -12,10 +12,11 @@ function Level(width, height, title) {
 	this.score = 0;
 }
 
-Level.prototype.put = function (x, y, tile, fireEvents) {
+Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	if (typeof fireEvents === 'undefined') fireEvents = false;
 	tile.x = x;
 	tile.y = y;
+	tile.rotation = r;
 	this.playfield[x][y] = tile;
 	if (tile.type == TILE_TYPE_DESTINATION) this.destinationsCount++;
 	if (fireEvents) this.fireEvent(new Event(EVENT_TYPE_PLACED, tile));
