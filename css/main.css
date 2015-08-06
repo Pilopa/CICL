@@ -227,6 +227,10 @@
 	top: calc(10% - 32px);
 }
 
-#options-menu {
-	
+.back-button {
+	background-image: url(../images/back.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 64px;
+	height: 64px;
 }

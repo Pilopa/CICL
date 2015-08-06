@@ -100,7 +100,6 @@ var optionsMenu = {
 	
 	hideButton: function () {
 		this.optionsButton.setVisible(false);
-	}
-		
+	}	
 			
 }
