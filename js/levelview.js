@@ -22,7 +22,7 @@ $(function() {
 	//Initialisiere Combulix
 	
 	combulix.initialize();
-	combulix.speeches = new Speech("Dummy", undefined, function() {}, function() {});
+	combulix.speeches = [new Speech("Dummy")];
 	combulix.slideIn();
 	
 	$('#flow').click(function() {
