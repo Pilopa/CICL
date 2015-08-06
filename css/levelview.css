@@ -31,11 +31,27 @@
 	background-color: grey;
 }
 
+.tooltext {
+	margin-left: 25px;
+	height: 20px;
+	width: 70px;
+	font-size: 12pt;
+	display: inline-block;
+}
+
+.toolnumber {
+	margin-left: 0;
+	color: yellow;
+	text-align: right;
+	width: 30px;
+}
+
 .tool {
-	margin: 5px;
+	margin: 20px 25px 5px;
 	background-color: green;
 	height: 100px;
 	width: 100px;
+	background-size: 100% 100%;
 }
 
 #flow {

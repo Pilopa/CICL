@@ -1,6 +1,6 @@
 //=== Level ===
 
-function Level(width, height, title) {
+function Level(width, height, title, tools) {
 	this.width = width;
 	this.height = height;
 	this.playfield = [];
@@ -11,6 +11,14 @@ function Level(width, height, title) {
 	this.reachedDestinations = [];
 	this.title = title;
 	this.score = 0;
+	if(typeof tools === 'undefined') {
+		tools = [];
+		tools[0] = -1; //straight
+		tools[1] = -1; //corner
+		tools[2] = -1; //crossroads
+		tools[3] = -1; //tjunction
+	}
+	this.tools = tools;
 }
 
 Level.prototype.put = function (x, y, r, tile, fireEvents) {

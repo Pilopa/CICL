@@ -1,4 +1,5 @@
 $(function() {
+	//fülle Spielfeld
 	var x = location.search.replace('?','').split('-');
 	var levelid = x[0];
 	var stageid = x[1];
@@ -21,6 +22,16 @@ $(function() {
 			}
 		}
 	}
+	//fülle Toolbox
+	for(var i = 0; i < level.tools.length; i++) {
+		if(level.tools[i] == -2) {
+			$('#tname'+i).text('');
+		} else if(level.tools[i] == -1) {
+			$('#tt'+i).text('99');
+		} else {
+			$('#tt'+i).text(level.tools[i]);
+		}
+	}
 	
 	//Initialisiere Combulix
 	
@@ -35,4 +46,6 @@ $(function() {
 	//Initialisiere Menüelemente
 	
 	optionsMenu.initialize("10px", "calc(100% - 74px)").showButton();
+	
+	
 });
