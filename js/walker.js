@@ -18,6 +18,7 @@ Walker.prototype.walk = function() {
 	this.checkElement();
 	if(this.where.type == TILE_TYPE_DESTINATION) {
 		this.level.destinationReached(this.where);
+		return;
 	}
 	this.setElement();
 	this.onward();
@@ -54,7 +55,6 @@ Walker.prototype.onward = function() {
 				}
 			}
 	}
-	
 }
 
 Walker.prototype.assertExit = function(dir) {
@@ -63,7 +63,20 @@ Walker.prototype.assertExit = function(dir) {
 			this.playfield.testFailed(); // Nachbarfeld ist leer!
 			return;
 		}
-		if(!(exit+2)%4 in neighbor.exits) {
+		if(!(exit+2)%4 in neighbor.type.exits) {
 			this.playfield.testFailed(); // Nachbartile hat keinen passend ausgerichteten Eingang!
 		}
+}
+
+Walker.prototype.startRun = function(level) {
+	for(var i = 0; i < level.height; i++) {
+		for(var j = 0; j < level.width; j++) {
+			if(level.playfield[i][j].type = TILE_TYPE_SOURCE) {
+				new Walker(level.playfield[i][j], level.playfield[i][j].type, level).walk();
+			}
+		}
+	}
+	if (level.destinationsCount <= level.destinationsReached) {
+		fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
+	}
 }

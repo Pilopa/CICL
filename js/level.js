@@ -8,6 +8,7 @@ function Level(width, height, title) {
 	this.handlers = [];
 	this.destinationsCount = 0;
 	this.destinationsReached = 0;
+	this.reachedDestinations = [];
 	this.title = title;
 	this.score = 0;
 }
@@ -73,10 +74,11 @@ Level.prototype.testFailed = function () {
 }
 
 Level.prototype.destinationReached = function (tile) {
-	this.destinationsReached++;
-	this.fireEvent(new Event(EVENT_TYPE_DESTINATION_REACHED, tile));
-	if (this.destinationsCount <= this.destinationsReached) ;
-		fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
+	if(!tile in this.reachedDestinations) {
+		reachedDestinations.push(tile);
+		this.destinationsReached++;
+		this.fireEvent(new Event(EVENT_TYPE_DESTINATION_REACHED, tile));
+	}
 }
 
 Level.prototype.registerListener = function (handler) {
