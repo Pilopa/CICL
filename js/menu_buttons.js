@@ -103,3 +103,44 @@ var optionsMenu = {
 	}	
 			
 }
+
+backButton = {
+		
+	callback: function () {},
+	
+	setCallback: function(callback) {
+		
+		this.callback = callback;
+		$("#back-button").click(function() {
+			backButton.callback();
+		});
+		return this;
+	},
+		
+	initialize: function(x, y, callback) {
+		//Überprüfen der Parameter
+		if (typeof x === 'undefined') x = "0";
+		if (typeof y === 'undefined') y = "0";
+		
+		$(document.createElement('div'))
+		.addClass("menu-button")
+		.addClass("active")
+		.addClass("interactable")
+		.attr("id", "back-button")
+		.css("left", x)
+		.css("top", y)
+		.appendTo("body")
+		.hide();
+		
+		if (typeof callback !== 'undefined') this.setCallback(callback);
+
+		return this;
+	},
+	
+	setVisible: function (bool) {
+		if (bool) $("#back-button").show();
+		else $("#back-button").hide();
+		return this;
+	}
+	
+}

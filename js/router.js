@@ -12,3 +12,7 @@ function showLevelSelection(stageId) {
 function showLevel(stageId, levelId) {
 	location.href = "../html/levelview.html?" + stageId + "-" + levelId;
 }
+
+function showSplash() {
+	location.href = "../html/splash.html";
+}

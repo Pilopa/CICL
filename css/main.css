@@ -182,12 +182,12 @@
 
 .menu-button {
 	position: absolute;
-	width: 64px;
-	height: 64px;
 }
 
 #options-button {
 	background-image: url(../images/settings.png);
+	width: 64px;
+	height: 64px;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
@@ -223,14 +223,14 @@
 	height: 64px;
 	position: absolute;
 	z-index: 10;
-	right: calc(10% - 32px);
-	top: calc(10% - 32px);
+	right: calc(10% - 24px);
+	top: calc(10% - 24px);
 }
 
-.back-button {
+#back-button {
 	background-image: url(../images/back.png);
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
 	width: 64px;
 	height: 64px;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
 }

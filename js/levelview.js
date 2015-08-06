@@ -46,7 +46,8 @@ $(function() {
 	
 	//Initialisiere Menüelemente
 	
-	optionsMenu.initialize("10px", "calc(100% - 74px)").showButton();
+	optionsMenu.initialize("10px", "calc(90% - 74px)").showButton();
+	backButton.initialize("10px", "calc(100% - 74px)", showStageSelection).setVisible(true);
 	
 	
 });

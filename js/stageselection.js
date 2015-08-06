@@ -2,6 +2,8 @@
 
 $(function() {
 	
+	var playerObject = getCurrentPlayerObject();
+	
 	//Lade die Auswahlliste der einzelnen Stages.
 	for (i = 0; i < getStages().length; i++) {
 		var stage = getStages()[i];
@@ -24,7 +26,6 @@ $(function() {
 	
 	combulix.initialize();
 	
-	var playerObject = getCurrentPlayerObject();
 	if (playerObject.firstStageSelection) {
 		//Setze die Werte, welche angeben, dass der Spieler die Stageauswahl einmal betreten hat.
 		playerObject.firstStageSelection = false;
@@ -69,6 +70,7 @@ $(function() {
 	
 	//Initialisiere Menüelemente
 	
-	optionsMenu.initialize("10px", "calc(100% - 74px)").showButton();
+	optionsMenu.initialize("10px", "calc(90% - 74px)").showButton();
+	backButton.initialize("10px", "calc(100% - 74px)", showSplash).setVisible(true);
 	
 });
