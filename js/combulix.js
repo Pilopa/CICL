@@ -76,7 +76,6 @@ var combulix = {
 		$(document.createElement('div'))
 		.addClass("combulix")
 		.addClass("unselectable")
-		.addClass("interactable")
 		.appendTo("body");
 		
 		$(document.createElement('div'))

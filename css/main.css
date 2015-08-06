@@ -26,6 +26,10 @@
 
 .left {
 	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
 	right: calc(40% - 32px);
 }
 
@@ -98,6 +102,22 @@
   	border-radius: 15px;
 }
 
+.item.active {
+  	background-image: -webkit-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: -moz-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: -ms-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: -o-linear-gradient(top, #c0c0c0, #8080ff);
+  	background-image: linear-gradient(to bottom, #c0c0c0, #8080ff);
+}
+
+.item.active:HOVER {
+	background-image: -webkit-linear-gradient(top, #e6e6e6, #aaaaff);
+  	background-image: -moz-linear-gradient(top, #e6e6e6, #aaaaff);
+  	background-image: -ms-linear-gradient(top, #e6e6e6, #aaaaff);
+  	background-image: -o-linear-gradient(top, #e6e6e6, #aaaaff);
+  	background-image: linear-gradient(to bottom, #e6e6e6, #aaaaff);	
+}
+
 .highlighted {
 	box-shadow: 0 0 25px #ffff00;
 }
@@ -111,26 +131,16 @@
 }
 
 .active {
+	background: #c0c0c0;
 	border-style: outset;
 	border-width: 2px;
 	border-color: black;
-	background: #c0c0c0;
-  	background-image: -webkit-linear-gradient(top, #c0c0c0, #8080ff);
-  	background-image: -moz-linear-gradient(top, #c0c0c0, #8080ff);
-  	background-image: -ms-linear-gradient(top, #c0c0c0, #8080ff);
-  	background-image: -o-linear-gradient(top, #c0c0c0, #8080ff);
-  	background-image: linear-gradient(to bottom, #c0c0c0, #8080ff);
 	color: black;
 	cursor: pointer;
 }
 
 .active:HOVER {
 	background: #e6e6e6;
-  	background-image: -webkit-linear-gradient(top, #e6e6e6, #aaaaff);
-  	background-image: -moz-linear-gradient(top, #e6e6e6, #aaaaff);
-  	background-image: -ms-linear-gradient(top, #e6e6e6, #aaaaff);
-  	background-image: -o-linear-gradient(top, #e6e6e6, #aaaaff);
-  	background-image: linear-gradient(to bottom, #e6e6e6, #aaaaff);	
 }
 
 .item:not(.active) {
@@ -168,4 +178,16 @@
 	box-pack:center;
 	box-align:center;
 
+}
+
+.menu-button {
+	position: absolute;
+	width: 64px;
+	height: 64px;
+}
+
+#options-button {
+	background-image: url(../images/settings.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
 }
