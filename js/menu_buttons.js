@@ -95,11 +95,11 @@ var optionsMenu = {
 	},
 	
 	showButton: function () {
-		optionsButton.setVisible(true);
+		this.optionsButton.setVisible(true);
 	},
 	
 	hideButton: function () {
-		optionsButton.setVisible(false);
+		this.optionsButton.setVisible(false);
 	}
 		
 			
