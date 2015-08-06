@@ -66,11 +66,11 @@ Level.prototype.getNeighbor = function (tile, exit) {
 				this.testFailed(); // Rand des Spielfelds erreicht!
 			}
 	}
-	return playfield[nx][ny];
+	return this.playfield[nx][ny];
 }
 
 Level.prototype.testFailed = function () {
-	fireEvent(new Event(EVENT_TYPE_TEST_FAILED));
+	this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED));
 }
 
 Level.prototype.destinationReached = function (tile) {
@@ -89,4 +89,17 @@ Level.prototype.fireEvent = function (evt) {
 	this.handlers.forEach(function(currentValue, index, array) {
 		currentValue(evt);
 	});
+}
+
+Level.prototype.startRun = function() {
+	for(var i = 0; i < this.height; i++) {
+		for(var j = 0; j < this.width; j++) {
+			if(this.playfield[i][j].type = TILE_TYPE_SOURCE) {
+				new Walker(this.playfield[i][j], this.playfield[i][j].element, this).walk();
+			}
+		}
+	}
+	if (this.destinationsCount <= this.destinationsReached) {
+		fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
+	}
 }

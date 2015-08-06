@@ -21,4 +21,8 @@ $(function() {
 	combulix.initialize();
 	combulix.speeches = new Speech("Dummy", undefined, function() {}, function() {});
 	combulix.slideIn();
+	
+	$('#flow').click(function() {
+		level.startRun();
+	});
 });
