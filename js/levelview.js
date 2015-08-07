@@ -90,6 +90,7 @@ $(function() {
 						if(level.tools[toolid] == 0) {
 							$('#tool' + toolid).addClass('tilena');
 							$('#tt' + toolid).addClass('tilenatext');
+							$('#tool' + toolid).draggable("disable");
 						}
 					}
 				});
@@ -118,12 +119,17 @@ $(function() {
 				},
 				stop: function (event, ui) {
 					ui.helper.removeClass("tool-drag-highlight");
-				}
+				},
 				//snap: ".tile"
 			});
 		}
 		$("#tt" + i).addClass("unselectable").addClass("toolnumber");
 		$("#tname" + i).addClass("unselectable").addClass("tooltext");
+		if(level.tools[i] == 0) {
+			$('#tool' + i).addClass('tilena');
+			$('#tt' + i).addClass('tilenatext');
+			$('#tool' + i).draggable("disable");
+		}
 	}
 	
 	//Initialisiere Combulix
