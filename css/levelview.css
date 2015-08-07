@@ -77,3 +77,15 @@
 	width: 200px;
 	height: 50px;
 }
+
+.tilena {
+	-webkit-filter: brightness(20%);
+	-moz-filter: brightness(20%);
+	filter: brightness(20%);
+}
+
+.immovable {
+	-webkit-filter: brightness(60%);
+	-moz-filter: brightness(60%);
+	filter: brightness(60%);
+}

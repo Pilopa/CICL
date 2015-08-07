@@ -41,6 +41,7 @@ $(function() {
 				tileview.css('transform', 'rotate(' + rot + 'deg)');
 				tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
 				tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
+				tileview.addClass('immovable');
 			} else {
 				tileview
 				.css('background-image', 'url(../images/empty.png)')
@@ -62,11 +63,11 @@ $(function() {
 						ui.helper.removeClass("tool-drag-hover-highlight");
 					},
 					drop: function (event, ui) {
-						//TODO: Tile einfügen
 						var classes = $(this).attr('class').split(" ");
 						var x = parseInt(classes[1].replace("x", ""));
 						var y = parseInt(classes[2].replace("y", ""));
-						switch (parseInt(ui.draggable.attr("id").replace("tool", ""))) {
+						var toolid = parseInt(ui.draggable.attr("id").replace("tool", ""));
+						switch (toolid) {
 						case 0:
 							level.put(x, y, 0, new Tile(TILE_TYPE_STRAIGHT, TILE_ELEMENT_NONE, true), true);
 							break;
@@ -81,6 +82,12 @@ $(function() {
 							break;
 						}
 						ui.helper.hide();
+						if(level.tools[toolid] > 0) {
+							level.tools[toolid] -= 1;
+						}
+						if(level.tools[toolid] == 0) {
+							$('#tool' + toolid).addClass('tilena');
+						}
 					}
 				});
 			}
