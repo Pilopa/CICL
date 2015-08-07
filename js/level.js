@@ -17,7 +17,7 @@ function Level(width, height, title, tools) {
 
 Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	if (typeof fireEvents === 'undefined') fireEvents = false;
-	if (this.playfield[x][y] !== null && this.playfield[x][y] !== undefined) this.remove(x, y);
+	if (this.playfield[x][y] !== null && this.playfield[x][y] !== undefined && this.playfield[x][y] !== "__hydrate_undef") this.remove(x, y);
 	tile.x = x;
 	tile.y = y;
 	tile.rotation = r;
@@ -28,29 +28,28 @@ Level.prototype.put = function (x, y, r, tile, fireEvents) {
 }
 
 Level.prototype.swap = function (x1, y1, x2, y2) {
-	console.log("swap: " + x1 + ", " + y1 + ", " + x2 + ", " + y2)
-	//Ausgangstile
 	var tileFrom = this.playfield[x1][y1];
+	var tileTo = this.playfield[x2][y2];
+	//Ausgangstile
 	if (tileFrom !== undefined) {
 		tileFrom.x = x2;
 		tileFrom.y = y2;
 	}
 	this.playfield[x2][y2] = tileFrom;
-	console.log(tileFrom);
 	
 	//Zieltile
-	var tileTo = this.playfield[x2][y2];
 	if (tileTo !== undefined) {
 		tileTo.x = x1;
 		tileTo.y = y1;
 	}
 	this.playfield[x1][y1] = tileTo;
-	console.log(tileTo);
-	
+
 	//Events
 	this.fireEvent(new Event(EVENT_TYPE_SWAPPED, {
-		source: tileFrom,
-		target: tileTo
+		x1: x1,
+		y1: y1,
+		x2: x2,
+		y2: y2
 	}))
 	return this;
 }

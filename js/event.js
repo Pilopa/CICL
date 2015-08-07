@@ -15,5 +15,5 @@ function Event (type, tile) {
 }
 
 Event.prototype.toString = function () {
-	return "Event (" + this.type + ") on " + this.tile.toString();
+	return "Event (" + this.type + ") on " + this.tile;
 }

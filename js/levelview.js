@@ -7,48 +7,65 @@ $(function() {
 	var level = getStages()[stageid].levels[levelid];
 	
 	//Funktionen
-	function updateTileView(tile) {
-		var x = tile.x;
-		var y = tile.y;
+	function initializeTileView(x, y) {
 		var tileview = $(".x" + x + ".y" + y);
-		tileview.css('background-image', 'url(../images/' + level.playfield[x][y].type.name + '.png)');
-		var rot = 90 * parseInt(level.playfield[x][y].rotation);
-		tileview.css('transform', 'rotate(' + rot + 'deg)');
-		tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
-		tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
+		tileview.draggable({
+			revert: true,
+			revertDuration: 0,
+			scroll: false,
+			start: function (event, ui) {
+				ui.helper.addClass("drag-highlight");
+			},
+			stop: function (event, ui) {
+				ui.helper.removeClass("drag-highlight");
+			},
+		})
+		.click(function (event) { //Der Spieler klickt auf ein Tile, um es zu drehen.
+			var classes = $(this).attr('class').split(" ");
+			var x = parseInt(classes[1].replace("x", ""));
+			var y = parseInt(classes[2].replace("y", ""));
+			if (level.playfield[x][y] !== null && level.playfield[x][y] !== undefined && level.playfield[x][y].movable) level.rotate(x, y);
+			else console.log("click but no rotate on [" + x + "|" + y + "]")
+		})
+		.addClass('interactable');
+		return tileview;
+	}
+	
+	function updateTileView(x, y, initializeHandlers) {
+		if (x === undefined) console.log("error in updateTileView in levelview.fs: x is undefined");
+		if (y === undefined) console.log("error in updateTileView in levelview.fs: y is undefined");
+		var tile = level.playfield[x][y];
+		var tileview = $(".x" + x + ".y" + y);
+		if (tile !== null && tile !== undefined) {
+			tileview.css('background-image', 'url(../images/' + tile.type.name + '.png)');
+			var rot = 90 * parseInt(tile.rotation);
+			tileview.css('transform', 'rotate(' + rot + 'deg)');
+			tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
+			tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
+			if (initializeHandlers) initializeTileView(x, y);
+		} else {
+			tileview
+			.css('background-image', 'url(../images/empty.png)')
+			.removeClass("interactable")
+			.unbind()
+			.draggable('destroy');
+		}
 		return tileview;
 	}
 	
 	//Handle Events
 	level.registerListener(function (event) {
+		console.log(event.toString()); //Debug
+		
 		//Ein Tile wurde platziert.
 		if (event.type === EVENT_TYPE_PLACED) {
-			updateTileView(event.tile)
-			.draggable({
-				revert: true,
-				scroll: false,
-				start: function (event, ui) {
-					ui.helper.addClass("drag-highlight");
-				},
-				stop: function (event, ui) {
-					ui.helper.removeClass("drag-highlight");
-					//TODO: Zurückdrehen
-				},
-			})
-			.click(function (event) { //Der Spieler klickt auf ein Tile, um es zu drehen.
-				var classes = $(this).attr('class').split(" ");
-				var x = parseInt(classes[1].replace("x", ""));
-				var y = parseInt(classes[2].replace("y", ""));
-				if (level.playfield[x][y] !== null && level.playfield[x][y] !== undefined && level.playfield[x][y].movable) level.rotate(x, y);
-				else console.log("click but no rotate on [" + x + "|" + y + "]")
-			});
+			if (event.tile.x === undefined) console.log("error in levelview.fs eventHandler: event.tile.x is undefined");
+			if (event.tile.y === undefined) console.log("error in levelview.fs eventHandler: event.tile.y is undefined");
+			updateTileView(event.tile.x, event.tile.y, true);
 		} else if (event.type === EVENT_TYPE_ROTATED) { //Ein Tile wurde gedreht.
-			updateTileView(event.tile);
+			updateTileView(event.tile.x, event.tile.y);
 		} else if (event.type === EVENT_TYPE_REMOVED) { //Ein Tile wurde entfernt
-			var x = event.tile.x;
-			var y = event.tile.y;
-			var tileview = $(".x" + x + ".y" + y);
-			
+
 			//Aktualisiere Toolbar-Anzahl
 			/*
 			var toolid = parseInt(tileview.attr("id").replace("tool", ""));
@@ -61,17 +78,25 @@ $(function() {
 				level.tools[toolid] += 1;
 			}*/
 			
-			//"Lösche" das Tile
-			tileview.draggable('destroy');
-			tileview
-			.css('background-image', 'url(../images/empty.png)')
-			.removeClass("interactable")
-			.unbind();
-		} else if (event.type === EVENT_TYPE_SWAPPED) {
-			if (event.tile.source !== undefined) updateTileView(event.tile.source);
-			if (event.tile.target !== undefined) updateTileView(event.tile.target);
+			/* 'Löschen' des Tiles:
+			 * Das Tile wird nicht wirklich gelöscht, da, grafisch gesehen, auch ein leeres Feld eine Repräsentation benötigt.
+			 * Daher wird das Feld lediglich zurückgesetzt und alle listener/handler entfernt.
+			 */
+			updateTileView(event.tile.x, event.tile.y);
+			
+		} else if (event.type === EVENT_TYPE_SWAPPED) { //Zwei Tiles wurden vertauscht
+			var element1 = $(".x" + event.tile.x1 + ".y" + event.tile.y1);
+			var element2 = $(".x" + event.tile.x2 + ".y" + event.tile.y2);
+			
+			//Wenn mit einem leeren Feld getauscht wurde, müssen diesem die Listener hinzugefügt werden
+			if (level.playfield[event.tile.x1][event.tile.y1] !== null || level.playfield[event.tile.x1][event.tile.y1] !== undefined) initializeTileView(event.tile.x2, event.tile.y2);
+			if (level.playfield[event.tile.x2][event.tile.y2] !== null || level.playfield[event.tile.x2][event.tile.y2] !== undefined) initializeTileView(event.tile.x1, event.tile.y1);
+			
+			//Aktualisiere die Anzeige
+			updateTileView(event.tile.x1, event.tile.y1);
+			updateTileView(event.tile.x2, event.tile.y2);
+			
 		}
-		console.log(event.toString()); //Debug
 	});
 	
 	// Initialisiere das Spielfeld
@@ -140,7 +165,8 @@ $(function() {
 	
 	//Initialisiere Toolbox
 	PLACEABLE_TILE_TYPES.forEach(function(tiletype, index) {
-		console.log(tiletype);
+		
+		//Füge das neue Element hinzu
 		var tool = $(document.createElement('div'))
 		.addClass("tool")
 		.attr("id", tiletype.name)
