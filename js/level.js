@@ -46,31 +46,31 @@ Level.prototype.rotate = function (x, y) {
 	return this;
 }
 
-Level.prototype.getNeighbor = function (tile, exit) {
+Level.prototype.getNeighbor = function (tile, dir) {
 	var nx = tile.x;
 	var ny = tile.y;
-	switch(exit) {
+	switch(dir) {
 		case 0:
-			ny -= 1;
-			if(ny < 0) {
+			nx -= 1;
+			if(nx < 0) {
 				this.testFailed(); // Rand des Spielfelds erreicht!
 			}
 			break;
 		case 1:
-			nx += 1;
-			if(nx >= this.width) {
+			ny += 1;
+			if(ny >= this.width) {
 				this.testFailed(); // Rand des Spielfelds erreicht!
 			}
 			break;
 		case 2:
-			ny += 1;
-			if(ny >= this.heigth) {
+			nx += 1;
+			if(nx >= this.heigth) {
 				this.testFailed(); // Rand des Spielfelds erreicht!
 			}
 			break;
 		case 3:
-			nx -= 1;
-			if(nx < 0) {
+			ny -= 1;
+			if(ny < 0) {
 				this.testFailed(); // Rand des Spielfelds erreicht!
 			}
 	}
@@ -102,8 +102,10 @@ Level.prototype.fireEvent = function (evt) {
 Level.prototype.startRun = function() {
 	for(var i = 0; i < this.height; i++) {
 		for(var j = 0; j < this.width; j++) {
-			if(this.playfield[i][j].type.name == TILE_NAME_SOURCE) {
-				new Walker(this.playfield[i][j], this.playfield[i][j].element, this).walk();
+			if(this.playfield[i][j] != '__hydrate_undef' && this.playfield[i][j] != null) { 
+				if(this.playfield[i][j].type.name == TILE_NAME_SOURCE) {
+					new Walker(this.playfield[i][j], this.playfield[i][j].element, this).walk();
+				}
 			}
 		}
 	}

@@ -7,10 +7,11 @@
  * @author Steffen Müller
  */
 
-function Walker(tile, ele, lvl) {
+function Walker(tile, ele, lvl, cf) {
 	this.where = tile;		// aktuelles Tile
+	alert('Walker erstellt auf ' + tile);
 	this.element = ele;
-	this.comingfrom; 		// Exit des aktuellen Tiles, durch den das Tile betreten wurde
+	this.comingfrom = cf; 		// Exit des aktuellen Tiles, durch den das Tile betreten wurde
 	this.level = lvl;
 }
 
@@ -42,15 +43,16 @@ Walker.prototype.onward = function() {
 		case TILE_NAME_CROSSROADS:
 			var exit = (this.where.comingfrom+2)%4;
 			if(this.assertExit(exit)) {
-				new Walker(this.level.getNeighbor(this.where, exit), this.element, this.playfield).walk();
+				new Walker(this.level.getNeighbor(this.where, exit), this.element, this.level, (exits[i]+2)%4).walk();
 			}
 			break;
 		default: 
-			for(var i = 0; i < this.where.type.initialExits.length; i++) { //Cannot read property 'initialExits' of undefined
-				var exit = (this.where.type.initialExits[i]+this.where.rotation)%4;
-				if(exit != this.comingfrom) {
-					if(this.assertExit(exit)) {
-						new Walker(this.level.getNeighbor(this.where, exit), this.element, this.playfield).walk();
+			for(var i = 0; i < this.where.type.initialExits.length; i++) {
+				var exits = this.where.getExits();
+				alert('exit: ' + exits[i]);
+				if(exits[i] != this.comingfrom) {
+					if(this.assertExit(exits[i])) {
+						new Walker(this.level.getNeighbor(this.where, exits[i]), this.element, this.level, (exits[i]+2)%4).walk();
 					}
 				}
 			}
@@ -59,11 +61,15 @@ Walker.prototype.onward = function() {
 
 Walker.prototype.assertExit = function(dir) {
 	var neighbor = this.level.getNeighbor(this.where, dir);
-		if(neighbor == null) {
+		alert('neighbor: ' + neighbor);
+		if(neighbor == null || neighbor == '__hydrate_undef') {
 			this.level.testFailed(); // Nachbarfeld ist leer!
-			return;
+			return false;
 		}
-		if(!(dir+2)%4 in neighbor.type.exits) {
-			this.level.testFailed(); // Nachbartile hat keinen passend ausgerichteten Eingang!
+		nexits = neighbor.getExits();
+		for(var i = 0; i < nexits.length; i++) {
+			if((dir+2)%4 == nexits[i]) return true;
 		}
+		this.level.testFailed(); // Nachbartile hat keinen passend ausgerichteten Eingang!
+		return false;
 }

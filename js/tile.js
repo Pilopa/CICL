@@ -34,3 +34,11 @@ Tile.prototype.toString = function () {
 Tile.prototype.rotate = function (steps) {
 	this.rotation += steps;
 }
+
+Tile.prototype.getExits = function() {
+	var ex = []
+	for(var i = 0; i < this.type.initialExits.length; i++) {
+		ex[i] = (this.type.initialExits[i] + this.rotation) %4;
+	}
+	return ex;
+}
