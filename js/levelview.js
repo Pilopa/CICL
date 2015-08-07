@@ -6,7 +6,7 @@ $(function() {
 	var level = getStages()[stageid].levels[levelid];
 	level.registerListener(function (event) {
 		//Sammle Daten über das Tile, auf welchem das Event stattgefunden hat.
-		if (typeof event.tile !== undefined) {
+		if (event.tile !== undefined) {
 			var x = event.tile.x;
 			var y = event.tile.y;
 			var tileview = $(".x" + x + ".y" + y);
@@ -32,13 +32,6 @@ $(function() {
 				.addClass('tile')
 				.addClass('x' + i)
 				.addClass('y' + j)
-				.click(function (event) { //Der Spieler klickt auf ein Tile, um es zu drehen.
-					var classes = $(this).attr('class').split(" ");
-					var x = parseInt(classes[1].replace("x", ""));
-					var y = parseInt(classes[2].replace("y", ""));
-					if (level.playfield[x][y] !== undefined && level.playfield[x][y].movable) level.rotate(x, y);
-					else console.log("click but no rotate on [" + x + "|" + y + "]")
-				})
 				.css('width', parseInt($('#field').css('width'))/level.width)
 				.css('height', parseInt($('#field').css('height'))/level.height)
 				.appendTo('#field');
@@ -51,6 +44,13 @@ $(function() {
 			} else {
 				tileview
 				.css('background-image', 'url(../images/empty.png)')
+				.click(function (event) { //Der Spieler klickt auf ein Tile, um es zu drehen.
+					var classes = $(this).attr('class').split(" ");
+					var x = parseInt(classes[1].replace("x", ""));
+					var y = parseInt(classes[2].replace("y", ""));
+					if (level.playfield[x][y] !== undefined && level.playfield[x][y].movable) level.rotate(x, y);
+					else console.log("click but no rotate on [" + x + "|" + y + "]")
+				})
 				.droppable({
 					accept: ".tool",
 					activeClass: "tile-drag-highlight",
@@ -120,7 +120,7 @@ $(function() {
 	
 	combulix.initialize();
 	combulix.speeches = [new Speech("Dummy")];
-	combulix.slideIn();
+	//combulix.slideIn();
 	
 	$('#flow').click(function() {
 		level.startRun();

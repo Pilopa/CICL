@@ -25,6 +25,7 @@ function Tile(type, element, movable) {
 	this.element = element;
 	this.rotation = 0;
 	this.movable = movable;
+	console.log(movable);
 }
 
 Tile.prototype.toString = function () {
