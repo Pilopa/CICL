@@ -101,6 +101,7 @@
 	top: 0px;
 	left: 0px;
 	background-repeat: no-repeat;
-	z-index: 10;
+	z-index: -10;
 	background-image: url(../images/trash-bin.png);
+	background-size: 100%;
 }

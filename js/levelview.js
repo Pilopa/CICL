@@ -1,5 +1,4 @@
 $(function() {
-	$('#tboverlay').hide();
 	//fülle Spielfeld
 	var x = location.search.replace('?','').split('-');
 	var levelid = x[0];
@@ -149,8 +148,11 @@ $(function() {
 		$('#tboverlay').droppable({
 			accept: '.tile',
 			activate: function(event, ui) {
-				$('#tboverlay').show();
+				$('#tboverlay').css('z-index', '10');
 			},
+			deactivate: function(event, ui) {
+				$('#tboverlay').css('z-index', '-10');
+			}
 			drop: function(event, ui) {
 				var toolid = parseInt(ui.draggable.attr("id").replace("tool", ""));
 				if(level.tools[toolid] == 0) {
