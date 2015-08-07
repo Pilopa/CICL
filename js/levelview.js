@@ -18,14 +18,29 @@ $(function() {
 			tileview.css('transform', 'rotate(' + rot + 'deg)');
 			tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
 			tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
+			tileview.draggable({
+				revert: true,
+				scroll: false,
+				start: function (event, ui) {
+					ui.helper.addClass("tool-drag-highlight");
+				},
+				stop: function (event, ui) {
+					ui.helper.removeClass("tool-drag-highlight");
+					//TODO: Zurückdrehen
+				},
+			});
 		} else if (event.type === EVENT_TYPE_ROTATED) { //Ein Tile wurde gedreht.
 			var rot = 90 * parseInt(level.playfield[x][y].rotation);
 			tileview.css('transform', 'rotate(' + rot + 'deg)');
 			tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
 			tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
+		} else if (event.type === EVENT_TYPE_REMOVED) { //Ein Tile wurde entfernt
+			tileview.draggable('destroy');
+			tileview.css('background-image', 'url(../images/empty.png)');
 		}
 		console.log(event.toString()); //Debug
 	});
+	// Initialisiere das Spielfeld
 	for(var i = 0; i < level.height; i++) {
 		for(var j = 0; j < level.width; j++) {
 			var tileview = $(document.createElement('div'))
@@ -66,7 +81,7 @@ $(function() {
 						var classes = $(this).attr('class').split(" ");
 						var x = parseInt(classes[1].replace("x", ""));
 						var y = parseInt(classes[2].replace("y", ""));
-						if (ui.draggable.hasClass('tool') {
+						if (ui.draggable.hasClass('tool')) {
 							var toolid = parseInt(ui.draggable.attr("id").replace("tool", ""));
 							switch (toolid) {
 							case 0:
@@ -94,19 +109,10 @@ $(function() {
 								$('#tool' + toolid).draggable("disable");
 							}
 							$(this).addClass('interactable');
-							$(this).draggable({
-								revert: true,
-								scroll: false,
-								start: function (event, ui) {
-									ui.helper.addClass("tool-drag-highlight");
-								},
-								stop: function (event, ui) {
-									ui.helper.removeClass("tool-drag-highlight");
-									//Zurückdrehen
-									//Altes Tile im Level löschen
-									//Neues Tile ins Level schreiben
-								},
-							});
+						} else if(ui.draggable.hasClass('tile')) {
+							// Remove Startposition, zu ziehendes Tile
+							// Falls Zielposition Tile ist: Remove
+							// Zielpositon: Put zu ziehendes Tile
 						}
 					}
 				});
