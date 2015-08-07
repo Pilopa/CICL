@@ -83,10 +83,13 @@ $(function() {
 						}
 						ui.helper.hide();
 						if(level.tools[toolid] > 0) {
-							level.tools[toolid] -= 1;
+							var newamount = level.tools[toolid] -1;
+							level.tools[toolid] = newamount;
+							$('#tt' + toolid).text(newamount);
 						}
 						if(level.tools[toolid] == 0) {
 							$('#tool' + toolid).addClass('tilena');
+							$('#tt' + toolid).addClass('tilenatext');
 						}
 					}
 				});
