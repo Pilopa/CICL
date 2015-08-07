@@ -199,7 +199,7 @@
 	left: 0%;
 	top: 0%;
 	background-color: rgba(0, 0, 0, 0.85);
-	z-index: 10;
+	z-index: 100;
 }
 
 .menu-content-container {
@@ -209,7 +209,7 @@
 	left: 10%;
 	top: 10%;
 	background-color: gray;
-	z-index: 09;
+	z-index: 90;
 	border-style: outset;
 	border-width: 2px;
 	border-color: black;
@@ -222,7 +222,7 @@
 	width: 64px;
 	height: 64px;
 	position: absolute;
-	z-index: 10;
+	z-index: 100;
 	right: calc(10% - 24px);
 	top: calc(10% - 24px);
 }

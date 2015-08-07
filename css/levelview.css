@@ -4,25 +4,30 @@
 	font-size: 0;
 }
 
-.tile {
-	display: inline-block;
-	background-size: 100% 100%;
-}
-
-.tile:hover, .tile-drag-highlight {
-	box-shadow: 0 0 25px #ffff80 inset;
-}
-
-.tile-hover-highlight {
-	box-shadow: 0 0 25px #80ff80 inset;
-}
-
-.tool-drag-highlight:not(.tool-drag-hover-highlight) {
+.drag-highlight {
 	box-shadow: 0 0 25px #ffff80;
 }
 
-.tool-drag-hover-highlight {
+.drag-hover-highlight {
 	box-shadow: 0 0 50px #80ff80;
+}
+
+.drop-highlight {
+	box-shadow: 0 0 25px #ffff80 inset;
+}
+
+.drop-hover-highlight {
+	box-shadow: 0 0 25px #80ff80 inset;
+}
+
+.tile {
+	display: inline-block;
+	background-size: 100% 100%;
+	z-index: 20;
+}
+
+.tile:hover:not(.drag-hover-highlight and .drop-hover-highlight) {
+	box-shadow: 0 0 25px #ffff80 inset;
 }
 
 #field {
@@ -66,7 +71,7 @@
 	height: 100px;
 	width: 100px;
 	background-size: 100% 100%;
-	z-index: 10;
+	z-index: 30;
 }
 
 #flow {

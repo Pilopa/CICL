@@ -1,6 +1,7 @@
 //=== Level ===
 
 function Level(width, height, title, tools) {
+	if(typeof tools === 'undefined') tools = {};
 	this.width = width;
 	this.height = height;
 	this.playfield = [];
@@ -11,24 +12,46 @@ function Level(width, height, title, tools) {
 	this.reachedDestinations = [];
 	this.title = title;
 	this.score = 0;
-	if(typeof tools === 'undefined') {
-		tools = [];
-		tools[0] = -1; //straight
-		tools[1] = -1; //corner
-		tools[2] = -1; //crossroads
-		tools[3] = -1; //tjunction
-	}
 	this.tools = tools;
 }
 
 Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	if (typeof fireEvents === 'undefined') fireEvents = false;
+	if (this.playfield[x][y] !== null && this.playfield[x][y] !== undefined) this.remove(x, y);
 	tile.x = x;
 	tile.y = y;
 	tile.rotation = r;
 	this.playfield[x][y] = tile;
 	if (tile.type.name == TILE_NAME_DESTINATION) this.destinationsCount++;
 	if (fireEvents) this.fireEvent(new Event(EVENT_TYPE_PLACED, tile));
+	return this;
+}
+
+Level.prototype.swap = function (x1, y1, x2, y2) {
+	console.log("swap: " + x1 + ", " + y1 + ", " + x2 + ", " + y2)
+	//Ausgangstile
+	var tileFrom = this.playfield[x1][y1];
+	if (tileFrom !== undefined) {
+		tileFrom.x = x2;
+		tileFrom.y = y2;
+	}
+	this.playfield[x2][y2] = tileFrom;
+	console.log(tileFrom);
+	
+	//Zieltile
+	var tileTo = this.playfield[x2][y2];
+	if (tileTo !== undefined) {
+		tileTo.x = x1;
+		tileTo.y = y1;
+	}
+	this.playfield[x1][y1] = tileTo;
+	console.log(tileTo);
+	
+	//Events
+	this.fireEvent(new Event(EVENT_TYPE_SWAPPED, {
+		source: tileFrom,
+		target: tileTo
+	}))
 	return this;
 }
 
