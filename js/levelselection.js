@@ -2,8 +2,6 @@
 
 $(function() {
 	
-	function 
-	
 	//Lade die Auswahlliste der einzelnen Levels.
 	var stageId = location.search.replace("?", "");
 	var stage = getStages()[stageId];
