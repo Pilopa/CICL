@@ -1,4 +1,5 @@
 $(function() {
+	$('#tboverlay').hide();
 	//fülle Spielfeld
 	var x = location.search.replace('?','').split('-');
 	var levelid = x[0];
@@ -53,7 +54,7 @@ $(function() {
 					else console.log("click but no rotate on [" + x + "|" + y + "]")
 				})
 				.droppable({
-					accept: ".tool",
+					accept: ".tool, .tile",
 					activeClass: "tile-drag-highlight",
 					hoverClass: "tile-hover-highlight",
 					over: function ( event, ui ) {
@@ -92,6 +93,21 @@ $(function() {
 							$('#tt' + toolid).addClass('tilenatext');
 							$('#tool' + toolid).draggable("disable");
 						}
+						$(this).addClass('interactable');
+						$(this).draggable({
+							revert: true,
+							scroll: false,
+							start: function (event, ui) {
+								ui.helper.addClass("tool-drag-highlight");
+							},
+							stop: function (event, ui) {
+								ui.helper.removeClass("tool-drag-highlight");
+								//Zurückdrehen
+								//Altes Tile im Level löschen
+								//Neues Tile ins Level schreiben
+								
+							},
+						});
 					}
 				});
 			}
@@ -130,6 +146,23 @@ $(function() {
 			$('#tt' + i).addClass('tilenatext');
 			$('#tool' + i).draggable("disable");
 		}
+		$('#tboverlay').droppable({
+			accept: '.tile',
+			activate: function(event, ui) {
+				$('#tboverlay').show();
+			},
+			drop: function(event, ui) {
+				var toolid = parseInt(ui.draggable.attr("id").replace("tool", ""));
+				if(level.tools[toolid] == 0) {
+					$('#tool' + toolid).removeClass('tilena');
+					$('#tt' + toolid).removeClass('tilenatext');
+					$('#tool' + toolid).draggable("enable");
+				}
+				if(level.tools[toolid] >= 0) {
+					level.tools[toolid] += 1;
+				}
+			}
+		});
 	}
 	
 	//Initialisiere Combulix

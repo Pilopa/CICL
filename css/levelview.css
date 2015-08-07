@@ -93,3 +93,14 @@
 	-moz-filter: brightness(60%);
 	filter: brightness(60%);
 }
+
+#tboverlay {
+	height: 630px;
+	width: 180px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-repeat: no-repeat;
+	z-index: 10;
+	background-image: url(../images/trash-bin.png);
+}
