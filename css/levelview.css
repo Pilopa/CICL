@@ -111,3 +111,7 @@
 	background-image: url(../images/trash-bin.png);
 	background-size: 100%;
 }
+
+.ui-draggable-dragging {
+	z-index: 35;
+}

@@ -28,17 +28,21 @@ Level.prototype.put = function (x, y, r, tile, fireEvents) {
 }
 
 Level.prototype.swap = function (x1, y1, x2, y2) {
+	if (x1 === undefined) console.log("error in swap in level.fs eventHandler: x1 is undefined");
+	if (x2 === undefined) console.log("error in swap in level.fs eventHandler: x2 is undefined");
+	if (y1 === undefined) console.log("error in swap in level.fs eventHandler: y1 is undefined");
+	if (y2 === undefined) console.log("error in swap in level.fs eventHandler: y2 is undefined");
 	var tileFrom = this.playfield[x1][y1];
 	var tileTo = this.playfield[x2][y2];
 	//Ausgangstile
-	if (tileFrom !== undefined) {
+	if (tileFrom !== null && tileFrom !== undefined && tileFrom !== "__hydrate_undef") {
 		tileFrom.x = x2;
 		tileFrom.y = y2;
 	}
 	this.playfield[x2][y2] = tileFrom;
 	
 	//Zieltile
-	if (tileTo !== undefined) {
+	if (tileTo !== null && tileTo !== undefined && tileTo !== "__hydrate_undef") {
 		tileTo.x = x1;
 		tileTo.y = y1;
 	}

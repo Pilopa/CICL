@@ -36,7 +36,9 @@ $(function() {
 		if (y === undefined) console.log("error in updateTileView in levelview.fs: y is undefined");
 		var tile = level.playfield[x][y];
 		var tileview = $(".x" + x + ".y" + y);
-		if (tile !== null && tile !== undefined) {
+		if (tile !== null && tile !== undefined && tile !== "__hydrate_undef") {
+			if (tile.type === undefined) console.log("error in updateTileView in levelview.fs eventHandler: tile.type is undefined: " + tile);
+			if (tile === undefined) console.log("error in updateTileView in levelview.fs eventHandler: tile is undefined: " + tile);
 			tileview.css('background-image', 'url(../images/' + tile.type.name + '.png)');
 			var rot = 90 * parseInt(tile.rotation);
 			tileview.css('transform', 'rotate(' + rot + 'deg)');
@@ -89,8 +91,8 @@ $(function() {
 			var element2 = $(".x" + event.tile.x2 + ".y" + event.tile.y2);
 			
 			//Wenn mit einem leeren Feld getauscht wurde, müssen diesem die Listener hinzugefügt werden
-			if (level.playfield[event.tile.x1][event.tile.y1] !== null || level.playfield[event.tile.x1][event.tile.y1] !== undefined) initializeTileView(event.tile.x2, event.tile.y2);
-			if (level.playfield[event.tile.x2][event.tile.y2] !== null || level.playfield[event.tile.x2][event.tile.y2] !== undefined) initializeTileView(event.tile.x1, event.tile.y1);
+			if (level.playfield[event.tile.x1][event.tile.y1] === null || level.playfield[event.tile.x1][event.tile.y1] === undefined || level.playfield[event.tile.x1][event.tile.y1] === "__hydrate_undef") initializeTileView(event.tile.x2, event.tile.y2);
+			if (level.playfield[event.tile.x2][event.tile.y2] === null || level.playfield[event.tile.x2][event.tile.y2] === undefined || level.playfield[event.tile.x2][event.tile.y2] === "__hydrate_undef") initializeTileView(event.tile.x1, event.tile.y1);
 			
 			//Aktualisiere die Anzeige
 			updateTileView(event.tile.x1, event.tile.y1);
