@@ -27,7 +27,7 @@ Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	tile.y = y;
 	tile.rotation = r;
 	this.playfield[x][y] = tile;
-	if (tile.type == TILE_TYPE_DESTINATION) this.destinationsCount++;
+	if (tile.type.name == TILE_NAME_DESTINATION) this.destinationsCount++;
 	if (fireEvents) this.fireEvent(new Event(EVENT_TYPE_PLACED, tile));
 	return this;
 }
@@ -102,7 +102,7 @@ Level.prototype.fireEvent = function (evt) {
 Level.prototype.startRun = function() {
 	for(var i = 0; i < this.height; i++) {
 		for(var j = 0; j < this.width; j++) {
-			if(this.playfield[i][j].type == TILE_TYPE_SOURCE) {
+			if(this.playfield[i][j].type.name == TILE_NAME_SOURCE) {
 				new Walker(this.playfield[i][j], this.playfield[i][j].element, this).walk();
 			}
 		}

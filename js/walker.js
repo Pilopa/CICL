@@ -16,7 +16,7 @@ function Walker(tile, ele, lvl) {
 
 Walker.prototype.walk = function() {
 	this.checkElement();
-	if(this.where.type == TILE_TYPE_DESTINATION) {
+	if(this.where.type.name == TILE_NAME_DESTINATION) {
 		this.level.destinationReached(this.where);
 		return;
 	}
@@ -38,8 +38,8 @@ Walker.prototype.setElement = function() {
 }
 
 Walker.prototype.onward = function() {
-	switch(this.where.type) {
-		case TILE_TYPE_CROSSROADS:
+	switch(this.where.type.name) {
+		case TILE_NAME_CROSSROADS:
 			var exit = (this.where.comingfrom+2)%4;
 			if(this.assertExit(exit)) {
 				new Walker(this.level.getNeighbor(this.where, exit), this.element, this.playfield).walk();
