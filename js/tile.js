@@ -28,7 +28,7 @@ function Tile(type, element, movable) {
 }
 
 Tile.prototype.toString = function () {
-	return "{ " + this.type + " [" + this.x + " | " + this.y + "], roation: " + this.rotation + " }";
+	return "Tile { " + this.type + " [" + this.x + " | " + this.y + "], roation: " + this.rotation + " }";
 }
 
 Tile.prototype.rotate = function (steps) {

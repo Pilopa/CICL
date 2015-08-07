@@ -19,7 +19,7 @@ function TileType(exits, name, pointValue) {
 }
 
 TileType.prototype.toString = function() {
-	return "{ TileType (" + this.pointValue + ") }";
+	return this.name;
 }
 
 var TILE_TYPE_WALL = new TileType([], 0, TILE_NAME_WALL);
