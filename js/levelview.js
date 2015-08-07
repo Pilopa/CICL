@@ -66,47 +66,48 @@ $(function() {
 						var classes = $(this).attr('class').split(" ");
 						var x = parseInt(classes[1].replace("x", ""));
 						var y = parseInt(classes[2].replace("y", ""));
-						var toolid = parseInt(ui.draggable.attr("id").replace("tool", ""));
-						switch (toolid) {
-						case 0:
-							level.put(x, y, 0, new Tile(TILE_TYPE_STRAIGHT, TILE_ELEMENT_NONE, true), true);
-							break;
-						case 1:
-							level.put(x, y, 0, new Tile(TILE_TYPE_CORNER, TILE_ELEMENT_NONE, true), true);
-							break;
-						case 2:
-							level.put(x, y, 0, new Tile(TILE_TYPE_CROSSROADS, TILE_ELEMENT_NONE, true), true);
-							break;
-						case 3:
-							level.put(x, y, 0, new Tile(TILE_TYPE_TJUNCTION, TILE_ELEMENT_NONE, true), true);
-							break;
+						if (ui.draggable.hasClass('tool') {
+							var toolid = parseInt(ui.draggable.attr("id").replace("tool", ""));
+							switch (toolid) {
+							case 0:
+								level.put(x, y, 0, new Tile(TILE_TYPE_STRAIGHT, TILE_ELEMENT_NONE, true), true);
+								break;
+							case 1:
+								level.put(x, y, 0, new Tile(TILE_TYPE_CORNER, TILE_ELEMENT_NONE, true), true);
+								break;
+							case 2:
+								level.put(x, y, 0, new Tile(TILE_TYPE_CROSSROADS, TILE_ELEMENT_NONE, true), true);
+								break;
+							case 3:
+								level.put(x, y, 0, new Tile(TILE_TYPE_TJUNCTION, TILE_ELEMENT_NONE, true), true);
+								break;
+							}
+							ui.helper.hide();
+							if(level.tools[toolid] > 0) {
+								var newamount = level.tools[toolid] -1;
+								level.tools[toolid] = newamount;
+								$('#tt' + toolid).text(newamount);
+							}
+							if(level.tools[toolid] == 0) {
+								$('#tool' + toolid).addClass('tilena');
+								$('#tt' + toolid).addClass('tilenatext');
+								$('#tool' + toolid).draggable("disable");
+							}
+							$(this).addClass('interactable');
+							$(this).draggable({
+								revert: true,
+								scroll: false,
+								start: function (event, ui) {
+									ui.helper.addClass("tool-drag-highlight");
+								},
+								stop: function (event, ui) {
+									ui.helper.removeClass("tool-drag-highlight");
+									//Zurückdrehen
+									//Altes Tile im Level löschen
+									//Neues Tile ins Level schreiben
+								},
+							});
 						}
-						ui.helper.hide();
-						if(level.tools[toolid] > 0) {
-							var newamount = level.tools[toolid] -1;
-							level.tools[toolid] = newamount;
-							$('#tt' + toolid).text(newamount);
-						}
-						if(level.tools[toolid] == 0) {
-							$('#tool' + toolid).addClass('tilena');
-							$('#tt' + toolid).addClass('tilenatext');
-							$('#tool' + toolid).draggable("disable");
-						}
-						$(this).addClass('interactable');
-						$(this).draggable({
-							revert: true,
-							scroll: false,
-							start: function (event, ui) {
-								ui.helper.addClass("tool-drag-highlight");
-							},
-							stop: function (event, ui) {
-								ui.helper.removeClass("tool-drag-highlight");
-								//Zurückdrehen
-								//Altes Tile im Level löschen
-								//Neues Tile ins Level schreiben
-								
-							},
-						});
 					}
 				});
 			}
