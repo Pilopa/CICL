@@ -152,7 +152,7 @@ $(function() {
 			},
 			deactivate: function(event, ui) {
 				$('#tboverlay').css('z-index', '-10');
-			}
+			},
 			drop: function(event, ui) {
 				var toolid = parseInt(ui.draggable.attr("id").replace("tool", ""));
 				if(level.tools[toolid] == 0) {
