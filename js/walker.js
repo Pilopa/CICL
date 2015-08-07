@@ -46,7 +46,6 @@ Walker.prototype.onward = function() {
 			}
 			break;
 		default: 
-			alert(this.where);
 			for(var i = 0; i < this.where.type.initialExits.length; i++) { //Cannot read property 'initialExits' of undefined
 				var exit = (this.where.type.initialExits[i]+this.where.rotation)%4;
 				if(exit != this.comingfrom) {

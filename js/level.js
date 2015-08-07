@@ -102,7 +102,7 @@ Level.prototype.fireEvent = function (evt) {
 Level.prototype.startRun = function() {
 	for(var i = 0; i < this.height; i++) {
 		for(var j = 0; j < this.width; j++) {
-			if(this.playfield[i][j].type = TILE_TYPE_SOURCE) {
+			if(this.playfield[i][j].type == TILE_TYPE_SOURCE) {
 				new Walker(this.playfield[i][j], this.playfield[i][j].element, this).walk();
 			}
 		}

@@ -2,12 +2,12 @@
 
 var BASIC_TILE_POINT_VALUE = 10; //Gibt den Standardpunktwert für ein Tile an. Dieser wird verwendet, wenn sonst kein Punktewert angegeben wird.
 
-function TileType(exits, file, pointValue) {
+function TileType(exits, name, pointValue) {
 	if (!exits) exits = [];
 	if (!pointValue) pointValue = BASIC_TILE_POINT_VALUE;
 	this.initialExits = exits;
 	this.pointValue = pointValue;
-	this.img = file;
+	this.name = name;
 }
 
 TileType.prototype.toString = function() {

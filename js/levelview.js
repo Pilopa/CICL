@@ -12,7 +12,7 @@ $(function() {
 				.css('height', parseInt($('#field').css('height'))/level.height)
 				.appendTo('#field');
 			if(level.playfield[i][j] != '__hydrate_undef' && level.playfield[i][j] != null) { 
-				tileview.css('background-image', 'url(../images/' + level.playfield[i][j].type.img + '.png)');
+				tileview.css('background-image', 'url(../images/' + level.playfield[i][j].type.name + '.png)');
 				var rot = 90 * parseInt(level.playfield[i][j].rotation);
 				tileview.css('transform', 'rotate(' + rot + 'deg)');
 				tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
