@@ -82,11 +82,14 @@ Level.prototype.testFailed = function () {
 }
 
 Level.prototype.destinationReached = function (tile) {
-	if(!tile in this.reachedDestinations) {
-		reachedDestinations.push(tile);
-		this.destinationsReached++;
-		this.fireEvent(new Event(EVENT_TYPE_DESTINATION_REACHED, tile));
+	for(var i = 0; i < this.reachedDestinations.length; i++) {
+		if(this.reachedDestinations[i].samePosAs(tile)) {
+			return;
+		}
 	}
+	this.reachedDestinations.push(tile);
+	this.destinationsReached++;
+	this.fireEvent(new Event(EVENT_TYPE_DESTINATION_REACHED, tile));
 }
 
 Level.prototype.registerListener = function (handler) {
@@ -110,6 +113,6 @@ Level.prototype.startRun = function() {
 		}
 	}
 	if (this.destinationsCount <= this.destinationsReached) {
-		fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
+		this.fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
 	}
 }

@@ -42,3 +42,7 @@ Tile.prototype.getExits = function() {
 	}
 	return ex;
 }
+
+Tile.prototype.samePosAs = function(tile) {
+	return this.x == tile.x && this.y == tile.y;
+}

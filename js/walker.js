@@ -9,7 +9,6 @@
 
 function Walker(tile, ele, lvl, cf) {
 	this.where = tile;		// aktuelles Tile
-	console.log('Walker erstellt auf ' + tile);
 	this.element = ele;
 	this.comingfrom = cf; 		// Exit des aktuellen Tiles, durch den das Tile betreten wurde
 	this.level = lvl;
@@ -49,7 +48,6 @@ Walker.prototype.onward = function() {
 		default: 
 			for(var i = 0; i < this.where.type.initialExits.length; i++) {
 				var exits = this.where.getExits();
-				console.log('exit: ' + exits[i]);
 				if(exits[i] != this.comingfrom) {
 					if(this.assertExit(exits[i])) {
 						new Walker(this.level.getNeighbor(this.where, exits[i]), this.element, this.level, (exits[i]+2)%4).walk();
@@ -61,7 +59,6 @@ Walker.prototype.onward = function() {
 
 Walker.prototype.assertExit = function(dir) {
 	var neighbor = this.level.getNeighbor(this.where, dir);
-		console.log('neighbor: ' + neighbor);
 		if(neighbor == null || neighbor == '__hydrate_undef') {
 			this.level.testFailed(); // Nachbarfeld ist leer!
 			return false;
