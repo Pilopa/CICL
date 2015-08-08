@@ -25,7 +25,7 @@ Walker.prototype.walk = function() {
 }
 
 Walker.prototype.checkElement = function() {
-	if(this.where.element = this.element || this.where.element == 0) {
+	if(this.where.element == this.element || this.where.element == 0) {
 		return true;
 	} else {
 		this.level.testFailed(); // Verschiedene Elemente kollidieren!
