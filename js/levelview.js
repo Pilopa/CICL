@@ -9,7 +9,8 @@ $(function() {
 	//Funktionen
 	function initializeTileViewHandlers(x, y) {
 		var tileview = $(".x" + x + ".y" + y);
-		tileview.draggable({
+		tileview
+		.draggable({
 			revert: true,
 			revertDuration: 0,
 			scroll: false,
@@ -18,6 +19,7 @@ $(function() {
 			},
 			stop: function (event, ui) {
 				ui.helper.removeClass("drag-highlight");
+				console.log(event);
 			},
 		})
 		.click(function (event) { //Der Spieler klickt auf ein Tile, um es zu drehen.
@@ -55,6 +57,25 @@ $(function() {
 		return tileview;
 	}
 	
+	function updateToolNumber(tiletype) {
+		var toolNumberView = $('#toolcount-' + tiletype.name);
+		toolNumberView.text((level.tools[tiletype.name] === undefined || level.tools[tiletype.name] === "__hydrate_undef") ? ""
+				:  ((level.tools[tiletype.name] === -1) ? "∞" : level.tools[tiletype.name] + "x")); //((level.tools[tiletype.name] === 0) ? "-" : //Falls bei 0 / n Tools ein anderer Text angezeigt werden sollte.
+		if (level.tools[tiletype.name] > 0) 
+			$("#" + tiletype.name)
+			.draggable("enable")
+			.addClass("interactable")
+			.removeClass("non-interactable")
+			.removeClass("immovable");
+		else if (level.tools[tiletype.name] == 0) 
+			$("#" + tiletype.name)
+			.draggable("disable")
+			.removeClass("interactable")
+			.addClass("non-interactable")
+			.addClass("immovable");
+		return toolNumberView;
+	}
+	
 	//Eventhandler initialisieren
 	level.registerListener(function (event) {
 		console.log(event.toString()); //DEBUG
@@ -64,21 +85,16 @@ $(function() {
 			if (event.tile.x === undefined) console.log("error in levelview.fs eventHandler: event.tile.x is undefined");
 			if (event.tile.y === undefined) console.log("error in levelview.fs eventHandler: event.tile.y is undefined");
 			updateTileView(event.tile.x, event.tile.y, true);
+			if(level.tools[event.tile.type.name] > 0) level.tools[event.tile.type.name] -= 1;
+			updateToolNumber(event.tile.type);
 		} else if (event.type === EVENT_TYPE_ROTATED) { //Ein Tile wurde gedreht.
 			updateTileView(event.tile.x, event.tile.y);
 		} else if (event.type === EVENT_TYPE_REMOVED) { //Ein Tile wurde entfernt
 
 			//Aktualisiere Toolbar-Anzahl
-			/*
-			var toolid = parseInt(tileview.attr("id").replace("tool", ""));
-			if(level.tools[toolid] == 0) {
-				$('#tool' + toolid).removeClass('tilena');
-				$('#tt' + toolid).removeClass('tilenatext');
-				$('#tool' + toolid).draggable("enable");
-			}
-			if(level.tools[toolid] >= 0) {
-				level.tools[toolid] += 1;
-			}*/
+			var tiletype = event.tile.type;
+			if(level.tools[tiletype.name] >= 0) level.tools[tiletype.name] += 1;
+			updateToolNumber(tiletype);
 			
 			/* 'Löschen' des Tiles:
 			 * Das Tile wird nicht wirklich gelöscht, da, grafisch gesehen, auch ein leeres Feld eine Repräsentation benötigt.
@@ -144,18 +160,6 @@ $(function() {
 							var tiletype = TileType.byName(tilename);
 							level.put(x, y, 0, new Tile(tiletype, TILE_ELEMENT_NONE, true), true);
 							ui.helper.hide();
-							/*
-							if(level.tools[tilename] > 0) {
-								var newamount = level.tools[tilename] -1;
-								level.tools[tilename] = newamount;
-								$('#tt' + toolid).text(newamount);
-							}
-							if(level.tools[tilename] == 0) {
-								$('#tool' + toolid).addClass('tilena');
-								$('#tt' + toolid).addClass('tilenatext');
-								$('#tool' + toolid).draggable("disable");
-							}*/
-							$(this).addClass('interactable');
 						} else if(ui.draggable.hasClass('tile')) {
 							var sourceClasses = $(ui.draggable).attr('class').split(" ");
 							var x2 = parseInt(sourceClasses[1].replace("x", ""));
@@ -197,7 +201,7 @@ $(function() {
 		} else {
 			tool
 			.css('background-image', 'url(../images/lock.png)')
-			.css("cursor", "not-allowed");
+			.addClass("non-interactable");
 		}
 		
 		//Anzahlanzeige
@@ -205,9 +209,8 @@ $(function() {
 		.addClass("toolnumber")
 		.addClass("unselectable")
 		.attr("id", "toolcount-" + tiletype.name)
-		.text((level.tools[tiletype.name] === 0 || level.tools[tiletype.name] === undefined || level.tools[tiletype.name] === "__hydrate_undef") ? ""
-				: ((level.tools[tiletype.name] == -1) ? "∞" : level.tools[tiletype.name] + "x"))
 		.appendTo("#toolbox");
+		updateToolNumber(tiletype);
 	});
 	
 	//Tooloverlay zum entfernen von Tiles
@@ -235,32 +238,6 @@ $(function() {
 			level.remove(x, y);
 		}
 	});
-	
-	/*
-	for(var i = 0; i < level.tools.length; i++) {
-		if(level.tools[i] == -2) {
-			$('#tname'+i).text('');
-			$('#tool'+i).css('background-image', 'url(../images/lock.png)').css("cursor", "not-allowed");
-		} else if(level.tools[i] == -1) {
-			$('#tt'+i).text('∞').css("font-size", "16pt");
-		} else {
-			$('#tt'+i).text(level.tools[i]);
-		}
-		//Generelle Einstellungen, Drag & Drop
-		if (level.tools[i] != -2) {
-			$("#tool" + i).css("cursor", "pointer");
-			$("#tool" + i)
-		}
-		$("#tt" + i).addClass("unselectable").addClass("toolnumber");
-		$("#tname" + i).addClass("unselectable").addClass("tooltext");
-		if(level.tools[i] == 0) {
-			$('#tool' + i).addClass('tilena');
-			$('#tt' + i).addClass('tilenatext');
-			$('#tool' + i).draggable("disable");
-		}
-		
-
-	}*/
 	
 	//Initialisiere Combulix
 	

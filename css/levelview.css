@@ -26,7 +26,7 @@
 	z-index: 20;
 }
 
-.tile:hover:not(.drag-hover-highlight and .drop-hover-highlight) {
+.tile:HOVER {
 	box-shadow: 0 0 25px #ffff80 inset;
 }
 

@@ -130,6 +130,10 @@
 	cursor: pointer;
 }
 
+.non-interactable {
+	cursor: not-allowed;
+}
+
 .active {
 	background: #c0c0c0;
 	border-style: outset;
