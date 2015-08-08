@@ -23,11 +23,12 @@ Walker.prototype.walk = function() {
 		return;
 	}
 	this.setElement();
+	this.animateFlow();
 	this.onward();
 }
 
 Walker.prototype.checkElement = function() {
-	if(this.where.element == this.element || this.where.element == 0) {
+	if(this.where.element = this.element || this.where.element == 0) {
 		return true;
 	} else {
 		this.level.testFailed(); // Verschiedene Elemente kollidieren!
@@ -74,4 +75,84 @@ Walker.prototype.assertExit = function(dir) {
 		}
 		this.level.testFailed(); // Nachbartile hat keinen passend ausgerichteten Eingang!
 		return false;
+}
+
+Walker.prototype.animateFlow = function() {
+	var TILE_WIDTH = parseInt($('#field').css('width'))/this.level.width;
+	var TILE_HEIGHT = parseInt($('#field').css('height'))/this.level.height;
+	var FLOW_WIDTH = 10;
+	var FLOW_SIDE_OFFSET = (TILE_WIDTH - FLOW_WIDTH)/2;
+	
+	switch(this.where.type.name) {
+		case TILE_NAME_SOURCE:
+			$(document.createElement('div'))
+				.addClass(this.where.element)
+				.addClass('flow')
+				.appendTo('.x' + this.where.x + '.y' + this.where.y)
+				.css('height', FLOW_WIDTH + 'px')
+				.css('top', FLOW_SIDE_OFFSET + 'px')
+				.css('left', TILE_WIDTH/2 + 'px')
+				.animate({width: TILE_WIDTH/2 + 'px'}, 2000, function() {});
+			break;
+		case TILE_NAME_STRAIGHT:
+			switch((this.comingfrom-this.where.rotation)%4) {
+				case 3:
+					$(document.createElement('div'))
+						.addClass(this.where.element)
+						.addClass('flow')
+						.appendTo('.x' + this.where.x + '.y' + this.where.y)
+						.css('height', FLOW_WIDTH + 'px')
+						.css('top', FLOW_SIDE_OFFSET + 'px')
+						.animate({width: TILE_WIDTH + 'px'}, 2000, function() {});
+					break;
+				case 1:
+					$(document.createElement('div'))
+						.addClass(this.where.element)
+						.addClass('flow')
+						.appendTo('.x' + this.where.x + '.y' + this.where.y)
+						.css('height', FLOW_WIDTH + 'px')
+						.css('top', FLOW_SIDE_OFFSET + 'px')
+						.css('right', '0')
+						.animate({width: TILE_WIDTH + 'px'}, 2000, function() {});
+			}
+			break;
+		case TILE_NAME_CORNER:
+			switch((this.comingfrom-this.where.rotation)%4) {
+				case 2:
+					
+					break;
+				case 3:
+					
+			}
+			break;
+		case TILE_NAME_CROSSROADS:
+			switch((this.comingfrom-this.where.rotation)%4) {
+				case 0:
+					
+					break;
+				case 1:
+					
+					break;
+				case 2:
+					
+					break;
+				case 3:
+					
+			}
+			break;
+		case TILE_NAME_TJUNCTION:
+			switch((this.comingfrom-this.where.rotation)%4) {
+				case 0:
+					
+					break;
+				case 2:
+					
+					break;
+				case 3:
+					
+			}
+			break;
+		case TILE_NAME_DESTINATION:
+			
+	}
 }

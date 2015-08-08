@@ -110,3 +110,20 @@
 .ui-draggable-dragging {
 	z-index: 35;
 }
+
+.acid {
+	background-color: green;
+}
+
+.lava {
+	background-color: orange;
+}
+
+.honey {
+	background-color: yellow;
+}
+
+.flow {
+	position: absolute;
+	z-index: 30;
+}
