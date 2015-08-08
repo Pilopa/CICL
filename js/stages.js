@@ -10,8 +10,8 @@ if (typeof sessionStorage["stages"] === 'undefined') sessionStorage["stages"] =
 				})
 				.put(0, 0, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
 				.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_ACID))
-				.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
-				.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_ACID)),
+				.put(3, 3, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+				.put(6, 6, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_ACID)),
 				
 				new Level(5, 5, "Level 2")
 				.put(0, 0, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))

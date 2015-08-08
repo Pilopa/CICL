@@ -1,9 +1,9 @@
 //=== Tile ===
 
-var TILE_ELEMENT_NONE = 0;
-var TILE_ELEMENT_ACID = 1;
-var TILE_ELEMENT_LAVA = 2;
-var TILE_ELEMENT_HONEY = 3;
+var TILE_ELEMENT_NONE = "none";
+var TILE_ELEMENT_ACID = "acid";
+var TILE_ELEMENT_LAVA = "lava";
+var TILE_ELEMENT_HONEY = "honey";
 
 var DIRECTION_UP = 0;
 var DIRECTION_RIGHT = 1;
