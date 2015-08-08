@@ -38,8 +38,10 @@ Level.prototype.swap = function (x1, y1, x2, y2) {
 	if (x2 === undefined) console.log("error in swap in level.fs eventHandler: x2 is undefined");
 	if (y1 === undefined) console.log("error in swap in level.fs eventHandler: y1 is undefined");
 	if (y2 === undefined) console.log("error in swap in level.fs eventHandler: y2 is undefined");
+	//Merken der Tiles
 	var tileFrom = this.playfield[x1][y1];
 	var tileTo = this.playfield[x2][y2];
+	
 	//Ausgangstile
 	if (tileFrom !== null && tileFrom !== undefined && tileFrom !== "__hydrate_undef") {
 		tileFrom.x = x2;
