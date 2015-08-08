@@ -63,6 +63,9 @@ Walker.prototype.assertExit = function(dir) {
 			this.level.testFailed(); // Nachbarfeld ist leer!
 			return false;
 		}
+		if(this.element == neighbor.element) {
+			return false;
+		}
 		nexits = neighbor.getExits();
 		for(var i = 0; i < nexits.length; i++) {
 			if((dir+2)%4 == nexits[i]) return true;
