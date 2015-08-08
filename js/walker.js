@@ -15,7 +15,9 @@ function Walker(tile, ele, lvl, cf) {
 }
 
 Walker.prototype.walk = function() {
-	this.checkElement();
+	if(!this.checkElement()) {
+		return;
+	}
 	if(this.where.type.name == TILE_NAME_DESTINATION) {
 		this.level.destinationReached(this.where);
 		return;
