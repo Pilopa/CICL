@@ -19,7 +19,9 @@ $(function() {
 			},
 			stop: function (event, ui) {
 				ui.helper.removeClass("drag-highlight");
-				console.log(event);
+				console.log(event.target);
+				console.log(ui.helper);
+				if (event.target === ui.helper) console.log("event.target === ui.helper");
 			},
 		})
 		.click(function (event) { //Der Spieler klickt auf ein Tile, um es zu drehen.
