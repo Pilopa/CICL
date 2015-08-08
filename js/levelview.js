@@ -204,6 +204,7 @@ $(function() {
 		var toolCount = $(document.createElement('div'))
 		.addClass("toolnumber")
 		.addClass("tooltext")
+		.addClass("unselectable")
 		.attr("id", "toolcount-" + tiletype.name)
 		.text((level.tools[tiletype.name] == -1) ? "∞" : level.tools[tiletype.name] + "x")
 		.appendTo("#toolbox");
