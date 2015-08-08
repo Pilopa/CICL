@@ -254,5 +254,9 @@ $(function() {
 	optionsMenu.initialize("10px", "calc(90% - 74px)").showButton();
 	backButton.initialize("10px", "calc(100% - 74px)", showStageSelection).setVisible(true);
 	
+	//Starte Spielmusik
+	
+	var gameMusic = new Audio("../audio/Groovy-funky-music-clip.mp3");
+	//gameMusic.play();
 	
 });
