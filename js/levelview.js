@@ -249,6 +249,7 @@ $(function() {
 	
 	$('#flow').click(function() {
 		level.startRun();
+		
 	});
 	
 	//Initialisiere Menüelemente

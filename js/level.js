@@ -111,8 +111,8 @@ Level.prototype.getNeighbor = function (tile, dir) {
 	return this.playfield[nx][ny];
 }
 
-Level.prototype.testFailed = function () {
-	this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED));
+Level.prototype.testFailed = function (msg) {
+	this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED,undefined,msg));
 }
 
 Level.prototype.destinationReached = function (tile) {
