@@ -7,7 +7,7 @@ $(function() {
 	var level = getStages()[stageid].levels[levelid];
 	
 	//Funktionen
-	function initializeTileView(x, y) {
+	function initializeTileViewHandlers(x, y) {
 		var tileview = $(".x" + x + ".y" + y);
 		tileview.draggable({
 			revert: true,
@@ -44,7 +44,7 @@ $(function() {
 			tileview.css('transform', 'rotate(' + rot + 'deg)');
 			tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
 			tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
-			if (initializeHandlers) initializeTileView(x, y);
+			if (initializeHandlers) initializeTileViewHandlers(x, y);
 		} else {
 			tileview
 			.css('background-image', 'url(../images/empty.png)')
@@ -55,9 +55,9 @@ $(function() {
 		return tileview;
 	}
 	
-	//Handle Events
+	//Eventhandler initialisieren
 	level.registerListener(function (event) {
-		console.log(event.toString()); //Debug
+		console.log(event.toString()); //DEBUG
 		
 		//Ein Tile wurde platziert.
 		if (event.type === EVENT_TYPE_PLACED) {
@@ -90,9 +90,9 @@ $(function() {
 			var element1 = $(".x" + event.tile.x1 + ".y" + event.tile.y1);
 			var element2 = $(".x" + event.tile.x2 + ".y" + event.tile.y2);
 			
-			//Wenn mit einem leeren Feld getauscht wurde, müssen diesem die Listener hinzugefügt werden
-			if (level.playfield[event.tile.x1][event.tile.y1] === null || level.playfield[event.tile.x1][event.tile.y1] === undefined || level.playfield[event.tile.x1][event.tile.y1] === "__hydrate_undef") initializeTileView(event.tile.x2, event.tile.y2);
-			if (level.playfield[event.tile.x2][event.tile.y2] === null || level.playfield[event.tile.x2][event.tile.y2] === undefined || level.playfield[event.tile.x2][event.tile.y2] === "__hydrate_undef") initializeTileView(event.tile.x1, event.tile.y1);
+			//Wenn mit einem leeren Feld getauscht wurde, müssen diesem die Listener hinzugefügt werden. (Gelöscht werden sie automatisch)
+			if (level.isEmpty(event.tile.x1, event.tile.y1)) initializeTileViewHandlers(event.tile.x2, event.tile.y2);
+			if (level.isEmpty(event.tile.x2, event.tile.y2)) initializeTileViewHandlers(event.tile.x1, event.tile.y1);
 			
 			//Aktualisiere die Anzeige
 			updateTileView(event.tile.x1, event.tile.y1);
@@ -196,6 +196,14 @@ $(function() {
 			.css('background-image', 'url(../images/lock.png)')
 			.css("cursor", "not-allowed");
 		}
+		
+		//Anzahlanzeige
+		var toolCount = $(document.createElement('div'))
+		.addClass("toolnumber")
+		.addClass("tooltext")
+		.attr("id", "toolcount-" + tiletype.name)
+		.text((level.tools[tiletype.name] == -1) ? "∞" : level.tools[tiletype.name] + "x")
+		.appendTo("#toolbox");
 	});
 	
 	//Tooloverlay zum entfernen von Tiles

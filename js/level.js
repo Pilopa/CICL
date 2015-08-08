@@ -15,6 +15,12 @@ function Level(width, height, title, tools) {
 	this.tools = tools;
 }
 
+Level.prototype.isEmpty = function (x, y) {
+	if (typeof x === 'undefined') throw "x has to be set in Levels isEmpty method";
+	if (typeof y === 'undefined') throw "y has to be set in Levels isEmpty method";
+	return (this.playfield[x][y] === null || this.playfield[x][y] === undefined || this.playfield[x][y] === "__hydrate_undef");
+}
+
 Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	if (typeof fireEvents === 'undefined') fireEvents = false;
 	if (this.playfield[x][y] !== null && this.playfield[x][y] !== undefined && this.playfield[x][y] !== "__hydrate_undef") this.remove(x, y);
