@@ -203,10 +203,10 @@ $(function() {
 		//Anzahlanzeige
 		var toolCount = $(document.createElement('div'))
 		.addClass("toolnumber")
-		.addClass("tooltext")
 		.addClass("unselectable")
 		.attr("id", "toolcount-" + tiletype.name)
-		.text((level.tools[tiletype.name] == -1) ? "∞" : level.tools[tiletype.name] + "x")
+		.text((level.tools[tiletype.name] === 0 || level.tools[tiletype.name] === undefined || level.tools[tiletype.name] === "__hydrate_undef") ? ""
+				: ((level.tools[tiletype.name] == -1) ? "∞" : level.tools[tiletype.name] + "x"))
 		.appendTo("#toolbox");
 	});
 	

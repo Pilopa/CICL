@@ -1,12 +1,11 @@
 //=== Stages ===
 
-if (typeof sessionStorage["stages"] === 'undefined') sessionStorage["stages"] = 
+if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = 
 	hydrate.stringify([new Stage([new Level(6, 6, "Einführung", {
 					straight: TILE_AMOUNT_ENDLESS,
 					corner: TILE_AMOUNT_ENDLESS,
 					straight: TILE_AMOUNT_ENDLESS,
-					tjunction:TILE_AMOUNT_ENDLESS,
-					crossroads:TILE_AMOUNT_ENDLESS
+					crossroads: 99
 				})
 				.put(0, 0, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
 				.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_ACID))

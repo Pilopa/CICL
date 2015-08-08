@@ -48,21 +48,16 @@
 	background-color: grey;
 }
 
-.tooltext {
-	margin-left: 25px;
-	height: 20px;
-	width: 70px;
-	font-size: 12pt;
-	display: inline-block;
-	cursor: default;
-}
-
 .toolnumber {
-	margin-left: 0;
-	color: yellow;
+	margin-top: 20px;
+	height: 93px;
+	color: white;
+	font-size: 20pt;
+	padding-top: 40px;
 	text-align: right;
 	width: 30px;
 	cursor: default;
+	display: inline-block;
 }
 
 .tool {

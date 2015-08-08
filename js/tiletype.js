@@ -35,7 +35,7 @@ TileType.prototype.toString = function() {
 	return this.name;
 }
 
-var TILE_TYPE_WALL = new TileType([], 0, TILE_NAME_WALL);
+var TILE_TYPE_WALL = new TileType([], TILE_NAME_WALL);
 var TILE_TYPE_SOURCE = new TileType([DIRECTION_RIGHT], TILE_NAME_SOURCE);
 var TILE_TYPE_DESTINATION = new TileType([DIRECTION_LEFT], TILE_NAME_DESTINATION);
 var TILE_TYPE_STRAIGHT = new TileType([DIRECTION_LEFT, DIRECTION_RIGHT], TILE_NAME_STRAIGHT);
