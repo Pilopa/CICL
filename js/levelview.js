@@ -251,7 +251,7 @@ $(function() {
 	combulix.speeches = [new Speech("Dummy")];
 	//combulix.slideIn();
 	
-	$('#flow').click(function() {
+	$('#startbutton').click(function() {
 		level.startRun();
 		
 	});
