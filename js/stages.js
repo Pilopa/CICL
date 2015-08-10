@@ -4,7 +4,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] =
 	hydrate.stringify([new Stage([new Level(6, 6, "Einführung", {
 					straight: TILE_AMOUNT_ENDLESS,
 					corner: TILE_AMOUNT_ENDLESS,
-					straight: TILE_AMOUNT_ENDLESS,
+					tjunction: TILE_AMOUNT_ENDLESS,
 					crossroads: 2
 				})
 				.put(0, 0, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
