@@ -18,11 +18,12 @@ var DIRECTION_LEFT = 3;
 
 function Tile(type, element, movable) {
 	if (typeof movable === 'undefined') movable = false;
-	if (typeof element === 'undefined') element = TILE_ELEMENT_NONE;
+	if (typeof element === 'undefined') element = [TILE_ELEMENT_NONE, TILE_ELEMENT_NONE, TILE_ELEMENT_NONE, TILE_ELEMENT_NONE];
+	else if(typeof element === 'string') element = [element, element, element, element];
 	this.x = 0;
 	this.y = 0;
 	this.type = type;
-	this.element = element;
+	this.elements = element;
 	this.rotation = 0;
 	this.movable = movable;
 }
@@ -45,4 +46,12 @@ Tile.prototype.getExits = function() {
 
 Tile.prototype.samePosAs = function(tile) {
 	return this.x == tile.x && this.y == tile.y;
+}
+
+Tile.prototype.getElement = function(exit) {
+	return this.elements[(4+exit-this.rotation)%4];
+}
+
+Tile.prototype.setElement = function(exit, ele) {
+	this.elements[(4+exit-this.rotation)%4] = ele;
 }

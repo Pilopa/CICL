@@ -129,7 +129,7 @@ $(function() {
 				tileview.css('background-image', 
 						'url(../images/' + level.playfield[i][j].type.name
 							+ ((level.playfield[i][j].type.name === TILE_NAME_SOURCE || level.playfield[i][j].type.name === TILE_NAME_DESTINATION)
-								? "_" + level.playfield[i][j].element : "") + '.png)');
+								? "_" + level.playfield[i][j].elements[level.playfield[i][j].getExits()[0]] : "") + '.png)');
 				var rot = 90 * parseInt(level.playfield[i][j].rotation);
 				tileview.css('transform', 'rotate(' + rot + 'deg)');
 				tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');

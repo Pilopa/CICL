@@ -141,11 +141,12 @@ Level.prototype.startRun = function() {
 		for(var j = 0; j < this.width; j++) {
 			if(this.playfield[i][j] != '__hydrate_undef' && this.playfield[i][j] != null) { 
 				if(this.playfield[i][j].type.name == TILE_NAME_SOURCE) {
-					new Walker(this.playfield[i][j], this.playfield[i][j].element, this).walk();
+					new Walker(this.playfield[i][j], this.playfield[i][j].elements[this.playfield[i][j].getExits()[0]], this).walk();
 				}
 			}
 		}
 	}
+	console.log('test');
 	if (this.destinationsCount <= this.destinationsReached) {
 		this.fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
 	}
