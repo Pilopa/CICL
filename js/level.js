@@ -5,7 +5,7 @@ function Level(width, height, title, tools) {
 	this.width = width;
 	this.height = height;
 	this.playfield = [];
-	for (var x = 0; x < width; x++) this.playfield[x] = []; //Initialisieren der Spielfeld-Matrix
+	for (var y = 0; y < height; y++) this.playfield[y] = []; //Initialisieren der Spielfeld-Matrix
 	this.handlers = [];
 	this.destinationsCount = 0;
 	this.destinationsReached = 0;
@@ -15,19 +15,25 @@ function Level(width, height, title, tools) {
 	this.tools = tools;
 }
 
+Level.prototype.getTile = function(x, y) {
+	if (typeof x !== 'number') /*throw "x not a number: " + x + ' in getTile()'*/ console.log("x not a number: " + x + ' in getTile()');
+	if (typeof y !== 'number') /*throw "y not a number: " + y + ' in getTile()'*/ console.log("y not a number: " + y + ' in getTile()');
+	return this.playfield[y][x];
+}
+
 Level.prototype.isEmpty = function (x, y) {
 	if (typeof x === 'undefined') throw "x has to be set in Levels isEmpty method";
 	if (typeof y === 'undefined') throw "y has to be set in Levels isEmpty method";
-	return (this.playfield[x][y] === null || this.playfield[x][y] === undefined || this.playfield[x][y] === "__hydrate_undef");
+	return (this.getTile(x,y) === null || this.getTile(x,y) === undefined || this.getTile(x,y) === "__hydrate_undef");
 }
 
 Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	if (typeof fireEvents === 'undefined') fireEvents = false;
-	if (this.playfield[x][y] !== null && this.playfield[x][y] !== undefined && this.playfield[x][y] !== "__hydrate_undef") this.remove(x, y);
+	if (this.getTile(x,y) !== null && this.getTile(x,y) !== undefined && this.getTile(x,y) !== "__hydrate_undef") this.remove(x, y);
 	tile.x = x;
 	tile.y = y;
 	tile.rotation = r;
-	this.playfield[x][y] = tile;
+	this.playfield[y][x] = tile;
 	if (tile.type.name == TILE_NAME_DESTINATION) this.destinationsCount++;
 	if (fireEvents) this.fireEvent(new Event(EVENT_TYPE_PLACED, tile));
 	return this;
@@ -39,22 +45,22 @@ Level.prototype.swap = function (x1, y1, x2, y2) {
 	if (y1 === undefined) console.log("error in swap in level.fs eventHandler: y1 is undefined");
 	if (y2 === undefined) console.log("error in swap in level.fs eventHandler: y2 is undefined");
 	//Merken der Tiles
-	var tileFrom = this.playfield[x1][y1];
-	var tileTo = this.playfield[x2][y2];
+	var tileFrom = this.getTile(x1, y1);
+	var tileTo = this.getTile(x2, y2);
 	
 	//Ausgangstile
 	if (tileFrom !== null && tileFrom !== undefined && tileFrom !== "__hydrate_undef") {
 		tileFrom.x = x2;
 		tileFrom.y = y2;
 	}
-	this.playfield[x2][y2] = tileFrom;
+	this.playfield[y2][x2] = tileFrom;
 	
 	//Zieltile
 	if (tileTo !== null && tileTo !== undefined && tileTo !== "__hydrate_undef") {
 		tileTo.x = x1;
 		tileTo.y = y1;
 	}
-	this.playfield[x1][y1] = tileTo;
+	this.playfield[y1][x1] = tileTo;
 
 	//Events
 	this.fireEvent(new Event(EVENT_TYPE_SWAPPED, {
@@ -67,14 +73,14 @@ Level.prototype.swap = function (x1, y1, x2, y2) {
 }
 
 Level.prototype.remove = function (x, y) {
-	var tile = this.playfield[x][y];
-	this.playfield[x][y] = null;
+	var tile = this.getTile(x,y);
+	this.playfield[y][x] = null;
 	this.fireEvent(new Event(EVENT_TYPE_REMOVED, tile));
 	return this;
 }
 
 Level.prototype.rotate = function (x, y) {
-	var tile = this.playfield[x][y];
+	var tile = this.getTile(x,y);
 	tile.rotate(1);
 	this.fireEvent(new Event(EVENT_TYPE_ROTATED, tile));
 	return this;
@@ -85,30 +91,30 @@ Level.prototype.getNeighbor = function (tile, dir) {
 	var ny = tile.y;
 	switch(dir) {
 		case 0:
-			nx -= 1;
-			if(nx < 0) {
-				this.testFailed(); // Rand des Spielfelds erreicht!
-			}
-			break;
-		case 1:
-			ny += 1;
-			if(ny >= this.width) {
-				this.testFailed(); // Rand des Spielfelds erreicht!
-			}
-			break;
-		case 2:
-			nx += 1;
-			if(nx >= this.heigth) {
-				this.testFailed(); // Rand des Spielfelds erreicht!
-			}
-			break;
-		case 3:
 			ny -= 1;
 			if(ny < 0) {
 				this.testFailed(); // Rand des Spielfelds erreicht!
 			}
+			break;
+		case 1:
+			nx += 1;
+			if(nx >= this.width) {
+				this.testFailed(); // Rand des Spielfelds erreicht!
+			}
+			break;
+		case 2:
+			ny += 1;
+			if(ny >= this.heigth) {
+				this.testFailed(); // Rand des Spielfelds erreicht!
+			}
+			break;
+		case 3:
+			nx -= 1;
+			if(nx < 0) {
+				this.testFailed(); // Rand des Spielfelds erreicht!
+			}
 	}
-	return this.playfield[nx][ny];
+	return this.getTile(nx, ny);
 }
 
 Level.prototype.testFailed = function (msg) {
@@ -137,11 +143,11 @@ Level.prototype.fireEvent = function (evt) {
 }
 
 Level.prototype.startRun = function() {
-	for(var i = 0; i < this.height; i++) {
-		for(var j = 0; j < this.width; j++) {
-			if(this.playfield[i][j] != '__hydrate_undef' && this.playfield[i][j] != null) { 
-				if(this.playfield[i][j].type.name == TILE_NAME_SOURCE) {
-					new Walker(this.playfield[i][j], this.playfield[i][j].elements[this.playfield[i][j].getExits()[0]], this).walk();
+	for(var y = 0; y < this.height; y++) {
+		for(var x = 0; x < this.width; x++) {
+			if(this.getTile(x, y) != '__hydrate_undef' && this.getTile(x, y) != null) { 
+				if(this.getTile(x, y).type.name == TILE_NAME_SOURCE) {
+					new Walker(this.getTile(x, y), this.getTile(x, y).elements[this.getTile(x, y).getExits()[0]], this).walk();
 				}
 			}
 		}

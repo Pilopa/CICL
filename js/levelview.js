@@ -25,7 +25,7 @@ $(function() {
 			var classes = $(this).attr('class').split(" ");
 			var x = parseInt(classes[1].replace("x", ""));
 			var y = parseInt(classes[2].replace("y", ""));
-			if (level.playfield[x][y] !== null && level.playfield[x][y] !== undefined && level.playfield[x][y].movable) level.rotate(x, y);
+			if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).movable) level.rotate(x, y);
 			else console.log("click but no rotate on [" + x + "|" + y + "]")
 		})
 		.addClass('interactable');
@@ -35,7 +35,7 @@ $(function() {
 	function updateTileView(x, y, initializeHandlers) {
 		if (x === undefined) console.log("error in updateTileView in levelview.fs: x is undefined");
 		if (y === undefined) console.log("error in updateTileView in levelview.fs: y is undefined");
-		var tile = level.playfield[x][y];
+		var tile = level.getTile(x, y);
 		var tileview = $(".x" + x + ".y" + y);
 		if (tile !== null && tile !== undefined && tile !== "__hydrate_undef") {
 			if (tile.type === undefined) console.log("error in updateTileView in levelview.fs eventHandler: tile.type is undefined: " + tile);
@@ -120,24 +120,24 @@ $(function() {
 	});
 	
 	// Initialisiere das Spielfeld
-	for(var i = 0; i < level.height; i++) {
-		for(var j = 0; j < level.width; j++) {
+	for(var y = 0; y < level.height; y++) {
+		for(var x = 0; x < level.width; x++) {
 			var tileview = $(document.createElement('div'))
 				.addClass('tile')
-				.addClass('x' + i)
-				.addClass('y' + j)
+				.addClass('x' + x)
+				.addClass('y' + y)
 				.css('width', parseInt($('#field').css('width'))/level.width)
 				.css('height', parseInt($('#field').css('height'))/level.height)
 				.appendTo('#field');
-			if(level.playfield[i][j] != '__hydrate_undef' && level.playfield[i][j] != null) { 
+			if(level.getTile(x, y) != '__hydrate_undef' && level.getTile(x, y) != null) { 
 				tileview.css('background-image', 
-						'url(../images/' + level.playfield[i][j].type.name
-							+ ((level.playfield[i][j].type.name === TILE_NAME_SOURCE || level.playfield[i][j].type.name === TILE_NAME_DESTINATION)
-								? "_" + level.playfield[i][j].elements[level.playfield[i][j].getExits()[0]] : "") + '.png)');
-				var rot = 90 * parseInt(level.playfield[i][j].rotation);
-				tileview.css('transform', 'rotate(' + rot + 'deg)');
+						'url(../images/' + level.getTile(x, y).type.name
+							+ ((level.getTile(x, y).type.name === TILE_NAME_SOURCE || level.getTile(x, y).type.name === TILE_NAME_DESTINATION)
+								? "_" + level.getTile(x, y).elements[level.getTile(x, y).getExits()[0]] : "") + '.png)');
+				var rot = 90 * parseInt(level.getTile(x, y).rotation);
 				tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
 				tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
+				tileview.css('transform', 'rotate(' + rot + 'deg)');
 				tileview.addClass('immovable');
 			} else {
 				tileview
