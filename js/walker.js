@@ -6,7 +6,7 @@
  * 
  * @author Steffen Müller
  */
-
+ 
 function Walker(tile, ele, lvl, cf) {
 	this.where = tile;		// aktuelles Tile
 	this.element = ele;
@@ -19,6 +19,7 @@ Walker.prototype.walk = function() {
 		return;
 	}
 	if(this.where.type.name == TILE_NAME_DESTINATION) {
+		this.animateDest();
 		this.level.destinationReached(this.where);
 		return;
 	}
@@ -91,7 +92,7 @@ Walker.prototype.animateFlow = function(walker) {
 	var TILE_HEIGHT = parseInt($('#field').css('height'))/this.level.height;
 	var FLOW_WIDTH = 10;
 	var FLOW_OFFSET = (TILE_WIDTH - FLOW_WIDTH)/2;
-	
+
 	switch(this.where.type.name) {
 		case TILE_NAME_SOURCE:
 			$(document.createElement('div'))
@@ -310,17 +311,21 @@ Walker.prototype.animateFlow = function(walker) {
 								.animate({height: FLOW_OFFSET + 'px'}, 1000, function() {walker.onward();});
 						});
 			}
-			break;
-		case TILE_NAME_DESTINATION:
-			$(document.createElement('div'))
-				.addClass(walker.element)
-				.addClass('flow')
-				.appendTo('.x' + this.where.x + '.y' + this.where.y)
-				.css('height', FLOW_WIDTH + 'px')
-				.css('top', FLOW_OFFSET + 'px')
-				.css('left', '0')
-				.animate({width: TILE_WIDTH/2 + 'px'}, 2000, function() {walker.onward();});
 	}
+}
+
+Walker.prototype.animateDest = function() {
+	var TILE_WIDTH = parseInt($('#field').css('width'))/this.level.width;
+	var TILE_HEIGHT = parseInt($('#field').css('height'))/this.level.height;
+	var FLOW_WIDTH = 10;
+	var FLOW_OFFSET = (TILE_WIDTH - FLOW_WIDTH)/2;
 	
-	
+	$(document.createElement('div'))
+		.addClass(this.element)
+		.addClass('flow')
+		.appendTo('.x' + this.where.x + '.y' + this.where.y)
+		.css('height', FLOW_WIDTH + 'px')
+		.css('top', FLOW_OFFSET + 'px')
+		.css('left', '0')
+		.animate({width: TILE_WIDTH/2 + 'px'}, 2000, function() {});
 }
