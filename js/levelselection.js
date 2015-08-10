@@ -2,18 +2,41 @@
 
 $(function() {
 	
-	//Lade die Auswahlliste der einzelnen Levels.
+	//Allgemeine Variablen
 	var stageId = location.search.replace("?", "");
 	var stage = getStages()[stageId];
-	for (i = 0; i < getStages()[stageId].levels.length; i++) {
+	var playerObject = getCurrentPlayerObject();
+	
+	//Lade die Auswahlliste der einzelnen Levels.
+	for (var i = 0; i < getStages()[stageId].levels.length; i++) {
 		var level = getStages()[stageId].levels[i];
 		var element = $(document.createElement('span'))
 			.addClass("item")
+			.addClass("level-item")
 			.addClass("unselectable")
-			.addClass("centered-text")
 			.attr("id", i)
 			.text(level.title)
 			.appendTo("#list");
+		
+		var ratingContainer = $(document.createElement('span'))
+		.addClass("rating-container")
+		.addClass("unselectable")
+		.attr("id", "rating-container-" + i)
+		.appendTo("#" + i);
+		
+		for (var n = 0; n < 5; n++) {
+			var ratingDisplay = $(document.createElement('span'))
+			.addClass("rating-display")
+			.addClass("unselectable")
+			.attr("id", "rating-" + i)
+			.appendTo("#rating-container-" + i);
+			
+			if (playerObject.scores[stageId][i] >= n) {
+				ratingDisplay.addClass("star-full");
+			} else {
+				ratingDisplay.addClass("star-empty");
+			}
+		}
 	}
 	
 	//Behandle Auswahl eines Levels.
@@ -23,7 +46,7 @@ $(function() {
 	
 	//Combulix
 	combulix.initialize();
-	var playerObject = getCurrentPlayerObject();
+	
 	if (playerObject.firstLevelSelection) { //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
 		playerObject.firstLevelSelection = false;
 		saveCurrentPlayerObject(playerObject);
@@ -36,6 +59,7 @@ $(function() {
 	        	 $("#0").addClass("active").addClass("highlighted").click(function(event) {
 	    			showLevel(stageId, $(this).attr("id"))
 	    		});
+	        	 $(".speech-bubble").removeClass("highlighted");
 	         }, function () {
 	        	 $("#0").removeClass("highlighted");
 	         })

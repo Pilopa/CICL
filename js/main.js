@@ -1,6 +1,14 @@
-function supports_html5_storage() {
+function supports_local_storage() {
   try {
-	  return 'localStorage' in window && window['localStorage'] !== null;
+	  return typeof(localStorage) !== 'undefined';
+  } catch (e) {
+	  return false;
+  }
+}
+
+function supports_session_storage() {
+  try {
+	  return typeof(sessionStorage) !== 'undefined';
   } catch (e) {
 	  return false;
   }

@@ -48,6 +48,7 @@ var combulix = {
 				});
 			});
 		});
+		this.speeches[this.current].offCallback();
 		return this;
 	},
 	
@@ -63,6 +64,7 @@ var combulix = {
 				else if (combulix.speeches.length > 0) combulix.set(0);
 			});
 		});	
+		this.speeches[this.current].onCallback();
 		return this;
 	},
 		

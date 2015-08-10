@@ -19,9 +19,6 @@ $(function() {
 			},
 			stop: function (event, ui) {
 				ui.helper.removeClass("drag-highlight");
-				console.log(event.target);
-				console.log(ui.helper);
-				if (event.target === ui.helper) console.log("event.target === ui.helper");
 			},
 		})
 		.click(function (event) { //Der Spieler klickt auf ein Tile, um es zu drehen.
@@ -62,7 +59,7 @@ $(function() {
 	function updateToolNumber(tiletype) {
 		var toolNumberView = $('#toolcount-' + tiletype.name);
 		toolNumberView.text((level.tools[tiletype.name] === undefined || level.tools[tiletype.name] === "__hydrate_undef") ? ""
-				:  ((level.tools[tiletype.name] === -1) ? "∞" : level.tools[tiletype.name] + "x")); //((level.tools[tiletype.name] === 0) ? "-" : //Falls bei 0 / n Tools ein anderer Text angezeigt werden sollte.
+				:  ((level.tools[tiletype.name] === -1) ? "∞" : level.tools[tiletype.name] + "x")); //((level.tools[tiletype.name] === 0) ? "-" : //Falls bei genau 0 Tools ein anderer Text angezeigt werden sollte.
 		if (level.tools[tiletype.name] > 0) 
 			$("#" + tiletype.name)
 			.draggable("enable")
@@ -82,8 +79,7 @@ $(function() {
 	level.registerListener(function (event) {
 		console.log(event.toString()); //DEBUG
 		
-		//Ein Tile wurde platziert.
-		if (event.type === EVENT_TYPE_PLACED) {
+		if (event.type === EVENT_TYPE_PLACED) { //Ein Tile wurde platziert.
 			if (event.tile.x === undefined) console.log("error in levelview.fs eventHandler: event.tile.x is undefined");
 			if (event.tile.y === undefined) console.log("error in levelview.fs eventHandler: event.tile.y is undefined");
 			updateTileView(event.tile.x, event.tile.y, true);

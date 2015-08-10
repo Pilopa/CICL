@@ -1,0 +1,29 @@
+.star-full {
+	
+	background-image: url(../images/star_full.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.star-empty {
+	background-image: url(../images/star_empty.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.rating-display {
+	width: 48px;
+	height: 48px;
+	float: left;
+	display: inline-box;
+}
+
+.rating-container {
+	display: inline-box;
+	position: relative;
+	float: right;
+}
+
+.level-item {
+	text-align: left;
+}

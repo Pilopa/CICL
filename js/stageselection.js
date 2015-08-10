@@ -43,6 +43,7 @@ $(function() {
 	        	 $("#0").addClass("active").addClass("highlighted").click(function(event) {
 	    			showLevelSelection($(this).attr("id"));
 	    		});
+	        	 $(".speech-bubble").removeClass("highlighted");
 	         }, function () {
 	        	 $("#0").removeClass("highlighted");
 	         })
