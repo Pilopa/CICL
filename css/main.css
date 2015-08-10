@@ -137,10 +137,31 @@ body {
 
 .highlighted {
 	-webkit-animation: highlight-glow 1.5s ease-in-out infinite;
+	-moz-animation: highlight-glow 1.5s ease-in-out infinite;
+	-ms-animation: highlight-glow 1.5s ease-in-out infinite;
+	-o-animation: highlight-glow 1.5s ease-in-out infinite;
 	animation: highlight-glow 1.5s ease-in-out infinite;
 }
 
 @-webkit-keyframes highlight-glow {
+	0% { box-shadow: 0 0 10px #ffff00 }
+	25% { box-shadow: 0 0 20px #ffff00 }
+	100% { box-shadow: 0 0 10px #ffff00 }
+}
+
+@-moz-keyframes highlight-glow {
+	0% { box-shadow: 0 0 10px #ffff00 }
+	25% { box-shadow: 0 0 20px #ffff00 }
+	100% { box-shadow: 0 0 10px #ffff00 }
+}
+
+@-ms-keyframes highlight-glow {
+	0% { box-shadow: 0 0 10px #ffff00 }
+	25% { box-shadow: 0 0 20px #ffff00 }
+	100% { box-shadow: 0 0 10px #ffff00 }
+}
+
+@-o-keyframes highlight-glow {
 	0% { box-shadow: 0 0 10px #ffff00 }
 	25% { box-shadow: 0 0 20px #ffff00 }
 	100% { box-shadow: 0 0 10px #ffff00 }
