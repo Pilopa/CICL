@@ -43,9 +43,9 @@ Walker.prototype.setElement = function() {
 Walker.prototype.onward = function() {
 	switch(this.where.type.name) {
 		case TILE_NAME_CROSSROADS:
-			var exit = (this.where.comingfrom+2)%4;
+			var exit = (this.comingfrom+2)%4;
 			if(this.assertExit(exit)) {
-				new Walker(this.level.getNeighbor(this.where, exit), this.element, this.level, (exits[i]+2)%4).walk();
+				new Walker(this.level.getNeighbor(this.where, exit), this.element, this.level, (exit+2)%4).walk();
 			}
 			break;
 		default: 
@@ -63,7 +63,7 @@ Walker.prototype.onward = function() {
 Walker.prototype.assertExit = function(dir) {
 	var neighbor = this.level.getNeighbor(this.where, dir);
 		if(neighbor == null || neighbor == '__hydrate_undef') {
-			this.level.testFailed('empty neighbor from' + this.where); // Nachbarfeld ist leer!
+			this.level.testFailed('empty neighbor from ' + this.where + ' to ' + dir); // Nachbarfeld ist leer!
 			return false;
 		}
 		nexits = neighbor.getExits();
@@ -84,7 +84,7 @@ Walker.prototype.animateFlow = function(walker) {
 	var TILE_WIDTH = parseInt($('#field').css('width'))/this.level.width;
 	var TILE_HEIGHT = parseInt($('#field').css('height'))/this.level.height;
 	var FLOW_WIDTH = 10;
-	var FLOW_SIDE_OFFSET = (TILE_WIDTH - FLOW_WIDTH)/2;
+	var FLOW_OFFSET = (TILE_WIDTH - FLOW_WIDTH)/2;
 	
 	switch(this.where.type.name) {
 		case TILE_NAME_SOURCE:
@@ -93,7 +93,7 @@ Walker.prototype.animateFlow = function(walker) {
 				.addClass('flow')
 				.appendTo('.x' + this.where.x + '.y' + this.where.y)
 				.css('height', FLOW_WIDTH + 'px')
-				.css('top', FLOW_SIDE_OFFSET + 'px')
+				.css('top', FLOW_OFFSET + 'px')
 				.css('left', TILE_WIDTH/2 + 'px')
 				.animate({width: TILE_WIDTH/2 + 'px'}, 2000, function() {walker.onward();});
 			break;
@@ -105,7 +105,7 @@ Walker.prototype.animateFlow = function(walker) {
 						.addClass('flow')
 						.appendTo('.x' + this.where.x + '.y' + this.where.y)
 						.css('height', FLOW_WIDTH + 'px')
-						.css('top', FLOW_SIDE_OFFSET + 'px')
+						.css('top', FLOW_OFFSET + 'px')
 						.animate({width: TILE_WIDTH + 'px'}, 2000, function() {walker.onward();});
 					break;
 				case 1:
@@ -114,7 +114,7 @@ Walker.prototype.animateFlow = function(walker) {
 						.addClass('flow')
 						.appendTo('.x' + this.where.x + '.y' + this.where.y)
 						.css('height', FLOW_WIDTH + 'px')
-						.css('top', FLOW_SIDE_OFFSET + 'px')
+						.css('top', FLOW_OFFSET + 'px')
 						.css('right', '0')
 						.animate({width: TILE_WIDTH + 'px'}, 2000, function() {walker.onward();});
 			}
@@ -127,17 +127,17 @@ Walker.prototype.animateFlow = function(walker) {
 						.addClass('flow')
 						.appendTo('.x' + this.where.x + '.y' + this.where.y)
 						.css('bottom', '0')
-						.css('right', FLOW_SIDE_OFFSET + 'px')
+						.css('right', FLOW_OFFSET + 'px')
 						.css('width', FLOW_WIDTH + 'px')
-						.animate({height: TILE_WIDTH-FLOW_SIDE_OFFSET + 'px'}, 1000, function() {
+						.animate({height: TILE_WIDTH-FLOW_OFFSET + 'px'}, 1000, function() {
 							$(document.createElement('div'))
 								.addClass(walker.where.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
 								.css('height', FLOW_WIDTH + 'px')
-								.css('bottom', FLOW_SIDE_OFFSET + 'px')
-								.css('right', FLOW_SIDE_OFFSET + 'px')
-								.animate({width: TILE_WIDTH-FLOW_SIDE_OFFSET + 'px'}, 1000, function() {walker.onward();});
+								.css('bottom', FLOW_OFFSET + 'px')
+								.css('right', FLOW_OFFSET + 'px')
+								.animate({width: TILE_WIDTH-FLOW_OFFSET + 'px'}, 1000, function() {walker.onward();});
 						});
 					break;
 				case 3:
@@ -145,51 +145,175 @@ Walker.prototype.animateFlow = function(walker) {
 						.addClass(this.where.element)
 						.addClass('flow')
 						.appendTo('.x' + this.where.x + '.y' + this.where.y)
-						.css('bottom', FLOW_SIDE_OFFSET)
-						.css('left', 0)
+						.css('bottom', FLOW_OFFSET)
+						.css('left', '0')
 						.css('height', FLOW_WIDTH + 'px')
-						.animate({width: TILE_WIDTH-FLOW_SIDE_OFFSET + 'px'}, 1000, function() {
+						.animate({width: TILE_WIDTH-FLOW_OFFSET + 'px'}, 1000, function() {
 							$(document.createElement('div'))
 								.addClass(walker.where.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
 								.css('width', FLOW_WIDTH + 'px')
-								.css('top', FLOW_SIDE_OFFSET + 'px')
-								.css('left', FLOW_SIDE_OFFSET + 'px')
-								.animate({height: TILE_WIDTH-FLOW_SIDE_OFFSET + 'px'}, 1000, function() {walker.onward();});
+								.css('top', FLOW_OFFSET + 'px')
+								.css('left', FLOW_OFFSET + 'px')
+								.animate({height: TILE_WIDTH-FLOW_OFFSET + 'px'}, 1000, function() {walker.onward();});
 						});
 					break;
 			}
 			break;
 		case TILE_NAME_CROSSROADS:
-			switch((this.comingfrom-this.where.rotation)%4) {
+			switch((4+(this.comingfrom-this.where.rotation))%4) {
 				case 0:
-					
+					$(document.createElement('div'))
+						.addClass(this.where.element)
+						.addClass('flow')
+						.appendTo('.x' + this.where.x + '.y' + this.where.y)
+						.css('top', '0')
+						.css('left', FLOW_OFFSET + 'px')
+						.css('width', FLOW_WIDTH + 'px')
+						.animate({height: FLOW_OFFSET + 'px'}, 1000, function() {
+							$(document.createElement('div'))
+								.addClass(walker.where.element)
+								.addClass('flow')
+								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
+								.css('width', FLOW_WIDTH + 'px')
+								.css('top', FLOW_OFFSET+FLOW_WIDTH + 'px')
+								.css('left', FLOW_OFFSET + 'px')
+								.animate({height: FLOW_OFFSET + 'px'}, 1000, function() {walker.onward();});
+						});
 					break;
 				case 1:
-					
+					$(document.createElement('div'))
+						.addClass(this.where.element)
+						.addClass('flow')
+						.appendTo('.x' + this.where.x + '.y' + this.where.y)
+						.css('height', FLOW_WIDTH + 'px')
+						.css('top', FLOW_OFFSET + 'px')
+						.css('right', '0')
+						.animate({width: TILE_WIDTH + 'px'}, 2000, function() {walker.onward();});
 					break;
 				case 2:
-					
+					$(document.createElement('div'))
+						.addClass(this.where.element)
+						.addClass('flow')
+						.appendTo('.x' + this.where.x + '.y' + this.where.y)
+						.css('bottom', '0')
+						.css('left', FLOW_OFFSET + 'px')
+						.css('width', FLOW_WIDTH + 'px')
+						.animate({height: FLOW_OFFSET + 'px'}, 1000, function() {
+							$(document.createElement('div'))
+								.addClass(walker.where.element)
+								.addClass('flow')
+								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
+								.css('width', FLOW_WIDTH + 'px')
+								.css('bottom', FLOW_OFFSET+FLOW_WIDTH + 'px')
+								.css('left', FLOW_OFFSET + 'px')
+								.animate({height: FLOW_OFFSET + 'px'}, 1000, function() {walker.onward();});
+						});
 					break;
 				case 3:
-					
+					$(document.createElement('div'))
+						.addClass(this.where.element)
+						.addClass('flow')
+						.appendTo('.x' + this.where.x + '.y' + this.where.y)
+						.css('height', FLOW_WIDTH + 'px')
+						.css('top', FLOW_OFFSET + 'px')
+						.animate({width: TILE_WIDTH + 'px'}, 2000, function() {walker.onward();});
 			}
 			break;
 		case TILE_NAME_TJUNCTION:
-			switch((this.comingfrom-this.where.rotation)%4) {
+			switch((4+(this.comingfrom-this.where.rotation))%4) {
 				case 0:
-					
+					$(document.createElement('div'))
+						.addClass(this.where.element)
+						.addClass('flow')
+						.appendTo('.x' + this.where.x + '.y' + this.where.y)
+						.css('width', FLOW_WIDTH + 'px')
+						.css('top', '0')
+						.css('left', FLOW_OFFSET + 'px')
+						.animate({height: FLOW_OFFSET+FLOW_WIDTH + 'px'}, 1000, function() {
+							$(document.createElement('div'))
+								.addClass(this.where.element)
+								.addClass('flow')
+								.appendTo('.x' + this.where.x + '.y' + this.where.y)
+								.css('width', FLOW_WIDTH + 'px')
+								.css('left', FLOW_OFFSET + 'px')
+								.css('top', FLOW_OFFSET+FLOW_WIDTH + 'px')
+								.animate({height: FLOW_OFFSET}, 1000, function() {});
+							$(document.createElement('div'))
+								.addClass(this.where.element)
+								.addClass('flow')
+								.appendTo('.x' + this.where.x + '.y' + this.where.y)
+								.css('height', FLOW_WIDTH + 'px')
+								.css('top', FLOW_OFFSET+FLOW_WIDTH + 'px')
+								.css('right', FLOW_OFFSET)
+								.animate({width: FLOW_OFFSET+FLOW_WIDTH + 'px'}, 1000, function() {walker.onward();});
+						});
 					break;
 				case 2:
-					
+					$(document.createElement('div'))
+						.addClass(this.where.element)
+						.addClass('flow')
+						.appendTo('.x' + this.where.x + '.y' + this.where.y)
+						.css('width', FLOW_WIDTH + 'px')
+						.css('bottom', '0')
+						.css('left', FLOW_OFFSET + 'px')
+						.animate({height: FLOW_OFFSET+FLOW_WIDTH + 'px'}, 1000, function() {
+							$(document.createElement('div'))
+								.addClass(this.where.element)
+								.addClass('flow')
+								.appendTo('.x' + this.where.x + '.y' + this.where.y)
+								.css('width', FLOW_WIDTH + 'px')
+								.css('left', FLOW_OFFSET + 'px')
+								.css('bottom', FLOW_OFFSET+FLOW_WIDTH + 'px')
+								.animate({height: FLOW_OFFSET}, 1000, function() {});
+							$(document.createElement('div'))
+								.addClass(this.where.element)
+								.addClass('flow')
+								.appendTo('.x' + this.where.x + '.y' + this.where.y)
+								.css('height', FLOW_WIDTH + 'px')
+								.css('top', FLOW_OFFSET+FLOW_WIDTH + 'px')
+								.css('right', FLOW_OFFSET)
+								.animate({width: FLOW_OFFSET+FLOW_WIDTH + 'px'}, 1000, function() {walker.onward();});
+						});
 					break;
 				case 3:
-					
+					$(document.createElement('div'))
+						.addClass(this.where.element)
+						.addClass('flow')
+						.appendTo('.x' + this.where.x + '.y' + this.where.y)
+						.css('height', FLOW_WIDTH + 'px')
+						.css('bottom', FLOW_OFFSET + 'px')
+						.css('left', '0')
+						.animate({width: FLOW_OFFSET+FLOW_WIDTH + 'px'}, 1000, function() {
+							$(document.createElement('div'))
+								.addClass(this.where.element)
+								.addClass('flow')
+								.appendTo('.x' + this.where.x + '.y' + this.where.y)
+								.css('width', FLOW_WIDTH + 'px')
+								.css('left', FLOW_OFFSET + 'px')
+								.css('bottom', FLOW_OFFSET+FLOW_WIDTH + 'px')
+								.animate({height: FLOW_OFFSET}, 1000, function() {});
+							$(document.createElement('div'))
+								.addClass(this.where.element)
+								.addClass('flow')
+								.appendTo('.x' + this.where.x + '.y' + this.where.y)
+								.css('width', FLOW_WIDTH + 'px')
+								.css('top', FLOW_OFFSET+FLOW_WIDTH + 'px')
+								.css('right', FLOW_OFFSET)
+								.animate({height: FLOW_OFFSET + 'px'}, 1000, function() {walker.onward();});
+						});
 			}
 			break;
 		case TILE_NAME_DESTINATION:
-			
+			$(document.createElement('div'))
+				.addClass(this.where.element)
+				.addClass('flow')
+				.appendTo('.x' + this.where.x + '.y' + this.where.y)
+				.css('height', FLOW_WIDTH + 'px')
+				.css('top', FLOW_OFFSET + 'px')
+				.css('left', '0')
+				.animate({width: TILE_WIDTH/2 + 'px'}, 2000, function() {walker.onward();});
 	}
 	
 	
