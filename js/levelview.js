@@ -42,9 +42,11 @@ $(function() {
 			if (tile === undefined) console.log("error in updateTileView in levelview.fs eventHandler: tile is undefined: " + tile);
 			tileview.css('background-image', 'url(../images/' + tile.type.name + '.png)');
 			var rot = 90 * parseInt(tile.rotation);
-			tileview.css('transform', 'rotate(' + rot + 'deg)');
-			tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
 			tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
+			tileview.css('-moz-transform', 'rotate(' + rot + 'deg)');
+			tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
+			tileview.css('-o-transform', 'rotate(' + rot + 'deg)');
+			tileview.css('transform', 'rotate(' + rot + 'deg)');
 			if (initializeHandlers) initializeTileViewHandlers(x, y);
 		} else {
 			tileview
@@ -135,8 +137,10 @@ $(function() {
 							+ ((level.getTile(x, y).type.name === TILE_NAME_SOURCE || level.getTile(x, y).type.name === TILE_NAME_DESTINATION)
 								? "_" + level.getTile(x, y).elements[level.getTile(x, y).getExits()[0]] : "") + '.png)');
 				var rot = 90 * parseInt(level.getTile(x, y).rotation);
-				tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
 				tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
+				tileview.css('-moz-transform', 'rotate(' + rot + 'deg)');
+				tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
+				tileview.css('-o-transform', 'rotate(' + rot + 'deg)');
 				tileview.css('transform', 'rotate(' + rot + 'deg)');
 				tileview.addClass('immovable');
 			} else {
