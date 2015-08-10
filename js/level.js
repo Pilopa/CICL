@@ -146,7 +146,6 @@ Level.prototype.startRun = function() {
 			}
 		}
 	}
-	console.log('test');
 	if (this.destinationsCount <= this.destinationsReached) {
 		this.fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
 	}
