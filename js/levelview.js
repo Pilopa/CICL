@@ -128,8 +128,8 @@ $(function() {
 				.addClass('tile')
 				.addClass('x' + x)
 				.addClass('y' + y)
-				.css('width', parseInt($('#field').css('width'))/level.width)
-				.css('height', parseInt($('#field').css('height'))/level.height)
+				.css('width', Math.floor(parseInt($('#field').css('width'))/level.width))
+				.css('height', Math.floor(parseInt($('#field').css('height'))/level.height))
 				.appendTo('#field');
 			if(level.getTile(x, y) != '__hydrate_undef' && level.getTile(x, y) != null) { 
 				tileview.css('background-image', 
