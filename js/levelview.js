@@ -148,13 +148,20 @@ $(function() {
 				.css('background-image', 'url(../images/empty.png)')
 				.droppable({
 					accept: ".tool, .tile",
-					activeClass: "drop-highlight",
 					hoverClass: "drop-hover-highlight",
+					deactivate: function (event, ui) {
+						$(this).removeClass("drop-highlight");
+					},
+					activate: function (event, ui) {
+						$(this).addClass("drop-highlight");
+					},
 					over: function ( event, ui ) {
 						ui.helper.addClass("drag-hover-highlight");
+						$(this).removeClass("drop-highlight");
 					},
 					out: function ( event, ui ) {
 						ui.helper.removeClass("drag-hover-highlight");
+						$(this).addClass("drop-highlight");
 					},
 					drop: function (event, ui) {
 						ui.helper.removeClass("drag-hover-highlight");
@@ -258,8 +265,8 @@ $(function() {
 	
 	//Initialisiere Menüelemente
 	
-	optionsMenu.initialize("10px", "calc(90% - 74px)").showButton();
-	backButton.initialize("10px", "calc(100% - 74px)", showStageSelection).setVisible(true);
+	optionsMenu.initialize("7px", "calc(90% - 74px)").showButton();
+	backButton.initialize("7px", "calc(100% - 74px)", showStageSelection).setVisible(true);
 	
 	//Starte Spielmusik
 	

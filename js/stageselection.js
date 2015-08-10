@@ -71,7 +71,7 @@ $(function() {
 	
 	//Initialisiere Menüelemente
 	
-	optionsMenu.initialize("10px", "calc(90% - 74px)").showButton();
-	backButton.initialize("10px", "calc(100% - 74px)", showSplash).setVisible(true);
+	optionsMenu.initialize("7px", "calc(90% - 74px)").showButton();
+	backButton.initialize("7px", "calc(100% - 74px)", showSplash).setVisible(true);
 	
 });

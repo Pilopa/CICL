@@ -5,19 +5,44 @@
 }
 
 .drag-highlight {
-	box-shadow: 0 0 25px #ffff80;
+	animation: drag-highlight 2s ease-in-out infinite;
+	cursor: grabbing;
+}
+
+@keyframes drag-highlight {
+	0% {box-shadow: 0 0 20px #ffff80;}
+	50% {box-shadow: 0 0 25px #ffff80;}
+	100% {box-shadow: 0 0 20px #ffff80;}
 }
 
 .drag-hover-highlight {
-	box-shadow: 0 0 50px #80ff80;
+	animation: drag-hover-highlight 2s ease-in-out infinite;
+}
+
+@keyframes drag-hover-highlight {
+	0% {box-shadow: 0 0 20px #80ff80;}
+	50% {box-shadow: 0 0 25px #80ff80;}
+	100% {box-shadow: 0 0 20px #80ff80;}
 }
 
 .drop-highlight {
-	box-shadow: 0 0 25px #ffff80 inset;
+	animation: drop-highlight 2s ease-in-out infinite;
+}
+
+@keyframes drop-highlight {
+	0% {box-shadow: 0 0 15px #ffff80 inset;}
+	50% {box-shadow: 0 0 20px #ffff80 inset;}
+	100% {box-shadow: 0 0 15px #ffff80 inset;}
 }
 
 .drop-hover-highlight {
-	box-shadow: 0 0 25px #80ff80 inset;
+	animation: drop-hover-highlight 2s ease-in-out infinite;
+}
+
+@keyframes drop-hover-highlight {
+	0% {box-shadow: 0 0 20px #80ff80 inset;}
+	50% {box-shadow: 0 0 25px #80ff80 inset;}
+	100% {box-shadow: 0 0 20px #80ff80 inset;}
 }
 
 .tile {
@@ -112,21 +137,15 @@
 }
 
 .acid {
-	background-color: green;
+	background: #25ff25;
 }
 
 .lava {
-	background-color: orange;
-}
-
-@-webkit-keyframes lava-blink {
-	0% { background-color: #ffff00 }
-	50% { background-color: #ff00ff }
-	100% { background-color:  #00ffff }
+	background: orange;
 }
 
 .honey {
-	background-color: yellow;
+	background: yellow;
 }
 
 .flow {

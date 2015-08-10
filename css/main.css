@@ -99,15 +99,15 @@ body {
 #list {
 	position: absolute;
 	width: 50%;
-	height: 80%;
+	height: 90%;
 	left: calc(34% - 25%);
-	top: calc(50% - 40%);
+	top: calc(50% - 45%);
 	overflow: auto;
 }
 
 .item {
 	width: calc(100% - 40px);
-	height: calc(20% - 20px);
+	height: calc(18% - 20px);
 	font-size: 32px;
 	padding: 20px;
 	margin: 20px 20px 5px 20px;
@@ -136,35 +136,7 @@ body {
 }
 
 .highlighted {
-	-webkit-animation: highlight-glow 1.5s ease-in-out infinite;
-	-moz-animation: highlight-glow 1.5s ease-in-out infinite;
-	-ms-animation: highlight-glow 1.5s ease-in-out infinite;
-	-o-animation: highlight-glow 1.5s ease-in-out infinite;
 	animation: highlight-glow 1.5s ease-in-out infinite;
-}
-
-@-webkit-keyframes highlight-glow {
-	0% { box-shadow: 0 0 10px #ffff00 }
-	25% { box-shadow: 0 0 20px #ffff00 }
-	100% { box-shadow: 0 0 10px #ffff00 }
-}
-
-@-moz-keyframes highlight-glow {
-	0% { box-shadow: 0 0 10px #ffff00 }
-	25% { box-shadow: 0 0 20px #ffff00 }
-	100% { box-shadow: 0 0 10px #ffff00 }
-}
-
-@-ms-keyframes highlight-glow {
-	0% { box-shadow: 0 0 10px #ffff00 }
-	25% { box-shadow: 0 0 20px #ffff00 }
-	100% { box-shadow: 0 0 10px #ffff00 }
-}
-
-@-o-keyframes highlight-glow {
-	0% { box-shadow: 0 0 10px #ffff00 }
-	25% { box-shadow: 0 0 20px #ffff00 }
-	100% { box-shadow: 0 0 10px #ffff00 }
 }
 
 @keyframes highlight-glow {
