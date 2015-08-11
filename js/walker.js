@@ -15,6 +15,7 @@ function Walker(tile, ele, lvl, cf, run) {
 	this.running = run;
 	
 	this.tilesize = parseInt($('#field').css('width'))/this.level.width;
+	this.flowwidth = Math.floor((tilesize*3)/10);
 	this.flowoffset = (this.tilesize - this.flowwidth)/2;
 	
 	this.level.walkers.push(this);
