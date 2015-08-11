@@ -8,12 +8,22 @@ $(function() {
 	var playerObject = getCurrentPlayerObject();
 	
 	//Funktionen
+	
 	var rotateEventHandler = function (event) {
 		var classes = $(this).attr('class').split(" ");
 		var x = parseInt(classes[1].replace("x", ""));
 		var y = parseInt(classes[2].replace("y", ""));
 		if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).movable) level.rotate(x, y);
 		else console.log("click but no rotate on [" + x + "|" + y + "]")
+	}
+	
+	function hasHandler(x, y, event) {
+		var events = $._data(document.getElementsByClassName("tile x" + x + " y" + y)[0], "events");
+		if (events.hasOwnProperty(event)) {
+			var eventHandlers = events[event];
+			var eventCount = eventHandlers.length;
+			return eventCount > 0;
+		} else return false;
 	}
 	
 	function initializeTileViewRotateHandler(x, y) {
@@ -36,10 +46,12 @@ $(function() {
 	
 	function updateTileViewHandlers(x, y) {
 		var tileview = $(".x" + x + ".y" + y);
-		if (!level.isEmpty(x,y) && level.getTile(x, y).moveable) if (!$(this).data('uiDraggable')) initializeTileViewDragHandler(x, y);
-		else if ($(this).data('uiDraggable')) $(this).droppable('destroy');
-		if (!level.isEmpty(x,y) && level.getTile(x, y).rotateable) initializeTileViewRotateHandler(x, y);
-		else tileview.off("click");
+		if (!level.isEmpty(x,y) && level.getTile(x, y).moveable) {
+			if (!$(tileview).data('uiDraggable')) initializeTileViewDragHandler(x, y);
+		} else if ($(tileview).data('uiDraggable')) $(tileview).droppable('destroy');
+		if (!level.isEmpty(x,y) && level.getTile(x, y).rotateable) {
+			if (!hasHandler(x, y, 'click')) initializeTileViewRotateHandler(x, y);
+		} else tileview.off("click");
 		return tileview;
 	}
 	
@@ -99,8 +111,13 @@ $(function() {
 			tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
 			tileview.css('-o-transform', 'rotate(' + rot + 'deg)');
 			tileview.css('transform', 'rotate(' + rot + 'deg)');
-			if (!level.isEmpty(x,y) && (level.getTile(x, y).moveable || level.getTile(x, y).rotateable)) tileview.addClass('interactable');
-			else tileview.addClass('immovable');
+			if (!level.isEmpty(x,y) && (level.getTile(x, y).moveable || level.getTile(x, y).rotateable)) {
+				tileview.addClass('interactable');
+				tileview.removeClass('immovable');
+			} else {
+				tileview.addClass('immovable');
+				tileview.removeClass('interactable');
+			}
 			if (initializeHandlers) updateTileViewHandlers(x, y);
 		} else {
 			tileview
@@ -303,6 +320,9 @@ $(function() {
 	
 	combulix.initialize();
 	if (playerObject.showGameTutorial) {
+		
+		//Definitionen des Tutorial Levels (Hilfestellungen / Tipps)
+		
 		var cornerPlaceHandler = function (event) {
 			if (event.type === EVENT_TYPE_PLACED) {
 				if (event.tile.x == 0 && event.tile.y == 1) {
@@ -318,103 +338,143 @@ $(function() {
 				}
 			}
 		};
-		combulix.speeches = [new Speech("Hey, du bist ja auch schon da! <br><br>Deine erste Herausforderung wartet schon auf dich ...", undefined, function () {
-					       	 	$(".speech-bubble").addClass("highlighted");
-					         }, function () {
-					       	 	$(".speech-bubble").removeClass("highlighted");
-					         }),
-					         
-					         new Speech("Das hier ist das Spielfeld. Es besteht aus mehreren Kacheln, welche wie bei einem Schachbrett angeordnet sind ...", undefined, function () {
-						       	$("#field").addClass("highlighted");
-						     }, function () {
-						       	$("#field").removeClass("highlighted");
-						     }),
-						     
-					         new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, muss jede Quelle zu einem passenden Ziel führen.", undefined, function () {
-					     		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA));
-					    		level.put(1, 4, 1, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA));
-					    		updateTileView(0, 0);
-					    		updateTileView(1, 4);
-						       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21).removeClass('immovable');
-						       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21).removeClass('immovable');
-						     }, function () {
-						       	$(".tile.x0.y0").removeClass("highlighted").css("z-index", 20);
-						       	$(".tile.x1.y4").removeClass("highlighted").css("z-index", 20);
-						     }),
-						     
-					         new Speech("Links siehst du den Werkzeugkasten. In diesem findest du die Werkzeuge mit denen du das Puzzel lösen kannst...", undefined, function () {
-						       	$("#toolbox").addClass("highlighted");
-						     }, function () {
-						       	$("#toolbox").removeClass("highlighted");
-						     }),
-						     
-							 new Speech("Zunächst arbeiten wir nur mit simplen Mitteln. Um genau zu sein: Ecken. <br><br>Links neben den Werkzeugen steht ihre verfügbare Anzahl ...", undefined, function () {
-								if (level.getAmountPlaced(TILE_TYPE_CORNER) == 0) {
-						        	level.tools = {
-						        		corner: 0
-						        	}
-						        	updateToolBox();
-						        	$("#corner").removeClass("immovable");
-								}
-								$("#corner").addClass("highlighted")
-						     }, function () {
-						    	$("#corner").removeClass("highlighted");
-						     }),
-						     
-						     new Speech("Ziehe zunächst eine Ecke von der Werkzeugleiste auf das makierte Feld ...", undefined,
-						    		 
-						    		 function () { //onCallback
-								    	 if (level.isEmpty(0, 1)) {
-								    		 level.registerListener(cornerPlaceHandler);
-								    		 combulix.disableNext();
-								    		 level.tools = {
-								    			corner: 1
-											 }
-										     updateToolNumber(TILE_TYPE_CORNER);
-								    		 $(".tile:not(.x0.y1)").each(function(index) {
-									    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
-									    	 });
-								    		 
-								    	 }
-								    	 
-								    	 $("#corner").addClass("highlighted");
-								    	 $(".tile.x0.y1").addClass("highlighted");
-								    	 $(".tile.x0.y1").css("z-index", 21);
-						    	 	},
-						    	 	
-						    	 	function () { //offCallback
-								    	 if (!level.isEmpty(0, 1)) {
-									    	 level.removeListener(cornerPlaceHandler);
-									    	 $(".tile:not(.x0.y1)").each(function(index) {
-									    		 if ($(this).data('uiDroppable')) registerTileViewDroppable(this);
-									    	 });
-								    	 }
-								    	 
-								    	 combulix.enableNext();
-								    	 $("#corner").removeClass("highlighted");
-								    	 $(".tile.x0.y1").removeClass("highlighted");
-								    	 $(".tile.x0.y1").css("z-index", 20);
-						    	 	}
-						     ),
-						     
-						     new Speech("Drehe nun die Ecke, indem du auf sie links-klickst, sodass ein Ausgang nach rechts und einer nach oben zeigt ...", undefined, function () {
-						    	 if (!level.isEmpty(0, 1) && level.getTile(0, 1).rotation !== 2) {
-						    		 level.registerListener(cornerPlaceHandler);
-						    		 combulix.disableNext();
-						    	 }
-						    	 $(".tile.x0.y1").addClass("highlighted");
-						    	 $(".tile.x0.y1").css("z-index", 41);
-						     }, function () {
-						    	 level.removeListener(cornerPlaceHandler);
-						    	 $(".tile.x0.y1").removeClass("highlighted");
-						    	 $("#corner").removeClass("highlighted");
-						    	 $(".tile.x0.y1").removeClass("highlighted");
-						    	 $(".tile.x0.y1").css("z-index", 20);
-						    	 combulix.enableNext();
-						     }),
-						     
-						     new Speech("Und jetzt mache ich dir Platz. Klicke einfach weiter oder wische nach Links, um mich auszublenden." +
-						     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.")];
+		
+		combulix.speeches = [
+		                     
+             new Speech("Hey, du bist ja auch schon da! <br><br>Deine erste Herausforderung wartet schon auf dich ...", undefined,
+            		 
+            	function () { //on
+		       	 	$(".speech-bubble").addClass("highlighted");
+		        },
+		         
+		        function () { //off
+		       	 	$(".speech-bubble").removeClass("highlighted");
+		        }
+		         
+             ),
+	         
+             new Speech("Das hier ist das Spielfeld. Es besteht aus mehreren Kacheln, welche wie bei einem Schachbrett angeordnet sind ...", undefined,
+            		 
+            	function () { //on
+		       		$("#field").addClass("highlighted");
+		     	},
+		     		
+		     	function () { //off
+		     		$("#field").removeClass("highlighted");
+		     	}
+		     	
+		     ),
+		     
+	         new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, muss jede Quelle zu einem passenden Ziel führen.", undefined,
+	        		 
+	        	function () { //on
+		     		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA));
+		    		level.put(1, 4, 1, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA));
+		    		updateTileView(0, 0);
+		    		updateTileView(1, 4);
+			       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21); // .removeClass('immovable');
+			       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21); // .removeClass('immovable');
+			     },
+			     
+			     function () { //off
+			    	 $(".tile.x0.y0").removeClass("highlighted").css("z-index", 20);
+			    	 $(".tile.x1.y4").removeClass("highlighted").css("z-index", 20);
+			     }
+	         ),
+		     
+	         new Speech("Links siehst du den Werkzeugkasten. In diesem findest du die Werkzeuge mit denen du das Puzzel lösen kannst...", undefined,
+	        		 
+	        	function () { //on
+		       		$("#toolbox").addClass("highlighted");
+	         	},
+	         	
+	         	function () { //off
+	         		$("#toolbox").removeClass("highlighted");
+	         	}
+	         	
+	         ),
+		     
+			 new Speech("Zunächst arbeiten wir nur mit simplen Mitteln. Um genau zu sein: Ecken. <br><br>Links neben den Werkzeugen steht ihre verfügbare Anzahl ...", undefined,
+					 
+				function () { //on
+					if (level.getAmountPlaced(TILE_TYPE_CORNER) == 0) {
+			        	level.tools = {
+			        		corner: 0
+			        	}
+			        	updateToolBox();
+			        	$("#corner").removeClass("immovable");
+					}
+					$("#corner").addClass("highlighted")
+			     },
+			     
+			     function () { //off
+			    	$("#corner").removeClass("highlighted");
+			     }
+			     
+		     ),
+		     
+		     new Speech("Ziehe zunächst eine Ecke von der Werkzeugleiste auf das makierte Feld ...", undefined,
+		    		 
+		    		 function () { //on
+				    	 if (level.isEmpty(0, 1)) {
+				    		 level.registerListener(cornerPlaceHandler);
+				    		 combulix.disableNext();
+				    		 level.tools = {
+				    			corner: 1
+							 }
+						     updateToolNumber(TILE_TYPE_CORNER);
+				    		 $(".tile:not(.x0.y1)").each(function(index) {
+					    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
+					    	 });
+				    		 
+				    	 }
+				    	 
+				    	 $("#corner").addClass("highlighted");
+				    	 $(".tile.x0.y1").addClass("highlighted");
+				    	 $(".tile.x0.y1").css("z-index", 21);
+		    	 	},
+		    	 	
+		    	 	function () { //off
+				    	 if (!level.isEmpty(0, 1)) {
+					    	 level.removeListener(cornerPlaceHandler);
+					    	 $(".tile:not(.x0.y1)").each(function(index) {
+					    		 if ($(this).data('uiDroppable')) registerTileViewDroppable(this);
+					    	 });
+				    	 }
+				    	 
+				    	 combulix.enableNext();
+				    	 $("#corner").removeClass("highlighted");
+				    	 $(".tile.x0.y1").removeClass("highlighted");
+				    	 $(".tile.x0.y1").css("z-index", 20);
+		    	 	}
+		     ),
+		     
+		     new Speech("Drehe nun die Ecke, indem du auf sie links-klickst, sodass ein Ausgang nach rechts und einer nach oben zeigt ...", undefined,
+		    		 
+		    	function () { //on
+			    	 if (!level.isEmpty(0, 1) && level.getTile(0, 1).rotation !== 2) {
+			    		 level.registerListener(cornerPlaceHandler);
+			    		 combulix.disableNext();
+			    	 }
+			    	 $(".tile.x0.y1").addClass("highlighted");
+			    	 $(".tile.x0.y1").css("z-index", 41);
+			     },
+			     
+			     function () { //off
+			    	 level.removeListener(cornerPlaceHandler);
+			    	 $(".tile.x0.y1").removeClass("highlighted");
+			    	 $("#corner").removeClass("highlighted");
+			    	 $(".tile.x0.y1").removeClass("highlighted");
+			    	 $(".tile.x0.y1").css("z-index", 20);
+			    	 combulix.enableNext();
+			     }
+			     
+		     ),
+		     
+		     new Speech("Und jetzt mache ich dir Platz. Klicke einfach weiter oder wische nach Links, um mich auszublenden." +
+		     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.")
+             
+		];
 		combulix.slideIn();
 	} else {
 		combulix.speeches = [new Speech("Ich weiß doch auch nicht weiter . . .")];
