@@ -15,7 +15,7 @@ $(function() {
 		} else {
 			$("#startbutton").removeClass("interactable");
 		}
-		document.getElementById("startbutton").disabled = flag;
+		document.getElementById("startbutton").disabled = !flag;
 		if (typeof text !== 'undefined') $("#startbutton").text(text)
 	}
 	
@@ -89,11 +89,12 @@ $(function() {
 	function updateTileViewHandlers(x, y) {
 		var tileview = $(".x" + x + ".y" + y);
 		
-		if (!level.isEmpty(x,y)) {
+		
+		if (!level.isEmpty(x, y)) {
 			
 			//Ist das Tile beweglich ?
 			
-			if (level.getTile(x, y).movable) {
+			if (level.getTile(x, y).movable === true) {
 				
 				initializeTileViewDragHandler(x, y);
 				initializeTileViewDropHandler(".x" + x + ".y" + y);
@@ -107,7 +108,7 @@ $(function() {
 			
 			//Ist das Tile drehbar ?
 			
-			if (level.getTile(x, y).rotatable) {
+			if (level.getTile(x, y).rotatable === true) {
 				
 				initializeTileViewRotateHandler(x, y);
 				
@@ -137,7 +138,8 @@ $(function() {
 		if (y === undefined) console.log("error in updateTileView in levelview.fs: y is undefined");
 		var tile = level.getTile(x, y);
 		var tileview = $(".x" + x + ".y" + y);
-		if (tile !== null && tile !== undefined && tile !== "__hydrate_undef") {
+		
+		if (tile !== null && tile !== undefined) {
 			if (tile.type === undefined) console.log("error in updateTileView in levelview.fs eventHandler: tile.type is undefined: " + tile);
 			if (tile === undefined) console.log("error in updateTileView in levelview.fs eventHandler: tile is undefined: " + tile);
 			tileview.css('background-image', 
@@ -169,7 +171,7 @@ $(function() {
 	
 	function updateToolNumber(tiletype) {
 		var toolNumberView = $('#toolcount-' + tiletype.name);
-		toolNumberView.text((level.tools[tiletype.name] === undefined || level.tools[tiletype.name] === "__hydrate_undef") ? ""
+		toolNumberView.text((level.tools[tiletype.name] === undefined) ? ""
 				:  ((level.tools[tiletype.name] === -1) ? "∞" : level.tools[tiletype.name] + "x")); //((level.tools[tiletype.name] === 0) ? "-" : //Falls bei genau 0 Tools ein anderer Text angezeigt werden sollte.
 		if (level.tools[tiletype.name] > 0) {
 			$("#" + tiletype.name)
@@ -254,16 +256,21 @@ $(function() {
 	
 	//Eventhandler initialisieren
 	level.registerListener(function (event) {
+		
 		console.log(event.toString()); //DEBUG
 		
 		if (event.type === EVENT_TYPE_PLACED) { //Ein Tile wurde platziert.
+			
 			if (event.tile.x === undefined) console.log("error in levelview.fs eventHandler: event.tile.x is undefined");
 			if (event.tile.y === undefined) console.log("error in levelview.fs eventHandler: event.tile.y is undefined");
 			updateTileView(event.tile.x, event.tile.y);
 			if(level.tools[event.tile.type.name] > 0) level.tools[event.tile.type.name] -= 1;
 			updateToolNumber(event.tile.type);
+			
 		} else if (event.type === EVENT_TYPE_ROTATED) { //Ein Tile wurde gedreht.
+			
 			updateTileView(event.tile.x, event.tile.y);
+			
 		} else if (event.type === EVENT_TYPE_REMOVED) { //Ein Tile wurde entfernt
 
 			//Aktualisiere Toolbar-Anzahl
@@ -278,6 +285,7 @@ $(function() {
 			updateTileView(event.tile.x, event.tile.y);
 			
 		} else if (event.type === EVENT_TYPE_SWAPPED) { //Zwei Tiles wurden vertauscht
+			
 			var element1 = $(".x" + event.tile.x1 + ".y" + event.tile.y1);
 			var element2 = $(".x" + event.tile.x2 + ".y" + event.tile.y2);
 			
@@ -289,19 +297,22 @@ $(function() {
 			updateTileView(event.tile.x1, event.tile.y1);
 			updateTileView(event.tile.x2, event.tile.y2);
 			
-		} else if (event.type === EVENT_TYPE_DESTINATION_REACHED) {
+		} else if (event.type === EVENT_TYPE_DESTINATION_REACHED) { //Ein Zielfeld wurde erreicht.
+			
 			if (level.destinationsCount <= level.destinationsReached) {
 				level.fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
 			}
-		} else if (event.type === EVENT_TYPE_TEST_COMPLETED) {
-			clearRun();
+			
+		} else if (event.type === EVENT_TYPE_TEST_COMPLETED) { //Der Test wurde Erfolgreich beendet.
+			
+			//clearRun(); //TODO: Sollte das Level wirklich gecleart werden ?
 			
 			//Sieges-Feedback
 			$("html, body").addClass("right-animation");
-		} else if (event.type === EVENT_TYPE_TEST_FAILED) {
-			for(var i = 0; i < level.walkers.length; i++) {
-				level.walkers[i].stop();
-			}
+			
+		} else if (event.type === EVENT_TYPE_TEST_FAILED) { //Der Test ist fehlgeschlagen.
+			
+			for(var i = 0; i < level.walkers.length; i++) level.walkers[i].stop(); //Weitere Analyse des Levels stoppen.
 			clearRun();
 			
 			//Button zurücksetzen
@@ -309,7 +320,9 @@ $(function() {
 			
 			//Fail-Feedback
 			$("html, body").addClass("wrong-animation");
+			
 		}
+		
 	});
 	
 	// Initialisiere das Spielfeld
@@ -322,14 +335,8 @@ $(function() {
 				.css('width', Math.floor(parseInt($('#field').css('width'))/level.width))
 				.css('height', Math.floor(parseInt($('#field').css('height'))/level.height))
 				.appendTo('#field');
-			if(level.getTile(x, y) != '__hydrate_undef' && level.getTile(x, y) != null) { 
-				tileview.addClass('immovable');
-				updateTileView(x, y);
-			} else {
-				tileview
-				.css('background-image', 'url(../images/empty.png)');
-				initializeTileViewDropHandler(".tile.x" + x + ".y" + y);
-			}
+
+			updateTileView(x, y);
 		}
 	}
 	
@@ -547,8 +554,15 @@ $(function() {
 		combulix.slideIn();
 	} else {
 		combulix.speeches = [new Speech("Ich weiß doch auch nicht weiter . . .")];
-		level.put(0, 1, 0, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA), true);
-		level.put(3, 2, 0, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA), true);
+		if (stageid == 0 && levelid == 0) {
+     		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA), true);
+    		level.put(1, 4, 1, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA), true);
+    		level.tools = {
+				corner: 2,
+				straight: 2
+			 }
+			 updateToolBox();
+		}
 		combulix.slideOut();
 	}
 	

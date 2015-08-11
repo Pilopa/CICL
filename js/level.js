@@ -24,7 +24,7 @@ Level.prototype.getTile = function(x, y) {
 Level.prototype.isEmpty = function (x, y) {
 	if (typeof x === 'undefined') throw "x has to be set in Levels isEmpty method";
 	if (typeof y === 'undefined') throw "y has to be set in Levels isEmpty method";
-	return (this.getTile(x,y) === null || this.getTile(x,y) === undefined || this.getTile(x,y) === "__hydrate_undef");
+	return (this.getTile(x,y) === null || this.getTile(x,y) === undefined);
 }
 
 Level.prototype.getAmountPlaced = function (tiletype) {
@@ -37,7 +37,7 @@ Level.prototype.getAmountPlaced = function (tiletype) {
 
 Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	if (typeof fireEvents === 'undefined') fireEvents = false;
-	if (this.getTile(x,y) !== null && this.getTile(x,y) !== undefined && this.getTile(x,y) !== "__hydrate_undef") this.remove(x, y);
+	if (this.getTile(x,y) !== null && this.getTile(x,y) !== undefined) this.remove(x, y);
 	tile.x = x;
 	tile.y = y;
 	tile.rotation = r;
@@ -57,14 +57,14 @@ Level.prototype.swap = function (x1, y1, x2, y2) {
 	var tileTo = this.getTile(x2, y2);
 	
 	//Ausgangstile
-	if (tileFrom !== null && tileFrom !== undefined && tileFrom !== "__hydrate_undef") {
+	if (tileFrom !== null && tileFrom !== undefined) {
 		tileFrom.x = x2;
 		tileFrom.y = y2;
 	}
 	this.playfield[y2][x2] = tileFrom;
 	
 	//Zieltile
-	if (tileTo !== null && tileTo !== undefined && tileTo !== "__hydrate_undef") {
+	if (tileTo !== null && tileTo !== undefined) {
 		tileTo.x = x1;
 		tileTo.y = y1;
 	}
@@ -152,7 +152,7 @@ Level.prototype.fireEvent = function (evt) {
 Level.prototype.startRun = function() {
 	for(var y = 0; y < this.height; y++) {
 		for(var x = 0; x < this.width; x++) {
-			if(this.getTile(x, y) != '__hydrate_undef' && this.getTile(x, y) != null) { 
+			if(!this.isEmpty(x,y)) { 
 				if(this.getTile(x, y).type.name == TILE_NAME_SOURCE) {
 					new Walker(this.getTile(x, y), this.getTile(x, y).elements[this.getTile(x, y).getExits()[0]], this, 'undefined', true).walk();
 				}
@@ -164,8 +164,8 @@ Level.prototype.startRun = function() {
 Level.prototype.clearElements = function() {
 	for(var y = 0; y < this.height; y++) {
 		for(var x = 0; x < this.width; x++) {
-			var tile = this.getTile(x, y);
-			if(tile != '__hydrate_undef' && tile != null) {
+			if(!this.isEmpty(x,y)) {
+				var tile = this.getTile(x, y);
 				if(tile.type.name != TILE_NAME_DESTINATION && tile.type.name != TILE_NAME_SOURCE) {
 					tile.setElement(0, TILE_ELEMENT_NONE);
 					tile.setElement(1, TILE_ELEMENT_NONE);

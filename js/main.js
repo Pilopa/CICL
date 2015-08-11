@@ -1,3 +1,6 @@
+//Benutze serializer.stringify(object) (Schreiben) und serializer.resurrect() (Lesen) zur Serialisierung von Objekten.
+var serializer = new Resurrect();
+
 function supports_local_storage() {
   try {
 	  return typeof(localStorage) !== 'undefined';
@@ -41,11 +44,11 @@ function initializeCheatPlayerObject() {
 	if (localStorage["stefko"] === undefined)
 		localStorage["stefko"] = JSON.stringify({
 			scores: [
-			[3, 3, 3],
-			[3, 3, 3],
-			[3, 3, 3],
-			[3, 3, 3],
-			[3, 3, 3]
+			[2, 2, 2],
+			[2, 2, 2],
+			[2, 2, 2],
+			[2, 2, 2],
+			[2, 2, 2]
 			], //Map mit den Punkteständen der einzelnen Levels für jede Stage.
 			stageAvailable: [true, true, true, true, true],
 			showStageSelectionTutorial: false,
@@ -75,11 +78,6 @@ function resetCompleteGame() {
 function reloadGame() {
 	location.reload();
 }
-
-/**
- * Benutze hydrate.stringify(object) (Schreiben) und hydrate.parse() (Lesen) zur Serialisierung von Objekten.
- */
-var hydrate = new Hydrate();
 
 function hasEventHandler(classes, event) {
 	var events = $._data(document.getElementsByClassName(classes)[0], "events");

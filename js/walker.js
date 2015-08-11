@@ -77,7 +77,7 @@ Walker.prototype.onward = function() {
 
 Walker.prototype.assertExit = function(dir) {
 	var neighbor = this.level.getNeighbor(this.where, dir);
-		if(neighbor == null || neighbor == '__hydrate_undef') {
+		if(neighbor == null) {
 			this.level.testFailed('empty neighbor from ' + this.where + ' to ' + dir); // Nachbarfeld ist leer!
 			return false;
 		}
