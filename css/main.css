@@ -53,6 +53,10 @@ body {
 	z-index: 100;
 }
 
+.right {
+	
+}
+
 .combulix {
 	background-image: url(../images/combulix.png);
 	background-repeat: no-repeat;

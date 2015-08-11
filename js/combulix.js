@@ -74,8 +74,8 @@ var combulix = {
 				combulix.next();
 			});
 		
-		if (!hasEventHandler("arrow", "click"))
-			$(".arrow:not(.left)").click(function(event) {
+		if (!hasEventHandler("arrow right", "click"))
+			$(".arrow.right").click(function(event) {
 				combulix.next();
 			});
 	},
@@ -103,7 +103,7 @@ var combulix = {
 	
 	disableNextListeners: function () {
 		$(".speech-bubble").off("swipeleft");
-		$(".arrow:not(.left)").off("click");
+		$(".arrow.right").off("click");
 	},
 	
 	disablePreviousListeners: function () {
@@ -118,11 +118,11 @@ var combulix = {
 	
 	disableNext: function() {
 		combulix.disableNextListeners();
-		$(".arrow:not(.left)").hide();
+		$(".arrow.right").hide();
 	},
 	
 	enableNext: function() {
-		$(".arrow:not(.left)").show();
+		$(".arrow.right").show();
 		combulix.registerNextListeners();
 	},
 	
@@ -150,6 +150,7 @@ var combulix = {
 		
 		$(document.createElement('div'))
 		.addClass("arrow")
+		.addClass("right")
 		.addClass("interactable")
 		.addClass("unselectable")
 		.appendTo("body");

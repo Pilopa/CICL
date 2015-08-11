@@ -16,7 +16,7 @@ var DIRECTION_LEFT = 3;
  * @author Konstantin Schaper, Steffen Müller
  */
 
-function Tile(type, element, movable, rotateable) {
+function Tile(type, element, movable, rotatable) {
 	if (typeof movable === 'undefined') movable = false;
 	if (typeof rotatable === 'undefined') rotatable = false;
 	if (typeof element === 'undefined') element = [TILE_ELEMENT_NONE, TILE_ELEMENT_NONE, TILE_ELEMENT_NONE, TILE_ELEMENT_NONE];

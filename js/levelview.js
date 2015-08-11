@@ -46,6 +46,7 @@ $(function() {
 	}
 	
 	function initializeTileViewDropHandler(selector) {
+		console.log("initializeTileViewDropHandler");
 		$(selector).droppable({
 			accept: ".tool, .tile",
 			hoverClass: "drop-hover-highlight",
@@ -97,8 +98,12 @@ $(function() {
 		}
 		
 		if (!level.isEmpty(x,y) && level.getTile(x, y).rotatable) {
+			console.log("tile is rotatable");
 			if (!hasHandler(x, y, 'click')) initializeTileViewRotateHandler(x, y);
-		} else tileview.off("click");
+		} else {
+			console.log("tile is unrotatable");
+			tileview.off("click");
+		}
 		return tileview;
 	}
 	
