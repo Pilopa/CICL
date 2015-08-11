@@ -8,10 +8,18 @@ $(function() {
 	var playerObject = getCurrentPlayerObject();
 	
 	//Funktionen
-	function initializeTileViewHandlers(x, y) {
-		var tileview = $(".x" + x + ".y" + y);
-		tileview
-		.draggable({
+	function initializeTileViewRotateHandler(x, y) {
+		$(".x" + x + ".y" + y).click(function (event) { //Der Spieler klickt auf ein Tile, um es zu drehen.
+			var classes = $(this).attr('class').split(" ");
+			var x = parseInt(classes[1].replace("x", ""));
+			var y = parseInt(classes[2].replace("y", ""));
+			if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).movable) level.rotate(x, y);
+			else console.log("click but no rotate on [" + x + "|" + y + "]")
+		});
+	}
+	
+	function initializeTileViewDragHandler(x, y) {
+		$(".x" + x + ".y" + y).draggable({
 			revert: true,
 			revertDuration: 0,
 			scroll: false,
@@ -21,15 +29,13 @@ $(function() {
 			stop: function (event, ui) {
 				ui.helper.removeClass("drag-highlight");
 			},
-		})
-		.click(function (event) { //Der Spieler klickt auf ein Tile, um es zu drehen.
-			var classes = $(this).attr('class').split(" ");
-			var x = parseInt(classes[1].replace("x", ""));
-			var y = parseInt(classes[2].replace("y", ""));
-			if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).movable) level.rotate(x, y);
-			else console.log("click but no rotate on [" + x + "|" + y + "]")
-		})
-		.addClass('interactable');
+		});
+	}
+	
+	function initializeTileViewHandlers(x, y) {
+		$(".x" + x + ".y" + y).addClass('interactable');
+		if (!level.isEmpty(x,y) && level.getTile().moveable) initializeTileViewDragHandler(x, y);
+		if (!level.isEmpty(x,y) && level.getTile().rotateable) initializeTileViewRotateHandler(x, y);
 		return tileview;
 	}
 	
@@ -330,13 +336,16 @@ $(function() {
 						     }),
 						     
 							 new Speech("Zunächst arbeiten wir nur mit simplen Mitteln. Um genau zu sein: Ecken. <br><br>Links neben den Werkzeugen steht ihre verfügbare Anzahl ...", undefined, function () {
-					        	level.tools = {
-					        		corner: 0
-					        	}
-					        	updateToolBox();
-					        	$("#corner").addClass("highlighted").removeClass("immovable");
+								if (level.getAmountPlaced(TILE_TYPE_CORNER) == 0) {
+						        	level.tools = {
+						        		corner: 0
+						        	}
+						        	updateToolBox();
+						        	$("#corner").removeClass("immovable");
+								}
+								$("#corner").addClass("highlighted")
 						     }, function () {
-						        $("#corner").removeClass("highlighted");
+						    	$("#corner").removeClass("highlighted");
 						     }),
 						     
 						     new Speech("Ziehe zunächst eine Ecke von der Werkzeugleiste auf das makierte Feld ...", undefined, function () {
@@ -351,23 +360,24 @@ $(function() {
 							    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
 							    	 });
 						    		 
-						    		 $(".tile.x0.y1").css("z-index", 21);
 						    	 }
 						    	 
 						    	 $("#corner").addClass("highlighted");
 						    	 $(".tile.x0.y1").addClass("highlighted");
+						    	 $(".tile.x0.y1").css("z-index", 21);
 						    	 
 						     }, function () {
 						    	 if (!level.isEmpty(0, 1)) {
 							    	 level.removeListener(cornerPlaceHandler);
-							    	 combulix.enableNext();
 							    	 $(".tile:not(.x0.y1)").each(function(index) {
 							    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
 							    	 });
 						    	 }
 						    	 
+						    	 combulix.enableNext();
 						    	 $("#corner").removeClass("highlighted");
-						    	 $(".tile.x0.y1").removeClass("highlighted").css("z-index", 41);
+						    	 $(".tile.x0.y1").removeClass("highlighted");
+						    	 $(".tile.x0.y1").css("z-index", 20);
 						     }),
 						     
 						     new Speech("Drehe nun die Ecke, indem du auf sie links-klickst, sodass ein Ausgang nach rechts und einer nach oben zeigt ...", undefined, function () {
@@ -377,12 +387,14 @@ $(function() {
 						    	 $(".tile:not(.x0.y1)").each(function(index) {
 						    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
 						    	 });
+						    	 $(".tile.x0.y1").css("z-index", 41);
 						     }, function () {
 						    	 level.removeListener(cornerPlaceHandler);
 						    	 $(".tile.x0.y1").removeClass("highlighted");
 						    	 $("#corner").removeClass("highlighted");
 						    	 $(".tile.x0.y1").removeClass("highlighted");
 						    	 combulix.enableNext();
+						    	 $(".tile.x0.y1").css("z-index", 20);
 						     }),
 						     
 						     new Speech("Und jetzt mache ich dir Platz. Klicke einfach weiter oder wische nach Links, um mich auszublenden." +

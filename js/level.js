@@ -30,7 +30,7 @@ Level.prototype.getAmountPlaced = function (tiletype) {
 	var counter = 0;
 	for (var y = 0; y < this.height; y++)
 		for (var x = 0; x < this.width; x++) 
-			if (this.getTile(x, y).type === tiletype) counter++;
+			if (!this.isEmpty(x, y) && this.getTile(x, y).type === tiletype) counter++;
 	return counter;
 }
 

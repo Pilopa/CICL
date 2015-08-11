@@ -16,8 +16,9 @@ var DIRECTION_LEFT = 3;
  * @author Konstantin Schaper, Steffen Müller
  */
 
-function Tile(type, element, movable) {
+function Tile(type, element, movable, rotateable) {
 	if (typeof movable === 'undefined') movable = false;
+	if (typeof rotateable === 'undefined') movable = false;
 	if (typeof element === 'undefined') element = [TILE_ELEMENT_NONE, TILE_ELEMENT_NONE, TILE_ELEMENT_NONE, TILE_ELEMENT_NONE];
 	else if(typeof element === 'string') element = [element, element, element, element];
 	this.x = 0;
@@ -26,6 +27,7 @@ function Tile(type, element, movable) {
 	this.elements = element;
 	this.rotation = 0;
 	this.movable = movable;
+	this.rotateable = rotateable;
 }
 
 Tile.prototype.toString = function () {
