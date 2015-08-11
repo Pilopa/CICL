@@ -18,7 +18,7 @@ var DIRECTION_LEFT = 3;
 
 function Tile(type, element, movable, rotateable) {
 	if (typeof movable === 'undefined') movable = false;
-	if (typeof rotateable === 'undefined') movable = false;
+	if (typeof rotatable === 'undefined') rotatable = false;
 	if (typeof element === 'undefined') element = [TILE_ELEMENT_NONE, TILE_ELEMENT_NONE, TILE_ELEMENT_NONE, TILE_ELEMENT_NONE];
 	else if(typeof element === 'string') element = [element, element, element, element];
 	this.x = 0;
@@ -26,8 +26,8 @@ function Tile(type, element, movable, rotateable) {
 	this.type = type;
 	this.elements = element;
 	this.rotation = 0;
-	this.movable = movable;
-	this.rotateable = rotateable;
+	this.movable = moveable;
+	this.rotatable = rotatable;
 }
 
 Tile.prototype.toString = function () {

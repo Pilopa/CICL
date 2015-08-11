@@ -9,14 +9,6 @@ $(function() {
 	
 	//Funktionen
 	
-	var rotateEventHandler = function (event) {
-		var classes = $(this).attr('class').split(" ");
-		var x = parseInt(classes[1].replace("x", ""));
-		var y = parseInt(classes[2].replace("y", ""));
-		if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).movable) level.rotate(x, y);
-		else console.log("click but no rotate on [" + x + "|" + y + "]")
-	}
-	
 	function hasHandler(x, y, event) {
 		var events = $._data(document.getElementsByClassName("tile x" + x + " y" + y)[0], "events");
 		if (events.hasOwnProperty(event)) {
@@ -26,11 +18,20 @@ $(function() {
 		} else return false;
 	}
 	
+	var rotateEventHandler = function (event) {
+		var classes = $(this).attr('class').split(" ");
+		var x = parseInt(classes[1].replace("x", ""));
+		var y = parseInt(classes[2].replace("y", ""));
+		if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).movable) level.rotate(x, y);
+		else console.log("click but no rotate on [" + x + "|" + y + "]")
+	}
+	
 	function initializeTileViewRotateHandler(x, y) {
 		$(".x" + x + ".y" + y).on("click", rotateEventHandler);
 	}
 	
 	function initializeTileViewDragHandler(x, y) {
+		console.log("initializeTileViewDragHandler");
 		$(".x" + x + ".y" + y).draggable({
 			revert: true,
 			revertDuration: 0,
@@ -44,18 +45,7 @@ $(function() {
 		});
 	}
 	
-	function updateTileViewHandlers(x, y) {
-		var tileview = $(".x" + x + ".y" + y);
-		if (!level.isEmpty(x,y) && level.getTile(x, y).moveable) {
-			if (!$(tileview).data('uiDraggable')) initializeTileViewDragHandler(x, y);
-		} else if ($(tileview).data('uiDraggable')) $(tileview).droppable('destroy');
-		if (!level.isEmpty(x,y) && level.getTile(x, y).rotateable) {
-			if (!hasHandler(x, y, 'click')) initializeTileViewRotateHandler(x, y);
-		} else tileview.off("click");
-		return tileview;
-	}
-	
-	function registerTileViewDroppable(selector) {
+	function initializeTileViewDropHandler(selector) {
 		$(selector).droppable({
 			accept: ".tool, .tile",
 			hoverClass: "drop-hover-highlight",
@@ -93,6 +83,25 @@ $(function() {
 		});
 	}
 	
+	function updateTileViewHandlers(x, y) {
+		var tileview = $(".x" + x + ".y" + y);
+		
+		if (!level.isEmpty(x,y) && level.getTile(x, y).movable) {
+			console.log("tile is movable");
+			if (!$(tileview).data('uiDraggable')) initializeTileViewDragHandler(x, y);
+			if (!$(tileview).data('uiDroppale')) initializeTileViewDropHandler(".x" + x + ".y" + y);
+		} else {
+			console.log("tile is immovable");
+			if ($(tileview).data('uiDraggable')) $(tileview).draggable('destroy');
+			if ($(tileview).data('uiDroppale')) $(tileview).droppable('destroy');
+		}
+		
+		if (!level.isEmpty(x,y) && level.getTile(x, y).rotatable) {
+			if (!hasHandler(x, y, 'click')) initializeTileViewRotateHandler(x, y);
+		} else tileview.off("click");
+		return tileview;
+	}
+	
 	function updateTileView(x, y, initializeHandlers) {
 		if (x === undefined) console.log("error in updateTileView in levelview.fs: x is undefined");
 		if (y === undefined) console.log("error in updateTileView in levelview.fs: y is undefined");
@@ -111,7 +120,7 @@ $(function() {
 			tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
 			tileview.css('-o-transform', 'rotate(' + rot + 'deg)');
 			tileview.css('transform', 'rotate(' + rot + 'deg)');
-			if (!level.isEmpty(x,y) && (level.getTile(x, y).moveable || level.getTile(x, y).rotateable)) {
+			if (!level.isEmpty(x,y) && (level.getTile(x, y).movable || level.getTile(x, y).rotatable)) {
 				tileview.addClass('interactable');
 				tileview.removeClass('immovable');
 			} else {
@@ -277,7 +286,7 @@ $(function() {
 			} else {
 				tileview
 				.css('background-image', 'url(../images/empty.png)');
-				registerTileViewDroppable(".tile.x" + x + ".y" + y);
+				initializeTileViewDropHandler(".tile.x" + x + ".y" + y);
 			}
 		}
 	}
@@ -326,7 +335,7 @@ $(function() {
 		var cornerPlaceHandler = function (event) {
 			if (event.type === EVENT_TYPE_PLACED) {
 				if (event.tile.x == 0 && event.tile.y == 1) {
-					level.getTile(event.tile.x, event.tile.y).moveable = false;
+					level.getTile(event.tile.x, event.tile.y).movable = false;
 					updateTileViewHandlers(event.tile.x, event.tile.y);
 					combulix.next();
 				} else {
@@ -438,7 +447,10 @@ $(function() {
 				    	 if (!level.isEmpty(0, 1)) {
 					    	 level.removeListener(cornerPlaceHandler);
 					    	 $(".tile:not(.x0.y1)").each(function(index) {
-					    		 if ($(this).data('uiDroppable')) registerTileViewDroppable(this);
+				    			var classes = $(this).attr('class').split(" ");
+				    			var x = parseInt(classes[1].replace("x", ""));
+				    			var y = parseInt(classes[2].replace("y", ""));
+					    		 if (!$(this).data('uiDroppable')) initializeTileViewDropHandler(this);
 					    	 });
 				    	 }
 				    	 
@@ -455,6 +467,7 @@ $(function() {
 			    	 if (!level.isEmpty(0, 1) && level.getTile(0, 1).rotation !== 2) {
 			    		 level.registerListener(cornerPlaceHandler);
 			    		 combulix.disableNext();
+			    		 if ($(".tile.x0.y1").data('uiDroppable')) $(".tile.x0.y1").droppable('destroy');
 			    	 }
 			    	 $(".tile.x0.y1").addClass("highlighted");
 			    	 $(".tile.x0.y1").css("z-index", 41);
@@ -471,15 +484,27 @@ $(function() {
 			     
 		     ),
 		     
-		     new Speech("Und jetzt mache ich dir Platz. Klicke einfach weiter oder wische nach Links, um mich auszublenden." +
+		     new Speech("Super! Jetzt mache ich dir Platz zum basteln. Klicke einfach weiter oder wische nach Links, um mich auszublenden." +
 		     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.", undefined, 
 		     		
 		     		function () { //on
-		    	 		if (!level.isEmpty(0, 1)) {
-		    	 			
+		    	 		if (level.getAmountPlaced(TILE_TYPE_CORNER) == 1 && level.getAmountPlaced(TILE_TYPE_STRAIGHT) == 0) {
+				    		 level.tools = {
+				    			corner: 1,
+				    			straight: 2
+							 }
+				    		 updateToolBox();
+				    		 
+							 level.getTile(0, 1).rotatable = false;
+							 updateTileViewHandlers(0, 1);
 		    	 		}
+		     		},
+		     		
+		     		function () { //off
+		     			
 		     		}
-		     );
+		     		
+		     )
              
 		];
 		combulix.slideIn();

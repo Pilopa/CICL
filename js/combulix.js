@@ -69,24 +69,28 @@ var combulix = {
 	},
 	
 	registerNextListeners: function () {
-		$(".speech-bubble").on("swipeleft", function(event) {
-			combulix.next();
-		});
+		if (!hasEventHandler("speech-bubble", "swipeleft"))
+			$(".speech-bubble").on("swipeleft", function(event) {
+				combulix.next();
+			});
 		
-		$(".arrow:not(.left)").click(function(event) {
-			combulix.next();
-		});
+		if (!hasEventHandler("arrow", "click"))
+			$(".arrow:not(.left)").click(function(event) {
+				combulix.next();
+			});
 	},
 	
 	registerPreviousListeners: function () {
-		$(".speech-bubble").on("swiperight", function(event) {
-			combulix.previous();
-		});
+		if (!hasEventHandler("speech-bubble", "swiperight"))
+			$(".speech-bubble").on("swiperight", function(event) {
+				combulix.previous();
+			});
 		
-		$(".arrow.left").click(function(event) {
-			if ($(".combulix").is(":hidden")) combulix.slideIn();
-			else combulix.previous();
-		});
+		if (!hasEventHandler("arrow left", "click"))
+			$(".arrow.left").click(function(event) {
+				if ($(".combulix").is(":hidden")) combulix.slideIn();
+				else combulix.previous();
+			});
 		
 		/**
 		 * Scheint in dieser Form nicht zu funktionieren und wir wollen keine Fehler in 'disablePreviousListeners' riskieren, wenn diese Zeilen einkommentiert bleiben.

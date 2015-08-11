@@ -64,3 +64,11 @@ function reloadGame() {
  */
 var hydrate = new Hydrate();
 
+function hasEventHandler(classes, event) {
+	var events = $._data(document.getElementsByClassName(classes)[0], "events");
+	if (events !== undefined && events.hasOwnProperty(event)) {
+		var eventHandlers = events[event];
+		var eventCount = eventHandlers.length;
+		return eventCount > 0;
+	} else return false;
+}
