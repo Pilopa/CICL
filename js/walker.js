@@ -144,10 +144,10 @@ Walker.prototype.animateFlow = function(walker) {
 								.addClass(walker.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
-								.css('height', this.flowwidth + 'px')
-								.css('bottom', this.flowoffset + 'px')
-								.css('right', this.flowoffset + 'px')
-								.animate({width: this.tilesize-this.flowoffset + 'px'}, 1000, function() {walker.onward();});
+								.css('height', walker.flowwidth + 'px')
+								.css('bottom', walker.flowoffset + 'px')
+								.css('right', walker.flowoffset + 'px')
+								.animate({width: walker.tilesize-walker.flowoffset + 'px'}, 1000, function() {walker.onward();});
 						});
 					break;
 				case 3:
@@ -163,10 +163,10 @@ Walker.prototype.animateFlow = function(walker) {
 								.addClass(walker.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
-								.css('width', this.flowwidth + 'px')
-								.css('top', this.flowoffset + 'px')
-								.css('left', this.flowoffset + 'px')
-								.animate({height: this.tilesize-this.flowoffset + 'px'}, 1000, function() {walker.onward();});
+								.css('width', walker.flowwidth + 'px')
+								.css('top', walker.flowoffset + 'px')
+								.css('left', walker.flowoffset + 'px')
+								.animate({height: walker.tilesize-walker.flowoffset + 'px'}, 1000, function() {walker.onward();});
 						});
 					break;
 			}
@@ -186,10 +186,10 @@ Walker.prototype.animateFlow = function(walker) {
 								.addClass(walker.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
-								.css('width', this.flowwidth + 'px')
-								.css('top', this.flowoffset+this.flowwidth + 'px')
-								.css('left', this.flowoffset + 'px')
-								.animate({height: this.flowoffset + 'px'}, 1000, function() {walker.onward();});
+								.css('width', walker.flowwidth + 'px')
+								.css('top', walker.flowoffset+walker.flowwidth + 'px')
+								.css('left', walker.flowoffset + 'px')
+								.animate({height: walker.flowoffset + 'px'}, 1000, function() {walker.onward();});
 						});
 					break;
 				case 1:
@@ -215,10 +215,10 @@ Walker.prototype.animateFlow = function(walker) {
 								.addClass(walker.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
-								.css('width', this.flowwidth + 'px')
-								.css('bottom', this.flowoffset+this.flowwidth + 'px')
-								.css('left', this.flowoffset + 'px')
-								.animate({height: this.flowoffset + 'px'}, 1000, function() {walker.onward();});
+								.css('width', walker.flowwidth + 'px')
+								.css('bottom', walker.flowoffset+walker.flowwidth + 'px')
+								.css('left', walker.flowoffset + 'px')
+								.animate({height: walker.flowoffset + 'px'}, 1000, function() {walker.onward();});
 						});
 					break;
 				case 3:
@@ -246,18 +246,18 @@ Walker.prototype.animateFlow = function(walker) {
 								.addClass(walker.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
-								.css('width', this.flowwidth + 'px')
-								.css('left', this.flowoffset + 'px')
-								.css('top', this.flowoffset+this.flowwidth + 'px')
-								.animate({height: this.flowoffset}, 1000, function() {});
+								.css('width', walker.flowwidth + 'px')
+								.css('left', walker.flowoffset + 'px')
+								.css('top', walker.flowoffset+walker.flowwidth + 'px')
+								.animate({height: walker.flowoffset}, 1000, function() {});
 							$(document.createElement('div'))
 								.addClass(walker.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
-								.css('height', this.flowwidth + 'px')
-								.css('top', this.flowoffset + 'px')
-								.css('right', this.flowoffset)
-								.animate({width: this.flowoffset+this.flowwidth + 'px'}, 1000, function() {walker.onward();});
+								.css('height', walker.flowwidth + 'px')
+								.css('top', walker.flowoffset + 'px')
+								.css('right', walker.flowoffset)
+								.animate({width: walker.flowoffset+walker.flowwidth + 'px'}, 1000, function() {walker.onward();});
 						});
 					break;
 				case 2:
@@ -273,18 +273,18 @@ Walker.prototype.animateFlow = function(walker) {
 								.addClass(walker.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
-								.css('width', this.flowwidth + 'px')
-								.css('left', this.flowoffset + 'px')
-								.css('bottom', this.flowoffset+this.flowwidth + 'px')
-								.animate({height: this.flowoffset}, 1000, function() {});
+								.css('width', walker.flowwidth + 'px')
+								.css('left', walker.flowoffset + 'px')
+								.css('bottom', walker.flowoffset+walker.flowwidth + 'px')
+								.animate({height: walker.flowoffset}, 1000, function() {});
 							$(document.createElement('div'))
 								.addClass(walker.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
-								.css('height', this.flowwidth + 'px')
-								.css('top', this.flowoffset + 'px')
-								.css('right', this.flowoffset)
-								.animate({width: this.flowoffset+this.flowwidth + 'px'}, 1000, function() {walker.onward();});
+								.css('height', walker.flowwidth + 'px')
+								.css('top', walker.flowoffset + 'px')
+								.css('right', walker.flowoffset)
+								.animate({width: walker.flowoffset+walker.flowwidth + 'px'}, 1000, function() {walker.onward();});
 						});
 					break;
 				case 3:
@@ -300,18 +300,18 @@ Walker.prototype.animateFlow = function(walker) {
 								.addClass(walker.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
-								.css('width', this.flowwidth + 'px')
-								.css('left', this.flowoffset + 'px')
-								.css('bottom', this.flowoffset+this.flowwidth + 'px')
-								.animate({height: this.flowoffset}, 1000, function() {});
+								.css('width', walker.flowwidth + 'px')
+								.css('left', walker.flowoffset + 'px')
+								.css('bottom', walker.flowoffset+walker.flowwidth + 'px')
+								.animate({height: walker.flowoffset}, 1000, function() {});
 							$(document.createElement('div'))
 								.addClass(walker.element)
 								.addClass('flow')
 								.appendTo('.x' + walker.where.x + '.y' + walker.where.y)
-								.css('width', this.flowwidth + 'px')
-								.css('top', this.flowoffset+this.flowwidth + 'px')
-								.css('right', this.flowoffset)
-								.animate({height: this.flowoffset + 'px'}, 1000, function() {walker.onward();});
+								.css('width', walker.flowwidth + 'px')
+								.css('top', walker.flowoffset+walker.flowwidth + 'px')
+								.css('right', walker.flowoffset)
+								.animate({height: walker.flowoffset + 'px'}, 1000, function() {walker.onward();});
 						});
 			}
 	}
