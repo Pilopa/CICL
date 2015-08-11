@@ -26,7 +26,7 @@ function Tile(type, element, movable, rotateable) {
 	this.type = type;
 	this.elements = element;
 	this.rotation = 0;
-	this.movable = moveable;
+	this.movable = movable;
 	this.rotatable = rotatable;
 }
 
