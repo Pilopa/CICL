@@ -12,6 +12,7 @@ function Level(width, height, title, tools) {
 	this.title = title;
 	this.score = 0;
 	this.tools = tools;
+	this.walkers = [];
 }
 
 Level.prototype.getTile = function(x, y) {
@@ -153,7 +154,7 @@ Level.prototype.startRun = function() {
 		for(var x = 0; x < this.width; x++) {
 			if(this.getTile(x, y) != '__hydrate_undef' && this.getTile(x, y) != null) { 
 				if(this.getTile(x, y).type.name == TILE_NAME_SOURCE) {
-					new Walker(this.getTile(x, y), this.getTile(x, y).elements[this.getTile(x, y).getExits()[0]], this).walk();
+					new Walker(this.getTile(x, y), this.getTile(x, y).elements[this.getTile(x, y).getExits()[0]], this, 'undefined', true).walk();
 				}
 			}
 		}

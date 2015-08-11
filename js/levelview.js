@@ -229,7 +229,9 @@ $(function() {
 			level.clearElements();
 			level.destinationsReached = 0;
 		} else if (event.type === EVENT_TYPE_TEST_FAILED) {
-			
+			for(var i = 0; i < level.walkers.length; i++) {
+				level.walkers[i].stop();
+			}
 		}
 	});
 	

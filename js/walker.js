@@ -7,25 +7,28 @@
  * @author Steffen Müller
  */
  
-function Walker(tile, ele, lvl, cf) {
+function Walker(tile, ele, lvl, cf, run) {
 	this.where = tile;		// aktuelles Tile
 	this.element = ele;
 	this.comingfrom = cf; 		// Exit des aktuellen Tiles, durch den das Tile betreten wurde
 	this.level = lvl;
+	this.running = run;
+	level.walkers.push(this);
 }
 
 Walker.prototype.walk = function() {
-	if(!this.checkElement()) {
-		return;
+	if(this.running) {
+		if(!this.checkElement()) {
+			return;
+		}
+		if(this.where.type.name == TILE_NAME_DESTINATION) {
+			var walker = this;
+			this.animateDest(function() {walker.level.destinationReached(this.where);});
+			return;
+		}
+		this.setElementEntry();
+		this.animateFlow(this);
 	}
-	if(this.where.type.name == TILE_NAME_DESTINATION) {
-		var walker = this;
-		this.animateDest(function() {walker.level.destinationReached(this.where);});
-		return;
-	}
-	this.setElementEntry();
-	this.animateFlow(this);
-	//this.onward();
 }
 
 Walker.prototype.checkElement = function() {
@@ -51,7 +54,7 @@ Walker.prototype.onward = function() {
 			var exit = (this.comingfrom+2)%4;
 			if(this.assertExit(exit)) {
 				this.where.setElement(exit, this.element);
-				new Walker(this.level.getNeighbor(this.where, exit), this.element, this.level, (exit+2)%4).walk();
+				new Walker(this.level.getNeighbor(this.where, exit), this.element, this.level, (exit+2)%4, this.running).walk();
 			}
 			break;
 		default: 
@@ -60,7 +63,7 @@ Walker.prototype.onward = function() {
 				if(exits[i] != this.comingfrom) {
 					if(this.assertExit(exits[i])) {
 						this.where.setElement(exits[i], this.element);
-						new Walker(this.level.getNeighbor(this.where, exits[i]), this.element, this.level, (exits[i]+2)%4).walk();
+						new Walker(this.level.getNeighbor(this.where, exits[i]), this.element, this.level, (exits[i]+2)%4, this.running).walk();
 					}
 				}
 			}
@@ -328,4 +331,8 @@ Walker.prototype.animateDest = function(callback) {
 		.css('top', FLOW_OFFSET + 'px')
 		.css('left', '0')
 		.animate({width: TILE_WIDTH/2 + 'px'}, 2000, callback);
+}
+
+Walker.prototype.stop = function() {
+	this.running = false;
 }
