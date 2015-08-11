@@ -214,10 +214,16 @@ $(function() {
 			updateTileView(event.tile.x1, event.tile.y1);
 			updateTileView(event.tile.x2, event.tile.y2);
 			
-		} else if (event.type === EVENT_TYPE_DESTINATION_REACHED){
-			if (this.destinationsCount <= this.destinationsReached) {
-				this.fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
+		} else if (event.type === EVENT_TYPE_DESTINATION_REACHED) {
+			if (level.destinationsCount <= level.destinationsReached) {
+				level.fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
 			}
+		} else if (event.type === EVENT_TYPE_TEST_COMPLETED) {
+			$('.flow').remove();
+			level.clearElements();
+			level.destinationsReached = 0;
+		} else if (event.type === EVENT_TYPE_TEST_FAILED) {
+			
 		}
 	});
 	

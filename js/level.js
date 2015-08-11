@@ -9,7 +9,6 @@ function Level(width, height, title, tools) {
 	this.handlers = [];
 	this.destinationsCount = 0;
 	this.destinationsReached = 0;
-	this.reachedDestinations = [];
 	this.title = title;
 	this.score = 0;
 	this.tools = tools;
@@ -130,12 +129,6 @@ Level.prototype.testFailed = function (msg) {
 }
 
 Level.prototype.destinationReached = function (tile) {
-	for(var i = 0; i < this.reachedDestinations.length; i++) {
-		if(this.reachedDestinations[i].samePosAs(tile)) {
-			return;
-		}
-	}
-	this.reachedDestinations.push(tile);
 	this.destinationsReached++;
 	this.fireEvent(new Event(EVENT_TYPE_DESTINATION_REACHED, tile));
 }
@@ -161,6 +154,22 @@ Level.prototype.startRun = function() {
 			if(this.getTile(x, y) != '__hydrate_undef' && this.getTile(x, y) != null) { 
 				if(this.getTile(x, y).type.name == TILE_NAME_SOURCE) {
 					new Walker(this.getTile(x, y), this.getTile(x, y).elements[this.getTile(x, y).getExits()[0]], this).walk();
+				}
+			}
+		}
+	}
+}
+
+Level.prototype.clearElements = function() {
+	for(var y = 0; y < this.height; y++) {
+		for(var x = 0; x < this.width; x++) {
+			var tile = this.getTile(x, y);
+			if(tile != '__hydrate_undef' && tile != null) {
+				if(tile.type.name != TILE_NAME_DESTINATION && tile.type.name != TILE_NAME_SOURCE) {
+					tile.setElement(0, TILE_ELEMENT_NONE);
+					tile.setElement(1, TILE_ELEMENT_NONE);
+					tile.setElement(2, TILE_ELEMENT_NONE);
+					tile.setElement(3, TILE_ELEMENT_NONE);
 				}
 			}
 		}

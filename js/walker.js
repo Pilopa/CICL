@@ -19,8 +19,8 @@ Walker.prototype.walk = function() {
 		return;
 	}
 	if(this.where.type.name == TILE_NAME_DESTINATION) {
-		this.animateDest();
-		this.level.destinationReached(this.where);
+		var walker = this;
+		this.animateDest(function() {walker.level.destinationReached(this.where);});
 		return;
 	}
 	this.setElementEntry();
@@ -77,7 +77,7 @@ Walker.prototype.assertExit = function(dir) {
 		for(var i = 0; i < nexits.length; i++) {
 			if((dir+2)%4 == nexits[i]) {
 				if(this.element == neighbor.getElement(dir) && neighbor.type.name != TILE_NAME_DESTINATION) {
-					console.log('same element on neighbor, aborting');
+					console.log('same element ' + this.element + ' on neighbor ' + neighbor + ', aborting');
 					return false;
 				}
 				return true;
@@ -314,7 +314,7 @@ Walker.prototype.animateFlow = function(walker) {
 	}
 }
 
-Walker.prototype.animateDest = function() {
+Walker.prototype.animateDest = function(callback) {
 	var TILE_WIDTH = parseInt($('#field').css('width'))/this.level.width;
 	var TILE_HEIGHT = parseInt($('#field').css('height'))/this.level.height;
 	var FLOW_WIDTH = 10;
@@ -327,5 +327,5 @@ Walker.prototype.animateDest = function() {
 		.css('height', FLOW_WIDTH + 'px')
 		.css('top', FLOW_OFFSET + 'px')
 		.css('left', '0')
-		.animate({width: TILE_WIDTH/2 + 'px'}, 2000, function() {});
+		.animate({width: TILE_WIDTH/2 + 'px'}, 2000, callback);
 }
