@@ -27,6 +27,14 @@ Level.prototype.isEmpty = function (x, y) {
 	return (this.getTile(x,y) === null || this.getTile(x,y) === undefined || this.getTile(x,y) === "__hydrate_undef");
 }
 
+Level.prototype.getAmountPlaced = function (tiletype) {
+	var counter = 0;
+	for (var y = 0; y < this.height; y++)
+		for (var x = 0; x < this.width; x++) 
+			if (this.getTile(x, y).type === tiletype) counter++;
+	return counter;
+}
+
 Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	if (typeof fireEvents === 'undefined') fireEvents = false;
 	if (this.getTile(x,y) !== null && this.getTile(x,y) !== undefined && this.getTile(x,y) !== "__hydrate_undef") this.remove(x, y);

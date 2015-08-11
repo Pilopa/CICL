@@ -257,7 +257,7 @@ $(function() {
 			ui.helper.removeClass("drag-hover-highlight");
 		},
 		activate: function(event, ui) {
-			$('#tboverlay').css('z-index', '10');
+			$('#tboverlay').css('z-index', '31');
 		},
 		deactivate: function(event, ui) {
 			$('#tboverlay').css('z-index', '-10');
@@ -287,6 +287,10 @@ $(function() {
 				} else {
 					level.remove(event.tile.x, event.tile.y);
 				}
+			} else if (event.type === EVENT_TYPE_ROTATED) {
+				if (event.tile.rotation === 2) {
+					combulix.next();
+				}
 			}
 		};
 		combulix.speeches = [new Speech("Hey, du bist ja auch schon da! <br><br>Deine erste Herausforderung wartet schon auf dich ...", undefined, function () {
@@ -306,8 +310,8 @@ $(function() {
 					    		level.put(1, 4, 1, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA));
 					    		updateTileView(0, 0);
 					    		updateTileView(1, 4);
-						       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21).removeClass('immovable').droppable('destroy');
-						       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21).removeClass('immovable').droppable('destroy');
+						       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21).removeClass('immovable');
+						       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21).removeClass('immovable');
 						     }, function () {
 						       	$(".tile.x0.y0").removeClass("highlighted").css("z-index", 20);
 						       	$(".tile.x1.y4").removeClass("highlighted").css("z-index", 20);
@@ -330,28 +334,48 @@ $(function() {
 						     }),
 						     
 						     new Speech("Ziehe zunächst eine Ecke von der Werkzeugleiste auf das makierte Feld ...", undefined, function () {
-					        	 level.tools = {
-						        	corner: 1
-						         }
-					        	 updateToolNumber(TILE_TYPE_CORNER);
-						    	 level.registerListener(cornerPlaceHandler);
+						    	 if (level.isEmpty(0, 1)) {
+						    		 level.registerListener(cornerPlaceHandler);
+						    		 combulix.disableNext();
+						    		 level.tools = {
+						    			corner: 1
+									 }
+								     updateToolNumber(TILE_TYPE_CORNER);
+						    		 $(".tile:not(.x0.y1)").each(function(index) {
+							    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
+							    	 });
+						    		 
+						    		 $(".tile.x0.y1").css("z-index", 21);
+						    	 }
+						    	 
 						    	 $("#corner").addClass("highlighted");
-						    	 $(".tile.x0.y1").addClass("highlighted").css("z-index", 21);
-						    	 combulix.disableNext();
-						    	 //$(".tile:not(x0):not(y1)").droppable('destroy');
+						    	 $(".tile.x0.y1").addClass("highlighted");
+						    	 
 						     }, function () {
-						    	 level.removeListener(cornerPlaceHandler);
+						    	 if (!level.isEmpty(0, 1)) {
+							    	 level.removeListener(cornerPlaceHandler);
+							    	 combulix.enableNext();
+							    	 $(".tile:not(.x0.y1)").each(function(index) {
+							    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
+							    	 });
+						    	 }
+						    	 
 						    	 $("#corner").removeClass("highlighted");
-						    	 $(".tile.x0.y1").removeClass("highlighted").css("z-index", 20);
-						    	 combulix.enableNext();
+						    	 $(".tile.x0.y1").removeClass("highlighted").css("z-index", 41);
 						     }),
 						     
-						     new Speech("Ziehe zunächst eine Ecke von der Werkzeugleiste auf das makierte Feld ...", undefined, function () {
+						     new Speech("Drehe nun die Ecke, indem du auf sie links-klickst, sodass ein Ausgang nach rechts und einer nach oben zeigt ...", undefined, function () {
+						    	 level.registerListener(cornerPlaceHandler);
 						    	 combulix.disableNext();
+						    	 $(".tile.x0.y1").addClass("highlighted");
+						    	 $(".tile:not(.x0.y1)").each(function(index) {
+						    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
+						    	 });
 						     }, function () {
 						    	 level.removeListener(cornerPlaceHandler);
+						    	 $(".tile.x0.y1").removeClass("highlighted");
 						    	 $("#corner").removeClass("highlighted");
-						    	 $(".tile.x0.y1").removeClass("highlighted").css("z-index", 20);
+						    	 $(".tile.x0.y1").removeClass("highlighted");
 						    	 combulix.enableNext();
 						     }),
 						     
