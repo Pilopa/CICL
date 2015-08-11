@@ -4,6 +4,9 @@ $(function() {
 	if (!supports_session_storage()) console.log("Dieser Browser unterstützt leider kein Session-Storage!"); //Hier dem Benutzer eine Fehlermeldung anzeigen. !!! Das Spiel kann in der Form nicht gespielt werden !!!
 	if (!supports_local_storage()) console.log("Dieser Browser unterstützt leider kein Local-Storage!"); //Hier dem Benutzer eine Fehlermeldung anzeigen. !!! Das Spiel kann in der Form nicht gespielt werden !!!
 	else {
+		//Cheat-Spieler zu testzwecken laden, falls nötig.
+		initializeCheatPlayerObject();
+		
 		//Den bisherigen Spielernamen laden, falls bereits einer existiert.
 		if (!(localStorage.getItem("name") === null))
 			$("#playerName_input").val(localStorage.getItem("name"));

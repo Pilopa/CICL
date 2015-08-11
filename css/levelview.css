@@ -78,6 +78,8 @@
 	margin: 35px 80px;
 	padding: 15px;
 	background-color: grey;
+	border-radius: 15px;
+	border: solid 2px #444444;
 }
 
 .toolnumber {
@@ -103,6 +105,7 @@
 }
 
 #startbutton {
+	border-radius: 5px;
 	font-size: 18pt;
 	position: absolute;
 	left: calc(30% + 50px + 175px);
@@ -111,33 +114,43 @@
 	height: 50px;
 }
 
-.tilena {
-	-webkit-filter: brightness(20%);
-	-moz-filter: brightness(20%);
-	filter: brightness(20%);
+#startbutton:not(:disabled) {
+	color: white;
+	background: linear-gradient(to bottom, #cedce7 0%,#596a72 100%); /* W3C */
+	border: outset 1px gray;
 }
 
-.tilenatext {
-	color: red;
+#startbutton:not(:disabled):active {
+	background: linear-gradient(to bottom,#596a72 100%, #cedce7 0%); /* W3C */
 }
 
-.immovable {
-	-webkit-filter: brightness(60%);
-	-moz-filter: brightness(60%);
-	filter: brightness(60%);
-	position: relative;
+#startbutton:not(:disabled):hover {
+	box-shadow: 0 0 10px white inset;
+}
+
+#startbutton:disabled {
+	color: black;
+	background: gray;
+	border: inset 1px gray;
+}
+
+.tool-disabled {
+	/* TODO */
+}
+
+.tool-number-disabled {
+	color: #ff6060;
 }
 
 .immovable::after {
 	content: "";
 	background-image: url(../images/immovable-overlay.png);
-	background-size: 100%;
+	background-size: 100% 100%;
+	position: absolute;
 	height: 100%;
 	width: 100%;
-	position: relative;
 	top: 0;
 	left: 0;
-	z-index: 55;
 }
 
 #tboverlay {
@@ -146,10 +159,10 @@
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	background-repeat: no-repeat;
-	z-index: -10;
 	background-image: url(../images/trash-bin.png);
-	background-size: 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	border-radius: 15px;
 }
 
 .ui-draggable-dragging {

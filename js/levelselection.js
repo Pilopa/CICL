@@ -39,11 +39,6 @@ $(function() {
 		}
 	}
 	
-	//Behandle Auswahl eines Levels.
-	$(".active").click(function(event) {
-		showLevel(stageId, $(this).attr("id"))
-	});
-	
 	//Combulix
 	combulix.initialize();
 	
@@ -54,11 +49,11 @@ $(function() {
 	
 	if (playerObject.showLevelSelectionTutorial) { //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
 		combulix.speeches = [
-	         new Speech("Super! Du hast die Levelauswahl gefunden.",
+	         new Speech("Super! Du hast die Levelauswahl gefunden.<br><br>Jeder Bereich ist normalerweise in drei Level unterteilt ...",
 	        		 undefined, function () {
 	        	 $(".speech-bubble").addClass("highlighted");
 	         }),
-	         new Speech("Lass uns zunächst mit der Einführung anfangen. Klicke dazu auf die hervorgehobene Schaltfläche.", undefined, function () {
+	         new Speech("Lass uns mit der Einführung anfangen.<br><br>Klicke dazu auf den hervorgehobenen Button.", undefined, function () {
 	        	 $("#0").addClass("active").addClass("highlighted").click(function(event) {
 	    			showLevel(stageId, $(this).attr("id"))
 	    		});
@@ -93,5 +88,10 @@ $(function() {
 	
 	optionsMenu.initialize("7px", "calc(90% - 74px)").showButton();
 	backButton.initialize("7px", "calc(100% - 74px)", showStageSelection).setVisible(true);
+	
+	//Behandle Auswahl eines Levels.
+	$(".active").click(function(event) {
+		showLevel(stageId, $(this).attr("id"))
+	});
 	
 });

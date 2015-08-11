@@ -16,12 +16,6 @@ $(function() {
 			.appendTo("#list");
 	}
 	
-	//Behandle Auswahl einer Stage.
-	
-	$(".active").click(function(event) {
-		showLevelSelection($(this).attr("id"));
-	});
-	
 	//Initialisiere Combulix
 	
 	combulix.initialize();
@@ -45,7 +39,9 @@ $(function() {
 	        	 $(".speech-bubble").removeClass("highlighted");
 	         }, function () {
 	        	 $("#0").removeClass("highlighted");
-	         })
+	         }),
+	         new Speech("Klicke weiter oder wische nach Links, um mich auszublenden." +
+		     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.")
 		];
 		
 	} else {
@@ -72,5 +68,11 @@ $(function() {
 	
 	optionsMenu.initialize("7px", "calc(90% - 74px)").showButton();
 	backButton.initialize("7px", "calc(100% - 74px)", showSplash).setVisible(true);
+	
+	//Behandle Auswahl einer Stage.
+	
+	$(".active").click(function(event) {
+		showLevelSelection($(this).attr("id"));
+	});
 	
 });

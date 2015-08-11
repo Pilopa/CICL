@@ -9,30 +9,33 @@ $(function() {
 	
 	//Funktionen
 	
-	function hasHandler(x, y, event) {
-		var events = $._data(document.getElementsByClassName("tile x" + x + " y" + y)[0], "events");
-		if (events.hasOwnProperty(event)) {
-			var eventHandlers = events[event];
-			var eventCount = eventHandlers.length;
-			return eventCount > 0;
-		} else return false;
+	function setStartButtonEnabled(flag, text) {
+		if (flag) {
+			$("#startbutton").addClass("interactable");
+		} else {
+			$("#startbutton").removeClass("interactable");
+		}
+		document.getElementById("startbutton").disabled = flag;
+		if (typeof text !== 'undefined') $("#startbutton").text(text)
 	}
 	
-	var rotateEventHandler = function (event) {
+	function rotateEventHandler(event) {
 		var classes = $(this).attr('class').split(" ");
 		var x = parseInt(classes[1].replace("x", ""));
 		var y = parseInt(classes[2].replace("y", ""));
-		if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).movable) level.rotate(x, y);
+		if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).rotatable) level.rotate(x, y);
 		else console.log("click but no rotate on [" + x + "|" + y + "]")
 	}
 	
 	function initializeTileViewRotateHandler(x, y) {
-		$(".x" + x + ".y" + y).on("click", rotateEventHandler);
+		if (!$(".x" + x + ".y" + y).is(".rotatable")) {
+			$(".x" + x + ".y" + y).on("click", rotateEventHandler);
+			$(".x" + x + ".y" + y).addClass("rotatable");
+		}
 	}
 	
 	function initializeTileViewDragHandler(x, y) {
-		console.log("initializeTileViewDragHandler");
-		$(".x" + x + ".y" + y).draggable({
+		if (!$(".x" + x + ".y" + y).is('.ui-draggable')) $(".x" + x + ".y" + y).draggable({
 			revert: true,
 			revertDuration: 0,
 			scroll: false,
@@ -45,9 +48,8 @@ $(function() {
 		});
 	}
 	
-	function initializeTileViewDropHandler(selector) {
-		console.log("initializeTileViewDropHandler");
-		$(selector).droppable({
+	function initializeTileViewDropHandler(jquery) {
+		if (!$(jquery).is('.ui-droppable')) $(jquery).droppable({
 			accept: ".tool, .tile",
 			hoverClass: "drop-hover-highlight",
 			deactivate: function (event, ui) {
@@ -73,7 +75,7 @@ $(function() {
 					var tilename = ui.draggable.attr("id");
 					var tiletype = TileType.byName(tilename);
 					level.put(x, y, 0, new Tile(tiletype, TILE_ELEMENT_NONE, true, true), true);
-					ui.helper.hide();
+					ui.helper.remove();
 				} else if(ui.draggable.hasClass('tile')) {
 					var sourceClasses = $(ui.draggable).attr('class').split(" ");
 					var x2 = parseInt(sourceClasses[1].replace("x", ""));
@@ -87,27 +89,50 @@ $(function() {
 	function updateTileViewHandlers(x, y) {
 		var tileview = $(".x" + x + ".y" + y);
 		
-		if (!level.isEmpty(x,y) && level.getTile(x, y).movable) {
-			console.log("tile is movable");
-			if (!$(tileview).data('uiDraggable')) initializeTileViewDragHandler(x, y);
-			if (!$(tileview).data('uiDroppale')) initializeTileViewDropHandler(".x" + x + ".y" + y);
+		if (!level.isEmpty(x,y)) {
+			
+			//Ist das Tile beweglich ?
+			
+			if (level.getTile(x, y).movable) {
+				
+				initializeTileViewDragHandler(x, y);
+				initializeTileViewDropHandler(".x" + x + ".y" + y);
+				
+			} else {
+				
+				if ($(tileview).is('.ui-draggable')) $(tileview).draggable('destroy');
+				if ($(tileview).is('.ui-droppable')) $(tileview).droppable('destroy');
+				
+			}
+			
+			//Ist das Tile drehbar ?
+			
+			if (level.getTile(x, y).rotatable) {
+				
+				initializeTileViewRotateHandler(x, y);
+				
+			} else {
+				
+				tileview.off("click", rotateEventHandler);
+				tileview.removeClass("rotatable");
+				
+			}
+			
 		} else {
-			console.log("tile is immovable");
-			if ($(tileview).data('uiDraggable')) $(tileview).draggable('destroy');
-			if ($(tileview).data('uiDroppale')) $(tileview).droppable('destroy');
+			
+			//Dieser Teil passiert, wenn das Tile auf diesem Feld leer ist.
+			
+			initializeTileViewDropHandler(tileview);
+			if ($(tileview).is('.ui-draggable')) $(tileview).draggable('destroy');
+			tileview.off("click", rotateEventHandler);
+			tileview.removeClass("rotatable");
+			
 		}
 		
-		if (!level.isEmpty(x,y) && level.getTile(x, y).rotatable) {
-			console.log("tile is rotatable");
-			if (!hasHandler(x, y, 'click')) initializeTileViewRotateHandler(x, y);
-		} else {
-			console.log("tile is unrotatable");
-			tileview.off("click");
-		}
 		return tileview;
 	}
 	
-	function updateTileView(x, y, initializeHandlers) {
+	function updateTileView(x, y) {
 		if (x === undefined) console.log("error in updateTileView in levelview.fs: x is undefined");
 		if (y === undefined) console.log("error in updateTileView in levelview.fs: y is undefined");
 		var tile = level.getTile(x, y);
@@ -132,15 +157,13 @@ $(function() {
 				tileview.addClass('immovable');
 				tileview.removeClass('interactable');
 			}
-			if (initializeHandlers) updateTileViewHandlers(x, y);
 		} else {
 			tileview
 			.css('background-image', 'url(../images/empty.png)')
-			.removeClass("interactable")
-			.unbind();
-			
-			if (tileview.data('uiDraggable')) tileview.draggable('destroy');
+			.removeClass("interactable");
 		}
+		
+		updateTileViewHandlers(x, y);
 		return tileview;
 	}
 	
@@ -148,18 +171,23 @@ $(function() {
 		var toolNumberView = $('#toolcount-' + tiletype.name);
 		toolNumberView.text((level.tools[tiletype.name] === undefined || level.tools[tiletype.name] === "__hydrate_undef") ? ""
 				:  ((level.tools[tiletype.name] === -1) ? "∞" : level.tools[tiletype.name] + "x")); //((level.tools[tiletype.name] === 0) ? "-" : //Falls bei genau 0 Tools ein anderer Text angezeigt werden sollte.
-		if (level.tools[tiletype.name] > 0) 
+		if (level.tools[tiletype.name] > 0) {
 			$("#" + tiletype.name)
 			.draggable("enable")
 			.addClass("interactable")
 			.removeClass("non-interactable")
-			.removeClass("immovable");
-		else if (level.tools[tiletype.name] == 0) 
+			.removeClass("tool-disabled");
+			
+			toolNumberView.removeClass("tool-number-disabled");
+		} else if (level.tools[tiletype.name] == 0) {
 			$("#" + tiletype.name)
 			.draggable("disable")
 			.removeClass("interactable")
 			.addClass("non-interactable")
-			.addClass("immovable");
+			.addClass("tool-disabled");
+			
+			toolNumberView.addClass("tool-number-disabled");
+		}
 		return toolNumberView;
 	}
 	
@@ -168,19 +196,19 @@ $(function() {
 		if (tiletype.name in level.tools) {
 			tool
 			.css('background-image', 'url(../images/' + tiletype.name + '.png)')
-			.addClass('interactable')
-			.draggable({
-				helper: "clone",
-				revert: true,
-				scroll: false,
-				start: function (event, ui) {
-					ui.helper.addClass("drag-highlight");
-				},
-				stop: function (event, ui) {
-					ui.helper.removeClass("drag-highlight");
-				},
-				//snap: ".tile"
-			});
+			.addClass('interactable');
+			if (!tool.is(".ui-draggable")) tool.draggable({
+								helper: "clone",
+								revert: true,
+								scroll: false,
+								start: function (event, ui) {
+									ui.helper.addClass("drag-highlight");
+								},
+								stop: function (event, ui) {
+									ui.helper.removeClass("drag-highlight");
+								},
+								//snap: ".tile"
+							});
 		} else {
 			tool
 			.css('background-image', 'url(../images/lock.png)')
@@ -231,7 +259,7 @@ $(function() {
 		if (event.type === EVENT_TYPE_PLACED) { //Ein Tile wurde platziert.
 			if (event.tile.x === undefined) console.log("error in levelview.fs eventHandler: event.tile.x is undefined");
 			if (event.tile.y === undefined) console.log("error in levelview.fs eventHandler: event.tile.y is undefined");
-			updateTileView(event.tile.x, event.tile.y, true);
+			updateTileView(event.tile.x, event.tile.y);
 			if(level.tools[event.tile.type.name] > 0) level.tools[event.tile.type.name] -= 1;
 			updateToolNumber(event.tile.type);
 		} else if (event.type === EVENT_TYPE_ROTATED) { //Ein Tile wurde gedreht.
@@ -267,11 +295,20 @@ $(function() {
 			}
 		} else if (event.type === EVENT_TYPE_TEST_COMPLETED) {
 			clearRun();
+			
+			//Sieges-Feedback
+			$("html, body").addClass("right-animation");
 		} else if (event.type === EVENT_TYPE_TEST_FAILED) {
 			for(var i = 0; i < level.walkers.length; i++) {
 				level.walkers[i].stop();
 			}
 			clearRun();
+			
+			//Button zurücksetzen
+			setStartButtonEnabled(true, "Test starten!");
+			
+			//Fail-Feedback
+			$("html, body").addClass("wrong-animation");
 		}
 	});
 	
@@ -311,10 +348,14 @@ $(function() {
 			ui.helper.removeClass("drag-hover-highlight");
 		},
 		activate: function(event, ui) {
-			$('#tboverlay').css('z-index', '31');
+			$("#tboverlay")
+			.css("opacity", 1)
+			.css("z-index", 31);
 		},
 		deactivate: function(event, ui) {
-			$('#tboverlay').css('z-index', '-10');
+			$("#tboverlay")
+			.css("opacity", 0)
+			.css("z-index", -1);
 		},
 		drop: function(event, ui) {
 			ui.helper.removeClass("drag-hover-highlight");
@@ -324,6 +365,7 @@ $(function() {
 			level.remove(x, y);
 		}
 	});
+	$("#tboverlay").css("opacity", 0).css("z-index", -1); //Die Mülleimer-Grafik ist zu Beginn nicht sichtbar.
 	
 	//Initialisiere Combulix
 	
@@ -337,20 +379,9 @@ $(function() {
 		
 		//Definitionen des Tutorial Levels (Hilfestellungen / Tipps)
 		
-		var cornerPlaceHandler = function (event) {
-			if (event.type === EVENT_TYPE_PLACED) {
-				if (event.tile.x == 0 && event.tile.y == 1) {
-					level.getTile(event.tile.x, event.tile.y).movable = false;
-					updateTileViewHandlers(event.tile.x, event.tile.y);
-					combulix.next();
-				} else {
-					level.remove(event.tile.x, event.tile.y);
-				}
-			} else if (event.type === EVENT_TYPE_ROTATED) {
-				if (event.tile.rotation === 2) {
-					combulix.next();
-				}
-			}
+		var tutorialHandler = function (event) {
+			if ((event.type === EVENT_TYPE_PLACED && event.tile.x == 0 && event.tile.y == 1)
+				|| (event.type === EVENT_TYPE_ROTATED && event.tile.rotation === 2)) combulix.next();
 		};
 		
 		combulix.speeches = [
@@ -358,6 +389,7 @@ $(function() {
              new Speech("Hey, du bist ja auch schon da! <br><br>Deine erste Herausforderung wartet schon auf dich ...", undefined,
             		 
             	function () { //on
+            	    $("#startbutton").hide();
 		       	 	$(".speech-bubble").addClass("highlighted");
 		        },
 		         
@@ -379,13 +411,11 @@ $(function() {
 		     	
 		     ),
 		     
-	         new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, muss jede Quelle zu einem passenden Ziel führen.", undefined,
+	         new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, müssen alle Quellen und Ziele fehlerfrei miteinander verbunden werden.", undefined,
 	        		 
 	        	function () { //on
-		     		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA));
-		    		level.put(1, 4, 1, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA));
-		    		updateTileView(0, 0);
-		    		updateTileView(1, 4);
+		     		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA), true);
+		    		level.put(1, 4, 1, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA), true);
 			       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21); // .removeClass('immovable');
 			       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21); // .removeClass('immovable');
 			     },
@@ -396,7 +426,7 @@ $(function() {
 			     }
 	         ),
 		     
-	         new Speech("Links siehst du den Werkzeugkasten. In diesem findest du die Werkzeuge mit denen du das Puzzel lösen kannst...", undefined,
+	         new Speech("Links siehst du den Werkzeugkasten. In diesem findest du die Werkzeuge mit denen du das Puzzel lösen kannst ...", undefined,
 	        		 
 	        	function () { //on
 		       		$("#toolbox").addClass("highlighted");
@@ -408,7 +438,7 @@ $(function() {
 	         	
 	         ),
 		     
-			 new Speech("Zunächst arbeiten wir nur mit simplen Mitteln. Um genau zu sein: Ecken. <br><br>Links neben den Werkzeugen steht ihre verfügbare Anzahl ...", undefined,
+			 new Speech("Zunächst arbeiten wir nur mit simplen Mitteln. <br>Um genau zu sein: Ecken<br><br>Links neben den Werkzeugen steht die dir zur Verfügung stehende Anzahl ...", undefined,
 					 
 				function () { //on
 					if (level.getAmountPlaced(TILE_TYPE_CORNER) == 0) {
@@ -431,14 +461,14 @@ $(function() {
 		    		 
 		    		 function () { //on
 				    	 if (level.isEmpty(0, 1)) {
-				    		 level.registerListener(cornerPlaceHandler);
+				    		 level.registerListener(tutorialHandler);
 				    		 combulix.disableNext();
 				    		 level.tools = {
 				    			corner: 1
 							 }
 						     updateToolNumber(TILE_TYPE_CORNER);
 				    		 $(".tile:not(.x0.y1)").each(function(index) {
-					    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
+					    		 if ($(this).is('.ui-droppable')) $(this).droppable('destroy');
 					    	 });
 				    		 
 				    	 }
@@ -450,15 +480,15 @@ $(function() {
 		    	 	
 		    	 	function () { //off
 				    	 if (!level.isEmpty(0, 1)) {
-					    	 level.removeListener(cornerPlaceHandler);
 					    	 $(".tile:not(.x0.y1)").each(function(index) {
 				    			var classes = $(this).attr('class').split(" ");
 				    			var x = parseInt(classes[1].replace("x", ""));
 				    			var y = parseInt(classes[2].replace("y", ""));
-					    		 if (!$(this).data('uiDroppable')) initializeTileViewDropHandler(this);
+					    		updateTileViewHandlers(x, y);
 					    	 });
 				    	 }
 				    	 
+				    	 level.removeListener(tutorialHandler);
 				    	 combulix.enableNext();
 				    	 $("#corner").removeClass("highlighted");
 				    	 $(".tile.x0.y1").removeClass("highlighted");
@@ -466,20 +496,21 @@ $(function() {
 		    	 	}
 		     ),
 		     
-		     new Speech("Drehe nun die Ecke, indem du auf sie links-klickst, sodass ein Ausgang nach rechts und einer nach oben zeigt ...", undefined,
+		     new Speech("Gut gemacht! Drehe nun die Ecke so oft (linksklick), sodass ein Ausgang nach rechts und einer nach oben zeigt ...", undefined,
 		    		 
 		    	function () { //on
 			    	 if (!level.isEmpty(0, 1) && level.getTile(0, 1).rotation !== 2) {
-			    		 level.registerListener(cornerPlaceHandler);
+			    		 level.registerListener(tutorialHandler);
 			    		 combulix.disableNext();
-			    		 if ($(".tile.x0.y1").data('uiDroppable')) $(".tile.x0.y1").droppable('destroy');
+						 level.getTile(0, 1).movable = false;
+						 updateTileView(0, 1);
 			    	 }
 			    	 $(".tile.x0.y1").addClass("highlighted");
 			    	 $(".tile.x0.y1").css("z-index", 41);
 			     },
 			     
 			     function () { //off
-			    	 level.removeListener(cornerPlaceHandler);
+			    	 level.removeListener(tutorialHandler);
 			    	 $(".tile.x0.y1").removeClass("highlighted");
 			    	 $("#corner").removeClass("highlighted");
 			    	 $(".tile.x0.y1").removeClass("highlighted");
@@ -489,8 +520,7 @@ $(function() {
 			     
 		     ),
 		     
-		     new Speech("Super! Jetzt mache ich dir Platz zum basteln. Klicke einfach weiter oder wische nach Links, um mich auszublenden." +
-		     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.", undefined, 
+		     new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.", undefined, 
 		     		
 		     		function () { //on
 		    	 		if (level.getAmountPlaced(TILE_TYPE_CORNER) == 1 && level.getAmountPlaced(TILE_TYPE_STRAIGHT) == 0) {
@@ -501,12 +531,14 @@ $(function() {
 				    		 updateToolBox();
 				    		 
 							 level.getTile(0, 1).rotatable = false;
-							 updateTileViewHandlers(0, 1);
+							 updateTileView(0, 1);
 		    	 		}
+		    	 		
+		    	 		$("#startbutton").fadeIn().addClass("highlighted");
 		     		},
 		     		
 		     		function () { //off
-		     			
+		     			//TODO ?
 		     		}
 		     		
 		     )
@@ -521,9 +553,12 @@ $(function() {
 	}
 	
 	$('#startbutton').click(function() {
+		if (playerObject.showGameTutorial) $("#startbutton").removeClass("highlighted"); //Falls das Tutorial diesen gehighlighted hat!
+		setStartButtonEnabled(false, "Test läuft!");
 		level.startRun();
-		
+		$("html, body").removeClass("right-animation").removeClass("wrong-animation"); //Setze Animationen zurück.
 	});
+	setStartButtonEnabled(true);
 	
 	//Initialisiere Menüelemente
 	

@@ -37,6 +37,23 @@ function initializeCurrentPlayerObject() {
 	return getCurrentPlayerObject();
 }
 
+function initializeCheatPlayerObject() {
+	if (localStorage["stefko"] === undefined)
+		localStorage["stefko"] = JSON.stringify({
+			scores: [
+			[3, 3, 3],
+			[3, 3, 3],
+			[3, 3, 3],
+			[3, 3, 3],
+			[3, 3, 3]
+			], //Map mit den Punkteständen der einzelnen Levels für jede Stage.
+			stageAvailable: [true, true, true, true, true],
+			showStageSelectionTutorial: false,
+			showLevelSelectionTutorial: false,
+			showGameTutorial: false
+		});
+}
+
 /**
  * Nach einem Satz von Änderungen an dem aktuellen Spielerobjekt, muss dieses wieder gespeichert werden.
  * 
