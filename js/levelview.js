@@ -8,14 +8,16 @@ $(function() {
 	var playerObject = getCurrentPlayerObject();
 	
 	//Funktionen
+	var rotateEventHandler = function (event) {
+		var classes = $(this).attr('class').split(" ");
+		var x = parseInt(classes[1].replace("x", ""));
+		var y = parseInt(classes[2].replace("y", ""));
+		if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).movable) level.rotate(x, y);
+		else console.log("click but no rotate on [" + x + "|" + y + "]")
+	}
+	
 	function initializeTileViewRotateHandler(x, y) {
-		$(".x" + x + ".y" + y).click(function (event) { //Der Spieler klickt auf ein Tile, um es zu drehen.
-			var classes = $(this).attr('class').split(" ");
-			var x = parseInt(classes[1].replace("x", ""));
-			var y = parseInt(classes[2].replace("y", ""));
-			if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).movable) level.rotate(x, y);
-			else console.log("click but no rotate on [" + x + "|" + y + "]")
-		});
+		$(".x" + x + ".y" + y).on("click", rotateEventHandler);
 	}
 	
 	function initializeTileViewDragHandler(x, y) {
@@ -32,10 +34,12 @@ $(function() {
 		});
 	}
 	
-	function initializeTileViewHandlers(x, y) {
-		$(".x" + x + ".y" + y).addClass('interactable');
-		if (!level.isEmpty(x,y) && level.getTile().moveable) initializeTileViewDragHandler(x, y);
-		if (!level.isEmpty(x,y) && level.getTile().rotateable) initializeTileViewRotateHandler(x, y);
+	function updateTileViewHandlers(x, y) {
+		var tileview = $(".x" + x + ".y" + y);
+		if (!level.isEmpty(x,y) && level.getTile(x, y).moveable) if (!$(this).data('uiDraggable')) initializeTileViewDragHandler(x, y);
+		else if ($(this).data('uiDraggable')) $(this).droppable('destroy');
+		if (!level.isEmpty(x,y) && level.getTile(x, y).rotateable) initializeTileViewRotateHandler(x, y);
+		else tileview.off("click");
 		return tileview;
 	}
 	
@@ -65,7 +69,7 @@ $(function() {
 				if (ui.draggable.hasClass('tool')) {
 					var tilename = ui.draggable.attr("id");
 					var tiletype = TileType.byName(tilename);
-					level.put(x, y, 0, new Tile(tiletype, TILE_ELEMENT_NONE, true), true);
+					level.put(x, y, 0, new Tile(tiletype, TILE_ELEMENT_NONE, true, true), true);
 					ui.helper.hide();
 				} else if(ui.draggable.hasClass('tile')) {
 					var sourceClasses = $(ui.draggable).attr('class').split(" ");
@@ -95,9 +99,9 @@ $(function() {
 			tileview.css('-ms-transform', 'rotate(' + rot + 'deg)');
 			tileview.css('-o-transform', 'rotate(' + rot + 'deg)');
 			tileview.css('transform', 'rotate(' + rot + 'deg)');
-			/*if (!tile.moveable) tileview.addClass('immovable'); //TODO!
-			else tileview.removeClass('immovable');*/
-			if (initializeHandlers) initializeTileViewHandlers(x, y);
+			if (!level.isEmpty(x,y) && (level.getTile(x, y).moveable || level.getTile(x, y).rotateable)) tileview.addClass('interactable');
+			else tileview.addClass('immovable');
+			if (initializeHandlers) updateTileViewHandlers(x, y);
 		} else {
 			tileview
 			.css('background-image', 'url(../images/empty.png)')
@@ -213,8 +217,8 @@ $(function() {
 			var element2 = $(".x" + event.tile.x2 + ".y" + event.tile.y2);
 			
 			//Wenn mit einem leeren Feld getauscht wurde, müssen diesem die Listener hinzugefügt werden. (Gelöscht werden sie automatisch)
-			if (level.isEmpty(event.tile.x1, event.tile.y1)) initializeTileViewHandlers(event.tile.x2, event.tile.y2);
-			if (level.isEmpty(event.tile.x2, event.tile.y2)) initializeTileViewHandlers(event.tile.x1, event.tile.y1);
+			if (level.isEmpty(event.tile.x1, event.tile.y1)) updateTileViewHandlers(event.tile.x2, event.tile.y2);
+			if (level.isEmpty(event.tile.x2, event.tile.y2)) updateTileViewHandlers(event.tile.x1, event.tile.y1);
 			
 			//Aktualisiere die Anzeige
 			updateTileView(event.tile.x1, event.tile.y1);
@@ -297,6 +301,8 @@ $(function() {
 		var cornerPlaceHandler = function (event) {
 			if (event.type === EVENT_TYPE_PLACED) {
 				if (event.tile.x == 0 && event.tile.y == 1) {
+					level.getTile(event.tile.x, event.tile.y).moveable = false;
+					updateTileViewHandlers(event.tile.x, event.tile.y);
 					combulix.next();
 				} else {
 					level.remove(event.tile.x, event.tile.y);
@@ -350,53 +356,56 @@ $(function() {
 						    	$("#corner").removeClass("highlighted");
 						     }),
 						     
-						     new Speech("Ziehe zunächst eine Ecke von der Werkzeugleiste auf das makierte Feld ...", undefined, function () {
-						    	 if (level.isEmpty(0, 1)) {
-						    		 level.registerListener(cornerPlaceHandler);
-						    		 combulix.disableNext();
-						    		 level.tools = {
-						    			corner: 1
-									 }
-								     updateToolNumber(TILE_TYPE_CORNER);
-						    		 $(".tile:not(.x0.y1)").each(function(index) {
-							    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
-							    	 });
+						     new Speech("Ziehe zunächst eine Ecke von der Werkzeugleiste auf das makierte Feld ...", undefined,
 						    		 
-						    	 }
-						    	 
-						    	 $("#corner").addClass("highlighted");
-						    	 $(".tile.x0.y1").addClass("highlighted");
-						    	 $(".tile.x0.y1").css("z-index", 21);
-						    	 
-						     }, function () {
-						    	 if (!level.isEmpty(0, 1)) {
-							    	 level.removeListener(cornerPlaceHandler);
-							    	 $(".tile:not(.x0.y1)").each(function(index) {
-							    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
-							    	 });
-						    	 }
-						    	 
-						    	 combulix.enableNext();
-						    	 $("#corner").removeClass("highlighted");
-						    	 $(".tile.x0.y1").removeClass("highlighted");
-						    	 $(".tile.x0.y1").css("z-index", 20);
-						     }),
+						    		 function () { //onCallback
+								    	 if (level.isEmpty(0, 1)) {
+								    		 level.registerListener(cornerPlaceHandler);
+								    		 combulix.disableNext();
+								    		 level.tools = {
+								    			corner: 1
+											 }
+										     updateToolNumber(TILE_TYPE_CORNER);
+								    		 $(".tile:not(.x0.y1)").each(function(index) {
+									    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
+									    	 });
+								    		 
+								    	 }
+								    	 
+								    	 $("#corner").addClass("highlighted");
+								    	 $(".tile.x0.y1").addClass("highlighted");
+								    	 $(".tile.x0.y1").css("z-index", 21);
+						    	 	},
+						    	 	
+						    	 	function () { //offCallback
+								    	 if (!level.isEmpty(0, 1)) {
+									    	 level.removeListener(cornerPlaceHandler);
+									    	 $(".tile:not(.x0.y1)").each(function(index) {
+									    		 if ($(this).data('uiDroppable')) registerTileViewDroppable(this);
+									    	 });
+								    	 }
+								    	 
+								    	 combulix.enableNext();
+								    	 $("#corner").removeClass("highlighted");
+								    	 $(".tile.x0.y1").removeClass("highlighted");
+								    	 $(".tile.x0.y1").css("z-index", 20);
+						    	 	}
+						     ),
 						     
 						     new Speech("Drehe nun die Ecke, indem du auf sie links-klickst, sodass ein Ausgang nach rechts und einer nach oben zeigt ...", undefined, function () {
-						    	 level.registerListener(cornerPlaceHandler);
-						    	 combulix.disableNext();
+						    	 if (!level.isEmpty(0, 1) && level.getTile(0, 1).rotation !== 2) {
+						    		 level.registerListener(cornerPlaceHandler);
+						    		 combulix.disableNext();
+						    	 }
 						    	 $(".tile.x0.y1").addClass("highlighted");
-						    	 $(".tile:not(.x0.y1)").each(function(index) {
-						    		 if ($(this).data('uiDroppable')) $(this).droppable('destroy');
-						    	 });
 						    	 $(".tile.x0.y1").css("z-index", 41);
 						     }, function () {
 						    	 level.removeListener(cornerPlaceHandler);
 						    	 $(".tile.x0.y1").removeClass("highlighted");
 						    	 $("#corner").removeClass("highlighted");
 						    	 $(".tile.x0.y1").removeClass("highlighted");
-						    	 combulix.enableNext();
 						    	 $(".tile.x0.y1").css("z-index", 20);
+						    	 combulix.enableNext();
 						     }),
 						     
 						     new Speech("Und jetzt mache ich dir Platz. Klicke einfach weiter oder wische nach Links, um mich auszublenden." +
