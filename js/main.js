@@ -30,8 +30,9 @@ function initializeCurrentPlayerObject() {
 	localStorage[localStorage["name"]] = JSON.stringify({
 		scores: [], //Map mit den Punkteständen der einzelnen Levels für jede Stage.
 		stageAvailable: [], //Enthält für jede Stage einen Boolean welcher angibt, ob diese Stage für den Spieler vergfügbar ist.
-		firstStageSelection: true,
-		firstLevelSelection: true
+		showStageSelectionTutorial: true,
+		showLevelSelectionTutorial: true,
+		showGameTutorial: true
 	});
 	return getCurrentPlayerObject();
 }
@@ -62,3 +63,4 @@ function reloadGame() {
  * Benutze hydrate.stringify(object) (Schreiben) und hydrate.parse() (Lesen) zur Serialisierung von Objekten.
  */
 var hydrate = new Hydrate();
+

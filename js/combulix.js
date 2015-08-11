@@ -16,7 +16,7 @@ var combulix = {
 		else if (index == 0) $(".arrow.left").fadeOut();
 		else if (index > 0) $(".arrow.left").fadeIn();
 		$(".arrow:not(.left)").fadeIn();
-		$(".speech-bubble").text(this.speeches[this.current].text);
+		$(".speech-bubble").html(this.speeches[this.current].text);
 		if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.play();
 		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].onCallback();
 		return this;
@@ -48,7 +48,7 @@ var combulix = {
 				});
 			});
 		});
-		this.speeches[this.current].offCallback();
+		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback();
 		return this;
 	},
 	
@@ -64,10 +64,74 @@ var combulix = {
 				else if (combulix.speeches.length > 0) combulix.set(0);
 			});
 		});	
-		this.speeches[this.current].onCallback();
+		if (typeof this.speeches[this.current].onCallback !== 'undefined') this.speeches[this.current].onCallback();
 		return this;
 	},
+	
+	registerNextListeners: function () {
+		$(".speech-bubble").on("swipeleft", function(event) {
+			combulix.next();
+		});
 		
+		$(".arrow:not(.left)").click(function(event) {
+			combulix.next();
+		});
+	},
+	
+	registerPreviousListeners: function () {
+		$(".speech-bubble").on("swiperight", function(event) {
+			combulix.previous();
+		});
+		
+		$(".arrow.left").click(function(event) {
+			if ($(".combulix").is(":hidden")) combulix.slideIn();
+			else combulix.previous();
+		});
+		
+		/**
+		 * Scheint in dieser Form nicht zu funktionieren und wir wollen keine Fehler in 'disablePreviousListeners' riskieren, wenn diese Zeilen einkommentiert bleiben.
+		 * Sie sollen uns lediglich daran erinner, dass dieses Feature in Zukunft vorteilhaft sein könnte.
+		 */
+		/*$("arrow.left").on("swipeleft", function (event) {
+			if ($(".combulix").is(":hidden")) combulix.slideIn();
+		});*/
+	},
+	
+	disableNextListeners: function () {
+		$(".speech-bubble").off("swipeleft");
+		$(".arrow:not(.left)").off("click");
+	},
+	
+	disablePreviousListeners: function () {
+		$(".speech-bubble").off("swiperight");
+		$(".arrow.left").off("click");
+	},
+	
+	registerListeners: function () {
+		combulix.registerNextListeners();
+		combulix.registerPreviousListeners();
+	},
+	
+	disableNext: function() {
+		combulix.disableNextListeners();
+		$(".arrow:not(.left)").hide();
+	},
+	
+	enableNext: function() {
+		$(".arrow:not(.left)").show();
+		combulix.registerNextListeners();
+	},
+	
+	disablePrevious: function() {
+		combulix.disablePreviousListeners();
+		$(".arrow.left").hide();
+	},
+	
+	enablePrevious: function() {
+		$(".arrow.left").show();
+		combulix.registerPeviousListeners();
+	},
+
 	initialize: function() {
 		$(document.createElement('div'))
 		.addClass("speech-bubble")
@@ -95,26 +159,7 @@ var combulix = {
 		
 		$(".combulix, .speech-bubble, .arrow").hide();
 		
-		$(".speech-bubble").on("swipeleft", function(event) {
-			combulix.next();
-		});
-		
-		$(".speech-bubble").on("swiperight", function(event) {
-			combulix.previous();
-		});
-		
-		$(".arrow.left").click(function(event) {
-			if ($(".combulix").is(":hidden")) combulix.slideIn();
-			else combulix.previous();
-		});
-		
-		$("arrow.left").on("swipeleft", function (event) {
-			if ($(".combulix").is(":hidden")) combulix.slideIn();
-		});
-		
-		$(".arrow:not(.left)").click(function(event) {
-			combulix.next();
-		});
+		combulix.registerListeners();
 		
 		return this;
 	}

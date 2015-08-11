@@ -136,6 +136,11 @@ Level.prototype.registerListener = function (handler) {
 	this.handlers.push(handler);
 }
 
+Level.prototype.removeListener = function (handler) {
+	var index = this.handlers.indexOf(handler);
+	if (index > -1) this.handlers.splice(index, 1);
+}
+
 Level.prototype.fireEvent = function (evt) {
 	this.handlers.forEach(function(currentValue, index, array) {
 		currentValue(evt);

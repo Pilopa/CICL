@@ -47,9 +47,12 @@ $(function() {
 	//Combulix
 	combulix.initialize();
 	
-	if (playerObject.firstLevelSelection) { //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
-		playerObject.firstLevelSelection = false;
+	if (playerObject.showStageSelectionTutorial) {
+		playerObject.showStageSelectionTutorial = false;
 		saveCurrentPlayerObject(playerObject);
+	}
+	
+	if (playerObject.showLevelSelectionTutorial) { //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
 		combulix.speeches = [
 	         new Speech("Super! Du hast die Levelauswahl gefunden.",
 	        		 undefined, function () {

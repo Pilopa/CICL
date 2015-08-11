@@ -26,9 +26,8 @@ $(function() {
 	
 	combulix.initialize();
 	
-	if (playerObject.firstStageSelection) {
+	if (playerObject.showStageSelectionTutorial) {
 		//Setze die Werte, welche angeben, dass der Spieler die Stageauswahl einmal betreten hat.
-		playerObject.firstStageSelection = false;
 		playerObject.stageAvailable[0] = true;
 		saveCurrentPlayerObject(playerObject);
 		
@@ -59,7 +58,7 @@ $(function() {
 		
 		//Definiere die Texte von Combulix
 		combulix.speeches = [
-	         new Speech("Wählen den Bereich aus, in welchem du weitermachen möchtest . . .", undefined, function() {
+	         new Speech("Wähle den Bereich aus, in welchem du weitermachen möchtest . . .", undefined, function() {
 	        	 $(".item.active").addClass("highlighted");
 	         }, function () {
 	        	 $(".item.active").removeClass("highlighted");

@@ -52,14 +52,14 @@ var optionsMenu = {
 		
 		//Hauptcontainer
 		$(document.createElement('div'))
-		.addClass("menu")
+		.addClass("screen-overlay")
 		.attr("id", "options-menu")
 		.appendTo("body")
 		.hide();
 		
 		//Content-Container
 		$(document.createElement('div'))
-		.addClass("menu-content-container")
+		.addClass("popup-content-container")
 		.attr("id", "options-content")
 		.appendTo("#options-menu");
 		

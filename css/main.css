@@ -40,6 +40,7 @@ body {
 	height: 64px;
 	top: calc(35% - 32px);
 	right: 16px;
+	z-index: 100;
 }
 
 .left {
@@ -49,6 +50,7 @@ body {
 	-o-transform: rotate(180deg);
 	transform: rotate(180deg);
 	right: calc(40% - 32px);
+	z-index: 100;
 }
 
 .combulix {
@@ -60,6 +62,7 @@ body {
 	height: 40%;
 	top: 60%;
 	right: -40%;
+	z-index: 100;
 }
 
 .speech-bubble {
@@ -76,12 +79,13 @@ body {
 	box-sizing: border-box;
 	padding: 40px;
 	cursor: default;
-	font-size: 28px;
+	font-size: 26px;
 	position: absolute;
 	width: 35%;
 	height: 50%;
 	top: calc(35% - 25%);
 	right: 5%;
+	z-index: 100;
 }
 
 .speech-bubble:after {
@@ -218,7 +222,7 @@ body {
 	background-size: 100% 100%;
 }
 
-.menu {
+.screen-overlay {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -228,7 +232,7 @@ body {
 	z-index: 100;
 }
 
-.menu-content-container {
+.popup-content-container {
 	position: absolute;
 	width: 80%;
 	height: 80%;
