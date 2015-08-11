@@ -125,9 +125,11 @@
 	-webkit-filter: brightness(60%);
 	-moz-filter: brightness(60%);
 	filter: brightness(60%);
+	position: relative;
 }
 
-.immovable:after {
+.immovable::after {
+	content: "";
 	background-image: url(../images/immovable-overlay.png);
 	background-size: 100%;
 	height: 100%;
@@ -135,7 +137,7 @@
 	position: relative;
 	top: 0;
 	left: 0;
-	z-index: 31;
+	z-index: 55;
 }
 
 #tboverlay {

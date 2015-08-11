@@ -472,7 +472,14 @@ $(function() {
 		     ),
 		     
 		     new Speech("Und jetzt mache ich dir Platz. Klicke einfach weiter oder wische nach Links, um mich auszublenden." +
-		     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.")
+		     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.", undefined, 
+		     		
+		     		function () { //on
+		    	 		if (!level.isEmpty(0, 1)) {
+		    	 			
+		    	 		}
+		     		}
+		     );
              
 		];
 		combulix.slideIn();
