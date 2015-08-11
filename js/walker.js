@@ -13,7 +13,7 @@ function Walker(tile, ele, lvl, cf, run) {
 	this.comingfrom = cf; 		// Exit des aktuellen Tiles, durch den das Tile betreten wurde
 	this.level = lvl;
 	this.running = run;
-	level.walkers.push(this);
+	this.level.walkers.push(this);
 }
 
 Walker.prototype.walk = function() {

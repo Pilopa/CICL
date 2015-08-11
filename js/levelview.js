@@ -187,6 +187,12 @@ $(function() {
 		});
 	}
 	
+	function clearRun() {
+		$('.flow').remove();
+		level.clearElements();
+		level.destinationsReached = 0;
+	}
+	
 	//Eventhandler initialisieren
 	level.registerListener(function (event) {
 		console.log(event.toString()); //DEBUG
@@ -229,13 +235,12 @@ $(function() {
 				level.fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
 			}
 		} else if (event.type === EVENT_TYPE_TEST_COMPLETED) {
-			$('.flow').remove();
-			level.clearElements();
-			level.destinationsReached = 0;
+			clearRun();
 		} else if (event.type === EVENT_TYPE_TEST_FAILED) {
 			for(var i = 0; i < level.walkers.length; i++) {
 				level.walkers[i].stop();
 			}
+			clearRun();
 		}
 	});
 	
