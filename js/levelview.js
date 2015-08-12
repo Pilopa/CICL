@@ -9,6 +9,12 @@ $(function() {
 	
 	//Funktionen
 	
+	function getScoreObject() {
+		return {
+			score: 3
+		};
+	}
+	
 	function setStartButtonEnabled(flag, text) {
 		if (flag) {
 			$("#startbutton").addClass("interactable");
@@ -305,6 +311,15 @@ $(function() {
 			
 		} else if (event.type === EVENT_TYPE_TEST_COMPLETED) { //Der Test wurde Erfolgreich beendet.
 			
+			//Die Punkte berechnen
+			var scoreObject = getScoreObject();
+			
+			//Die Punkte vergeben
+			if (playerObject.showGameTutorial) playerObject.showGameTutorial = false;
+			if (playerObject.scores[stageid][levelid] === undefined || playerObject.scores[stageid][levelid] < scoreObject.score) playerObject.scores[stageid][levelid] = scoreObject.score;
+			saveCurrentPlayerObject(playerObject);
+			
+			//Start-Button zurücksetzen (hihi)
 			setStartButtonEnabled(true, "Zurücksetzen");
 			$("#startbutton").addClass("highlighted");
 			

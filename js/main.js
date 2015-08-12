@@ -44,11 +44,11 @@ function initializeCheatPlayerObject() {
 	if (localStorage["stefko"] === undefined)
 		localStorage["stefko"] = JSON.stringify({
 			scores: [
-			[2, 2, 2],
-			[2, 2, 2],
-			[2, 2, 2],
-			[2, 2, 2],
-			[2, 2, 2]
+			[3, 3, 3],
+			[3, 3, 3],
+			[3, 3, 3],
+			[3, 3, 3],
+			[3, 3, 3]
 			], //Map mit den Punkteständen der einzelnen Levels für jede Stage.
 			stageAvailable: [true, true, true, true, true],
 			showStageSelectionTutorial: false,

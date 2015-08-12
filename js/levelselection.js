@@ -31,7 +31,7 @@ $(function() {
 			.attr("id", "rating-" + i)
 			.appendTo("#rating-container-" + i);
 			
-			if (playerObject.scores[stageId][i] >= n) {
+			if (playerObject.scores[stageId][i] > n) {
 				ratingDisplay.addClass("star-full");
 			} else {
 				ratingDisplay.addClass("star-empty");

@@ -177,11 +177,13 @@
 }
 
 #tboverlay {
-	height: 630px;
-	width: 180px;
+	/*height: 630px;
+	width: 180px;*/
+	width: 100%;
+	height: 100%;
 	position: absolute;
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	background-image: url(../images/trash-bin.png);
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
