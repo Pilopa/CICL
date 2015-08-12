@@ -64,7 +64,7 @@
 
 #field {
 	position: absolute;
-	background-color: #646464;
+	background-color: #262626;
 }
 
 #space {
@@ -174,15 +174,15 @@
 }
 
 .acid {
-	background: #25ff25;
+	background: #00C800;
 }
 
 .lava {
-	background: orange;
+	background: #FF6A00;
 }
 
 .honey {
-	background: yellow;
+	background: FFE100;
 }
 
 .flow {
