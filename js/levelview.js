@@ -309,10 +309,12 @@ $(function() {
 			
 			//Sieges-Feedback
 			$("#game").animate({
-				boxShadow : "0 0 50px 3px rgba(0,255,0,1) inset"
-			}, function () {
+				boxShadow : "0 0 75px 0 rgba(0, 255, 0, 1) inset"
+			}, 400, function () {
 				$(this).animate({
-					boxShadow : "0 0 25px 3px rgba(0,255,0,1) inset"
+					boxShadow : "0 0 15px 0 rgba(0, 255, 0, 1) inset"
+				}, 1000, function () {
+					$(this).addClass("right");
 				});
 			});
 			
@@ -325,10 +327,12 @@ $(function() {
 			
 			//Fail-Feedback
 			$("#game").animate({
-				boxShadow : "0 0 50px 0 rgba(255,0,0,1) inset"
-			}, function () {
+				boxShadow : "0 0 75px 0 rgba(255, 0, 0, 1) inset"
+			}, 400, function () {
 				$(this).animate({
-					boxShadow : "0 0 25px 0 rgba(255,0,0,1) inset"
+					boxShadow : "0 0 15px 0 rgba(255, 0, 0, 1) inset"
+				}, 1000,function () {
+					$(this).addClass("wrong");
 				});
 			});
 			
@@ -596,6 +600,10 @@ $(function() {
 		} else if ($(this).text() === 'Zurücksetzen') {
 			clearRun();
 			$(this).text("Test starten!");
+			$("#game").css({
+				boxShadow: "0px 0px 0px 0px #F80 inset"
+			});
+			$("#game").removeClass("wrong").removeClass("right");
 		} 
 		
 	});
