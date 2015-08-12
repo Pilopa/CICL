@@ -84,13 +84,11 @@ $(function() {
 	
 	combulix.slideIn();
 	
-	//Initialisiere Menüelemente
-	
-	optionsMenu.initialize("7px", "calc(90% - 74px)").showButton();
-	backButton.initialize("7px", "calc(100% - 74px)", showStageSelection).setVisible(true);
+	//Definiere Ziel für Zurück-Button
+	backButton.setCallback(showStageSelection);
 	
 	//Behandle Auswahl eines Levels.
-	$(".active").click(function(event) {
+	$(".item.active").click(function(event) {
 		showLevel(stageId, $(this).attr("id"))
 	});
 	

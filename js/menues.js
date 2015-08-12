@@ -5,17 +5,10 @@ var optionsMenu = {
 		/**
 		 * Erstellt den Button an der gewählten Position, ausgehend von der oberen linken Ecke des Document-Bodys.
 		 */
-		initialize: function(x, y) {
+		initialize: function() {
 			if (typeof x === 'undefined') x = "0";
 			if (typeof y === 'undefined') y = "0";
-			$(document.createElement('div'))
-			.addClass("menu-button")
-			.addClass("active")
-			.addClass("interactable")
-			.attr("id", "options-button")
-			.css("left", x)
-			.css("top", y)
-			.appendTo("body")
+			$("#options-button")
 			.click(function() {
 				optionsMenu.fadeIn();
 			});
@@ -37,7 +30,7 @@ var optionsMenu = {
 			$("#options-button").fadeOut();
 			return this;
 		}
-
+	
 	},
 		
 	/**
@@ -45,10 +38,7 @@ var optionsMenu = {
 	 * Die Parameter geben die Position des Buttons an, welcher das Menü öffnet.
 	 * Beide Parameter sind optional.
 	 */
-	initialize: function(x, y) {
-		//Überprüfen der Parameter
-		if (typeof x === 'undefined') x = "0";
-		if (typeof y === 'undefined') y = "0";
+	initialize: function() {
 		
 		//Hauptcontainer
 		$(document.createElement('div'))
@@ -74,7 +64,8 @@ var optionsMenu = {
 		.appendTo("#options-menu");
 		
 		//Schaltfläche
-		this.optionsButton.initialize(x, y);
+		this.optionsButton.initialize();
+		
 		return this;
 	},
 	
@@ -104,36 +95,19 @@ var optionsMenu = {
 			
 }
 
-backButton = {
-		
-	callback: function () {},
+var backButton = {
+			
+	parameters: [],
 	
 	setCallback: function(callback) {
 		
+		if (typeof callback === 'undefined') return this;
+		
 		this.callback = callback;
 		$("#back-button").click(function() {
-			backButton.callback();
+			backButton.callback.apply(backButton, backButton.parameters);
+			console.log("back-button-clicked");
 		});
-		return this;
-	},
-		
-	initialize: function(x, y, callback) {
-		//Überprüfen der Parameter
-		if (typeof x === 'undefined') x = "0";
-		if (typeof y === 'undefined') y = "0";
-		
-		$(document.createElement('div'))
-		.addClass("menu-button")
-		.addClass("active")
-		.addClass("interactable")
-		.attr("id", "back-button")
-		.css("left", x)
-		.css("top", y)
-		.appendTo("body")
-		.hide();
-		
-		if (typeof callback !== 'undefined') this.setCallback(callback);
-
 		return this;
 	},
 	
@@ -142,5 +116,11 @@ backButton = {
 		else $("#back-button").hide();
 		return this;
 	}
-	
+		
 }
+
+$(function() {
+	
+	optionsMenu.initialize(); //Initialisiere das Optionsmenü
+
+});

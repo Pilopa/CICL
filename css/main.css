@@ -40,7 +40,7 @@ body {
 	height: 64px;
 	top: calc(35% - 32px);
 	right: 16px;
-	z-index: 100;
+	z-index: 99;
 }
 
 .arrow.left {
@@ -50,7 +50,7 @@ body {
 	-o-transform: rotate(180deg);
 	transform: rotate(180deg);
 	right: calc(40% - 32px);
-	z-index: 100;
+	z-index: 99;
 }
 
 .combulix {
@@ -62,7 +62,7 @@ body {
 	height: 40%;
 	top: 60%;
 	right: -40%;
-	z-index: 100;
+	z-index: 99;
 }
 
 .speech-bubble {
@@ -81,7 +81,7 @@ body {
 	height: 50%;
 	top: calc(35% - 25%);
 	right: 5%;
-	z-index: 100;
+	z-index: 99;
 }
 
 .speech-bubble:after {
@@ -182,27 +182,9 @@ body {
   */
 .centered-text {
 
-	/* Internet Explorer 10 */
-	display: -ms-flexbox;
-	-ms-flex-pack:center;
-	-ms-flex-align:center;
-	
-	/* Firefox */
-	display: -moz-box;
-	-moz-box-pack:center;
-	-moz-box-align:center;
-	
-	/* Safari, Opera, and Chrome */
-	display: -webkit-box;
-	-webkit-box-pack:center;
-	-webkit-box-align:center;
-	
-	/* W3C */
-	display: box;
-	box-pack:center;
-	box-align:center;
-	
-	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 }
 
@@ -216,6 +198,8 @@ body {
 	height: 64px;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+	left: 7px;
+	top: calc(90% - 74px);
 }
 
 .screen-overlay {
@@ -259,4 +243,6 @@ body {
 	height: 64px;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+	left: 7px;
+	top: calc(100% - 74px);
 }

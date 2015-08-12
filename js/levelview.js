@@ -2,8 +2,8 @@ $(function() {
 	
 	//Globale Variablen
 	var x = location.search.replace('?','').split('-');
-	var levelid = x[0];
-	var stageid = x[1];
+	var levelid = parseInt(x[0]);
+	var stageid = parseInt(x[1]);
 	var level = getStages()[stageid].levels[levelid];
 	var playerObject = getCurrentPlayerObject();
 	
@@ -306,15 +306,75 @@ $(function() {
 		} else if (event.type === EVENT_TYPE_TEST_COMPLETED) { //Der Test wurde Erfolgreich beendet.
 			
 			setStartButtonEnabled(true, "Zurücksetzen");
+			$("#startbutton").addClass("highlighted");
 			
 			//Sieges-Feedback
 			$("#game").animate({
 				boxShadow : "0 0 75px 0 rgba(0, 255, 0, 1) inset"
 			}, 400, function () {
 				$(this).animate({
-					boxShadow : "0 0 15px 0 rgba(0, 255, 0, 1) inset"
+					boxShadow : "0 0 5px 0 rgba(0, 255, 0, 1) inset"
 				}, 1000, function () {
 					$(this).addClass("right");
+					
+					//Punkteanzeige erstellen und anzeigen
+					
+					//Hauptcontainer
+					$(document.createElement('div'))
+					.addClass("screen-overlay")
+					.attr("id", "score-display")
+					.appendTo("body");
+					
+					//Content-Container
+					$(document.createElement('div'))
+					.addClass("popup-content-container")
+					.attr("id", "score-display-content")
+					.appendTo("#score-display");
+					
+					//Schließen-Button
+					$(document.createElement('div'))
+					.addClass("close-button")
+					.addClass("interactable")
+					.attr("id", "score-display-close")
+					.click(function () {
+						$("#score-display").fadeOut(function() {
+							$(this).remove();
+						});
+					})
+					.appendTo("#score-display");
+					
+					//Weiter Button
+					$(document.createElement('div'))
+					.text("Weiterbasteln")
+					.addClass("continue-button")
+					.addClass("centered-text")
+					.addClass("interactable")
+					.addClass("unselectable")
+					.attr("id", "score-display-continue")
+					.click(function () {
+						$("#score-display").fadeOut(function() {
+							$(this).remove();
+						});
+					})
+					.appendTo("#score-display-content");
+					
+					//Zur Levelauswahl-Button
+					$(document.createElement('div'))
+					.text("Zur Levelauswahl")
+					.addClass("to-level-selection-button")
+					.addClass("centered-text")
+					.addClass("interactable")
+					.addClass("unselectable")
+					.attr("id", "score-display-to-level-selection")
+					.click(function () {
+						$("#score-display").fadeOut(function() {
+							router.showLevelSelection(stageid);
+						});
+					})
+					.appendTo("#score-display-content");
+					
+					$("#score-display").hide().fadeIn(1000);
+					
 				});
 			});
 			
@@ -324,13 +384,14 @@ $(function() {
 			
 			//Button zurücksetzen
 			setStartButtonEnabled(true, "Zurücksetzen");
+			$("#startbutton").addClass("highlighted");
 			
 			//Fail-Feedback
 			$("#game").animate({
 				boxShadow : "0 0 75px 0 rgba(255, 0, 0, 1) inset"
 			}, 400, function () {
 				$(this).animate({
-					boxShadow : "0 0 15px 0 rgba(255, 0, 0, 1) inset"
+					boxShadow : "0 0 5px 0 rgba(255, 0, 0, 1) inset"
 				}, 1000,function () {
 					$(this).addClass("wrong");
 				});
@@ -595,24 +656,41 @@ $(function() {
 		
 		if (playerObject.showGameTutorial) $("#startbutton").removeClass("highlighted"); //Falls das Tutorial diesen gehighlighted hat!
 		if ($(this).text() === 'Test starten!') {
+			
+			//Starte den Test
 			level.startRun();
+			
+			//Deaktiviere den Start-Button
 			setStartButtonEnabled(false, "Test läuft!");
+			
+			//Verhindere die Modifikation des Spielfelds
+			$(".event-blocker").show(); 
+			
 		} else if ($(this).text() === 'Zurücksetzen') {
+			
+			$("#startbutton").removeClass("highlighted");
 			clearRun();
 			$(this).text("Test starten!");
 			$("#game").css({
 				boxShadow: "0px 0px 0px 0px #F80 inset"
 			});
 			$("#game").removeClass("wrong").removeClass("right");
+			$(".event-blocker").hide(); //Erlaube das Modifizieren des Spielfelds
+			
 		} 
 		
 	});
+	
+	//Aktiviere Start Button
+	
 	setStartButtonEnabled(true);
 	
-	//Initialisiere Menüelemente
+	//Deaktiviere das Blockieren von Events auf dem Spielfeld
 	
-	optionsMenu.initialize("7px", "calc(90% - 74px)").showButton();
-	backButton.initialize("7px", "calc(100% - 74px)", showStageSelection).setVisible(true);
+	$(".event-blocker").hide();
+
+	backButton.setCallback(showLevelSelection);
+	backButton.parameters = [stageid];
 	
 	//Starte Spielmusik
 	

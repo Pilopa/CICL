@@ -203,9 +203,9 @@
 }
 
 @keyframes right-animation {
-	0% {box-shadow: 0 0 15px #00ff00 inset;}
-	50% {box-shadow: 0 0 30px #00ff00 inset;}
-	100% {box-shadow: 0 0 15px #00ff00 inset;}
+	0% {box-shadow: 0 0 5px #00ff00 inset;}
+	50% {box-shadow: 0 0 15px #00ff00 inset;}
+	100% {box-shadow: 0 0 5px #00ff00 inset;}
 }
 
 #game.wrong {
@@ -213,7 +213,45 @@
 }
 
 @keyframes wrong-animation {
-	0% {box-shadow: 0 0 15px #ff0000 inset;}
-	50% {box-shadow: 0 0 30px #ff0000 inset;}
-	100% {box-shadow: 0 0 15px #ff0000 inset;}
+	0% {box-shadow: 0 0 5px #ff0000 inset;}
+	50% {box-shadow: 0 0 15px #ff0000 inset;}
+	100% {box-shadow: 0 0 5px #ff0000 inset;}
+}
+
+.event-blocker {
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+}
+
+.to-level-selection-button, .continue-button {
+	width: 200px;
+	height: 120px;
+	border-radius: 5px;
+	background: black;
+	color: white;
+	position: absolute;
+	font-size: 25px;
+	top: 375px;
+}
+
+.to-level-selection-button:hover, .continue-button:hover {
+	box-shadow: 0 0 10px white;
+}
+
+.to-level-selection-button:active, .continue-button:active {
+	background: white;
+	color: black;
+}
+
+.continue-button {
+	left: 165px;
+}
+
+.to-level-selection-button {
+	right: 165px;
 }
