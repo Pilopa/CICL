@@ -6,7 +6,7 @@ $(function() {
 	var levelid = parseInt(x[1]);
 	var level = getStages()[stageid].levels[levelid];
 	var playerObject = getCurrentPlayerObject();
-	$.event.special.swipe.horizontalDistanceThreshold = 150; //px Definiere die Grenze, ab welchem ein Swipe-Event ausgelöst wird.
+	$.event.special.swipe.horizontalDistanceThreshold = 150; //px //Definiere die Grenze, ab welchem ein Swipe-Event ausgelöst wird.
 	
 	//Funktionen
 	
@@ -247,6 +247,7 @@ $(function() {
 			//Anzahlanzeige
 			var toolCount = $(document.createElement('div'))
 			.addClass("toolnumber")
+			.addClass("centered-text")
 			.addClass("unselectable")
 			.attr("id", "toolcount-" + tiletype.name)
 			.appendTo("#toolbox");
@@ -536,7 +537,7 @@ $(function() {
 			     }
 	         ),
 		     
-	         new Speech("Links siehst du den Werkzeugkasten. In diesem findest du die Werkzeuge mit denen du das Puzzel lösen kannst ...", undefined,
+	         new Speech("Auf der linken Seite siehst du den Werkzeugkasten.<br><br>Dort findest du Werkzeuge mit denen du die Apparatur reparieren kannst ...", undefined,
 	        		 
 	        	function () { //on
 		       		$("#toolbox").addClass("highlighted");
@@ -548,24 +549,36 @@ $(function() {
 	         	
 	         ),
 		     
-			 new Speech("Zunächst arbeiten wir nur mit simplen Mitteln. <br>Um genau zu sein: Ecken<br><br>Links neben den Werkzeugen steht die dir zur Verfügung stehende Anzahl ...", undefined,
+			 new Speech("Probieren wir einfach mal alles aus, was man so mit einem Werkzeug anstellen kann.<br><br>Nehmen wir hierzu mal die Gerade ...", undefined,
 					 
 				function () { //on
 					if (level.getAmountPlaced(TILE_TYPE_CORNER) == 0) {
 			        	level.tools = {
-			        		corner: 0
+			        		straight: 0
 			        	}
 			        	updateToolBox();
-			        	$("#corner").removeClass("immovable");
+			        	$("#straight").removeClass("immovable");
 					}
-					$("#corner").addClass("highlighted")
+					$("#straight").addClass("highlighted")
 			     },
 			     
 			     function () { //off
-			    	$("#corner").removeClass("highlighted");
+			    	$("#straight").removeClass("highlighted");
 			     }
 			     
 		     ),
+		     
+	         new Speech("Direkt neben den Werkzeugen steht die dir zur Verfügung stehende Anzahl ...", undefined,
+	        		 
+  	        	function () { //on
+  		       		$("#toolcount-straight").addClass("highlighted");
+  	         	},
+  	         	
+  	         	function () { //off
+  	         		$("#toolcount-straight").removeClass("highlighted");
+  	         	}
+  	         	
+  	         ),
 		     
 		     new Speech("Ziehe zunächst eine Ecke von der Werkzeugleiste auf das makierte Feld ...", undefined,
 		    		 
@@ -574,18 +587,18 @@ $(function() {
 				    		 level.registerListener(tutorialHandler);
 				    		 combulix.disableNext();
 				    		 level.tools = {
-				    			corner: 1
+				    			straight: 1
 							 }
-						     updateToolNumber(TILE_TYPE_CORNER);
+						     updateToolNumber(TILE_TYPE_STRAIGHT);
 				    		 $(".tile:not(.x0.y1)").each(function(index) {
 					    		 if ($(this).is('.ui-droppable')) $(this).droppable('destroy');
 					    	 });
 				    		 
 				    	 }
 				    	 
-				    	 $("#corner").addClass("highlighted");
-				    	 $(".tile.x0.y1").addClass("highlighted");
-				    	 $(".tile.x0.y1").css("z-index", 21);
+				    	 $("#straight").addClass("highlighted");
+				    	 $(".tile.x1.y2").addClass("highlighted");
+				    	 $(".tile.x1.y2").css("z-index", 21);
 		    	 	},
 		    	 	
 		    	 	function () { //off

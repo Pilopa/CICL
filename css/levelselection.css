@@ -22,6 +22,7 @@
 	display: inline-box;
 	position: relative;
 	float: right;
+	border-radius: 10px;
 }
 
 .level-item {

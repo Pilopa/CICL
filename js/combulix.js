@@ -10,7 +10,7 @@ var combulix = {
 	
 	set: function(index) {
 		if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.pause();
-		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback();
+		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback.call(this.speeches[this.current]);
 		this.current = index;
 		if (index < 0) return;
 		else if (index == 0) $(".arrow.left").fadeOut();
@@ -18,7 +18,7 @@ var combulix = {
 		$(".arrow:not(.left)").fadeIn();
 		$(".speech-bubble").html(this.speeches[this.current].text);
 		if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.play();
-		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].onCallback();
+		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].onCallback.call(this.speeches[this.current]);
 		return this;
 	},
 	
@@ -27,7 +27,7 @@ var combulix = {
 			combulix.set(this.current + 1);
 		} else {
 			if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.pause();
-			if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback();
+			if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback.call(this.speeches[this.current]);
 			combulix.slideOut();
 		}
 	},

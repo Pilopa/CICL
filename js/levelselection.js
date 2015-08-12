@@ -67,7 +67,7 @@ $(function() {
 	         
 	         ),
 	         
-	         new Speech("Jeder Bereich ist normalerweise in vier Level unterteilt.<br><br>Jedes davon stellt dich vor eine Herausforderung als das Letztere. ...", undefined,
+	         new Speech("Jeder Bereich ist normalerweise in vier Level unterteilt.<br><br>Jedes davon stellt dich vor eine größere Herausforderung als das Letzte. ...", undefined,
 	        		 
  	        	function () {
  		        	 $(".item").addClass("highlighted");
