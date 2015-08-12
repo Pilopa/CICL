@@ -50,41 +50,60 @@ $(function() {
 	if (playerObject.showLevelSelectionTutorial) { //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
 		combulix.speeches = [
 		                     
-	         new Speech("Super! Du hast die Levelauswahl gefunden.<br><br>Jeder Bereich ist normalerweise in drei Level unterteilt ...", undefined,
+	         new Speech("Super! Du hast die Levelauswahl gefunden ...", undefined,
 	        		 
 	        	function () {
 		        	 $(".speech-bubble").addClass("highlighted");
+		         },
+		         
+		         function () {
+		        	 $(".speech-bubble").removeClass("highlighted");
 		         }
 	         
 	         ),
 	         
-	         new Speech("Wenn du ein Level erfolgreich abschließt, wirst du mit minimal einem und maximal fünf Sternen für dieses Level belohnt ...", undefined,
+	         new Speech("Jeder Bereich ist normalerweise in drei Level unterteilt, welche in Schwierigkeit zunehmen ...", undefined,
+	        		 
+ 	        	function () {
+ 		        	 $(".item").addClass("highlighted");
+ 		         },
+ 		         
+ 		         function () {
+ 		        	 $(".item").removeClass("highlighted");
+ 		         }
+ 	         
+ 	         ),
+	         
+	         new Speech("Wenn du ein Level erfolgreich abschließt, wirst du mit minimal einem und maximal fünf Sternen dafür belohnt ...", undefined,
 	        		 
 	        	function () {
-	        	 	$("#rating-container").addClass("highlighted");
+	        	 	$(".rating-container").addClass("highlighted");
 	         	},
 	         	
 	         	function () {
-	        	 	$("#rating-container").removeClass("highlighted");
+	        	 	$(".rating-container").removeClass("highlighted");
 	         	}
 	         	
 	         ),
 	         
-	         new Speech("Um das nächste Level in einem Bereich freizuschalten, musst du in dem vorherigen mindestens drei von fünf (3/5) Sternen erreicht haben ...", undefined,
+	         new Speech("Um das nächste Level in einem Bereich freizuschalten, musst du in dem Vorherigen mindestens drei von fünf (3/5) Sternen erreicht haben ...", undefined,
 	        		 
-	        	function () {
-		        	 $(".speech-bubble").addClass("highlighted");
-		         }
+	        function () {
+	        	 $(".speech-bubble").addClass("highlighted");
+	         },
+	         
+	         function () {
+	        	 $(".speech-bubble").removeClass("highlighted");
+	         }
 	         
 	         ),
 	         
-	         new Speech("Lass uns mit der Einführung anfangen.<br><br>Klicke dazu auf den hervorgehobenen Button.", undefined,
+	         new Speech("Genug gequatscht! <br><br>Lass uns mit der Einführung anfangen.<br><br>Klicke dazu auf den hervorgehobenen Button.", undefined,
 	        		 
 	        	function () {
 		        	 $("#0").addClass("active").addClass("highlighted").click(function(event) {
 		    			showLevel(stageId, $(this).attr("id"))
 		    		});
-		        	 $(".speech-bubble").removeClass("highlighted");
 	         	},
 	         	
 		         function () {

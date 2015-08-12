@@ -27,19 +27,37 @@ $(function() {
 		
 		//Definiere die Texte von Combulix
 		combulix.speeches = [
-	         new Speech("Hallo, meine Name ist Combulix. Willkommen in meinem Labor! Klicke auf den grünen Pfeil, oder wische nach Links, um den nächsten Tipp zu lesen.",
-	        		 undefined, function () {
-	        	 $(".speech-bubble").addClass("highlighted");
-	         }),
-	         new Speech("Gut gemacht! Mir ist leider vorhin meine Apparatur kaputt gegangen. Du musst mir helfen, Sie zu reparieren!"),
-	         new Speech("Fangen wir doch zunächst in Bereich 1 an.", undefined, function () {
-	        	 $("#0").addClass("active").addClass("highlighted").click(function(event) {
-	    			showLevelSelection($(this).attr("id"));
-	    		});
-	        	 $(".speech-bubble").removeClass("highlighted");
-	         }, function () {
-	        	 $("#0").removeClass("highlighted");
-	         }),
+	         new Speech("<br>Oh nein,<br> nicht SCHON WIEDER !!! <br><br><br><br><i>(Klicke auf den grünen Pfeil, oder wische nach Links, um den nächsten Tipp zu lesen.)</i>", undefined,
+	        		 
+	        	function () {
+	        	 
+	        	 	$(".speech-bubble").addClass("highlighted");
+	        	 	
+	         	}
+	         
+	         ),
+	         
+	         new Speech("Gut gemacht! <br><br>Wie dir sicherlich schon auffiel, ist leider gerade meine Apparatur kaputt gegangen. <br><br>Du musst mir unbedingt helfen, Sie zu reparieren!"),
+	         
+	         new Speech("Fangen wir doch zunächst in Bereich 1 an.", undefined,
+	        		 
+	        	function () {
+	        	 
+		        	$("#0").addClass("active").addClass("highlighted").click(function(event) {
+		    			showLevelSelection($(this).attr("id"));
+		    		});
+		        	$(".speech-bubble").removeClass("highlighted");
+		        	
+	         	},
+	         	
+	         	function () {
+	         		
+	         		$("#0").removeClass("highlighted");
+	        	 
+	         	}
+	         	
+	         ),
+	         
 	         new Speech("Klicke weiter oder wische nach Links, um mich auszublenden." +
 		     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.")
 		];

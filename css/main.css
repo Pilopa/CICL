@@ -73,7 +73,7 @@ body {
 	border-width: 0px;
 	border-radius: 50px;
 	box-sizing: border-box;
-	padding: 25px;
+	padding: 25px 25px 25px 35px;
 	cursor: default;
 	font-size: 26px;
 	position: absolute;
@@ -176,10 +176,6 @@ body {
 	cursor: not-allowed;
 }
 
-
-/**
-  * Danke an Omar Tariq von Stackoverflow: http://stackoverflow.com/questions/9249359/is-it-possible-to-vertically-align-text-within-a-div.
-  */
 .centered-text {
 
 	display: flex;
