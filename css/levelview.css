@@ -95,7 +95,7 @@
 	width: 150px;
 	position: absolute;
 	margin: 70px 80px 70px 20px;
-	padding: 20px;
+	padding: 30px;
 	background-color: grey;
 	border-radius: 15px;
 	border: solid 2px #444444;
@@ -103,10 +103,10 @@
 
 .toolnumber {
 	margin-top: 20px;
-	height: 63px;
+	height: 98px;
 	color: white;
 	font-size: 20pt;
-	padding-top: 40px;
+	padding-top: 15px;
 	text-align: right;
 	width: 30px;
 	cursor: default;
