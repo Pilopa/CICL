@@ -49,18 +49,50 @@ $(function() {
 	
 	if (playerObject.showLevelSelectionTutorial) { //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
 		combulix.speeches = [
-	         new Speech("Super! Du hast die Levelauswahl gefunden.<br><br>Jeder Bereich ist normalerweise in drei Level unterteilt ...",
-	        		 undefined, function () {
-	        	 $(".speech-bubble").addClass("highlighted");
-	         }),
-	         new Speech("Lass uns mit der Einführung anfangen.<br><br>Klicke dazu auf den hervorgehobenen Button.", undefined, function () {
-	        	 $("#0").addClass("active").addClass("highlighted").click(function(event) {
-	    			showLevel(stageId, $(this).attr("id"))
-	    		});
-	        	 $(".speech-bubble").removeClass("highlighted");
-	         }, function () {
-	        	 $("#0").removeClass("highlighted");
-	         })
+		                     
+	         new Speech("Super! Du hast die Levelauswahl gefunden.<br><br>Jeder Bereich ist normalerweise in drei Level unterteilt ...", undefined,
+	        		 
+	        	function () {
+		        	 $(".speech-bubble").addClass("highlighted");
+		         }
+	         
+	         ),
+	         
+	         new Speech("Wenn du ein Level erfolgreich abschließt, wirst du mit minimal einem und maximal fünf Sternen für dieses Level belohnt ...", undefined,
+	        		 
+	        	function () {
+	        	 	$("#rating-container").addClass("highlighted");
+	         	},
+	         	
+	         	function () {
+	        	 	$("#rating-container").removeClass("highlighted");
+	         	}
+	         	
+	         ),
+	         
+	         new Speech("Um das nächste Level in einem Bereich freizuschalten, musst du in dem vorherigen mindestens drei von fünf (3/5) Sternen erreicht haben ...", undefined,
+	        		 
+	        	function () {
+		        	 $(".speech-bubble").addClass("highlighted");
+		         }
+	         
+	         ),
+	         
+	         new Speech("Lass uns mit der Einführung anfangen.<br><br>Klicke dazu auf den hervorgehobenen Button.", undefined,
+	        		 
+	        	function () {
+		        	 $("#0").addClass("active").addClass("highlighted").click(function(event) {
+		    			showLevel(stageId, $(this).attr("id"))
+		    		});
+		        	 $(".speech-bubble").removeClass("highlighted");
+	         	},
+	         	
+		         function () {
+		        	 $("#0").removeClass("highlighted");
+		         }
+	         	
+	         )
+	         
 		];
 	} else {
 		//Lade Spielstand

@@ -368,7 +368,7 @@ $(function() {
 					.attr("id", "score-display-to-level-selection")
 					.click(function () {
 						$("#score-display").fadeOut(function() {
-							router.showLevelSelection(stageid);
+							showLevelSelection(stageid);
 						});
 					})
 					.appendTo("#score-display-content");
