@@ -326,14 +326,24 @@ $(function() {
 	});
 	
 	// Initialisiere das Spielfeld
+	var tilesize = 0;
+	if(level.width >= level.height) {
+		tilesize = Math.floor(parseInt($('#space').css('width'))/level.width);
+		$('#field').css('top', Math.floor((parseInt($('#space').css('height'))-(tilesize*level.height))/2));
+	} else {
+		tilesize = Math.floor(parseInt($('#space').css('height'))/level.height);
+		$('#field').css('left', Math.floor((parseInt($('#space').css('width'))-(tilesize*level.width))/2));
+	}
+	$('#field').css('width', tilesize*level.width);
+	$('#field').css('height', tilesize*level.height);
 	for(var y = 0; y < level.height; y++) {
 		for(var x = 0; x < level.width; x++) {
 			var tileview = $(document.createElement('div'))
 				.addClass('tile')
 				.addClass('x' + x)
 				.addClass('y' + y)
-				.css('width', Math.floor(parseInt($('#field').css('width'))/level.width))
-				.css('height', Math.floor(parseInt($('#field').css('height'))/level.height))
+				.css('width', tilesize)
+				.css('height', tilesize)
 				.appendTo('#field');
 
 			updateTileView(x, y);
