@@ -2,8 +2,8 @@ $(function() {
 	
 	//Globale Variablen
 	var x = location.search.replace('?','').split('-');
-	var levelid = parseInt(x[0]);
-	var stageid = parseInt(x[1]);
+	var stageid = parseInt(x[0]);
+	var levelid = parseInt(x[1]);
 	var level = getStages()[stageid].levels[levelid];
 	var playerObject = getCurrentPlayerObject();
 	
