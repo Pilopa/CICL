@@ -308,7 +308,7 @@ $(function() {
 			setStartButtonEnabled(true, "Zurücksetzen");
 			
 			//Sieges-Feedback
-			$("#field").animate({
+			$("#game").animate({
 				boxShadow : "0 0 50px 3px rgba(0,255,0,1) inset"
 			}, function () {
 				$(this).animate({
@@ -324,7 +324,7 @@ $(function() {
 			setStartButtonEnabled(true, "Zurücksetzen");
 			
 			//Fail-Feedback
-			$("#field").animate({
+			$("#game").animate({
 				boxShadow : "0 0 50px 0 rgba(255,0,0,1) inset"
 			}, function () {
 				$(this).animate({

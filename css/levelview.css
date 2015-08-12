@@ -56,7 +56,7 @@ body {
 	position: relative;
 }
 
-.tile:HOVER:not(.highlighted) {
+.tile:not(.highlighted):not(.drag-highlight):HOVER {
 	animation: tile-hover-highlight 2s ease-in-out infinite;
 }
 
@@ -110,6 +110,10 @@ body {
 	background-size: 100% 100%;
 	z-index: 30;
 	float: right;
+}
+
+.tool.interactable:not(.drag-highlight):hover {
+	animation: tile-hover-highlight 2s ease-in-out infinite;
 }
 
 #startbutton {
