@@ -4,6 +4,10 @@
 	font-size: 0;
 }
 
+body {
+	box-shadow: none;
+}
+
 .drag-highlight {
 	animation: drag-highlight 2s ease-in-out infinite;
 	cursor: grabbing;

@@ -260,23 +260,3 @@ body {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
-
-.right-animation {
-	animation:  right-animation 1.5s ease-in-out 1;
-}
-
-@keyframes right-animation {
-	0% {box-shadow: none;}
-	50% {box-shadow: 0 0 50px #00ff00 inset;}
-	100% {box-shadow: none;}
-}
-
-.wrong-animation {
-	animation: wrong-animation 1.5s ease-in-out 1;
-}
-
-@keyframes wrong-animation {
-	0% {box-shadow: none;}
-	50% {box-shadow: 0 0 50px #ff0000 inset;}
-	100% {box-shadow: none;}
-}

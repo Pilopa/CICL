@@ -305,21 +305,32 @@ $(function() {
 			
 		} else if (event.type === EVENT_TYPE_TEST_COMPLETED) { //Der Test wurde Erfolgreich beendet.
 			
-			//clearRun(); //TODO: Sollte das Level wirklich gecleart werden ?
+			setStartButtonEnabled(true, "Zurücksetzen");
 			
 			//Sieges-Feedback
-			$("html, body").addClass("right-animation");
+			$("#field").animate({
+				boxShadow : "0 0 50px 3px rgba(0,255,0,1) inset"
+			}, function () {
+				$(this).animate({
+					boxShadow : "0 0 25px 3px rgba(0,255,0,1) inset"
+				});
+			});
 			
 		} else if (event.type === EVENT_TYPE_TEST_FAILED) { //Der Test ist fehlgeschlagen.
 			
 			for(var i = 0; i < level.walkers.length; i++) level.walkers[i].stop(); //Weitere Analyse des Levels stoppen.
-			clearRun();
 			
 			//Button zurücksetzen
-			setStartButtonEnabled(true, "Test starten!");
+			setStartButtonEnabled(true, "Zurücksetzen");
 			
 			//Fail-Feedback
-			$("html, body").addClass("wrong-animation");
+			$("#field").animate({
+				boxShadow : "0 0 50px 0 rgba(255,0,0,1) inset"
+			}, function () {
+				$(this).animate({
+					boxShadow : "0 0 25px 0 rgba(255,0,0,1) inset"
+				});
+			});
 			
 		}
 		
@@ -577,10 +588,16 @@ $(function() {
 	}
 	
 	$('#startbutton').click(function() {
+		
 		if (playerObject.showGameTutorial) $("#startbutton").removeClass("highlighted"); //Falls das Tutorial diesen gehighlighted hat!
-		setStartButtonEnabled(false, "Test läuft!");
-		level.startRun();
-		$("html, body").removeClass("right-animation").removeClass("wrong-animation"); //Setze Animationen zurück.
+		if ($(this).text() === 'Test starten!') {
+			level.startRun();
+			setStartButtonEnabled(false, "Test läuft!");
+		} else if ($(this).text() === 'Zurücksetzen') {
+			clearRun();
+			$(this).text("Test starten!");
+		} 
+		
 	});
 	setStartButtonEnabled(true);
 	
