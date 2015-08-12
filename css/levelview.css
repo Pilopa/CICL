@@ -63,12 +63,16 @@
 }
 
 #field {
+	position: absolute;
+	background-color: black;
+}
+
+#space {
 	width: 550px;
 	height: 550px;
 	position: absolute;
 	left: 30%;
 	margin: 50px;
-	background-color: black;
 }
 
 #toolbox {
