@@ -25,6 +25,8 @@ $(function() {
 		playerObject.stageAvailable[0] = true;
 		saveCurrentPlayerObject(playerObject);
 		
+		$("#list").hide();
+		
 		//Definiere die Texte von Combulix
 		combulix.speeches = [
 	         new Speech("<br>Oh nein,<br> nicht SCHON WIEDER !!! <br><br><br><br><i>(Klicke auf den grünen Pfeil, oder wische nach Links, um den nächsten Tipp zu lesen.)</i>", undefined,
@@ -33,13 +35,49 @@ $(function() {
 	        	 
 	        	 	$(".speech-bubble").addClass("highlighted");
 	        	 	
+	         	},
+	         	
+	         	function () {
+		        	 
+	        	 	$(".speech-bubble").removeClass("highlighted");
+	        	 	
 	         	}
 	         
 	         ),
 	         
-	         new Speech("Gut gemacht! <br><br>Wie dir sicherlich schon auffiel, ist leider gerade meine Apparatur kaputt gegangen. <br><br>Du musst mir unbedingt helfen, Sie zu reparieren!"),
+	         new Speech("Gut gemacht! <br><br>Wie du sicherlich mitbekommen hast, ist leider gerade meine Apparatur kaputt gegangen. <br><br>Du musst mir unbedingt helfen, Sie zu reparieren!", undefined,
+	        		 
+	 	        function () {
+	        	 
+	        	 	$(".speech-bubble").addClass("highlighted");
+	        	 	
+	         	},
+	         	
+	         	function () {
+		        	 
+	        	 	$(".speech-bubble").removeClass("highlighted");
+	        	 	
+	         	}
+	         	
+	         ),
 	         
-	         new Speech("Fangen wir doch zunächst in Bereich 1 an.", undefined,
+	         new Speech("Mein wertvoller Schatz ist in mehrere Bereiche eingeteilt.<br><br>Wir sollten Sie uns nacheinander vornehmen.<br><br>...", undefined,
+	        		 
+ 	 	        function () {
+ 	        	 
+ 	        	 	$("#list").fadeIn(1000).addClass("highlighted");
+ 	        	 	
+ 	         	},
+ 	         	
+ 	         	function () {
+ 		        	 
+ 	        	 	$("#list").removeClass("highlighted");
+ 	        	 	
+ 	         	}
+ 	         	
+ 	         ),
+	         
+	         new Speech("Lass uns im ersten Bereich beginnen.<br><br>Klicke dazu auf die hervorgehobene Schaltfläche ...", undefined,
 	        		 
 	        	function () {
 	        	 
@@ -59,7 +97,16 @@ $(function() {
 	         ),
 	         
 	         new Speech("Klicke weiter oder wische nach Links, um mich auszublenden." +
-		     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.")
+		     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.<br><br><i>(Es ändert nichts am Spielgeschehen!)</i>", undefined, 
+		     		
+	     		function () {
+	        	 	$(".arrow.right").addClass("highlighted");
+         		},
+         		
+         		function () {
+         			$(".arrow.right").removeClass("highlighted");
+         		}
+	         )
 		];
 		
 	} else {

@@ -41,6 +41,7 @@ body {
 	top: calc(35% - 32px);
 	right: 16px;
 	z-index: 99;
+	border-radius: 25px;
 }
 
 .arrow.left {
@@ -133,6 +134,11 @@ body {
   	background-image: -ms-linear-gradient(top, #e6e6e6, #aaaaff);
   	background-image: -o-linear-gradient(top, #e6e6e6, #aaaaff);
   	background-image: linear-gradient(to bottom, #e6e6e6, #aaaaff);	
+}
+
+.item.active:ACTIVE:HOVER {
+	border-style: inset;
+	background-image: linear-gradient(to bottom, #8080ff, #c0c0c0);
 }
 
 .highlighted {

@@ -39,6 +39,8 @@ $(function() {
 		}
 	}
 	
+	$("#list").prepend("<div class='stage-id'>Bereich " + stageId + "</div>");
+	
 	//Combulix
 	combulix.initialize();
 	
@@ -48,6 +50,9 @@ $(function() {
 	}
 	
 	if (playerObject.showLevelSelectionTutorial) { //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
+		
+		$("#list").hide();
+		
 		combulix.speeches = [
 		                     
 	         new Speech("Super! Du hast die Levelauswahl gefunden ...", undefined,
@@ -62,10 +67,11 @@ $(function() {
 	         
 	         ),
 	         
-	         new Speech("Jeder Bereich ist normalerweise in drei Level unterteilt, welche in Schwierigkeit zunehmen ...", undefined,
+	         new Speech("Jeder Bereich ist normalerweise in vier Level unterteilt.<br><br>Jedes davon stellt dich vor eine Herausforderung als das Letztere. ...", undefined,
 	        		 
  	        	function () {
  		        	 $(".item").addClass("highlighted");
+ 		        	 $("#list").fadeIn(1000)();
  		         },
  		         
  		         function () {
@@ -86,7 +92,7 @@ $(function() {
 	         	
 	         ),
 	         
-	         new Speech("Um das nächste Level in einem Bereich freizuschalten, musst du in dem Vorherigen mindestens drei von fünf (3/5) Sternen erreicht haben ...", undefined,
+	         new Speech("Um das nächste Level freizuschalten, musst du in dem Vorherigen mindestens 3 von 5 Sternen erreicht haben ...", undefined,
 	        		 
 	        function () {
 	        	 $(".speech-bubble").addClass("highlighted");
