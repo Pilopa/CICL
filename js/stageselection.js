@@ -72,8 +72,4 @@ $(function() {
 	$(".item.active").click(function(event) {
 		showLevelSelection($(this).attr("id"));
 	});
-	
-	//START DEBUG
-	
-	//END DEBUG
 });
