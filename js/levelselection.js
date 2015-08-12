@@ -105,11 +105,22 @@ $(function() {
 		
 		//Definiere die Texte von Combulix
 		combulix.speeches = [
-	         new Speech("Wählen das Level aus, in welchem du weitermachen möchtest . . .", undefined, function() {
-	        	 $(".item.active").addClass("highlighted");
-	         }, function () {
-	        	 $(".item.active").removeClass("highlighted");
-	         })
+		                     
+	         new Speech("Wählen das Level aus, in welchem du weitermachen möchtest . . .", undefined,
+	        		 
+	        	 function() {
+	        	 
+		        	 $(".item.active").addClass("highlighted");
+		        	 
+		         },
+		         
+		         function () {
+		        	 
+		        	 $(".item.active").removeClass("highlighted");
+		        	 
+		         }
+	         )
+	         
         ];
 		
 	}
