@@ -394,7 +394,7 @@ $(function() {
 					})
 					.appendTo("#score-display-content");
 					
-					$("#score-display").hide().fadeIn(1000);
+					$("#score-display").hide().fadeIn(800);
 					
 				});
 			});
