@@ -6,6 +6,7 @@ $(function() {
 	var levelid = parseInt(x[1]);
 	var level = getStages()[stageid].levels[levelid];
 	var playerObject = getCurrentPlayerObject();
+	$.event.special.swipe.horizontalDistanceThreshold = 150; //px Definiere die Grenze, ab welchem ein Swipe-Event ausgelöst wird.
 	
 	//Funktionen
 	
@@ -30,7 +31,7 @@ $(function() {
 		var x = parseInt(classes[1].replace("x", ""));
 		var y = parseInt(classes[2].replace("y", ""));
 		if (level.getTile(x, y) !== null && level.getTile(x, y) !== undefined && level.getTile(x, y).rotatable) level.rotate(x, y);
-		else console.log("click but no rotate on [" + x + "|" + y + "]")
+		else console.log("click but no rotate on [" + x + "|" + y + "]");
 	}
 	
 	function initializeTileViewRotateHandler(x, y) {
