@@ -198,8 +198,8 @@ body {
 	height: 64px;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
-	left: 7px;
-	top: calc(100% - 71px);
+	left: 10px;
+	bottom: 10px;
 }
 
 .screen-overlay {
@@ -243,6 +243,6 @@ body {
 	height: 64px;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
-	left: 7px;
-	top: 7px;
+	left: 10px;
+	top: 10px;
 }

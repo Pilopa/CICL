@@ -11,9 +11,11 @@ $(function() {
 	//Funktionen
 	
 	function getScoreObject() {
+		
 		return {
 			score: 3
 		};
+		
 	}
 	
 	function setStartButtonEnabled(flag, text) {
@@ -384,9 +386,11 @@ $(function() {
 					.addClass("unselectable")
 					.attr("id", "score-display-to-level-selection")
 					.click(function () {
+						
 						$("#score-display").fadeOut(function() {
 							showLevelSelection(stageid);
 						});
+						
 					})
 					.appendTo("#score-display-content");
 					

@@ -58,11 +58,15 @@ $(function() {
 	         new Speech("Super! Du hast die Levelauswahl gefunden ...", undefined,
 	        		 
 	        	function () {
+	        	 
 		        	 $(".speech-bubble").addClass("highlighted");
+		        	 
 		         },
 		         
 		         function () {
+		        	 
 		        	 $(".speech-bubble").removeClass("highlighted");
+		        	 
 		         }
 	         
 	         ),
@@ -70,12 +74,16 @@ $(function() {
 	         new Speech("Jeder Bereich ist normalerweise in vier Level unterteilt.<br><br>Jedes davon stellt dich vor eine größere Herausforderung als das Letzte. ...", undefined,
 	        		 
  	        	function () {
+	        	 
  		        	 $(".item").addClass("highlighted");
  		        	 $("#list").fadeIn(1000)();
+ 		        	 
  		         },
  		         
  		         function () {
+ 		        	 
  		        	 $(".item").removeClass("highlighted");
+ 		        	 
  		         }
  	         
  	         ),
@@ -83,43 +91,57 @@ $(function() {
 	         new Speech("Wenn du ein Level erfolgreich abschließt, wirst du mit minimal einem und maximal fünf Sternen dafür belohnt ...", undefined,
 	        		 
 	        	function () {
+	        	 
 	        	 	$(".rating-container").addClass("highlighted");
+	        	 	
 	         	},
 	         	
 	         	function () {
+	         		
 	        	 	$(".rating-container").removeClass("highlighted");
+	        	 	
 	         	}
 	         	
 	         ),
 	         
 	         new Speech("Um das nächste Level freizuschalten, musst du in dem Vorherigen mindestens 3 von 5 Sternen erreicht haben ...", undefined,
 	        		 
-	        function () {
-	        	 $(".speech-bubble").addClass("highlighted");
-	         },
-	         
-	         function () {
-	        	 $(".speech-bubble").removeClass("highlighted");
-	         }
+		        function () {
+	        	 
+	        	 	$(".speech-bubble").addClass("highlighted");
+	        	 	
+		        },
+		         
+		         function () {
+		        	 
+		        	 $(".speech-bubble").removeClass("highlighted");
+		        	 
+		         }
 	         
 	         ),
 	         
 	         new Speech("Genug gequatscht! <br><br>Lass uns mit der Einführung anfangen.<br><br>Klicke dazu auf den hervorgehobenen Button.", undefined,
 	        		 
 	        	function () {
-		        	 $("#0").addClass("active").addClass("highlighted").click(function(event) {
+	        	 
+		        	$("#0").addClass("active").addClass("highlighted").click(function(event) {
 		    			showLevel(stageId, $(this).attr("id"))
 		    		});
+		        	 
 	         	},
 	         	
 		         function () {
+	         		
 		        	 $("#0").removeClass("highlighted");
+		        	 
 		         }
 	         	
 	         )
 	         
 		];
+		
 	} else {
+		
 		//Lade Spielstand
 		//Wenn die Stage verfügbar ist, ist auch automatisch das erste Level verfügbar. Ansonsten benötigt jedes Level mindestens einen Punkt in dem vorhergegangenen Level.
 		for (i = 0; i < stage.levels.length; i++) {

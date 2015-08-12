@@ -48,7 +48,7 @@ var combulix = {
 				});
 			});
 		});
-		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback();
+		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback.call(this.speeches[this.current]);
 		return this;
 	},
 	
@@ -64,7 +64,7 @@ var combulix = {
 				else if (combulix.speeches.length > 0) combulix.set(0);
 			});
 		});	
-		if (typeof this.speeches[this.current].onCallback !== 'undefined') this.speeches[this.current].onCallback();
+		if (typeof this.speeches[this.current].onCallback !== 'undefined') this.speeches[this.current].onCallback.call(this.speeches[this.current]);
 		return this;
 	},
 	
