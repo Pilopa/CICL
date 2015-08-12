@@ -44,7 +44,7 @@ Walker.prototype.checkElement = function() {
 	if(this.where.getElement(cf) == this.element || this.where.getElement(cf) == TILE_ELEMENT_NONE) {
 		return true;
 	} else {
-		this.level.testFailed(this.element + ' meets ' + this.where.getElement(cf) + ' at entry'); // Verschiedene Elemente kollidieren!
+		this.level.testFailed(this.where, this.element + ' meets ' + this.where.getElement(cf) + ' at entry'); // Verschiedene Elemente kollidieren!
 		return false;
 	}
 }
@@ -78,7 +78,7 @@ Walker.prototype.onward = function() {
 Walker.prototype.assertExit = function(dir) {
 	var neighbor = this.level.getNeighbor(this.where, dir);
 		if(neighbor == null) {
-			this.level.testFailed('empty neighbor from ' + this.where + ' to ' + dir); // Nachbarfeld ist leer!
+			this.level.testFailed(this.where, 'empty neighbor from ' + this.where + ' to ' + dir); // Nachbarfeld ist leer!
 			return false;
 		}
 		nexits = neighbor.getExits();
@@ -91,7 +91,7 @@ Walker.prototype.assertExit = function(dir) {
 				return true;
 			}
 		}
-		this.level.testFailed('no entry to ' + neighbor); // Nachbartile hat keinen passend ausgerichteten Eingang!
+		this.level.testFailed(this.where, 'no entry to ' + neighbor); // Nachbartile hat keinen passend ausgerichteten Eingang!
 		return false;
 }
 
