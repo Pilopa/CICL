@@ -199,7 +199,7 @@ body {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	left: 7px;
-	top: calc(90% - 74px);
+	top: calc(100% - 71px);
 }
 
 .screen-overlay {
@@ -244,5 +244,5 @@ body {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	left: 7px;
-	top: calc(100% - 74px);
+	top: 7px;
 }

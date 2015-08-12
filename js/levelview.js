@@ -402,6 +402,7 @@ $(function() {
 	});
 	
 	// Initialisiere das Spielfeld
+	$('#levelheader').text('Bereich ' + (stageid+1) + ' - Level ' + (levelid+1) + ': ' + level.title);
 	var tilesize = 0;
 	if(level.width >= level.height) {
 		tilesize = Math.floor(parseInt($('#space').css('width'))/level.width);

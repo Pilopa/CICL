@@ -72,19 +72,30 @@
 }
 
 #space {
-	width: 550px;
-	height: 550px;
+	width: 500px;
+	height: 500px;
 	position: absolute;
-	left: 30%;
-	margin: 50px;
+	left: 300px;
+	top: 100px;
+}
+
+#levelheader {
+	font-size: 20pt;
+	text-decoration: underline;
+	color: white;
+	position: absolute;
+	top: 30px;
+	left: 300px;
+	width: 500px;
+	text-align: center;
 }
 
 #toolbox {
-	height: 600px;
+	height: 500px;
 	width: 150px;
 	position: absolute;
-	margin: 35px 80px;
-	padding: 15px;
+	margin: 70px 80px 70px 20px;
+	padding: 20px;
 	background-color: grey;
 	border-radius: 15px;
 	border: solid 2px #444444;
@@ -92,7 +103,7 @@
 
 .toolnumber {
 	margin-top: 20px;
-	height: 93px;
+	height: 63px;
 	color: white;
 	font-size: 20pt;
 	padding-top: 40px;
@@ -103,7 +114,7 @@
 }
 
 .tool {
-	margin: 20px 0px 5px 0px;
+	/*margin: 25px 0px 5px 0px;*/
 	background-color: black;
 	height: 100px;
 	width: 100px;
@@ -120,7 +131,7 @@
 	border-radius: 5px;
 	font-size: 18pt;
 	position: absolute;
-	left: calc(30% + 50px + 175px);
+	left: 450px;
 	bottom: 25px;
 	width: 200px;
 	height: 50px;
