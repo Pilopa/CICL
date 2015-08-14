@@ -49,11 +49,8 @@ $(function() {
 			revert: function (droppable) {
 				
 				if (!droppable) $(this).draggable("option", "revertDuration", 500);
-				else if ($(this).is(":data(ui-draggable)")) {
-					$(this).draggable("option", "revertDuration", 0);
-				} else {
-					$(this).removeClass("drag-highlight");
-				}
+				else if ($(this).is(":data(ui-draggable)")) $(this).draggable("option", "revertDuration", 0);
+				else $(this).removeClass("drag-highlight");
 				
 				return true;
 			},
