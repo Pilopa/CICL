@@ -1,9 +1,3 @@
-* {
-	margin: 0px;
-	padding: 0px;
-	font-size: 0;
-}
-
 #game {
 	box-shadow: 0px 0px 0px 0px #F80 inset;
 }
@@ -89,6 +83,7 @@
 	position: absolute;
 	left: 300px;
 	top: 80px;
+	font-size: 0;
 }
 
 #levelheader {
@@ -268,7 +263,7 @@
 	color: white;
 	position: absolute;
 	font-size: 25px;
-	top: 375px;
+	top: 400px;
 }
 
 .to-level-selection-button:hover, .continue-button:hover {
@@ -281,9 +276,9 @@
 }
 
 .continue-button {
-	left: 165px;
+	left: 170px;
 }
 
 .to-level-selection-button {
-	right: 165px;
+	right: 170px;
 }

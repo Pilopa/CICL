@@ -45,7 +45,18 @@ $(function() {
 	
 	function initializeTileViewDragHandler(x, y) {
 		if (!$(".x" + x + ".y" + y).is('.ui-draggable')) $(".x" + x + ".y" + y).draggable({
-			revert: true,
+			revertDuration: 0,
+			revert: function (droppable) {
+				
+				if (!droppable) $(this).draggable("option", "revertDuration", 500);
+				else if ($(this).is(":data(ui-draggable)")) {
+					$(this).draggable("option", "revertDuration", 0);
+				} else {
+					$(this).removeClass("drag-highlight");
+				}
+				
+				return true;
+			},
 			scroll: false,
 			start: function (event, ui) {
 				ui.helper.addClass("drag-highlight");
@@ -92,7 +103,7 @@ $(function() {
 					var sourceClasses = $(ui.draggable).attr('class').split(" ");
 					var x2 = parseInt(sourceClasses[1].replace("x", ""));
 					var y2 = parseInt(sourceClasses[2].replace("y", ""));
-					if (level.isEmpty(x, y)) ui.draggable.removeClass("drag-highlight");
+					//if (level.isEmpty(x, y)) ui.draggable.removeClass("drag-highlight");
 					level.swap(x2, y2, x, y);
 				}
 			}
@@ -114,8 +125,8 @@ $(function() {
 				
 			} else {
 				
-				if ($(tileview).is('.ui-draggable')) $(tileview).draggable('destroy');
-				if ($(tileview).is('.ui-droppable')) $(tileview).droppable('destroy');
+				if ($(tileview).is(":data(ui-draggable)")) $(tileview).draggable('destroy');
+				if ($(tileview).is(":data(ui-droppable)")) $(tileview).droppable('destroy');
 				
 			}
 			
@@ -137,7 +148,7 @@ $(function() {
 			//Dieser Teil passiert, wenn das Tile auf diesem Feld leer ist.
 			
 			initializeTileViewDropHandler(tileview);
-			if ($(tileview).is('.ui-draggable')) $(tileview).draggable('destroy');
+			if ($(tileview).is(":data(ui-draggable)")) $(tileview).draggable('destroy');
 			tileview.off("click", rotateEventHandler);
 			tileview.removeClass("rotatable");
 			
@@ -215,7 +226,7 @@ $(function() {
 			tool
 			.css('background-image', 'url(../images/' + tiletype.name + '.png)')
 			.addClass('interactable');
-			if (!tool.is(".ui-draggable")) tool.draggable({
+			if (!tool.is(":data(ui-draggable)")) tool.draggable({
 								helper: "clone",
 								revert: true,
 								scroll: false,
@@ -626,7 +637,7 @@ $(function() {
 				    		 
 				    		 //Lösche die nicht relevanten Droppables
 				    		 $(".tile:not(.x1.y2)").each(function(index) {
-					    		 if ($(this).is('.ui-droppable')) $(this).droppable('disable');
+					    		 if ($(this).is(":data(ui-droppable)")) $(this).droppable('disable');
 					    	 });
 				    		 
 				    	 }
@@ -648,7 +659,7 @@ $(function() {
 				    		
 				    		//Reaktiviere die Droppables des Spielfelds
 					    	$(".tile:not(.x1.y2)").each(function(index) {
-					    		if ($(this).is('.ui-droppable')) $(this).droppable('enable');
+					    		if ($(this).is(":data(ui-droppable)")) $(this).droppable('enable');
 					    	});
 					    	 
 				    	 }
@@ -711,7 +722,7 @@ $(function() {
 						 updateTileView(1, 2);
 						 
 			    		 $(".tile:not(.x1.y1)").each(function(index) {
-			    			 if ($(this).is(".ui-droppable")) $(this).droppable("disable");
+			    			 if ($(this).is(":data(ui-droppable)")) $(this).droppable("disable");
 				    	 });
 			    		 
 			    		 $("#tboverlay").droppable("disable");
@@ -739,7 +750,7 @@ $(function() {
 			    			var x = parseInt(classes[1].replace("x", ""));
 			    			var y = parseInt(classes[2].replace("y", ""));
 			    			updateTileViewHandlers(x, y);*/
-				    		if ($(this).is(".ui-droppable")) $(this).droppable("enable");
+				    		if ($(this).is(":data(ui-droppable)")) $(this).droppable("enable");
 				    	 });
 			    		 
 			    		 $("#tboverlay").droppable("enable");
@@ -767,7 +778,7 @@ $(function() {
 							 updateTileView(1, 1);
 							 
 				    		 $(".tile").each(function(index) {
-					    		 if ($(this).is('.ui-droppable')) $(this).droppable('disable');
+					    		 if ($(this).is(":data(ui-droppable)")) $(this).droppable('disable');
 					    	 });
 				    		 
 				    	 }
@@ -786,7 +797,7 @@ $(function() {
 							 
 							//Reaktiviere die Droppables des Spielfelds
 					    	 $(".tile").each(function(index) {
-					    		 if ($(this).is('.ui-droppable')) $(this).droppable('enable');
+					    		 if ($(this).is(":data(ui-droppable)")) $(this).droppable('enable');
 					    	 });
 							  
 				    	 }
