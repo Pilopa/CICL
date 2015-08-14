@@ -110,6 +110,7 @@ $(function() {
 		];
 		
 	} else {
+		
 		//Lade Spielstand
 		for (i = 0; i < getStages().length; i++) {
 			if (playerObject.stageAvailable[i] == true) $("#" + i).addClass("active").addClass("highlighted").click(function(event) {
@@ -125,6 +126,7 @@ $(function() {
 	        	 $(".item.active").removeClass("highlighted");
 	         })
         ];
+		
 	}
 	
 	combulix.slideIn();
