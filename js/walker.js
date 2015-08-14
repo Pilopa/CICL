@@ -13,6 +13,7 @@ function Walker(tile, ele, lvl, cf, run) {
 	this.comingfrom = cf; 		// Exit des aktuellen Tiles, durch den das Tile betreten wurde
 	this.level = lvl;
 	this.running = run;
+	this.aborting = false;
 	
 	this.tilesize = Math.floor(parseInt($('#field').css('width'))/this.level.width);
 	this.flowwidth = Math.floor((this.tilesize*3)/10)-1;
@@ -23,30 +24,43 @@ function Walker(tile, ele, lvl, cf, run) {
 
 Walker.prototype.walk = function() {
 	if(this.running) {
-		if(!this.checkElement()) {
+		if(this.checkElement()) {
+			if(this.where.type.name == TILE_NAME_DESTINATION) {
+				var walker = this;
+				this.animateDest(function() {walker.level.destinationReached(this.where);});
 			return;
+			}
+			if(this.running) {
+				this.setElementEntry();
+			}
+			if(this.running) {
+				this.animateFlow(this);
+			}
 		}
-		if(this.where.type.name == TILE_NAME_DESTINATION) {
-			var walker = this;
-			this.animateDest(function() {walker.level.destinationReached(this.where);});
-			return;
-		}
-		this.setElementEntry();
-		this.animateFlow(this);
 	}
 }
 
 Walker.prototype.checkElement = function() {
+	console.log('checkElement');
 	var cf = this.comingfrom;
 	if(this.where.type.name == TILE_NAME_SOURCE) {
-		cf = 0;
+		return true;
 	}
-	if(this.where.getElement(cf) == 'undefined' || this.where.getElement(cf) == this.element || this.where.getElement(cf) == TILE_ELEMENT_NONE) {
+	if(this.where.getElement(cf) === 'undefined' || this.where.getElement(cf) == TILE_ELEMENT_NONE) {
+		return true;
+	} else if (this.where.getElement(cf) == this.element && this.where.type.name != TILE_NAME_DESTINATION) {
+		this.stop();
+		return false; // Element bereits vorhanden im comingfrom
+	} else if (this.where.getElement(cf == this.element && this.where.type.name == TILE_NAME_DESTIONATION)) {
 		return true;
 	} else {
-		this.testFailed(this.where, this.element + ' meets ' + this.where.getElement(cf) + ' at entry'); // Verschiedene Elemente kollidieren!
+		this.testFailed(this.where, this.element + ' (' + typeof(this.element) + ') meets ' + this.where.getElement(cf) + ' (' + typeof(this.where.getElement(cf)) + ') at entry'); // Verschiedene Elemente kollidieren!
 		return false;
 	}
+}
+
+Walker.prototype.stop = function() {
+	this.running = false;
 }
 
 Walker.prototype.setElementEntry = function() {
@@ -54,6 +68,7 @@ Walker.prototype.setElementEntry = function() {
 }
 
 Walker.prototype.onward = function() {
+	console.log('onward');
 	switch(this.where.type.name) {
 		case TILE_NAME_CROSSROADS:
 			var exit = (this.comingfrom+2)%4;
@@ -73,11 +88,12 @@ Walker.prototype.onward = function() {
 				}
 			}
 	}
-	console.log('stopping at onward(): ' + this.where);
 	this.stop();
+	this.abort();
 }
 
 Walker.prototype.assertExit = function(dir) {
+	console.log('assertExit');
 	var neighbor = this.level.getNeighbor(this.where, dir);
 		if(neighbor == null) {
 			this.testFailed(this.where, 'empty neighbor from ' + this.where + ' to ' + dir); // Nachbarfeld ist leer!
@@ -86,12 +102,6 @@ Walker.prototype.assertExit = function(dir) {
 		nexits = neighbor.getExits();
 		for(var i = 0; i < nexits.length; i++) {
 			if((dir+2)%4 == nexits[i]) {
-				if(this.element == neighbor.getElement(dir) && neighbor.type.name != TILE_NAME_DESTINATION) {
-					console.log('same element ' + this.element + ' on ' + this.where + ' and neighbor ' + neighbor + ', aborting'); // Trifft auf Fluss gleichen Elements
-					this.stop();
-					this.abort();
-					return false;
-				}
 				return true;
 			}
 		}
@@ -332,22 +342,20 @@ Walker.prototype.animateDest = function(callback) {
 		.animate({width: this.tilesize/2 + 'px'}, 1000, 'linear', callback);
 }
 
-Walker.prototype.stop = function() {
-	this.running = false;
-}
-
 Walker.prototype.abort = function() {
 	var cont = false;
 	for(var i = 0; i < this.level.walkers.length; i++) {
 		cont = cont || this.level.walkers[i].running;
+		if(cont) {
+			return;
+		}
 	}
-	console.log('abort(): ' + cont);
 	if(!cont) {
 		this.testFailed(this.where, 'no more active walkers, last walker on ' + this.where);
 	}
 }
 
-Level.prototype.testFailed = function (tile, msg) {
+Walker.prototype.testFailed = function (tile, msg) {
 	this.stop();
 	this.level.fireEvent(new Event(EVENT_TYPE_TEST_FAILED,tile,msg));
 }

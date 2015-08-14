@@ -49,9 +49,13 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] =
 				.put(2, 1, 0, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
 				.put(1, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA)),
 				
-				new Level(5, 5, "Level 2")
+				new Level(5, 5, "Level 2", {
+					'straight': TILE_AMOUNT_ENDLESS,
+					'corner': TILE_AMOUNT_ENDLESS,
+					'crossroads': TILE_AMOUNT_ENDLESS,
+					'tjunction': TILE_AMOUNT_ENDLESS,
+				})
 				.put(0, 4, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-				.put(4, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
 				.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA)),
 				
 				new Level(5, 5, "Level 3")
