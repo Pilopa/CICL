@@ -74,7 +74,7 @@
 #field {
 	position: absolute;
 	background-color: #262626;
-	border: 10px ridge #573A21;
+	border: 10px ridge #6E3923;
 }
 
 #space {
@@ -133,7 +133,7 @@
 	float: right;
 	z-index: 30;
 	box-sizing: border-box;
-	border: 6px ridge #573A21;
+	border: 6px ridge #6E3923;
 }
 
 .tool.ui-draggable-dragging {

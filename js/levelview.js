@@ -329,6 +329,8 @@ $(function() {
 			}
 			
 		} else if (event.type === EVENT_TYPE_TEST_COMPLETED) { //Der Test wurde Erfolgreich beendet.
+			// Walker-Prüftimer anhalten
+			clearInterval(level.aborttimer);
 			
 			//Die Punkte berechnen
 			var scoreObject = getScoreObject();
@@ -415,8 +417,9 @@ $(function() {
 			});
 			
 		} else if (event.type === EVENT_TYPE_TEST_FAILED) { //Der Test ist fehlgeschlagen.
-			
-			for(var i = 0; i < level.walkers.length; i++) level.walkers[i].stop(); //Weitere Analyse des Levels stoppen.
+			// Walker anhalten
+			for(var i = 0; i < level.walkers.length; i++) level.walkers[i].stop();
+			clearInterval(level.aborttimer);
 			
 			//Button zurücksetzen
 			setStartButtonEnabled(true, "Zurücksetzen");

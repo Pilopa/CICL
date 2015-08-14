@@ -13,7 +13,6 @@ function Walker(tile, ele, lvl, cf, run) {
 	this.comingfrom = cf; 		// Exit des aktuellen Tiles, durch den das Tile betreten wurde
 	this.level = lvl;
 	this.running = run;
-	this.aborting = false;
 	
 	this.tilesize = Math.floor(parseInt($('#field').css('width'))/this.level.width);
 	this.flowwidth = Math.floor((this.tilesize*3)/10)-1;
@@ -46,12 +45,12 @@ Walker.prototype.checkElement = function() {
 	if(this.where.type.name == TILE_NAME_SOURCE) {
 		return true;
 	}
-	if(this.where.getElement(cf) === 'undefined' || this.where.getElement(cf) == TILE_ELEMENT_NONE) {
+	if(this.where.getElement(cf) === undefined || this.where.getElement(cf) == TILE_ELEMENT_NONE) {
 		return true;
 	} else if (this.where.getElement(cf) == this.element && this.where.type.name != TILE_NAME_DESTINATION) {
 		this.stop();
 		return false; // Element bereits vorhanden im comingfrom
-	} else if (this.where.getElement(cf == this.element && this.where.type.name == TILE_NAME_DESTIONATION)) {
+	} else if (this.where.getElement(cf) == this.element && this.where.type.name == TILE_NAME_DESTINATION) {
 		return true;
 	} else {
 		this.testFailed(this.where, this.element + ' (' + typeof(this.element) + ') meets ' + this.where.getElement(cf) + ' (' + typeof(this.where.getElement(cf)) + ') at entry'); // Verschiedene Elemente kollidieren!
@@ -64,6 +63,7 @@ Walker.prototype.stop = function() {
 }
 
 Walker.prototype.setElementEntry = function() {
+	console.log('setElementEntry');
 	this.where.setElement(this.comingfrom, this.element);
 }
 
@@ -89,7 +89,6 @@ Walker.prototype.onward = function() {
 			}
 	}
 	this.stop();
-	this.abort();
 }
 
 Walker.prototype.assertExit = function(dir) {
@@ -110,6 +109,7 @@ Walker.prototype.assertExit = function(dir) {
 }
 
 Walker.prototype.animateFlow = function(walker) {
+	console.log('animateFlow');
 	switch(this.where.type.name) {
 		case TILE_NAME_SOURCE:
 			$(document.createElement('div'))
@@ -340,19 +340,6 @@ Walker.prototype.animateDest = function(callback) {
 		.css('top', this.flowoffset + 'px')
 		.css('left', '0')
 		.animate({width: this.tilesize/2 + 'px'}, 1000, 'linear', callback);
-}
-
-Walker.prototype.abort = function() {
-	var cont = false;
-	for(var i = 0; i < this.level.walkers.length; i++) {
-		cont = cont || this.level.walkers[i].running;
-		if(cont) {
-			return;
-		}
-	}
-	if(!cont) {
-		this.testFailed(this.where, 'no more active walkers, last walker on ' + this.where);
-	}
 }
 
 Walker.prototype.testFailed = function (tile, msg) {
