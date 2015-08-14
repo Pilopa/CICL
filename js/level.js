@@ -125,10 +125,6 @@ Level.prototype.getNeighbor = function (tile, dir) {
 	return this.getTile(nx, ny);
 }
 
-Level.prototype.testFailed = function (tile, msg) {
-	this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED,tile,msg));
-}
-
 Level.prototype.destinationReached = function (tile) {
 	this.destinationsReached++;
 	this.fireEvent(new Event(EVENT_TYPE_DESTINATION_REACHED, tile));

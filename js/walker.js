@@ -41,10 +41,10 @@ Walker.prototype.checkElement = function() {
 	if(this.where.type.name == TILE_NAME_SOURCE) {
 		cf = 0;
 	}
-	if(this.where.getElement(cf) == this.element || this.where.getElement(cf) == TILE_ELEMENT_NONE) {
+	if(this.where.getElement(cf) == 'undefined' || this.where.getElement(cf) == this.element || this.where.getElement(cf) == TILE_ELEMENT_NONE) {
 		return true;
 	} else {
-		this.level.testFailed(this.where, this.element + ' meets ' + this.where.getElement(cf) + ' at entry'); // Verschiedene Elemente kollidieren!
+		this.testFailed(this.where, this.element + ' meets ' + this.where.getElement(cf) + ' at entry'); // Verschiedene Elemente kollidieren!
 		return false;
 	}
 }
@@ -73,25 +73,29 @@ Walker.prototype.onward = function() {
 				}
 			}
 	}
+	console.log('stopping at onward(): ' + this.where);
+	this.stop();
 }
 
 Walker.prototype.assertExit = function(dir) {
 	var neighbor = this.level.getNeighbor(this.where, dir);
 		if(neighbor == null) {
-			this.level.testFailed(this.where, 'empty neighbor from ' + this.where + ' to ' + dir); // Nachbarfeld ist leer!
+			this.testFailed(this.where, 'empty neighbor from ' + this.where + ' to ' + dir); // Nachbarfeld ist leer!
 			return false;
 		}
 		nexits = neighbor.getExits();
 		for(var i = 0; i < nexits.length; i++) {
 			if((dir+2)%4 == nexits[i]) {
 				if(this.element == neighbor.getElement(dir) && neighbor.type.name != TILE_NAME_DESTINATION) {
-					console.log('same element ' + this.element + ' on neighbor ' + neighbor + ', aborting');
+					console.log('same element ' + this.element + ' on ' + this.where + ' and neighbor ' + neighbor + ', aborting'); // Trifft auf Fluss gleichen Elements
+					this.stop();
+					this.abort();
 					return false;
 				}
 				return true;
 			}
 		}
-		this.level.testFailed(this.where, 'no entry to ' + neighbor); // Nachbartile hat keinen passend ausgerichteten Eingang!
+		this.testFailed(this.where, 'no entry to ' + neighbor); // Nachbartile hat keinen passend ausgerichteten Eingang!
 		return false;
 }
 
@@ -330,4 +334,20 @@ Walker.prototype.animateDest = function(callback) {
 
 Walker.prototype.stop = function() {
 	this.running = false;
+}
+
+Walker.prototype.abort = function() {
+	var cont = false;
+	for(var i = 0; i < this.level.walkers.length; i++) {
+		cont = cont || this.level.walkers[i].running;
+	}
+	console.log('abort(): ' + cont);
+	if(!cont) {
+		this.testFailed(this.where, 'no more active walkers, last walker on ' + this.where);
+	}
+}
+
+Level.prototype.testFailed = function (tile, msg) {
+	this.stop();
+	this.level.fireEvent(new Event(EVENT_TYPE_TEST_FAILED,tile,msg));
 }

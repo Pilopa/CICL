@@ -39,7 +39,7 @@ $(function() {
 		}
 	}
 	
-	$("#list").prepend("<div class='stage-id'>Bereich " + stageId + "</div>");
+	$("#list").prepend("<div class='stage-id'>Bereich " + (parseInt(stageId)+1) + "</div>");
 	
 	//Combulix
 	combulix.initialize();
