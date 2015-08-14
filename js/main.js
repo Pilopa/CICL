@@ -87,3 +87,7 @@ function hasEventHandler(classes, event) {
 		return eventCount > 0;
 	} else return false;
 }
+
+function fadeIn() {
+	$("#game").hide().fadeIn(800);
+}

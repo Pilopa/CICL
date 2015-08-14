@@ -71,12 +71,12 @@ $(function() {
 	         
 	         ),
 	         
-	         new Speech("Jeder Bereich ist normalerweise in vier Level unterteilt.<br><br>Jedes davon stellt dich vor eine größere Herausforderung als das Letzte. ...", undefined,
+	         new Speech("Jeder Bereich ist normalerweise in vier Level unterteilt.<br><br>Jedes davon stellt dich vor eine größere Herausforderung als das Letzte ...", undefined,
 	        		 
  	        	function () {
 	        	 
  		        	 $(".item").addClass("highlighted");
- 		        	 $("#list").fadeIn(1000)();
+ 		        	 $("#list").fadeIn(1000);
  		        	 
  		         },
  		         

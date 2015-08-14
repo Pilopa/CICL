@@ -1,18 +1,27 @@
 //=== Router ===
 
 function showStageSelection() {
-	location.href = "../html/stageselection.html";
+	$("#game").fadeOut(function () {
+		location.href = "../html/stageselection.html";
+	});
 }
 
 function showLevelSelection(stageId) {
-	location.href = "../html/levelselection.html?" + stageId;
+	$("#game").fadeOut(function () {
+		location.href = "../html/levelselection.html?" + stageId;
+	});
 	
 }
 
 function showLevel(stageId, levelId) {
-	location.href = "../html/levelview.html?" + stageId + "-" + levelId;
+	$("#game").fadeOut(function () {
+		location.href = "../html/levelview.html?" + stageId + "-" + levelId;
+	});
 }
 
 function showSplash() {
-	location.href = "../html/splash.html";
+	$("#game").fadeOut(function () {
+		location.href = "../html/splash.html";
+	});
+	
 }

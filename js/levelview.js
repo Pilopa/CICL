@@ -494,14 +494,30 @@ $(function() {
 		
 		//Definitionen des Tutorial Levels (Hilfestellungen / Tipps)
 		
+		var tutorialFlags = {
+			placed : false,
+			rotated : false,
+			dragged : false,
+			removed : false
+		};
+		
 		var tutorialHandler = function (event) {
-			if ((event.type === EVENT_TYPE_PLACED && event.tile.x == 0 && event.tile.y == 1)
-				|| (event.type === EVENT_TYPE_ROTATED && event.tile.rotation === 2)) combulix.next();
+			
+			if (event.type === EVENT_TYPE_PLACED && event.tile.x == 1 && event.tile.y == 2) {
+				!tutorialFlags.placed = true;
+				combulix.next();
+			}
+			
+			if (event.type === EVENT_TYPE_ROTATED && event.tile.x == 1 && event.tile.y == 2) {
+				!tutorialFlags.rotated = true;
+				combulix.next();
+			}
+			
 		};
 		
 		combulix.speeches = [
 		                     
-             new Speech("Hey, du bist ja auch schon da! <br><br>Deine erste Herausforderung wartet schon auf dich ...", undefined,
+            new Speech("Hey, du bist ja auch schon da! <br><br>Deine erste Herausforderung wartet schon auf dich ...", undefined,
             		 
             	function () { //on
             	    $("#startbutton").hide();
@@ -512,9 +528,9 @@ $(function() {
 		       	 	$(".speech-bubble").removeClass("highlighted");
 		        }
 		         
-             ),
+            ),
 	         
-             new Speech("Das hier ist das Spielfeld. Es besteht aus mehreren Kacheln, welche wie bei einem Schachbrett angeordnet sind ...", undefined,
+            new Speech("Das hier ist das Spielfeld. Es besteht aus mehreren Kacheln, welche wie bei einem Schachbrett angeordnet sind ...", undefined,
             		 
             	function () { //on
 		       		$("#field").addClass("highlighted");
@@ -524,9 +540,9 @@ $(function() {
 		     		$("#field").removeClass("highlighted");
 		     	}
 		     	
-		     ),
+		    ),
 		     
-	         new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, müssen alle Quellen und Ziele fehlerfrei miteinander verbunden werden.", undefined,
+	        new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, müssen alle Quellen und Ziele fehlerfrei miteinander verbunden werden.", undefined,
 	        		 
 	        	function () { //on
 		     		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA), true);
@@ -539,9 +555,9 @@ $(function() {
 			    	 $(".tile.x0.y0").removeClass("highlighted").css("z-index", 20);
 			    	 $(".tile.x1.y4").removeClass("highlighted").css("z-index", 20);
 			     }
-	         ),
+	        ),
 		     
-	         new Speech("Auf der linken Seite siehst du den Werkzeugkasten.<br><br>Dort findest du Werkzeuge mit denen du die Apparatur reparieren kannst ...", undefined,
+	        new Speech("Auf der linken Seite siehst du den Werkzeugkasten.<br><br>Dort findest du Werkzeuge mit denen du die Apparatur reparieren kannst ...", undefined,
 	        		 
 	        	function () { //on
 		       		$("#toolbox").addClass("highlighted");
@@ -551,12 +567,12 @@ $(function() {
 	         		$("#toolbox").removeClass("highlighted");
 	         	}
 	         	
-	         ),
-		     
-			 new Speech("Probieren wir einfach mal alles aus, was man so mit einem Werkzeug anstellen kann.<br><br>Nehmen wir hierzu mal die Gerade ...", undefined,
+	        ),
+		    
+			new Speech("Probieren wir einfach mal alles aus, was man so mit einem Werkzeug anstellen kann.<br><br>Nehmen wir hierzu mal die Gerade ...", undefined,
 					 
 				function () { //on
-					if (level.getAmountPlaced(TILE_TYPE_CORNER) == 0) {
+					if (!tutorialFlags.placed) {
 			        	level.tools = {
 			        		straight: 0
 			        	}
@@ -570,9 +586,9 @@ $(function() {
 			    	$("#straight").removeClass("highlighted");
 			     }
 			     
-		     ),
+		    ),
 		     
-	         new Speech("Direkt neben den Werkzeugen steht die dir zur Verfügung stehende Anzahl ...", undefined,
+	        new Speech("Direkt neben den Werkzeugen steht die dir zur Verfügung stehende Anzahl ...", undefined,
 	        		 
   	        	function () { //on
   		       		$("#toolcount-straight").addClass("highlighted");
@@ -584,17 +600,17 @@ $(function() {
   	         	
   	         ),
 		     
-		     new Speech("Ziehe zunächst eine Ecke von der Werkzeugleiste auf das makierte Feld ...", undefined,
+		    new Speech("Ziehe zunächst die Gerade von der Werkzeugleiste auf das makierte Feld ...", undefined,
 		    		 
 		    		 function () { //on
-				    	 if (level.isEmpty(0, 1)) {
+				    	 if (!tutorialFlags.placed) {
 				    		 level.registerListener(tutorialHandler);
 				    		 combulix.disableNext();
 				    		 level.tools = {
 				    			straight: 1
 							 }
 						     updateToolNumber(TILE_TYPE_STRAIGHT);
-				    		 $(".tile:not(.x0.y1)").each(function(index) {
+				    		 $(".tile:not(.x1.y2)").each(function(index) {
 					    		 if ($(this).is('.ui-droppable')) $(this).droppable('destroy');
 					    	 });
 				    		 
@@ -606,8 +622,8 @@ $(function() {
 		    	 	},
 		    	 	
 		    	 	function () { //off
-				    	 if (!level.isEmpty(0, 1)) {
-					    	 $(".tile:not(.x0.y1)").each(function(index) {
+				    	 if (!tutorialFlags.placed) {
+					    	 $(".tile:not(.x1.y2)").each(function(index) {
 				    			var classes = $(this).attr('class').split(" ");
 				    			var x = parseInt(classes[1].replace("x", ""));
 				    			var y = parseInt(classes[2].replace("y", ""));
@@ -618,36 +634,36 @@ $(function() {
 				    	 level.removeListener(tutorialHandler);
 				    	 combulix.enableNext();
 				    	 $("#corner").removeClass("highlighted");
-				    	 $(".tile.x0.y1").removeClass("highlighted");
-				    	 $(".tile.x0.y1").css("z-index", 20);
+				    	 $(".tile.x1.y2").removeClass("highlighted");
+				    	 $(".tile.x1.y2").css("z-index", 20);
 		    	 	}
-		     ),
+		    ),
 		     
-		     new Speech("Gut gemacht! Drehe nun die Ecke so oft (linksklick), sodass ein Ausgang nach rechts und einer nach oben zeigt ...", undefined,
+		    new Speech("Gut gemacht! Drehe nun die Ecke so oft (linksklick), sodass ein Ausgang nach rechts und einer nach oben zeigt ...", undefined,
 		    		 
 		    	function () { //on
-			    	 if (!level.isEmpty(0, 1) && level.getTile(0, 1).rotation !== 2) {
+			    	 if (!tutorialFlags.rotated) {
 			    		 level.registerListener(tutorialHandler);
 			    		 combulix.disableNext();
 						 level.getTile(0, 1).movable = false;
 						 updateTileView(0, 1);
 			    	 }
-			    	 $(".tile.x0.y1").addClass("highlighted");
-			    	 $(".tile.x0.y1").css("z-index", 41);
+			    	 $(".tile.x1.y2").addClass("highlighted");
+			    	 $(".tile.x1.y2").css("z-index", 41);
 			     },
 			     
 			     function () { //off
 			    	 level.removeListener(tutorialHandler);
-			    	 $(".tile.x0.y1").removeClass("highlighted");
+			    	 $(".tile.x1.y2").removeClass("highlighted");
 			    	 $("#corner").removeClass("highlighted");
-			    	 $(".tile.x0.y1").removeClass("highlighted");
-			    	 $(".tile.x0.y1").css("z-index", 20);
+			    	 $(".tile.x1.y2").removeClass("highlighted");
+			    	 $(".tile.x1.y2").css("z-index", 20);
 			    	 combulix.enableNext();
 			     }
 			     
-		     ),
+		    ),
 		     
-		     new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.", undefined, 
+		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.", undefined, 
 		     		
 		     		function () { //on
 		    	 		if (level.getAmountPlaced(TILE_TYPE_CORNER) == 1 && level.getAmountPlaced(TILE_TYPE_STRAIGHT) == 0) {
@@ -668,7 +684,7 @@ $(function() {
 		     			//TODO ?
 		     		}
 		     		
-		     )
+		    )
              
 		];
 		combulix.slideIn();

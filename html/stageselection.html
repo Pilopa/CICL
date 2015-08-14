@@ -22,12 +22,26 @@
   <script src="../js/stageselection.js"></script>
 </head>
 
-<body id='game'>
+<body id='window'>
 
-<div id='list'></div>
+	<div id='game'>
+	
+		<div id='list'></div>
+		
+		<button id='back-button' class='menu-button active interactable'></button>
+		<button id='options-button' class='menu-button active interactable'></button>
+	
+	</div>
 
-<button id='back-button' class='menu-button active interactable'></button>
-<button id='options-button' class='menu-button active interactable'></button>
+
+	<!-- Eingangsanimation -->
+	<script>
+	
+		(function() {
+			fadeIn(); //@main.js
+		})();
+		
+	</script>
 
 </body>
 </html>

@@ -26,20 +26,36 @@
   <script src="../js/walker.js"></script>
 </head>
 
-<body id='game'>
-<div id='toolbox' class='unselectable'>
-	<div class='event-blocker non-interactable'></div>
-	<div id='tboverlay'></div>
-</div>
-<div id='levelheader'></div>
-<div id='space' class='unselectable'>
-	<div class='event-blocker non-interactable'></div>
-	<div id='field' class='unselectable'></div>
-</div>
-<button type='button' id='startbutton' class='interactable'>Test starten!</button>
+<body id='window'>
 
-<button id='back-button' class='menu-button active interactable'></button>
-<button id='options-button' class='menu-button active interactable'></button>
+	<div id='game'>
+
+		<div id='toolbox' class='unselectable'>
+			<div class='event-blocker non-interactable'></div>
+			<div id='tboverlay'></div>
+		</div>
+		
+		<div id='levelheader'></div>
+		<div id='space' class='unselectable'>
+			<div class='event-blocker non-interactable'></div>
+			<div id='field' class='unselectable'></div>
+		</div>
+		
+		<button type='button' id='startbutton' class='interactable'>Test starten!</button>
+		
+		<button id='back-button' class='menu-button active interactable'></button>
+		<button id='options-button' class='menu-button active interactable'></button>
+	
+	</div>
+	
+	<!-- Eingangsanimation -->
+	<script>
+	
+		(function() {
+			fadeIn(); //@main.js
+		})();
+		
+	</script>
 
 </body>
 </html>
