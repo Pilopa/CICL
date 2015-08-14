@@ -7,7 +7,7 @@
 	cursor: -webkit-grabbing;
 }
 
-.drag-highlight:not(.drag-hover-highlight) {
+.ui-draggable-dragging:not(.drag-hover-highlight) {
 	animation: drag-highlight 2s ease-in-out infinite;
 }
 
@@ -61,7 +61,7 @@
 	z-index: 35;
 }
 
-.tile:not(.highlighted):not(.drag-highlight):not(.drop-hover-highlight):HOVER {
+.tile:not(.highlighted):not(.ui-draggable-dragging):not(.drop-hover-highlight):HOVER {
 	animation: tile-hover-highlight 2s ease-in-out infinite;
 }
 
@@ -140,7 +140,7 @@
 	border: none;
 }
 
-.tool.interactable:not(.drag-highlight):hover {
+.tool.interactable:not(.ui-draggable-gragging):hover {
 	animation: tile-hover-highlight 2s ease-in-out infinite;
 }
 

@@ -46,21 +46,21 @@ $(function() {
 	function initializeTileViewDragHandler(x, y) {
 		if (!$(".x" + x + ".y" + y).is('.ui-draggable')) $(".x" + x + ".y" + y).draggable({
 			revertDuration: 0,
+			scroll: false,
 			revert: function (droppable) {
 				
 				if (!droppable) $(this).draggable("option", "revertDuration", 500);
 				else if ($(this).is(":data(ui-draggable)")) $(this).draggable("option", "revertDuration", 0);
-				else $(this).removeClass("drag-highlight");
+				else $(this).removeClass("ui-draggable-dragging");
 				
 				return true;
 			},
-			scroll: false,
-			start: function (event, ui) {
-				ui.helper.addClass("drag-highlight");
-			},
 			stop: function (event, ui) {
-				ui.helper.removeClass("drag-highlight");
-			},
+				if (ui.draggable !== undefined)
+					ui.draggable
+					.css("top", "")
+					.css("left", "");
+			}
 		});
 	}
 	
@@ -100,9 +100,11 @@ $(function() {
 					var sourceClasses = $(ui.draggable).attr('class').split(" ");
 					var x2 = parseInt(sourceClasses[1].replace("x", ""));
 					var y2 = parseInt(sourceClasses[2].replace("y", ""));
-					//if (level.isEmpty(x, y)) ui.draggable.removeClass("drag-highlight");
 					level.swap(x2, y2, x, y);
 				}
+					$(this)
+					.css("top", "")
+					.css("left", "");
 			}
 		});
 	}
@@ -143,7 +145,6 @@ $(function() {
 		} else {
 			
 			//Dieser Teil passiert, wenn das Tile auf diesem Feld leer ist.
-			
 			initializeTileViewDropHandler(tileview);
 			if ($(tileview).is(":data(ui-draggable)")) $(tileview).draggable('destroy');
 			tileview.off("click", rotateEventHandler);
@@ -228,14 +229,10 @@ $(function() {
 								revert: true,
 								scroll: false,
 								start: function (event, ui) {
-									ui.helper.addClass("drag-highlight")
+									ui.helper
 									.css("width", tilesize)
 									.css("height", tilesize);
-								},
-								stop: function (event, ui) {
-									ui.helper.removeClass("drag-highlight");
-								},
-								//snap: ".tile"
+								}
 							});
 		} else {
 			tool
@@ -569,8 +566,8 @@ $(function() {
 	        	function () { //on
 		     		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA), true);
 		    		level.put(1, 4, 1, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA), true);
-			       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21); // .removeClass('immovable');
-			       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21); // .removeClass('immovable');
+			       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21);
+			       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21);
 			     },
 			     
 			     function () { //off
@@ -748,10 +745,6 @@ $(function() {
 						 
 				    	//Reaktiviere die Droppables des Spielfelds
 				    	 $(".tile:not(.x1.y1)").each(function(index) {
-			    			/*var classes = $(this).attr('class').split(" ");
-			    			var x = parseInt(classes[1].replace("x", ""));
-			    			var y = parseInt(classes[2].replace("y", ""));
-			    			updateTileViewHandlers(x, y);*/
 				    		if ($(this).is(":data(ui-droppable)")) $(this).droppable("enable");
 				    	 });
 			    		 
@@ -837,6 +830,7 @@ $(function() {
 		];
 		combulix.slideIn();
 	} else {
+		
 		combulix.speeches = [new Speech("Ich weiß doch auch nicht weiter . . .")];
 		if (stageid == 0 && levelid == 0) {
      		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA), true);
@@ -848,6 +842,7 @@ $(function() {
 			 updateToolBox();
 		}
 		combulix.slideOut();
+		
 	}
 	
 	$('#startbutton').click(function() {
