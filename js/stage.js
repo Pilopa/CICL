@@ -1,9 +1,9 @@
 //=== Stage ===
 
-function Stage(name, levels) {
+function Stage(title, levels) {
 	if (typeof levels === undefined) this.levels = [];
 	else this.levels = levels;
 	
-	if (typeof name !== undefined && typeof name !== 'array') 
-		this.name = name;
+	if (typeof title !== undefined && typeof title !== 'array') 
+		this.title = title;
 }

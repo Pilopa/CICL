@@ -4,7 +4,8 @@ $(function() {
 	var x = location.search.replace('?','').split('-');
 	var stageid = parseInt(x[0]);
 	var levelid = parseInt(x[1]);
-	var level = getStages()[stageid].levels[levelid];
+	var stage = getStages()[stageid];
+	var level = stage.levels[levelid];
 	var playerObject = getCurrentPlayerObject();
 	$.event.special.swipe.horizontalDistanceThreshold = 150; //px //Definiere die Grenze, ab welchem ein Swipe-Event ausgelöst wird.
 	
@@ -444,7 +445,8 @@ $(function() {
 	});
 	
 	// Initialisiere das Spielfeld
-	$('#levelheader').text('Bereich ' + (stageid+1) + ' - Level ' + (levelid+1) + ': ' + level.title);
+	$('#levelheader').text((stage.title === undefined ? "Bereich " + (i + 1) : stage.title) + " : " + (level.title === undefined ? "Bereich " + (i + 1) : level.title));
+	
 	var tilesize = 0;
 	if(level.width >= level.height) {
 		tilesize = Math.floor(parseInt($('#space').css('width'))/level.width);

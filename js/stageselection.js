@@ -12,7 +12,7 @@ $(function() {
 			.addClass("unselectable")
 			.addClass("centered-text")
 			.attr("id", i)
-			.html(stage.name === undefined ? "Bereich " + (i + 1) : stage.name)
+			.html(stage.title === undefined ? "Bereich " + (i + 1) : stage.title)
 			.appendTo("#list");
 	}
 	

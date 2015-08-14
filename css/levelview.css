@@ -87,13 +87,12 @@
 }
 
 #levelheader {
-	font-size: 20pt;
-	text-decoration: underline;
+	font-size: 24pt;
 	color: white;
 	position: absolute;
 	top: 30px;
 	left: 300px;
-	width: 500px;
+	width: 540px;
 	text-align: center;
 }
 

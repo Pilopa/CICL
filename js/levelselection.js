@@ -44,7 +44,7 @@ $(function() {
 		}
 	}
 	
-	$("#list").after("<div id='stage-id'>" + (stage.name === undefined ? "Bereich " + (i + 1) : stage.name) + "</div>");
+	$("#list").after("<div id='stage-id'>" + (stage.title === undefined ? "Bereich " + (i + 1) : stage.title) + "</div>");
 	
 	//Combulix
 	combulix.initialize();
@@ -158,7 +158,7 @@ $(function() {
 		//Definiere die Texte von Combulix
 		combulix.speeches = [
 		                     
-	         new Speech("Wählen das Level aus, in welchem du weitermachen möchtest . . .", undefined,
+	         new Speech("Wähle das Level aus, in welchem du weitermachen möchtest . . .", undefined,
 	        		 
 	        	 function() {
 	        	 
