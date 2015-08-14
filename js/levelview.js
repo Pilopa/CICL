@@ -46,7 +46,6 @@ $(function() {
 	function initializeTileViewDragHandler(x, y) {
 		if (!$(".x" + x + ".y" + y).is('.ui-draggable')) $(".x" + x + ".y" + y).draggable({
 			revert: true,
-			revertDuration: 0,
 			scroll: false,
 			start: function (event, ui) {
 				ui.helper.addClass("drag-highlight");
@@ -93,6 +92,7 @@ $(function() {
 					var sourceClasses = $(ui.draggable).attr('class').split(" ");
 					var x2 = parseInt(sourceClasses[1].replace("x", ""));
 					var y2 = parseInt(sourceClasses[2].replace("y", ""));
+					if (level.isEmpty(x, y)) ui.draggable.removeClass("drag-highlight");
 					level.swap(x2, y2, x, y);
 				}
 			}

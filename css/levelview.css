@@ -11,7 +11,6 @@
 .ui-draggable-dragging {
 	cursor: grabbing;
 	cursor: -webkit-grabbing;
-	z-index: 35;
 }
 
 .drag-highlight:not(.drag-hover-highlight) {
@@ -57,8 +56,15 @@
 .tile {
 	display: inline-block;
 	background-size: 100% 100%;
-	z-index: 20;
 	position: relative;
+}
+
+.tile:not(.ui-draggable-dragging) {
+	z-index: 20;
+}
+
+.tile.ui-draggable-dragging {
+	z-index: 35;
 }
 
 .tile:not(.highlighted):not(.drag-highlight):not(.drop-hover-highlight):HOVER {
@@ -133,6 +139,10 @@
 	z-index: 30;
 	box-sizing: border-box;
 	border: 6px ridge #573A21;
+}
+
+.tool.ui-draggable-dragging {
+	border: none;
 }
 
 .tool.interactable:not(.drag-highlight):hover {
