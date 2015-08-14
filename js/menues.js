@@ -106,7 +106,6 @@ var backButton = {
 		this.callback = callback;
 		$("#back-button").click(function() {
 			backButton.callback.apply(backButton, backButton.parameters);
-			console.log("back-button-clicked");
 		});
 		return this;
 	},

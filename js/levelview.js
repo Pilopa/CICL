@@ -348,7 +348,7 @@ $(function() {
 			$("#startbutton").addClass("highlighted");
 			
 			//Sieges-Feedback
-			$("#game").animate({
+			$(".game").animate({
 				boxShadow : "0 0 75px 0 rgba(0, 255, 0, 1) inset"
 			}, 400, function () {
 				$(this).animate({
@@ -429,7 +429,7 @@ $(function() {
 			$("#startbutton").addClass("highlighted");
 			
 			//Fail-Feedback
-			$("#game").animate({
+			$(".game").animate({
 				boxShadow : "0 0 75px 0 rgba(255, 0, 0, 1) inset"
 			}, 400, function () {
 				$(this).animate({
@@ -868,10 +868,10 @@ $(function() {
 			$("#startbutton").removeClass("highlighted");
 			clearRun();
 			$(this).text("Test starten!");
-			$("#game").css({
+			$(".game").css({
 				boxShadow: "0px 0px 0px 0px #F80 inset"
 			});
-			$("#game").removeClass("wrong").removeClass("right");
+			$(".game").removeClass("wrong").removeClass("right");
 			$(".event-blocker").hide(); //Erlaube das Modifizieren des Spielfelds
 			
 		} 

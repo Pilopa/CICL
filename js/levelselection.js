@@ -10,22 +10,27 @@ $(function() {
 	//Lade die Auswahlliste der einzelnen Levels.
 	for (var i = 0; i < getStages()[stageId].levels.length; i++) {
 		var level = getStages()[stageId].levels[i];
-		var element = $(document.createElement('span'))
+		var element = $(document.createElement('div'))
 			.addClass("item")
 			.addClass("level-item")
 			.addClass("unselectable")
 			.attr("id", i)
-			.text(level.title)
 			.appendTo("#list");
 		
-		var ratingContainer = $(document.createElement('span'))
+		var ratingText = $(document.createElement('span'))
+		.text(level.title)
+		.addClass("level-text")
+		.addClass("unselectable")
+		.appendTo("#" + i);
+		
+		var ratingContainer = $(document.createElement('div'))
 		.addClass("rating-container")
 		.addClass("unselectable")
 		.attr("id", "rating-container-" + i)
 		.appendTo("#" + i);
 		
 		for (var n = 0; n < 5; n++) {
-			var ratingDisplay = $(document.createElement('span'))
+			var ratingDisplay = $(document.createElement('div'))
 			.addClass("rating-display")
 			.addClass("unselectable")
 			.attr("id", "rating-" + i)
@@ -39,7 +44,7 @@ $(function() {
 		}
 	}
 	
-	$("#list").prepend("<div class='stage-id'>Bereich " + (parseInt(stageId)+1) + "</div>");
+	$("#list").after("<div id='stage-id'>" + (stage.name === undefined ? "Bereich " + (i + 1) : stage.name) + "</div>");
 	
 	//Combulix
 	combulix.initialize();
@@ -145,7 +150,7 @@ $(function() {
 		//Lade Spielstand
 		//Wenn die Stage verfügbar ist, ist auch automatisch das erste Level verfügbar. Ansonsten benötigt jedes Level mindestens einen Punkt in dem vorhergegangenen Level.
 		for (i = 0; i < stage.levels.length; i++) {
-			if (i == 0 || (playerObject.scores[stageId][i-1] > 0)) $("#" + i).addClass("active").addClass("highlighted").click(function(event) {
+			if (i == 0 || (playerObject.scores[stageId][i-1] > 0)) $("#" + i).addClass("interactable").addClass("active").addClass("highlighted").click(function(event) {
 				showLevel(stageId, $(this).attr("id"))
     		});
 		}

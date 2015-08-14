@@ -149,26 +149,26 @@ var combulix = {
 		.addClass("speech-bubble")
 		.addClass("unselectable")
 		.addClass("interactable")
-		.appendTo("#game");
+		.appendTo(".game");
 		
 		$(document.createElement('div'))
 		.addClass("combulix")
 		.addClass("unselectable")
-		.appendTo("#game");
+		.appendTo(".game");
 		
 		$(document.createElement('div'))
 		.addClass("arrow")
 		.addClass("right")
 		.addClass("interactable")
 		.addClass("unselectable")
-		.appendTo("#game");
+		.appendTo(".game");
 		
 		$(document.createElement('div'))
 		.addClass("arrow")
 		.addClass("left")
 		.addClass("interactable")
 		.addClass("unselectable")
-		.appendTo("#game");
+		.appendTo(".game");
 		
 		$(".combulix, .speech-bubble, .arrow").hide();
 		

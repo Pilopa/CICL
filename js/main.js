@@ -32,7 +32,6 @@ function getCurrentPlayerObject() {
 function initializeCurrentPlayerObject() {
 	localStorage[localStorage["name"]] = JSON.stringify({
 		scores: [], //Map mit den Punkteständen der einzelnen Levels für jede Stage.
-		stageAvailable: [], //Enthält für jede Stage einen Boolean welcher angibt, ob diese Stage für den Spieler vergfügbar ist.
 		showStageSelectionTutorial: true,
 		showLevelSelectionTutorial: true,
 		showGameTutorial: true
@@ -44,13 +43,13 @@ function initializeCheatPlayerObject() {
 	if (localStorage["stefko"] === undefined)
 		localStorage["stefko"] = JSON.stringify({
 			scores: [
-			[3, 3, 3],
-			[3, 3, 3],
-			[3, 3, 3],
-			[3, 3, 3],
-			[3, 3, 3]
+			[3, 3, 3, 3],
+			[3, 3, 3, 3],
+			[3, 3, 3, 3],
+			[3, 3, 3, 3],
+			[3, 3, 3, 3]
 			], //Map mit den Punkteständen der einzelnen Levels für jede Stage.
-			stageAvailable: [true, true, true, true, true],
+			
 			showStageSelectionTutorial: false,
 			showLevelSelectionTutorial: false,
 			showGameTutorial: false

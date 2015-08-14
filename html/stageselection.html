@@ -24,15 +24,21 @@
 
 <body id='window'>
 
-	<div id='game'>
+	<div id='stage-selection' class='game'>
 	
 		<div id='list'></div>
 		
-		<button id='back-button' class='menu-button active interactable'></button>
-		<button id='options-button' class='menu-button active interactable'></button>
+		<button id='back-button' class='menu-button active interactable'>
+			<div id='back-icon'></div>
+			<div class='button-text centered-text'>Zurück</div>
+		</button>
+		
+		<button id='options-button' class='menu-button active interactable'>
+			<div id='options-icon'></div>
+			<div class='button-text centered-text'>Optionen</div>
+		</button>
 	
 	</div>
-
 
 	<!-- Eingangsanimation -->
 	<script>

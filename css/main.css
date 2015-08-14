@@ -2,6 +2,7 @@
 	margin: 0;
 	padding: 0;
 	font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif;
+	cursor: default;
 }
 
 #window {
@@ -22,7 +23,7 @@
 	width: 1000px;
 }
 
-#game {
+.game {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -83,7 +84,6 @@
 	border-radius: 50px;
 	box-sizing: border-box;
 	padding: 25px 25px 25px 35px;
-	cursor: default;
 	font-size: 26px;
 	position: absolute;
 	width: 35%;
@@ -106,17 +106,15 @@
 }
 
 #list {
-	position: absolute;
-	width: 50%;
-	height: 90%;
-	left: calc(34% - 25%);
-	top: calc(50% - 45%);
 	overflow: auto;
+	width: 500px;
+	height: 600px;
+	left: 10px;
 }
 
 .item {
 	width: calc(100% - 40px);
-	height: calc(18% - 20px);
+	height: calc(19% - 20px);
 	font-size: 32px;
 	padding: 20px;
 	margin: 20px 20px 5px 20px;
@@ -160,11 +158,11 @@
 }
 
 
-.interactable:not(.ui-draggable-dragging) {
+.interactable:not(.ui-draggable-dragging), .interactable:not(.ui-draggable-draggin) * {
 	cursor: pointer;
 }
 
-.non-interactable {
+.non-interactable, .non-interactable *{
 	cursor: not-allowed;
 }
 
@@ -174,6 +172,10 @@
 	border-width: 2px;
 	border-color: black;
 	color: black;
+	
+}
+
+.active, .active * {
 	cursor: pointer;
 }
 
@@ -187,6 +189,9 @@
 	border-style: inset;
 	border-width: 1px;
 	border-color: black;
+}
+
+.item:not(.active), .item:not(.active) * {
 	cursor: not-allowed;
 }
 
@@ -200,14 +205,52 @@
 	position: absolute;
 }
 
-#options-button {
-	background-image: url(../images/settings.png);
+#options-icon, #back-icon, #options-button, #back-button {
+	display: inline-block;
+}
+
+#options-icon, #back-icon, .button-text {
+	height: 100%;
+	position: absolute;
+}
+
+#options-icon, #back-icon {
 	width: 64px;
-	height: 64px;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+	left: 0;
+	top: 0;
+}
+
+.button-text {
+	font-size: 24px;
+	margin-left: 20px;
+	margin-right: 20px;
+	top: 0;
+	right: 20px;
+}
+
+#options-icon {
+	background-image: url(../images/settings.png);
+}
+
+#back-icon {
+	background-image: url(../images/back.png);
+}
+
+#options-button, #back-button {
+	height: 64px;
+	width: 225px;
 	left: 10px;
+	box-sizing: border-box;
+}
+
+#options-button {
 	bottom: 10px;
+}
+
+#back-button {
+	top: 10px;
 }
 
 .screen-overlay {
@@ -245,12 +288,8 @@
 	top: calc(10% - 24px);
 }
 
-#back-button {
-	background-image: url(../images/back.png);
-	width: 64px;
-	height: 64px;
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	left: 10px;
-	top: 10px;
+#toolbox, #list {
+	box-sizing: border-box;
+	position: absolute;
+	top: 80px;
 }
