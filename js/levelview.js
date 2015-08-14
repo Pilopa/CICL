@@ -56,10 +56,9 @@ $(function() {
 				return true;
 			},
 			stop: function (event, ui) {
-				if (ui.draggable !== undefined)
-					ui.draggable
-					.css("top", "")
-					.css("left", "");
+				$(this)
+				.css("top", "")
+				.css("left", "");
 			}
 		});
 	}
@@ -69,7 +68,11 @@ $(function() {
 			accept: ".tool, .tile",
 			hoverClass: "drop-hover-highlight",
 			deactivate: function (event, ui) {
-				$(this).removeClass("drop-highlight");
+				//Manchmal werden die top-und left-werte nicht automatisch korrekt zurückgesetzt. Daher wird das hier manuell getan.
+				$(this)
+				.css("top", "")
+				.css("left", "")
+				.removeClass("drop-highlight");
 			},
 			
 			activate: function (event, ui) {
@@ -102,9 +105,7 @@ $(function() {
 					var y2 = parseInt(sourceClasses[2].replace("y", ""));
 					level.swap(x2, y2, x, y);
 				}
-					$(this)
-					.css("top", "")
-					.css("left", "");
+			
 			}
 		});
 	}
