@@ -64,17 +64,21 @@ $(function() {
 			deactivate: function (event, ui) {
 				$(this).removeClass("drop-highlight");
 			},
+			
 			activate: function (event, ui) {
 				$(this).addClass("drop-highlight");
 			},
+			
 			over: function ( event, ui ) {
 				ui.helper.addClass("drag-hover-highlight");
 				$(this).removeClass("drop-highlight");
 			},
+			
 			out: function ( event, ui ) {
 				ui.helper.removeClass("drag-hover-highlight");
 				$(this).addClass("drop-highlight");
 			},
+			
 			drop: function (event, ui) {
 				ui.helper.removeClass("drag-hover-highlight");
 				var classes = $(this).attr('class').split(" ");
@@ -171,6 +175,9 @@ $(function() {
 		} else {
 			tileview
 			.css('background-image', 'url(../images/empty.png)')
+			.css("transform", "")
+			.css("top", "")
+			.css("left", "")
 			.removeClass("interactable");
 		}
 		
@@ -497,19 +504,20 @@ $(function() {
 		var tutorialFlags = {
 			placed : false,
 			rotated : false,
-			dragged : false,
-			removed : false
+			moved : false,
+			removed : false,
+			added : false
 		};
 		
 		var tutorialHandler = function (event) {
 			
-			if (event.type === EVENT_TYPE_PLACED && event.tile.x == 1 && event.tile.y == 2) {
-				!tutorialFlags.placed = true;
+			if (event.type === EVENT_TYPE_PLACED) {
 				combulix.next();
-			}
-			
-			if (event.type === EVENT_TYPE_ROTATED && event.tile.x == 1 && event.tile.y == 2) {
-				!tutorialFlags.rotated = true;
+			} else if (event.type === EVENT_TYPE_ROTATED) {
+				combulix.next();
+			} else if (event.type === EVENT_TYPE_SWAPPED) {
+				combulix.next();
+			} else if (event.type === EVENT_TYPE_REMOVED) {
 				combulix.next();
 			}
 			
@@ -522,6 +530,7 @@ $(function() {
             	function () { //on
             	    $("#startbutton").hide();
 		       	 	$(".speech-bubble").addClass("highlighted");
+		       	 	combulix.disablePrevious();
 		        },
 		         
 		        function () { //off
@@ -552,8 +561,8 @@ $(function() {
 			     },
 			     
 			     function () { //off
-			    	 $(".tile.x0.y0").removeClass("highlighted").css("z-index", 20);
-			    	 $(".tile.x1.y4").removeClass("highlighted").css("z-index", 20);
+			    	 $(".tile.x0.y0").removeClass("highlighted").css("z-index", "");
+			    	 $(".tile.x1.y4").removeClass("highlighted").css("z-index", "");
 			     }
 	        ),
 		     
@@ -603,78 +612,204 @@ $(function() {
 		    new Speech("Ziehe zunächst die Gerade von der Werkzeugleiste auf das makierte Feld ...", undefined,
 		    		 
 		    		 function () { //on
+		    	
 				    	 if (!tutorialFlags.placed) {
-				    		 level.registerListener(tutorialHandler);
-				    		 combulix.disableNext();
+				    		 
+				    		 level.registerListener(tutorialHandler); //Listener setzt die Flags und lässt Combulix eine Speech weiter springen.
+				    		 combulix.disableNext(); //Das Spiel bestimmt, wann combulix weiter geht
+				    		 
+				    		 //Aktualisiere die Tools
 				    		 level.tools = {
 				    			straight: 1
 							 }
 						     updateToolNumber(TILE_TYPE_STRAIGHT);
+				    		 
+				    		 //Lösche die nicht relevanten Droppables
 				    		 $(".tile:not(.x1.y2)").each(function(index) {
-					    		 if ($(this).is('.ui-droppable')) $(this).droppable('destroy');
+					    		 if ($(this).is('.ui-droppable')) $(this).droppable('disable');
 					    	 });
 				    		 
 				    	 }
 				    	 
+				    	 //Füge das Markup hinzu.
 				    	 $("#straight").addClass("highlighted");
-				    	 $(".tile.x1.y2").addClass("highlighted");
-				    	 $(".tile.x1.y2").css("z-index", 21);
+				    	 $(".tile.x1.y2").addClass("highlighted").css("z-index", 21);
+				    	 
 		    	 	},
 		    	 	
 		    	 	function () { //off
-				    	 if (!tutorialFlags.placed) {
-					    	 $(".tile:not(.x1.y2)").each(function(index) {
-				    			var classes = $(this).attr('class').split(" ");
-				    			var x = parseInt(classes[1].replace("x", ""));
-				    			var y = parseInt(classes[2].replace("y", ""));
-					    		updateTileViewHandlers(x, y);
-					    	 });
+		    	 		
+				    	if (!tutorialFlags.placed) {
+				    		tutorialFlags.placed = true;
+				    		
+					    	 //Aktualisiere Logik
+					    	 level.removeListener(tutorialHandler);
+					    	 combulix.enableNext();
+				    		
+				    		//Reaktiviere die Droppables des Spielfelds
+					    	$(".tile:not(.x1.y2)").each(function(index) {
+					    		if ($(this).is('.ui-droppable')) $(this).droppable('enable');
+					    	});
+					    	 
 				    	 }
 				    	 
-				    	 level.removeListener(tutorialHandler);
-				    	 combulix.enableNext();
-				    	 $("#corner").removeClass("highlighted");
-				    	 $(".tile.x1.y2").removeClass("highlighted");
-				    	 $(".tile.x1.y2").css("z-index", 20);
+				    	 //Entferne Markups
+				    	 $("#straight").removeClass("highlighted");
+				    	 $(".tile.x1.y2").removeClass("highlighted").css("z-index", "");
 		    	 	}
 		    ),
 		     
-		    new Speech("Gut gemacht! Drehe nun die Ecke so oft (linksklick), sodass ein Ausgang nach rechts und einer nach oben zeigt ...", undefined,
+		    new Speech("Gut gemacht! Drehe nun die Gerade, indem du auf sie linksklickst ...", undefined,
 		    		 
 		    	function () { //on
+		    	
 			    	 if (!tutorialFlags.rotated) {
-			    		 level.registerListener(tutorialHandler);
+			    		 
+			    		 level.registerListener(tutorialHandler); //Listener setzt die Flags und lässt Combulix eine Speech weiter springen.
 			    		 combulix.disableNext();
-						 level.getTile(0, 1).movable = false;
-						 updateTileView(0, 1);
+			    		 
+			    		 //Aktualisiere das Tile
+						 level.getTile(1, 2).movable = false;
+						 updateTileView(1, 2);
+						 
 			    	 }
-			    	 $(".tile.x1.y2").addClass("highlighted");
-			    	 $(".tile.x1.y2").css("z-index", 41);
+			    	 
+			    	 //Füge Markup hinzu.
+			    	 $(".tile.x1.y2").addClass("highlighted").css("z-index", 41);
 			     },
 			     
 			     function () { //off
-			    	 level.removeListener(tutorialHandler);
-			    	 $(".tile.x1.y2").removeClass("highlighted");
-			    	 $("#corner").removeClass("highlighted");
-			    	 $(".tile.x1.y2").removeClass("highlighted");
-			    	 $(".tile.x1.y2").css("z-index", 20);
-			    	 combulix.enableNext();
+			    	 
+			    	 if (!tutorialFlags.rotated) {
+			    		 tutorialFlags.rotated = true;
+			    		 
+			    		 level.removeListener(tutorialHandler);
+			    		 combulix.enableNext();
+			    		 
+			    		//Aktualisiere das Tile
+				    	level.getTile(1, 2).movable = true;
+						updateTileView(1, 2);
+			    	 }
+					 
+					 //Entferne Markup
+					 $(".tile.x1.y2").removeClass("highlighted").css("z-index", "");
+			    	 
 			     }
 			     
 		    ),
+		    
+		    new Speech("Und jetzt bewege die Gerade auf das markierte Feld ...", undefined,
+		    		 
+		    	function () { //on
+		    	
+			    	 if (!tutorialFlags.moved) {
+			    		 
+			    		 level.registerListener(tutorialHandler); //Listener setzt die Flags und lässt Combulix eine Speech weiter springen.
+			    		 combulix.disableNext();
+			    		 
+			    		 level.getTile(1, 2).rotatable = false;
+						 updateTileView(1, 2);
+						 
+			    		 $(".tile:not(.x1.y1)").each(function(index) {
+			    			 if ($(this).is(".ui-droppable")) $(this).droppable("disable");
+				    	 });
+			    		 
+			    		 $("#tboverlay").droppable("disable");
+			    		 
+			    	 }
+			    	 
+			    	 $(".tile.x1.y2").addClass("highlighted").css("z-index", 41);
+			    	 $(".tile.x1.y1").addClass("highlighted").css("z-index", 41);
+			     },
+			     
+			     function () { //off
+			    	 
+			    	 if (!tutorialFlags.moved) {
+			    		 tutorialFlags.moved = true;
+			    		 
+				    	 level.removeListener(tutorialHandler);
+				    	 combulix.enableNext();
+				    	 
+						 level.getTile(1, 1).rotatable = true;
+						 updateTileView(1, 1);
+						 
+				    	//Reaktiviere die Droppables des Spielfelds
+				    	 $(".tile:not(.x1.y1)").each(function(index) {
+			    			/*var classes = $(this).attr('class').split(" ");
+			    			var x = parseInt(classes[1].replace("x", ""));
+			    			var y = parseInt(classes[2].replace("y", ""));
+			    			updateTileViewHandlers(x, y);*/
+				    		if ($(this).is(".ui-droppable")) $(this).droppable("enable");
+				    	 });
+			    		 
+			    		 $("#tboverlay").droppable("enable");
+			    	 }
+					 
+					 //Entferne Markup
+					 $(".tile.x1.y2").removeClass("highlighted").css("z-index", "");
+					 $(".tile.x1.y1").removeClass("highlighted").css("z-index", "");
+			    	 
+			     }
+			     
+		    ),
+		    
+		    new Speech("Abschließend probieren wir, die Gerade wieder zu löschen. Ziehe sie dazu zurück in den Werkzeugkasten ...", undefined,
+		    		 
+			    	function () { //on
+			    	
+				    	 if (!tutorialFlags.removed) {
+				    		 
+				    		 level.registerListener(tutorialHandler); //Listener setzt die Flags und lässt Combulix eine Speech weiter springen.
+				    		 combulix.disableNext();
+				    		 
+							 level.getTile(1, 1).movable = true;
+							 level.getTile(1, 1).rotatable = false;
+							 updateTileView(1, 1);
+							 
+				    		 $(".tile").each(function(index) {
+					    		 if ($(this).is('.ui-droppable')) $(this).droppable('disable');
+					    	 });
+				    		 
+				    	 }
+				    	 
+				    	 $(".tile.x1.y1").addClass("highlighted").css("z-index", 42);
+				    	 $("#toolbox").addClass("highlighted").css("z-index", 41);
+				     },
+				     
+				     function () { //off
+				    	 
+				    	 if (!tutorialFlags.removed) {
+				    		 tutorialFlags.removed = true;
+				    		 
+				    		 level.removeListener(tutorialHandler);
+				    		 combulix.enableNext();
+							 
+							//Reaktiviere die Droppables des Spielfelds
+					    	 $(".tile").each(function(index) {
+					    		 if ($(this).is('.ui-droppable')) $(this).droppable('enable');
+					    	 });
+							  
+				    	 }
+				    	 
+				    	 $(".tile.x1.y1").removeClass("highlighted").css("z-index", "");
+				    	 $("#toolbox").removeClass("highlighted").css("z-index", "");
+				    	 
+				     }
+				     
+			    ),
 		     
 		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.", undefined, 
 		     		
 		     		function () { //on
-		    	 		if (level.getAmountPlaced(TILE_TYPE_CORNER) == 1 && level.getAmountPlaced(TILE_TYPE_STRAIGHT) == 0) {
+		    	 		if (!tutorialFlags.added) {
+		    	 			tutorialFlags.added = true;
+		    	 			
 				    		 level.tools = {
-				    			corner: 1,
+				    			corner: 2,
 				    			straight: 2
 							 }
-				    		 updateToolBox();
 				    		 
-							 level.getTile(0, 1).rotatable = false;
-							 updateTileView(0, 1);
+				    		 updateToolBox();
 		    	 		}
 		    	 		
 		    	 		$("#startbutton").fadeIn().addClass("highlighted");

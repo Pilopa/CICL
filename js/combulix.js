@@ -7,6 +7,10 @@ var combulix = {
 		
 	current: 0,
 	speeches: [],
+	disabled: {
+		next : false,
+		previous : false
+	},
 	
 	set: function(index) {
 		if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.pause();
@@ -14,28 +18,12 @@ var combulix = {
 		this.current = index;
 		if (index < 0) return;
 		else if (index == 0) $(".arrow.left").fadeOut();
-		else if (index > 0) $(".arrow.left").fadeIn();
-		$(".arrow:not(.left)").fadeIn();
+		else if (index > 0 && !this.disabled.previous) $(".arrow.left").fadeIn();
+		$(".arrow.right").fadeIn();
 		$(".speech-bubble").html(this.speeches[this.current].text);
 		if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.play();
 		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].onCallback.call(this.speeches[this.current]);
 		return this;
-	},
-	
-	next: function() {
-		if (this.current + 1 < this.speeches.length) {
-			combulix.set(this.current + 1);
-		} else {
-			if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.pause();
-			if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback.call(this.speeches[this.current]);
-			combulix.slideOut();
-		}
-	},
-	
-	previous: function() {
-		if (this.current - 1 >= 0) {
-			combulix.set(this.current - 1);
-		}
 	},
 	
 	slideOut: function() {
@@ -66,6 +54,22 @@ var combulix = {
 		});	
 		if (typeof this.speeches[this.current].onCallback !== 'undefined') this.speeches[this.current].onCallback.call(this.speeches[this.current]);
 		return this;
+	},
+	
+	next: function() {
+		if (this.current + 1 < this.speeches.length) {
+			this.set(this.current + 1);
+		} else {
+			if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.pause();
+			if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback.call(this.speeches[this.current]);
+			this.slideOut();
+		}
+	},
+	
+	previous: function() {
+		if (this.current - 1 >= 0) {
+			combulix.set(this.current - 1);
+		}
 	},
 	
 	registerNextListeners: function () {
@@ -119,21 +123,25 @@ var combulix = {
 	disableNext: function() {
 		combulix.disableNextListeners();
 		$(".arrow.right").hide();
+		combulix.disabled.next = true;
 	},
 	
 	enableNext: function() {
 		$(".arrow.right").show();
 		combulix.registerNextListeners();
+		combulix.disabled.next = false;
 	},
 	
 	disablePrevious: function() {
 		combulix.disablePreviousListeners();
 		$(".arrow.left").hide();
+		combulix.disabled.previous = true;
 	},
 	
 	enablePrevious: function() {
 		$(".arrow.left").show();
 		combulix.registerPeviousListeners();
+		combulix.disabled.previous = false;
 	},
 
 	initialize: function() {

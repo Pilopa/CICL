@@ -160,7 +160,7 @@
 }
 
 
-.interactable {
+.interactable:not(.ui-draggable-dragging) {
 	cursor: pointer;
 }
 
