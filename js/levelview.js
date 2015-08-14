@@ -228,7 +228,9 @@ $(function() {
 								revert: true,
 								scroll: false,
 								start: function (event, ui) {
-									ui.helper.addClass("drag-highlight");
+									ui.helper.addClass("drag-highlight")
+									.css("width", tilesize)
+									.css("height", tilesize);
 								},
 								stop: function (event, ui) {
 									ui.helper.removeClass("drag-highlight");

@@ -1,7 +1,9 @@
 //=== Stages ===
 
 if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = 
-	serializer.stringify([new Stage([new Level(5, 5, "Einführung", {})
+	serializer.stringify([
+	                      
+	new Stage([new Level(5, 5, "Einführung", {})
 				.put(4, 0, 0, new Tile(TILE_TYPE_WALL, false, false))
 				.put(4, 1, 0, new Tile(TILE_TYPE_WALL, false, false))
 				.put(4, 2, 0, new Tile(TILE_TYPE_WALL, false, false))
@@ -43,13 +45,13 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] =
 				.put(3, 1, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
 				.put(4, 3, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))]),
 				
-	new Stage([new Level(3, 3, "Level 1")
+	new Stage([new Level(5, 5, "Level 1")
 				.put(0, 1, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
 				.put(1, 0, 1, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
 				.put(2, 1, 0, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
 				.put(1, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA)),
 				
-				new Level(5, 5, "Level 2", {
+				new Level(7, 7, "Level 2", {
 					'straight': TILE_AMOUNT_ENDLESS,
 					'corner': TILE_AMOUNT_ENDLESS,
 					'crossroads': TILE_AMOUNT_ENDLESS,
