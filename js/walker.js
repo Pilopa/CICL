@@ -22,19 +22,17 @@ function Walker(tile, ele, lvl, cf, run) {
 }
 
 Walker.prototype.walk = function() {
-	if(this.running) {
-		if(this.checkElement()) {
-			if(this.where.type.name == TILE_NAME_DESTINATION) {
-				var walker = this;
-				this.animateDest(function() {walker.level.destinationReached(this.where);});
-			return;
-			}
-			if(this.running) {
-				this.setElementEntry();
-			}
-			if(this.running) {
-				this.animateFlow(this);
-			}
+	if(this.running && this.checkElement()) {
+		if(this.where.type.name == TILE_NAME_DESTINATION) {
+			var walker = this;
+			this.animateDest(function() {walker.level.destinationReached(this.where);});
+		return;
+		}
+		if(this.running) {
+			this.setElementEntry();
+		}
+		if(this.running) {
+			this.animateFlow(this);
 		}
 	}
 }
