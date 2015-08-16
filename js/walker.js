@@ -45,7 +45,7 @@ Walker.prototype.checkElement = function() {
 	if(this.where.type.name == TILE_NAME_SOURCE) {
 		return true;
 	}
-	if(this.where.getElement(cf) === undefined || this.where.getElement(cf) == TILE_ELEMENT_NONE) {
+	if(typeof (this.where.getElement(cf)) !== 'string' || this.where.getElement(cf) === TILE_ELEMENT_NONE) {
 		return true;
 	} else if (this.where.getElement(cf) == this.element && this.where.type.name != TILE_NAME_DESTINATION) {
 		this.stop();
