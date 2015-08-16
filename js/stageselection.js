@@ -12,7 +12,7 @@ $(function() {
 			.addClass("unselectable")
 			.addClass("centered-text")
 			.attr("id", i)
-			.html("Bereich " + (i + 1))
+			.html(stage.title === undefined ? "Bereich " + (i + 1) : stage.title)
 			.appendTo("#list");
 	}
 	
@@ -21,9 +21,6 @@ $(function() {
 	combulix.initialize();
 	
 	if (playerObject.showStageSelectionTutorial) {
-		//Setze die Werte, welche angeben, dass der Spieler die Stageauswahl einmal betreten hat.
-		playerObject.stageAvailable[0] = true;
-		saveCurrentPlayerObject(playerObject);
 		
 		$("#list").hide();
 		
@@ -112,8 +109,16 @@ $(function() {
 	} else {
 		
 		//Lade Spielstand
-		for (i = 0; i < getStages().length; i++) {
-			if (playerObject.stageAvailable[i] == true) $("#" + i).addClass("active").addClass("highlighted").click(function(event) {
+		for (var i = 0; i < getStages().length; i++) {
+			var okay = true;
+			
+			if (i != 0) {
+				for (var j = 0; j < getStages()[i - 1].levels.length; j++) {
+					okay = okay && playerObject.scores[i - 1][j] !== undefined && (playerObject.scores[i - 1][j] >= 3);
+				}
+			}
+			
+			if (okay) $("#" + i).addClass("active").addClass("highlighted").click(function(event) {
     			showLevelSelection($(this).attr("id"));
     		});
 		}

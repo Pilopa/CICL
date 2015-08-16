@@ -4,7 +4,8 @@ $(function() {
 	var x = location.search.replace('?','').split('-');
 	var stageid = parseInt(x[0]);
 	var levelid = parseInt(x[1]);
-	var level = getStages()[stageid].levels[levelid];
+	var stage = getStages()[stageid];
+	var level = stage.levels[levelid];
 	var playerObject = getCurrentPlayerObject();
 	$.event.special.swipe.horizontalDistanceThreshold = 150; //px //Definiere die Grenze, ab welchem ein Swipe-Event ausgelöst wird.
 	
@@ -46,21 +47,22 @@ $(function() {
 	function initializeTileViewDragHandler(x, y) {
 		if (!$(".x" + x + ".y" + y).is('.ui-draggable')) $(".x" + x + ".y" + y).draggable({
 			revertDuration: 0,
+			scroll: false,
 			revert: function (droppable) {
 				
 				if (!droppable) $(this).draggable("option", "revertDuration", 500);
 				else if ($(this).is(":data(ui-draggable)")) $(this).draggable("option", "revertDuration", 0);
-				else $(this).removeClass("drag-highlight");
+				else $(this).removeClass("ui-draggable-dragging");
 				
 				return true;
 			},
-			scroll: false,
-			start: function (event, ui) {
-				ui.helper.addClass("drag-highlight");
-			},
 			stop: function (event, ui) {
-				ui.helper.removeClass("drag-highlight");
-			},
+				//Manchmal werden die top-und left-werte nach dem Drag & Drop nicht automatisch korrekt zurückgesetzt. 
+				//Daher wird das hier manuell getan.
+				$(this)
+				.css("top", "")
+				.css("left", "");
+			}
 		});
 	}
 	
@@ -69,7 +71,12 @@ $(function() {
 			accept: ".tool, .tile",
 			hoverClass: "drop-hover-highlight",
 			deactivate: function (event, ui) {
-				$(this).removeClass("drop-highlight");
+				//Manchmal werden die top-und left-werte nach dem Drag & Drop nicht automatisch korrekt zurückgesetzt.
+				//Daher wird das hier manuell getan.
+				$(this)
+				.css("top", "")
+				.css("left", "")
+				.removeClass("drop-highlight");
 			},
 			
 			activate: function (event, ui) {
@@ -100,9 +107,9 @@ $(function() {
 					var sourceClasses = $(ui.draggable).attr('class').split(" ");
 					var x2 = parseInt(sourceClasses[1].replace("x", ""));
 					var y2 = parseInt(sourceClasses[2].replace("y", ""));
-					//if (level.isEmpty(x, y)) ui.draggable.removeClass("drag-highlight");
 					level.swap(x2, y2, x, y);
 				}
+			
 			}
 		});
 	}
@@ -143,7 +150,6 @@ $(function() {
 		} else {
 			
 			//Dieser Teil passiert, wenn das Tile auf diesem Feld leer ist.
-			
 			initializeTileViewDropHandler(tileview);
 			if ($(tileview).is(":data(ui-draggable)")) $(tileview).draggable('destroy');
 			tileview.off("click", rotateEventHandler);
@@ -228,12 +234,10 @@ $(function() {
 								revert: true,
 								scroll: false,
 								start: function (event, ui) {
-									ui.helper.addClass("drag-highlight");
-								},
-								stop: function (event, ui) {
-									ui.helper.removeClass("drag-highlight");
-								},
-								//snap: ".tile"
+									ui.helper
+									.css("width", tilesize)
+									.css("height", tilesize);
+								}
 							});
 		} else {
 			tool
@@ -345,7 +349,7 @@ $(function() {
 			$("#startbutton").addClass("highlighted");
 			
 			//Sieges-Feedback
-			$("#game").animate({
+			$(".game").animate({
 				boxShadow : "0 0 75px 0 rgba(0, 255, 0, 1) inset"
 			}, 400, function () {
 				$(this).animate({
@@ -426,7 +430,7 @@ $(function() {
 			$("#startbutton").addClass("highlighted");
 			
 			//Fail-Feedback
-			$("#game").animate({
+			$(".game").animate({
 				boxShadow : "0 0 75px 0 rgba(255, 0, 0, 1) inset"
 			}, 400, function () {
 				$(this).animate({
@@ -441,7 +445,8 @@ $(function() {
 	});
 	
 	// Initialisiere das Spielfeld
-	$('#levelheader').text('Bereich ' + (stageid+1) + ' - Level ' + (levelid+1) + ': ' + level.title);
+	$('#levelheader').text((stage.title === undefined ? "Bereich " + (i + 1) : stage.title) + " : " + (level.title === undefined ? "Bereich " + (i + 1) : level.title));
+	
 	var tilesize = 0;
 	if(level.width >= level.height) {
 		tilesize = Math.floor(parseInt($('#space').css('width'))/level.width);
@@ -567,8 +572,8 @@ $(function() {
 	        	function () { //on
 		     		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA), true);
 		    		level.put(1, 4, 1, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA), true);
-			       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21); // .removeClass('immovable');
-			       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21); // .removeClass('immovable');
+			       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21);
+			       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21);
 			     },
 			     
 			     function () { //off
@@ -746,10 +751,6 @@ $(function() {
 						 
 				    	//Reaktiviere die Droppables des Spielfelds
 				    	 $(".tile:not(.x1.y1)").each(function(index) {
-			    			/*var classes = $(this).attr('class').split(" ");
-			    			var x = parseInt(classes[1].replace("x", ""));
-			    			var y = parseInt(classes[2].replace("y", ""));
-			    			updateTileViewHandlers(x, y);*/
 				    		if ($(this).is(":data(ui-droppable)")) $(this).droppable("enable");
 				    	 });
 			    		 
@@ -835,6 +836,7 @@ $(function() {
 		];
 		combulix.slideIn();
 	} else {
+		
 		combulix.speeches = [new Speech("Ich weiß doch auch nicht weiter . . .")];
 		if (stageid == 0 && levelid == 0) {
      		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA), true);
@@ -846,6 +848,7 @@ $(function() {
 			 updateToolBox();
 		}
 		combulix.slideOut();
+		
 	}
 	
 	$('#startbutton').click(function() {
@@ -867,10 +870,10 @@ $(function() {
 			$("#startbutton").removeClass("highlighted");
 			clearRun();
 			$(this).text("Test starten!");
-			$("#game").css({
+			$(".game").css({
 				boxShadow: "0px 0px 0px 0px #F80 inset"
 			});
-			$("#game").removeClass("wrong").removeClass("right");
+			$(".game").removeClass("wrong").removeClass("right");
 			$(".event-blocker").hide(); //Erlaube das Modifizieren des Spielfelds
 			
 		} 

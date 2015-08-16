@@ -147,15 +147,11 @@ Level.prototype.fireEvent = function (evt) {
 }
 
 Level.prototype.startRun = function() {
-	for(var y = 0; y < this.height; y++) {
-		for(var x = 0; x < this.width; x++) {
-			if(!this.isEmpty(x,y)) { 
-				if(this.getTile(x, y).type.name == TILE_NAME_SOURCE) {
-					new Walker(this.getTile(x, y), this.getTile(x, y).elements[this.getTile(x, y).getExits()[0]], this, 'undefined', true).walk();
-				}
-			}
-		}
-	}
+	for(var y = 0; y < this.height; y++) 
+		for(var x = 0; x < this.width; x++) 
+			if(!this.isEmpty(x, y) && this.getTile(x, y).type.name == TILE_NAME_SOURCE) 
+				new Walker(this.getTile(x, y), this.getTile(x, y).elements[this.getTile(x, y).getExits()[0]], this, 'undefined', true).walk();
+	
 	console.log('timer starting');
 	var temp = this;
 	this.aborttimer = setInterval(function(){temp.abort();}, 1000);
