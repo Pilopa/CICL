@@ -222,7 +222,7 @@
 .flow {
 	position: absolute;
 	z-index: 30;
-	opacity: 0.1;
+	opacity: 0.3;
 }
 
 #game.right {

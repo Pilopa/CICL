@@ -156,23 +156,16 @@ Level.prototype.startRun = function() {
 			}
 		}
 	}
-	console.log('timer starting');
 	var temp = this;
 	this.aborttimer = setInterval(function(){temp.abort();}, 1000);
 }
 
 Level.prototype.abort = function(obj) {
-		console.log('try aborting');
 		var cont = false;
 		for(var i = 0; i < this.walkers.length; i++) {
 			cont = cont || this.walkers[i].running;
-			/*if(cont) {
-				console.log('returning');
-				return;
-			}*/
 		}
 		if(!cont) {
-			console.log('aborting!');
 			this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, undefined, 'no more active walkers'));
 		}
 	}
