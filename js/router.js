@@ -23,5 +23,4 @@ function showSplash() {
 	$(".game").fadeOut(function () {
 		location.href = "../html/splash.html";
 	});
-	
 }

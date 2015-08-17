@@ -45,23 +45,26 @@ $(function() {
 	}
 	
 	function initializeTileViewDragHandler(x, y) {
-		if (!$(".x" + x + ".y" + y).is('.ui-draggable')) $(".x" + x + ".y" + y).draggable({
-			scroll: false,
-			revert: function (droppable) {
-				
-				if (!droppable) $(this).draggable("option", "revertDuration", 500);
-				else if ($(this).is(":data(ui-draggable)")) $(this).draggable("option", "revertDuration", 0);
-				else $(this).removeClass("ui-draggable-dragging");
-				
-				return true;
-			},
-			stop: function (event, ui) {
-				//Manchmal werden die top-und left-werte nach dem Drag & Drop nicht automatisch korrekt zurückgesetzt. 
-				//Daher wird das hier manuell getan.
-				$(this)
-				.css("top", "")
-				.css("left", "");
-			}
+		if (!$(".x" + x + ".y" + y).is(':data(ui-draggable)'))
+			$(".x" + x + ".y" + y).draggable({
+				scroll: false,
+				revert: function (droppable) {
+					
+					if (!droppable) $(this).draggable("option", "revertDuration", 500);
+					else if ($(this).is(":data(ui-draggable)")) $(this).draggable("option", "revertDuration", 0);
+					else  $(this).removeClass("ui-draggable-dragging");
+					
+					return true;
+					
+					
+				},
+				stop: function (event, ui) {
+					//Manchmal werden die top-und left-werte nach dem Drag & Drop nicht automatisch korrekt zurückgesetzt. 
+					//Daher wird das hier manuell getan.
+					$(this)
+					.css("top", "")
+					.css("left", "");
+				}
 		});
 	}
 	
@@ -313,13 +316,6 @@ $(function() {
 			updateTileView(event.tile.x, event.tile.y);
 			
 		} else if (event.type === EVENT_TYPE_SWAPPED) { //Zwei Tiles wurden vertauscht
-			
-			var element1 = $(".x" + event.tile.x1 + ".y" + event.tile.y1);
-			var element2 = $(".x" + event.tile.x2 + ".y" + event.tile.y2);
-			
-			//Wenn mit einem leeren Feld getauscht wurde, müssen diesem die Listener hinzugefügt werden. (Gelöscht werden sie automatisch)
-			if (level.isEmpty(event.tile.x1, event.tile.y1)) updateTileViewHandlers(event.tile.x2, event.tile.y2);
-			if (level.isEmpty(event.tile.x2, event.tile.y2)) updateTileViewHandlers(event.tile.x1, event.tile.y1);
 			
 			//Aktualisiere die Anzeige
 			updateTileView(event.tile.x1, event.tile.y1);

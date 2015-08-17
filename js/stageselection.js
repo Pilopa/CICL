@@ -141,10 +141,4 @@ $(function() {
 	
 	//Definiere Ziel für Zurück-Button
 	backButton.setCallback(showSplash);
-	
-	//Behandle Auswahl einer Stage.
-	
-	$(".item.active").click(function(event) {
-		showLevelSelection($(this).attr("id"));
-	});
 });

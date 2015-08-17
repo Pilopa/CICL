@@ -45,5 +45,5 @@ var TILE_TYPE_TJUNCTION = new TileType([DIRECTION_LEFT, DIRECTION_UP, DIRECTION_
 
 var PLACEABLE_TILE_TYPES = [TILE_TYPE_STRAIGHT,
                             TILE_TYPE_CORNER,
-                            TILE_TYPE_TJUNCTION,
-                            TILE_TYPE_CROSSROADS];
+                            TILE_TYPE_CROSSROADS,
+                            TILE_TYPE_TJUNCTION];

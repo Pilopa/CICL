@@ -6,7 +6,9 @@ var audio = {
 	combulixNav : new Audio("../audio/combulix-nav.mp3"),
 	errorSound : new Audio("../audio/error.mp3"),
 	soundOnClick : function (selector) {
+		
 		$(selector).click(function() {
+			
 			if ($(this).is(".item.active")) {
 				audio.selectionItemSound.load();
 				audio.selectionItemSound.play();
@@ -21,6 +23,7 @@ var audio = {
 				audio.combulixNav.load();
 				audio.combulixNav.play();
 			}
+			
 		});
 	}
 
