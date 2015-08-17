@@ -91,19 +91,19 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 			.put(3, 1, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
 			.put(1, 3, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
 			.put(0, 4, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(2, 2, 0, new Tile(TILE_TYPE_CROSSROADS, 	 TILE_ELEMENT_NONE))
+			.put(0, 2, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
-			new Level(5, 5, "Level 3", {
-					'straight': 10,
+			new Level(7, 5, "Level 3", {
+				'straight': 10,
 				'corner': 12,
 				'crossroads': 4,
 			})
 		
 			.put(1, 0, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
 			.put(2, 2, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(2, 0, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
 			.put(3, 1, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
 			.put(5, 3, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
 			.put(3, 0, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
