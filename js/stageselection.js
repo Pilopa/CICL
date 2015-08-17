@@ -14,6 +14,9 @@ $(function() {
 			.attr("id", i)
 			.html(stage.title === undefined ? "Bereich " + (i + 1) : stage.title)
 			.appendTo("#list");
+		
+		//Initialisiere Sound
+		audio.soundOnClick(element);
 	}
 	
 	//Initialisiere Combulix

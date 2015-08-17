@@ -25,6 +25,9 @@ $(function() {
 				saveCurrentPlayerObject(playerObject);
 			}
 		});
+		
+		//Initialisiere Sound
+		audio.soundOnClick("#continue");
 	
 	} 
 	

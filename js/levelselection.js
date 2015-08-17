@@ -42,6 +42,9 @@ $(function() {
 				ratingDisplay.addClass("star-empty");
 			}
 		}
+		
+		//Initialisiere Sound
+		audio.soundOnClick(".item");
 	}
 	
 	$("#list").after("<div id='stage-id'>" + (stage.title === undefined ? "Bereich " + (i + 1) : stage.title) + "</div>");

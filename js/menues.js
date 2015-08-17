@@ -8,10 +8,13 @@ var optionsMenu = {
 		initialize: function() {
 			if (typeof x === 'undefined') x = "0";
 			if (typeof y === 'undefined') y = "0";
+			
 			$("#options-button")
 			.click(function() {
 				optionsMenu.fadeIn();
 			});
+			
+			audio.soundOnClick("#options-button");
 			return this;
 		},
 		
@@ -65,6 +68,9 @@ var optionsMenu = {
 		
 		//Schaltfläche
 		this.optionsButton.initialize();
+		
+		//Initialisiere Sound
+		audio.soundOnClick(".close-button");
 		
 		return this;
 	},
