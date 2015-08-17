@@ -87,11 +87,10 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 			.put(1, 1, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
 			.put(3, 4, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
 			.put(4, 4, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(5, 0, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(4, 1, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(2, 3, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(1, 4, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(0, 5, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
+			.put(4, 0, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
+			.put(3, 1, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
+			.put(1, 3, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
+			.put(0, 4, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
 			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
