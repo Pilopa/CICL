@@ -46,7 +46,6 @@ $(function() {
 	
 	function initializeTileViewDragHandler(x, y) {
 		if (!$(".x" + x + ".y" + y).is('.ui-draggable')) $(".x" + x + ".y" + y).draggable({
-			revertDuration: 0,
 			scroll: false,
 			revert: function (droppable) {
 				
