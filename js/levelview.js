@@ -893,7 +893,6 @@ $(function() {
 	
 	//Starte Spielmusik
 	
-	var gameMusic = new Audio("../audio/Groovy-funky-music-clip.mp3");
-	//gameMusic.play();
+	//TODO
 	
 });

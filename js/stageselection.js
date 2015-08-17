@@ -118,7 +118,7 @@ $(function() {
 				}
 			}
 			
-			if (okay) $("#" + i).addClass("active").addClass("highlighted").click(function(event) {
+			if (okay) $("#" + i).addClass("active").addClass("interactable").addClass("highlighted").click(function(event) {
     			showLevelSelection($(this).attr("id"));
     		});
 		}

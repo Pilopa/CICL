@@ -3,7 +3,7 @@ var optionsMenu = {
 	optionsButton: {
 		
 		/**
-		 * Erstellt den Button an der gewählten Position, ausgehend von der oberen linken Ecke des Document-Bodys.
+		 * Initialisiert den Button, welcher zum Optionsmenü führt.
 		 */
 		initialize: function() {
 			if (typeof x === 'undefined') x = "0";
