@@ -35,7 +35,7 @@ Tile.prototype.toString = function () {
 }
 
 Tile.prototype.rotate = function (steps) {
-	this.rotation += steps;
+	this.rotation = (this.rotation+steps)%4;
 }
 
 Tile.prototype.getExits = function() {
