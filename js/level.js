@@ -43,7 +43,7 @@ Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	tile.y = y;
 	tile.rotation = r;
 	this.playfield[y][x] = tile;
-	if (tile.type.name == TILE_NAME_DESTINATION) this.destinationsCount++;
+	if (tile.type.name == TILE_NAME['destination']) this.destinationsCount++;
 	if (fireEvents) this.fireEvent(new Event(EVENT_TYPE_PLACED, tile));
 	return this;
 }
@@ -101,26 +101,31 @@ Level.prototype.getNeighbor = function (tile, dir) {
 	switch(dir) {
 		case 0:
 			ny -= 1;
+			console.log('getNeighbor(): ny == ' + ny);
 			if(ny < 0) {
-				this.testFailed(); // Rand des Spielfelds erreicht!
+				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
+				return false;
 			}
 			break;
 		case 1:
 			nx += 1;
 			if(nx >= this.width) {
-				this.testFailed(); // Rand des Spielfelds erreicht!
+				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
+				return false;
 			}
 			break;
 		case 2:
 			ny += 1;
 			if(ny >= this.heigth) {
-				this.testFailed(); // Rand des Spielfelds erreicht!
+				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
+				return false;
 			}
 			break;
 		case 3:
 			nx -= 1;
 			if(nx < 0) {
-				this.testFailed(); // Rand des Spielfelds erreicht!
+				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
+				return false;
 			}
 	}
 	return this.getTile(nx, ny);
@@ -149,7 +154,7 @@ Level.prototype.fireEvent = function (evt) {
 Level.prototype.startRun = function() {
 	for(var y = 0; y < this.height; y++) 
 		for(var x = 0; x < this.width; x++) 
-			if(!this.isEmpty(x, y) && this.getTile(x, y).type.name == TILE_NAME_SOURCE) 
+			if(!this.isEmpty(x, y) && this.getTile(x, y).type.name == TILE_NAME['source']) 
 				new Walker(this.getTile(x, y), this.getTile(x, y).elements[this.getTile(x, y).getExits()[0]], this, 'undefined', true).walk();
 	
 	var temp = this;
@@ -171,7 +176,7 @@ Level.prototype.clearElements = function() {
 		for(var x = 0; x < this.width; x++) {
 			if(!this.isEmpty(x,y)) {
 				var tile = this.getTile(x, y);
-				if(tile.type.name != TILE_NAME_DESTINATION && tile.type.name != TILE_NAME_SOURCE) {
+				if(tile.type.name != TILE_NAME['destination'] && tile.type.name != TILE_NAME['source']) {
 					tile.setElement(0, TILE_ELEMENT_NONE);
 					tile.setElement(1, TILE_ELEMENT_NONE);
 					tile.setElement(2, TILE_ELEMENT_NONE);

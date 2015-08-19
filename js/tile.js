@@ -25,7 +25,7 @@ function Tile(type, element, movable, rotatable) {
 	this.y = 0;
 	this.type = type;
 	this.elements = element;
-	this.rotation = 0;
+	this.rotation = 0; // Anzahl von Schritten, die das Tile aus der Standard-Richtung verdreht ist
 	this.movable = movable;
 	this.rotatable = rotatable;
 }

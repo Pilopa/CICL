@@ -173,7 +173,7 @@ $(function() {
 			if (tile === undefined) console.log("error in updateTileView in levelview.fs eventHandler: tile is undefined: " + tile);
 			tileview.css('background-image', 
 					'url(../images/' + level.getTile(x, y).type.name
-						+ ((level.getTile(x, y).type.name === TILE_NAME_SOURCE || level.getTile(x, y).type.name === TILE_NAME_DESTINATION)
+						+ ((level.getTile(x, y).type.name === TILE_NAME['source'] || level.getTile(x, y).type.name === TILE_NAME['destination'])
 							? "_" + level.getTile(x, y).elements[level.getTile(x, y).getExits()[0]] : "") + '.png)');
 			var rot = 90 * parseInt(tile.rotation);
 			tileview.css('-webkit-transform', 'rotate(' + rot + 'deg)');
