@@ -129,12 +129,14 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 	new Stage("Bereich C", [
 	           
 			new Level(5, 5, "Level 1", {
-				//???
+				'straight': 4,
+				'crossroads': 1,
 			})
 		
-			.put(1, 1, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(2, 0, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
+			.put(0, 2, 0, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
+			.put(2, 4, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(4, 2, 0, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_HONEY))
 		
 		, // ======================================================================
 		
@@ -164,13 +166,18 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level(5, 5, "Level 4", {
-				// ???
+			new Level(7, 7, "Level 4", {
+				'straight': 15,
+				'corner': 15,
+				'crossroads': 5,
 			})
 		
-			.put(1, 1, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(4, 3, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
+			.put(2, 3, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
+			.put(3, 2, 3, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
+			.put(4, 3, 0, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
+			.put(5, 0, 0, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(1, 6, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_HONEY))
 					
 	]), // ======================================================================
 
