@@ -172,7 +172,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'crossroads': 5,
 			})
 		
-			.put(4, 3, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
+			.put(3, 4, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
 			.put(2, 3, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
 			.put(3, 2, 3, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
 			.put(4, 3, 0, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
