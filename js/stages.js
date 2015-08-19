@@ -11,16 +11,16 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				// * corner : 2
 			})
 		
-			.put(4, 0, 0, new Tile(TILE_TYPE_WALL))
-			.put(4, 1, 0, new Tile(TILE_TYPE_WALL))
-			.put(4, 2, 0, new Tile(TILE_TYPE_WALL))
-			.put(4, 3, 0, new Tile(TILE_TYPE_WALL))
-			.put(4, 4, 0, new Tile(TILE_TYPE_WALL))
-			.put(3, 0, 0, new Tile(TILE_TYPE_WALL))
-			.put(3, 1, 0, new Tile(TILE_TYPE_WALL))
-			.put(3, 2, 0, new Tile(TILE_TYPE_WALL))
-			.put(3, 3, 0, new Tile(TILE_TYPE_WALL))
-			.put(3, 4, 0, new Tile(TILE_TYPE_WALL))
+			.put(4, 0, 0, new Tile(TILE_TYPE['wall']))
+			.put(4, 1, 0, new Tile(TILE_TYPE['wall']))
+			.put(4, 2, 0, new Tile(TILE_TYPE['wall']))
+			.put(4, 3, 0, new Tile(TILE_TYPE['wall']))
+			.put(4, 4, 0, new Tile(TILE_TYPE['wall']))
+			.put(3, 0, 0, new Tile(TILE_TYPE['wall']))
+			.put(3, 1, 0, new Tile(TILE_TYPE['wall']))
+			.put(3, 2, 0, new Tile(TILE_TYPE['wall']))
+			.put(3, 3, 0, new Tile(TILE_TYPE['wall']))
+			.put(3, 4, 0, new Tile(TILE_TYPE['wall']))
 		
 		, // ======================================================================
 		
@@ -29,12 +29,12 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'corner': 8,
 			})
 		
-			.put(0, 1, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 0, 0, new Tile(TILE_TYPE_WALL,			 TILE_ELEMENT_NONE))
-			.put(1, 0, 0, new Tile(TILE_TYPE_WALL,			 TILE_ELEMENT_NONE))
-			.put(2, 1, 0, new Tile(TILE_TYPE_WALL,			 TILE_ELEMENT_NONE))
-			.put(3, 2, 0, new Tile(TILE_TYPE_WALL,			 TILE_ELEMENT_NONE))
-			.put(2, 0, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(0, 1, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 0, 0, new Tile(TILE_TYPE['wall'],			 TILE_ELEMENT_NONE))
+			.put(1, 0, 0, new Tile(TILE_TYPE['wall'],			 TILE_ELEMENT_NONE))
+			.put(2, 1, 0, new Tile(TILE_TYPE['wall'],			 TILE_ELEMENT_NONE))
+			.put(3, 2, 0, new Tile(TILE_TYPE['wall'],			 TILE_ELEMENT_NONE))
+			.put(2, 0, 2, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -43,10 +43,10 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'corner': 6,
 			})
 		
-			.put(4, 0, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(3, 1, 1, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(3, 0, 0, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
-			.put(1, 2, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(4, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(3, 1, 1, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(3, 0, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
+			.put(1, 2, 2, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -55,11 +55,11 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'corner': 10,
 			})
 		
-			.put(0, 3, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(2, 1, 1, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(3, 2, 0, new Tile(TILE_TYPE_WALL,			 TILE_ELEMENT_NONE))
-			.put(3, 1, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
-			.put(4, 3, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(0, 3, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(2, 1, 1, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(3, 2, 0, new Tile(TILE_TYPE['wall'],			 TILE_ELEMENT_NONE))
+			.put(3, 1, 2, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
+			.put(4, 3, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 
 	]), // ======================================================================
 				
@@ -70,10 +70,10 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				// * 'crossroads': 2,
 			}) 
 		
-			.put(0, 1, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(1, 0, 1, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(3, 2, 0, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
-			.put(2, 3, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(0, 1, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(1, 0, 1, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(3, 2, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
+			.put(2, 3, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -82,17 +82,17 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'corner': 3,
 			})
 		
-			.put(2, 0, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 0, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(1, 1, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(3, 4, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(4, 4, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(4, 0, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(3, 1, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(1, 3, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(0, 4, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(2, 2, 0, new Tile(TILE_TYPE_CROSSROADS, 	 TILE_ELEMENT_NONE))
-			.put(0, 2, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(2, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 0, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(1, 1, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(3, 4, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(4, 4, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(4, 0, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(3, 1, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(1, 3, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(0, 4, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(2, 2, 0, new Tile(TILE_TYPE['crossroads'], 	 TILE_ELEMENT_NONE))
+			.put(0, 2, 2, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -102,12 +102,12 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'crossroads': 4,
 			})
 		
-			.put(1, 0, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(2, 2, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(3, 1, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(5, 3, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(3, 0, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
-			.put(6, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(1, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(2, 2, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(3, 1, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(5, 3, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(3, 0, 2, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
+			.put(6, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -116,13 +116,13 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'crossroads': 9,
 			})
 		
-			.put(3, 0, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 4, 3, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(1, 2, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(1, 3, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(2, 2, 0, new Tile(TILE_TYPE_WALL, 			 TILE_ELEMENT_NONE))
-			.put(1, 4, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
-			.put(4, 4, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(3, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 4, 3, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(1, 2, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(1, 3, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(2, 2, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT_NONE))
+			.put(1, 4, 2, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
+			.put(4, 4, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 	]), // ======================================================================
 			
@@ -133,10 +133,10 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'crossroads': 1,
 			})
 		
-			.put(2, 0, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 2, 0, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
-			.put(2, 4, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
-			.put(4, 2, 0, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_HONEY))
+			.put(2, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 2, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_HONEY))
+			.put(2, 4, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
+			.put(4, 2, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_HONEY))
 		
 		, // ======================================================================
 		
@@ -146,10 +146,10 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'crossroads': 1,
 			})
 		
-			.put(1, 0, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 2, 0, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
-			.put(3, 3, 0, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
-			.put(3, 0, 3, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_HONEY))
+			.put(1, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 2, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_HONEY))
+			.put(3, 3, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
+			.put(3, 0, 3, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_HONEY))
 		
 		, // ======================================================================
 		
@@ -159,10 +159,10 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'crossroads': 1,
 			})
 		
-			.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 3, 0, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
-			.put(4, 3, 0, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
-			.put(3, 0, 3, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_HONEY))
+			.put(0, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 3, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_HONEY))
+			.put(4, 3, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
+			.put(3, 0, 3, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_HONEY))
 		
 		, // ======================================================================
 		
@@ -172,12 +172,12 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'crossroads': 5,
 			})
 		
-			.put(3, 4, 1, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(2, 3, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
-			.put(3, 2, 3, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
-			.put(4, 3, 0, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_HONEY))
-			.put(5, 0, 0, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
-			.put(1, 6, 2, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_HONEY))
+			.put(3, 4, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(2, 3, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_HONEY))
+			.put(3, 2, 3, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_HONEY))
+			.put(4, 3, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_HONEY))
+			.put(5, 0, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
+			.put(1, 6, 2, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_HONEY))
 					
 	]), // ======================================================================
 
@@ -187,9 +187,9 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				// ???
 			})
 		
-			.put(1, 4, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(1, 4, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 4, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(4, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -197,9 +197,9 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				// ???
 			})
 		
-			.put(2, 0, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(2, 0, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 4, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(4, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -207,9 +207,9 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				// ???
 			})
 		
-			.put(2, 0, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(2, 0, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 4, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(4, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -217,9 +217,9 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				// ???
 			})
 		
-			.put(2, 1, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(2, 1, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 4, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(4, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 					
 	]), // ======================================================================
 			
@@ -229,9 +229,9 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				// ???
 			})
 		
-			.put(2, 2, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(2, 2, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 4, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(4, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -242,9 +242,9 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'tjunction': TILE_AMOUNT_ENDLESS,
 			})
 		
-			.put(0, 1, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 2, 0, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(0, 1, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 2, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(4, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -252,9 +252,9 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				// keine
 			})
 		
-			.put(2, 0, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(2, 0, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 4, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(4, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 		, // ======================================================================
 		
@@ -265,9 +265,9 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 				'tjunction': TILE_AMOUNT_ENDLESS,
 			})
 		
-			.put(2, 4, 0, new Tile(TILE_TYPE_SOURCE, 		 TILE_ELEMENT_LAVA))
-			.put(0, 4, 2, new Tile(TILE_TYPE_SOURCE,		 TILE_ELEMENT_LAVA))
-			.put(4, 2, 1, new Tile(TILE_TYPE_DESTINATION,	 TILE_ELEMENT_LAVA))
+			.put(2, 4, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT_LAVA))
+			.put(0, 4, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT_LAVA))
+			.put(4, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT_LAVA))
 		
 	]) // ======================================================================
 				

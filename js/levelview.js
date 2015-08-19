@@ -565,8 +565,8 @@ $(function() {
 	        new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, müssen alle Quellen und Ziele fehlerfrei miteinander verbunden werden.", undefined,
 	        		 
 	        	function () { //on
-		     		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA), true);
-		    		level.put(1, 4, 1, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA), true);
+		     		level.put(0, 0, 1, new Tile(TILE_TYPE['source'], TILE_ELEMENT_LAVA), true);
+		    		level.put(1, 4, 1, new Tile(TILE_TYPE['destination'], TILE_ELEMENT_LAVA), true);
 			       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21);
 			       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21);
 			     },
@@ -633,7 +633,7 @@ $(function() {
 				    		 level.tools = {
 				    			straight: 1
 							 }
-						     updateToolNumber(TILE_TYPE_STRAIGHT);
+						     updateToolNumber(TILE_TYPE['straight']);
 				    		 
 				    		 //Lösche die nicht relevanten Droppables
 				    		 $(".tile:not(.x1.y2)").each(function(index) {
@@ -834,8 +834,8 @@ $(function() {
 		
 		combulix.speeches = [new Speech("Ich weiß doch auch nicht weiter . . .")];
 		if (stageid == 0 && levelid == 0) {
-     		level.put(0, 0, 1, new Tile(TILE_TYPE_SOURCE, TILE_ELEMENT_LAVA), true);
-    		level.put(1, 4, 1, new Tile(TILE_TYPE_DESTINATION, TILE_ELEMENT_LAVA), true);
+     		level.put(0, 0, 1, new Tile(TILE_TYPE['source'], TILE_ELEMENT_LAVA), true);
+    		level.put(1, 4, 1, new Tile(TILE_TYPE['destination'], TILE_ELEMENT_LAVA), true);
     		level.tools = {
 				corner: 2,
 				straight: 2

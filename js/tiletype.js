@@ -29,13 +29,13 @@ function TileType(exits, name, pointValue) {
 }
 
 TileType.byName = function(name) {
-	if (name === TILE_NAME['wall']) return TILE_TYPE_WALL;
-	else if (name === TILE_NAME['source']) return TILE_TYPE_SOURCE;
-	else if (name === TILE_NAME['destination']) return TILE_TYPE_DESTINATION;
-	else if (name === TILE_NAME['straight']) return TILE_TYPE_STRAIGHT;
-	else if (name ===  TILE_NAME['corner']) return TILE_TYPE_CORNER;
-	else if (name ===  TILE_NAME['crossroads']) return TILE_TYPE_CROSSROADS;
-	else if (name ===  TILE_NAME['tjunction']) return TILE_TYPE_TJUNCTION;
+	if (name === TILE_NAME['wall']) return TILE_TYPE['wall'];
+	else if (name === TILE_NAME['source']) return TILE_TYPE['source'];
+	else if (name === TILE_NAME['destination']) return TILE_TYPE['destination'];
+	else if (name === TILE_NAME['straight']) return TILE_TYPE['straight'];
+	else if (name ===  TILE_NAME['corner']) return TILE_TYPE['corner'];
+	else if (name ===  TILE_NAME['crossroads']) return TILE_TYPE['crossroads'];
+	else if (name ===  TILE_NAME['tjunction']) return TILE_TYPE['tjunction'];
 	else return null;
 }
 
@@ -43,15 +43,17 @@ TileType.prototype.toString = function() {
 	return this.name;
 }
 
-var TILE_TYPE_WALL = new TileType([], TILE_NAME['wall'], 0);
-var TILE_TYPE_SOURCE = new TileType([DIRECTION_RIGHT], TILE_NAME['source'], 0);
-var TILE_TYPE_DESTINATION = new TileType([DIRECTION_LEFT], TILE_NAME['destination'], 0);
-var TILE_TYPE_STRAIGHT = new TileType([DIRECTION_LEFT, DIRECTION_RIGHT], TILE_NAME['straight'], TILE_POINT_VALUE['straight']);
-var TILE_TYPE_CORNER = new TileType([DIRECTION_LEFT, DIRECTION_DOWN], TILE_NAME['corner'], TILE_POINT_VALUE['corner']);
-var TILE_TYPE_CROSSROADS = new TileType([DIRECTION_LEFT, DIRECTION_RIGHT, DIRECTION_UP, DIRECTION_DOWN], TILE_NAME['crossroads'], TILE_POINT_VALUE['crossroads']);
-var TILE_TYPE_TJUNCTION = new TileType([DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN], TILE_NAME['tjunction'], TILE_POINT_VALUE['tjunction']);
+var TILE_TYPE = {
+	'wall': new TileType([], TILE_NAME['wall'], 0),
+	'source': new TileType([DIRECTION_RIGHT], TILE_NAME['source'], 0),
+	'destination': new TileType([DIRECTION_LEFT], TILE_NAME['destination'], 0),
+	'straight': new TileType([DIRECTION_LEFT, DIRECTION_RIGHT], TILE_NAME['straight'], TILE_POINT_VALUE['straight']),
+	'corner': new TileType([DIRECTION_LEFT, DIRECTION_DOWN], TILE_NAME['corner'], TILE_POINT_VALUE['corner']),
+	'crossroads': new TileType([DIRECTION_LEFT, DIRECTION_RIGHT, DIRECTION_UP, DIRECTION_DOWN], TILE_NAME['crossroads'], TILE_POINT_VALUE['crossroads']),
+	'tjunction': new TileType([DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN], TILE_NAME['tjunction'], TILE_POINT_VALUE['tjunction']),
+}
 
-var PLACEABLE_TILE_TYPES = [TILE_TYPE_STRAIGHT,
-                            TILE_TYPE_CORNER,
-                            TILE_TYPE_CROSSROADS,
-                            TILE_TYPE_TJUNCTION];
+var PLACEABLE_TILE_TYPES = [TILE_TYPE['straight'],
+                            TILE_TYPE['corner'],
+                            TILE_TYPE['crossroads'],
+                            TILE_TYPE['tjunction']];
