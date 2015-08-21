@@ -5,7 +5,7 @@ var TILE_POINT_VALUE = {
 	'straight': 10,
 	'corner': 15,
 	'crossroads': 40,
-	'tjunction': 30,
+	'tjunction': 25,
 }
 
 var TILE_NAME = {
