@@ -45,12 +45,12 @@ TileType.prototype.toString = function() {
 
 var TILE_TYPE = {
 	'wall': new TileType([], TILE_NAME['wall'], 0),
-	'source': new TileType([DIRECTION_RIGHT], TILE_NAME['source'], 0),
-	'destination': new TileType([DIRECTION_LEFT], TILE_NAME['destination'], 0),
-	'straight': new TileType([DIRECTION_LEFT, DIRECTION_RIGHT], TILE_NAME['straight'], TILE_POINT_VALUE['straight']),
-	'corner': new TileType([DIRECTION_LEFT, DIRECTION_DOWN], TILE_NAME['corner'], TILE_POINT_VALUE['corner']),
-	'crossroads': new TileType([DIRECTION_LEFT, DIRECTION_RIGHT, DIRECTION_UP, DIRECTION_DOWN], TILE_NAME['crossroads'], TILE_POINT_VALUE['crossroads']),
-	'tjunction': new TileType([DIRECTION_LEFT, DIRECTION_UP, DIRECTION_DOWN], TILE_NAME['tjunction'], TILE_POINT_VALUE['tjunction']),
+	'source': new TileType([DIRECTION['right']], TILE_NAME['source'], 0),
+	'destination': new TileType([DIRECTION['left']], TILE_NAME['destination'], 0),
+	'straight': new TileType([DIRECTION['left'], DIRECTION['right']], TILE_NAME['straight'], TILE_POINT_VALUE['straight']),
+	'corner': new TileType([DIRECTION['left'], DIRECTION['down']], TILE_NAME['corner'], TILE_POINT_VALUE['corner']),
+	'crossroads': new TileType([DIRECTION['left'], DIRECTION['right'], DIRECTION['up'], DIRECTION['down']], TILE_NAME['crossroads'], TILE_POINT_VALUE['crossroads']),
+	'tjunction': new TileType([DIRECTION['left'], DIRECTION['up'], DIRECTION['down']], TILE_NAME['tjunction'], TILE_POINT_VALUE['tjunction']),
 }
 
 var PLACEABLE_TILE_TYPES = [TILE_TYPE['straight'],

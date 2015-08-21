@@ -1,14 +1,18 @@
 //=== Tile ===
 
-var TILE_ELEMENT_NONE = "none";
-var TILE_ELEMENT_ACID = "acid";
-var TILE_ELEMENT_LAVA = "lava";
-var TILE_ELEMENT_HONEY = "honey";
+var TILE_ELEMENT = {
+	'none': 'none',
+	'acid': 'acid',
+	'lava': 'lava',
+	'honey': 'honey',
+}
 
-var DIRECTION_UP = 0;
-var DIRECTION_RIGHT = 1;
-var DIRECTION_DOWN = 2;
-var DIRECTION_LEFT = 3;
+var DIRECTION = {
+	'up' = 0,
+	'right' = 1,
+	'down' = 2,
+	'left' = 3,
+}
 
 /**
  * 
@@ -19,7 +23,7 @@ var DIRECTION_LEFT = 3;
 function Tile(type, element, movable, rotatable) {
 	if (typeof movable === 'undefined') movable = false;
 	if (typeof rotatable === 'undefined') rotatable = false;
-	if (typeof element === 'undefined') element = [TILE_ELEMENT_NONE, TILE_ELEMENT_NONE, TILE_ELEMENT_NONE, TILE_ELEMENT_NONE];
+	if (typeof element === 'undefined') element = [TILE_ELEMENT['none'], TILE_ELEMENT['none'], TILE_ELEMENT['none'], TILE_ELEMENT['none']];
 	else if(typeof element === 'string') element = [element, element, element, element];
 	this.x = 0;
 	this.y = 0;

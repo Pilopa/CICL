@@ -103,7 +103,7 @@ $(function() {
 				if (ui.draggable.hasClass('tool')) {
 					var tilename = ui.draggable.attr("id");
 					var tiletype = TileType.byName(tilename);
-					level.put(x, y, 0, new Tile(tiletype, TILE_ELEMENT_NONE, true, true), true);
+					level.put(x, y, 0, new Tile(tiletype, TILE_ELEMENT['none'], true, true), true);
 					ui.helper.remove();
 				} else if(ui.draggable.hasClass('tile')) {
 					var sourceClasses = $(ui.draggable).attr('class').split(" ");
@@ -290,7 +290,7 @@ $(function() {
 		
 		console.log(event.toString()); //DEBUG
 		
-		if (event.type === EVENT_TYPE_PLACED) { //Ein Tile wurde platziert.
+		if (event.type === EVEN_TYPE['placed']) { //Ein Tile wurde platziert.
 			
 			if (event.tile.x === undefined) console.log("error in levelview.fs eventHandler: event.tile.x is undefined");
 			if (event.tile.y === undefined) console.log("error in levelview.fs eventHandler: event.tile.y is undefined");
@@ -298,11 +298,11 @@ $(function() {
 			if(level.tools[event.tile.type.name] > 0) level.tools[event.tile.type.name] -= 1;
 			updateToolNumber(event.tile.type);
 			
-		} else if (event.type === EVENT_TYPE_ROTATED) { //Ein Tile wurde gedreht.
+		} else if (event.type === EVEN_TYPE['rotated']) { //Ein Tile wurde gedreht.
 			
 			updateTileView(event.tile.x, event.tile.y);
 			
-		} else if (event.type === EVENT_TYPE_REMOVED) { //Ein Tile wurde entfernt
+		} else if (event.type === EVEN_TYPE['removed']) { //Ein Tile wurde entfernt
 
 			//Aktualisiere Toolbar-Anzahl
 			var tiletype = event.tile.type;
@@ -315,19 +315,19 @@ $(function() {
 			 */
 			updateTileView(event.tile.x, event.tile.y);
 			
-		} else if (event.type === EVENT_TYPE_SWAPPED) { //Zwei Tiles wurden vertauscht
+		} else if (event.type === EVEN_TYPE['swapped']) { //Zwei Tiles wurden vertauscht
 			
 			//Aktualisiere die Anzeige
 			updateTileView(event.tile.x1, event.tile.y1);
 			updateTileView(event.tile.x2, event.tile.y2);
 			
-		} else if (event.type === EVENT_TYPE_DESTINATION_REACHED) { //Ein Zielfeld wurde erreicht.
+		} else if (event.type === EVEN_TYPE['destinationreached']) { //Ein Zielfeld wurde erreicht.
 			
 			if (level.destinationsCount <= level.destinationsReached) {
-				level.fireEvent(new Event(EVENT_TYPE_TEST_COMPLETED));
+				level.fireEvent(new Event(EVEN_TYPE['testcompleted']));
 			}
 			
-		} else if (event.type === EVENT_TYPE_TEST_COMPLETED) { //Der Test wurde Erfolgreich beendet.
+		} else if (event.type === EVEN_TYPE['testcompleted']) { //Der Test wurde Erfolgreich beendet.
 			// Walker-Prüftimer anhalten
 			clearInterval(level.aborttimer);
 			
@@ -415,7 +415,7 @@ $(function() {
 				});
 			});
 			
-		} else if (event.type === EVENT_TYPE_TEST_FAILED) { //Der Test ist fehlgeschlagen.
+		} else if (event.type === EVEN_TYPE['testfailed']) { //Der Test ist fehlgeschlagen.
 			// Walker anhalten
 			for(var i = 0; i < level.walkers.length; i++) level.walkers[i].stop();
 			clearInterval(level.aborttimer);
@@ -522,13 +522,13 @@ $(function() {
 		
 		var tutorialHandler = function (event) {
 			
-			if (event.type === EVENT_TYPE_PLACED) {
+			if (event.type === EVEN_TYPE['placed']) {
 				combulix.next();
-			} else if (event.type === EVENT_TYPE_ROTATED) {
+			} else if (event.type === EVEN_TYPE['rotated']) {
 				combulix.next();
-			} else if (event.type === EVENT_TYPE_SWAPPED) {
+			} else if (event.type === EVEN_TYPE['swapped']) {
 				combulix.next();
-			} else if (event.type === EVENT_TYPE_REMOVED) {
+			} else if (event.type === EVEN_TYPE['removed']) {
 				combulix.next();
 			}
 			
@@ -565,8 +565,8 @@ $(function() {
 	        new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, müssen alle Quellen und Ziele fehlerfrei miteinander verbunden werden.", undefined,
 	        		 
 	        	function () { //on
-		     		level.put(0, 0, 1, new Tile(TILE_TYPE['source'], TILE_ELEMENT_LAVA), true);
-		    		level.put(1, 4, 1, new Tile(TILE_TYPE['destination'], TILE_ELEMENT_LAVA), true);
+		     		level.put(0, 0, 1, new Tile(TILE_TYPE['source'], TILE_ELEMENT['lava']), true);
+		    		level.put(1, 4, 1, new Tile(TILE_TYPE['destination'], TILE_ELEMENT['lava']), true);
 			       	$(".tile.x0.y0").addClass("highlighted").css("z-index", 21);
 			       	$(".tile.x1.y4").addClass("highlighted").css("z-index", 21);
 			     },
@@ -834,8 +834,8 @@ $(function() {
 		
 		combulix.speeches = [new Speech("Ich weiß doch auch nicht weiter . . .")];
 		if (stageid == 0 && levelid == 0) {
-     		level.put(0, 0, 1, new Tile(TILE_TYPE['source'], TILE_ELEMENT_LAVA), true);
-    		level.put(1, 4, 1, new Tile(TILE_TYPE['destination'], TILE_ELEMENT_LAVA), true);
+     		level.put(0, 0, 1, new Tile(TILE_TYPE['source'], TILE_ELEMENT['lava']), true);
+    		level.put(1, 4, 1, new Tile(TILE_TYPE['destination'], TILE_ELEMENT['lava']), true);
     		level.tools = {
 				corner: 2,
 				straight: 2

@@ -48,7 +48,7 @@ Walker.prototype.checkElement = function() {
 	if(this.where.type.name == TILE_NAME['source']) {
 		return true;
 	}
-	if(typeof (this.where.getElement(cf)) !== 'string' || this.where.getElement(cf) === TILE_ELEMENT_NONE) {
+	if(typeof (this.where.getElement(cf)) !== 'string' || this.where.getElement(cf) === TILE_ELEMENT['none']) {
 		return true;
 	} else if (this.where.getElement(cf) == this.element && this.where.type.name != TILE_NAME['destination']) { // Element bereits vorhanden im comingfrom == ein anderer Walker war schon hier. Anhalten ohne Fehler.
 		this.stop();
@@ -294,5 +294,5 @@ Walker.prototype.animateDest = function(callback) {
 // Wirft Testabbruch-Event
 Walker.prototype.testFailed = function (tile, msg) {
 	this.stop();
-	this.level.fireEvent(new Event(EVENT_TYPE_TEST_FAILED,tile,msg));
+	this.level.fireEvent(new Event(EVEN_TYPE['testfailed'],tile,msg));
 }

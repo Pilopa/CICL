@@ -45,7 +45,7 @@ Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	tile.rotation = r;
 	this.playfield[y][x] = tile;
 	if (tile.type.name == TILE_NAME['destination']) this.destinationsCount++;
-	if (fireEvents) this.fireEvent(new Event(EVENT_TYPE_PLACED, tile));
+	if (fireEvents) this.fireEvent(new Event(EVEN_TYPE['placed'], tile));
 	return this;
 }
 
@@ -73,7 +73,7 @@ Level.prototype.swap = function (x1, y1, x2, y2) {
 	this.playfield[y1][x1] = tileTo;
 
 	//Events
-	this.fireEvent(new Event(EVENT_TYPE_SWAPPED, {
+	this.fireEvent(new Event(EVEN_TYPE['swapped'], {
 		x1: x1,
 		y1: y1,
 		x2: x2,
@@ -85,14 +85,14 @@ Level.prototype.swap = function (x1, y1, x2, y2) {
 Level.prototype.remove = function (x, y) {
 	var tile = this.getTile(x,y);
 	this.playfield[y][x] = null;
-	this.fireEvent(new Event(EVENT_TYPE_REMOVED, tile));
+	this.fireEvent(new Event(EVEN_TYPE['removed'], tile));
 	return this;
 }
 
 Level.prototype.rotate = function (x, y) {
 	var tile = this.getTile(x,y);
 	tile.rotate(1);
-	this.fireEvent(new Event(EVENT_TYPE_ROTATED, tile));
+	this.fireEvent(new Event(EVEN_TYPE['rotated'], tile));
 	return this;
 }
 
@@ -103,25 +103,25 @@ Level.prototype.getNeighbor = function (tile, dir) {
 		case 0:
 			ny -= 1;
 			if(ny < 0) {
-				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
+				this.fireEvent(new Event(EVEN_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
 			}
 			break;
 		case 1:
 			nx += 1;
 			if(nx >= this.width) {
-				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
+				this.fireEvent(new Event(EVEN_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
 			}
 			break;
 		case 2:
 			ny += 1;
 			if(ny >= this.height) {
-				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
+				this.fireEvent(new Event(EVEN_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
 			}
 			break;
 		case 3:
 			nx -= 1;
 			if(nx < 0) {
-				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
+				this.fireEvent(new Event(EVEN_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
 			}
 	}
 	return this.getTile(nx, ny);
@@ -129,7 +129,7 @@ Level.prototype.getNeighbor = function (tile, dir) {
 
 Level.prototype.destinationReached = function (tile) {
 	this.destinationsReached++;
-	this.fireEvent(new Event(EVENT_TYPE_DESTINATION_REACHED, tile));
+	this.fireEvent(new Event(EVEN_TYPE['destinationreached'], tile));
 }
 
 Level.prototype.registerListener = function (handler) {
@@ -163,7 +163,7 @@ Level.prototype.abort = function(obj) {
 			cont = cont || this.walkers[i].running;
 		}
 		if(!cont) {
-			this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, undefined, 'no more active walkers'));
+			this.fireEvent(new Event(EVEN_TYPE['testfailed'], undefined, 'no more active walkers'));
 		}
 	}
 
@@ -173,10 +173,10 @@ Level.prototype.clearElements = function() {
 			if(!this.isEmpty(x,y)) {
 				var tile = this.getTile(x, y);
 				if(tile.type.name != TILE_NAME['destination'] && tile.type.name != TILE_NAME['source']) {
-					tile.setElement(0, TILE_ELEMENT_NONE);
-					tile.setElement(1, TILE_ELEMENT_NONE);
-					tile.setElement(2, TILE_ELEMENT_NONE);
-					tile.setElement(3, TILE_ELEMENT_NONE);
+					tile.setElement(0, TILE_ELEMENT['none']);
+					tile.setElement(1, TILE_ELEMENT['none']);
+					tile.setElement(2, TILE_ELEMENT['none']);
+					tile.setElement(3, TILE_ELEMENT['none']);
 				}
 			}
 		}
