@@ -19,6 +19,7 @@ function Level(width, height, title, tools) {
 Level.prototype.getTile = function(x, y) {
 	if (typeof x !== 'number') /*throw "x not a number: " + x + ' in getTile()'*/ console.log("x not a number: " + x + ' in getTile()');
 	if (typeof y !== 'number') /*throw "y not a number: " + y + ' in getTile()'*/ console.log("y not a number: " + y + ' in getTile()');
+	if(x >= this.width || y >= this.height) return null;
 	return this.playfield[y][x];
 }
 
@@ -101,31 +102,26 @@ Level.prototype.getNeighbor = function (tile, dir) {
 	switch(dir) {
 		case 0:
 			ny -= 1;
-			console.log('getNeighbor(): ny == ' + ny);
 			if(ny < 0) {
 				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
-				return false;
 			}
 			break;
 		case 1:
 			nx += 1;
 			if(nx >= this.width) {
 				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
-				return false;
 			}
 			break;
 		case 2:
 			ny += 1;
-			if(ny >= this.heigth) {
+			if(ny >= this.height) {
 				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
-				return false;
 			}
 			break;
 		case 3:
 			nx -= 1;
 			if(nx < 0) {
 				this.fireEvent(new Event(EVENT_TYPE_TEST_FAILED, tile, 'Spielfeldrand erreicht'));
-				return false;
 			}
 	}
 	return this.getTile(nx, ny);

@@ -18,6 +18,7 @@ function Walker(tile, ele, lvl, cf, run) {
 	this.tilesize = Math.floor(parseInt($('#field').css('width'))/this.level.width);
 	this.flowwidth = Math.floor((this.tilesize*3)/10)-1;
 	this.flowoffset = Math.floor((this.tilesize - this.flowwidth)/2);
+	this.animationTime = 1000;
 	
 	// Eintragen des walkers in das Level
 	this.level.walkers.push(this);
@@ -101,10 +102,7 @@ Walker.prototype.assertExit = function(dir) {
 	console.log('assertExit');
 	console.log(this.where + ', ' + dir);
 	var neighbor = this.level.getNeighbor(this.where, dir);
-		if(neighbor === false) {
-			return false;
-		}
-		if(neighbor === null) {
+		if(neighbor === null || neighbor === undefined) {
 			this.testFailed(this.where, 'empty neighbor from ' + this.where + ' to ' + dir); // Nachbarfeld ist leer!
 			return false;
 		}
@@ -135,7 +133,7 @@ Walker.prototype.animateFlow = function(walker) {
 				.css('height', this.flowwidth + 'px')
 				.css('top', this.flowoffset + 'px')
 				.css('left', this.tilesize/2 + 'px')
-				.animate({width: this.tilesize/2 + 'px'}, 1000, 'linear', function() {walker.onward();});
+				.animate({width: this.tilesize/2 + 'px'}, this.animationTime/2, 'linear', function() {walker.onward();});
 			break;
 		case TILE_NAME['straight']:
 			switch((4+(this.comingfrom-this.where.rotation))%4) {
@@ -143,14 +141,14 @@ Walker.prototype.animateFlow = function(walker) {
 					this.makeFlow()
 						.css('height', this.flowwidth + 'px')
 						.css('top', this.flowoffset + 'px')
-						.animate({width: this.tilesize + 'px'}, 2000, 'linear', function() {walker.onward();});
+						.animate({width: this.tilesize + 'px'}, this.animationTime, 'linear', function() {walker.onward();});
 					break;
 				case 1:
 					this.makeFlow()
 						.css('height', this.flowwidth + 'px')
 						.css('top', this.flowoffset + 'px')
 						.css('right', '0')
-						.animate({width: this.tilesize + 'px'}, 2000, 'linear', function() {walker.onward();});
+						.animate({width: this.tilesize + 'px'}, this.animationTime, 'linear', function() {walker.onward();});
 			}
 			break;
 		case TILE_NAME['corner']:
@@ -160,12 +158,12 @@ Walker.prototype.animateFlow = function(walker) {
 						.css('bottom', '0')
 						.css('right', this.flowoffset + 'px')
 						.css('width', this.flowwidth + 'px')
-						.animate({height: this.tilesize-this.flowoffset + 'px'}, 1000, 'linear', function() {
+						.animate({height: this.tilesize-this.flowoffset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
 								.css('height', walker.flowwidth + 'px')
 								.css('bottom', walker.flowoffset + 'px')
-								.css('right', walker.flowoffset + 'px')
-								.animate({width: walker.tilesize-walker.flowoffset + 'px'}, 1000, 'linear', function() {walker.onward();});
+								.css('right', walker.flowoffset+walker.flowwidth + 'px')
+								.animate({width: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 				case 3:
@@ -173,12 +171,12 @@ Walker.prototype.animateFlow = function(walker) {
 						.css('bottom', this.flowoffset)
 						.css('left', '0')
 						.css('height', this.flowwidth + 'px')
-						.animate({width: this.tilesize-this.flowoffset + 'px'}, 1000, 'linear', function() {
+						.animate({width: this.tilesize-this.flowoffset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
 								.css('width', walker.flowwidth + 'px')
-								.css('top', walker.flowoffset + 'px')
+								.css('top', walker.flowoffset+walker.flowwidth + 'px')
 								.css('left', walker.flowoffset + 'px')
-								.animate({height: walker.tilesize-walker.flowoffset + 'px'}, 1000, 'linear', function() {walker.onward();});
+								.animate({height: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 			}
@@ -190,12 +188,12 @@ Walker.prototype.animateFlow = function(walker) {
 						.css('top', '0')
 						.css('left', this.flowoffset + 'px')
 						.css('width', this.flowwidth + 'px')
-						.animate({height: this.flowoffset + 'px'}, 1000, 'linear', function() {
+						.animate({height: this.flowoffset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
 								.css('width', walker.flowwidth + 'px')
 								.css('top', walker.flowoffset+walker.flowwidth + 'px')
 								.css('left', walker.flowoffset + 'px')
-								.animate({height: walker.flowoffset + 'px'}, 1000, 'linear', function() {walker.onward();});
+								.animate({height: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 				case 1:
@@ -203,26 +201,26 @@ Walker.prototype.animateFlow = function(walker) {
 						.css('height', this.flowwidth + 'px')
 						.css('top', this.flowoffset + 'px')
 						.css('right', '0')
-						.animate({width: this.tilesize + 'px'}, 2000, 'linear', function() {walker.onward();});
+						.animate({width: this.tilesize + 'px'}, this.animationTime, 'linear', function() {walker.onward();});
 					break;
 				case 2:
 					this.makeFlow()
 						.css('bottom', '0')
 						.css('left', this.flowoffset + 'px')
 						.css('width', this.flowwidth + 'px')
-						.animate({height: this.flowoffset + 'px'}, 1000, 'linear', function() {
+						.animate({height: this.flowoffset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
 								.css('width', walker.flowwidth + 'px')
 								.css('bottom', walker.flowoffset+walker.flowwidth + 'px')
 								.css('left', walker.flowoffset + 'px')
-								.animate({height: walker.flowoffset + 'px'}, 1000, 'linear', function() {walker.onward();});
+								.animate({height: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 				case 3:
 					this.makeFlow()
 						.css('height', this.flowwidth + 'px')
 						.css('top', this.flowoffset + 'px')
-						.animate({width: this.tilesize + 'px'}, 2000, 'linear', function() {walker.onward();});
+						.animate({width: this.tilesize + 'px'}, this.animationTime, 'linear', function() {walker.onward();});
 			}
 			break;
 		case TILE_NAME['tjunction']:
@@ -232,17 +230,17 @@ Walker.prototype.animateFlow = function(walker) {
 						.css('width', this.flowwidth + 'px')
 						.css('top', '0')
 						.css('left', this.flowoffset + 'px')
-						.animate({height: this.flowoffset+this.flowwidth + 'px'}, 1000, 'linear', function() {
+						.animate({height: this.flowoffset+this.flowwidth + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
 								.css('width', walker.flowwidth + 'px')
 								.css('left', walker.flowoffset + 'px')
 								.css('top', walker.flowoffset+walker.flowwidth + 'px')
-								.animate({height: walker.flowoffset}, 1000, 'linear', function() {});
+								.animate({height: walker.flowoffset}, walker.animationTime/2, 'linear', function() {});
 							walker.makeFlow()
 								.css('height', walker.flowwidth + 'px')
 								.css('top', walker.flowoffset + 'px')
-								.css('right', walker.flowoffset)
-								.animate({width: walker.flowoffset+walker.flowwidth + 'px'}, 1000, 'linear', function() {walker.onward();});
+								.css('right', walker.flowoffset+walker.flowwidth)
+								.animate({width: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 				case 2:
@@ -250,17 +248,17 @@ Walker.prototype.animateFlow = function(walker) {
 						.css('width', this.flowwidth + 'px')
 						.css('bottom', '0')
 						.css('left', this.flowoffset + 'px')
-						.animate({height: this.flowoffset+this.flowwidth + 'px'}, 1000, 'linear', function() {
+						.animate({height: this.flowoffset+this.flowwidth + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
 								.css('width', walker.flowwidth + 'px')
 								.css('left', walker.flowoffset + 'px')
 								.css('bottom', walker.flowoffset+walker.flowwidth + 'px')
-								.animate({height: walker.flowoffset}, 1000, 'linear', function() {});
+								.animate({height: walker.flowoffset}, walker.animationTime/2, 'linear', function() {});
 							walker.makeFlow()
 								.css('height', walker.flowwidth + 'px')
 								.css('top', walker.flowoffset + 'px')
-								.css('right', walker.flowoffset)
-								.animate({width: walker.flowoffset+walker.flowwidth + 'px'}, 1000, 'linear', function() {walker.onward();});
+								.css('right', walker.flowoffset+walker.flowwidth + 'px')
+								.animate({width: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 				case 3:
@@ -268,17 +266,17 @@ Walker.prototype.animateFlow = function(walker) {
 						.css('height', this.flowwidth + 'px')
 						.css('bottom', this.flowoffset + 'px')
 						.css('left', '0')
-						.animate({width: this.flowoffset+this.flowwidth + 'px'}, 1000, 'linear', function() {
+						.animate({width: this.flowoffset+this.flowwidth + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
 								.css('width', walker.flowwidth + 'px')
 								.css('left', walker.flowoffset + 'px')
 								.css('bottom', walker.flowoffset+walker.flowwidth + 'px')
-								.animate({height: walker.flowoffset}, 1000, 'linear', function() {});
+								.animate({height: walker.flowoffset}, walker.animationTime/2, 'linear', function() {});
 							walker.makeFlow()
 								.css('width', walker.flowwidth + 'px')
 								.css('top', walker.flowoffset+walker.flowwidth + 'px')
 								.css('right', walker.flowoffset)
-								.animate({height: walker.flowoffset + 'px'}, 1000, 'linear', function() {walker.onward();});
+								.animate({height: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 			}
 	}
@@ -290,7 +288,7 @@ Walker.prototype.animateDest = function(callback) {
 		.css('height', this.flowwidth + 'px')
 		.css('top', this.flowoffset + 'px')
 		.css('left', '0')
-		.animate({width: this.tilesize/2 + 'px'}, 1000, 'linear', callback);
+		.animate({width: this.tilesize/2 + 'px'}, this.animationTime/2, 'linear', callback);
 }
 
 // Wirft Testabbruch-Event
