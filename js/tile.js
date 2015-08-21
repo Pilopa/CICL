@@ -8,10 +8,10 @@ var TILE_ELEMENT = {
 }
 
 var DIRECTION = {
-	'up' = 0,
-	'right' = 1,
-	'down' = 2,
-	'left' = 3,
+	'up': 0,
+	'right': 1,
+	'down': 2,
+	'left': 3,
 }
 
 /**
