@@ -7,6 +7,7 @@ $(function() {
 	var stage = getStages()[stageid];
 	var level = stage.levels[levelid];
 	var playerObject = getCurrentPlayerObject();
+	var maxPointValue = level.getMaxPointValue(); //Muss nur einmal berechnet werden.
 	$.event.special.swipe.horizontalDistanceThreshold = 150; //px //Definiere die Grenze, ab welchem ein Swipe-Event ausgelöst wird.
 	
 	//Funktionen
@@ -17,6 +18,14 @@ $(function() {
 			score: 3
 		};
 		
+	}
+	
+	function pointValueClickHandler(event) {
+		
+	}
+	
+	function updateLevelPointValueDisplay() {
+		$("#pointlValueDisplay").text(maxPointValue - level.getPlacedPointValue());
 	}
 	
 	function setStartButtonEnabled(flag, text) {
@@ -235,11 +244,16 @@ $(function() {
 								helper: "clone",
 								revert: true,
 								scroll: false,
+								cursorAt: {
+								    left: Math.floor(tilesize / 2),
+								    top: Math.floor(tilesize / 2)
+								},
 								start: function (event, ui) {
 									ui.helper
 									.css("width", tilesize)
 									.css("height", tilesize);
 								}
+								
 							});
 		} else {
 			tool
@@ -290,7 +304,7 @@ $(function() {
 		
 		console.log(event.toString()); //DEBUG
 		
-		if (event.type === EVEN_TYPE['placed']) { //Ein Tile wurde platziert.
+		if (event.type === EVENT_TYPE['placed']) { //Ein Tile wurde platziert.
 			
 			if (event.tile.x === undefined) console.log("error in levelview.fs eventHandler: event.tile.x is undefined");
 			if (event.tile.y === undefined) console.log("error in levelview.fs eventHandler: event.tile.y is undefined");
@@ -298,11 +312,14 @@ $(function() {
 			if(level.tools[event.tile.type.name] > 0) level.tools[event.tile.type.name] -= 1;
 			updateToolNumber(event.tile.type);
 			
-		} else if (event.type === EVEN_TYPE['rotated']) { //Ein Tile wurde gedreht.
+			//Aktualisiere die Punkteanzeige
+			updateLevelPointValueDisplay();
+			
+		} else if (event.type === EVENT_TYPE['rotated']) { //Ein Tile wurde gedreht.
 			
 			updateTileView(event.tile.x, event.tile.y);
 			
-		} else if (event.type === EVEN_TYPE['removed']) { //Ein Tile wurde entfernt
+		} else if (event.type === EVENT_TYPE['removed']) { //Ein Tile wurde entfernt
 
 			//Aktualisiere Toolbar-Anzahl
 			var tiletype = event.tile.type;
@@ -315,19 +332,22 @@ $(function() {
 			 */
 			updateTileView(event.tile.x, event.tile.y);
 			
-		} else if (event.type === EVEN_TYPE['swapped']) { //Zwei Tiles wurden vertauscht
+			//Aktualisiere die Punkteanzeige
+			updateLevelPointValueDisplay();
+			
+		} else if (event.type === EVENT_TYPE['swapped']) { //Zwei Tiles wurden vertauscht
 			
 			//Aktualisiere die Anzeige
 			updateTileView(event.tile.x1, event.tile.y1);
 			updateTileView(event.tile.x2, event.tile.y2);
 			
-		} else if (event.type === EVEN_TYPE['destinationreached']) { //Ein Zielfeld wurde erreicht.
+		} else if (event.type === EVENT_TYPE['destinationreached']) { //Ein Zielfeld wurde erreicht.
 			
 			if (level.destinationsCount <= level.destinationsReached) {
-				level.fireEvent(new Event(EVEN_TYPE['testcompleted']));
+				level.fireEvent(new Event(EVENT_TYPE['testcompleted']));
 			}
 			
-		} else if (event.type === EVEN_TYPE['testcompleted']) { //Der Test wurde Erfolgreich beendet.
+		} else if (event.type === EVENT_TYPE['testcompleted']) { //Der Test wurde Erfolgreich beendet.
 			// Walker-Prüftimer anhalten
 			clearInterval(level.aborttimer);
 			
@@ -415,7 +435,7 @@ $(function() {
 				});
 			});
 			
-		} else if (event.type === EVEN_TYPE['testfailed']) { //Der Test ist fehlgeschlagen.
+		} else if (event.type === EVENT_TYPE['testfailed']) { //Der Test ist fehlgeschlagen.
 			// Walker anhalten
 			for(var i = 0; i < level.walkers.length; i++) level.walkers[i].stop();
 			clearInterval(level.aborttimer);
@@ -468,6 +488,9 @@ $(function() {
 	
 	//Initialisiere Toolbox
 	initializeToolBox();
+	
+	//Initialisiere die Punkteanzeige für das Level
+	updateLevelPointValueDisplay();
 	
 	//Tooloverlay zum entfernen von Tiles
 	$('#tboverlay').droppable({
@@ -522,13 +545,13 @@ $(function() {
 		
 		var tutorialHandler = function (event) {
 			
-			if (event.type === EVEN_TYPE['placed']) {
+			if (event.type === EVENT_TYPE['placed']) {
 				combulix.next();
-			} else if (event.type === EVEN_TYPE['rotated']) {
+			} else if (event.type === EVENT_TYPE['rotated']) {
 				combulix.next();
-			} else if (event.type === EVEN_TYPE['swapped']) {
+			} else if (event.type === EVENT_TYPE['swapped']) {
 				combulix.next();
-			} else if (event.type === EVEN_TYPE['removed']) {
+			} else if (event.type === EVENT_TYPE['removed']) {
 				combulix.next();
 			}
 			
@@ -576,6 +599,18 @@ $(function() {
 			    	 $(".tile.x1.y4").removeClass("highlighted").css("z-index", "");
 			     }
 	        ),
+	        
+	        new Speech("Es darf keine Flüssigkeit auslaufen oder in einer Wand enden.<br><br>Außerdem dürfen verschiedenfarbige Flüssigkeiten nicht vermischt werden ...", undefined,
+	        		 
+		        	function () { //on
+			       		$(".speech-bubble").addClass("highlighted");
+		         	},
+		         	
+		         	function () { //off
+		         		$(".speech-bubble").removeClass("highlighted");
+		         	}
+		         	
+		    ),
 		     
 	        new Speech("Auf der linken Seite siehst du den Werkzeugkasten.<br><br>Dort findest du Werkzeuge mit denen du die Apparatur reparieren kannst ...", undefined,
 	        		 
@@ -588,8 +623,19 @@ $(function() {
 	         	}
 	         	
 	        ),
+	        
+	        new Speech("", undefined,
+	        		
+	        		function () { //on
+	        			$("#pointValueContainer").addClass("highlighted");
+	        		},
+	        		
+	        		function () { //off
+	        			$("#pointValueContainer").removeClass("highlighted");
+	        		}
+	        ),
 		    
-			new Speech("Probieren wir einfach mal alles aus, was man so mit einem Werkzeug anstellen kann.<br><br>Nehmen wir hierzu mal die Gerade ...", undefined,
+			new Speech("Probieren wir einfach mal aus, was man mit so einem Werkzeug alles anstellen kann.<br><br>Nehmen wir hierzu mal die Gerade ...", undefined,
 					 
 				function () { //on
 					if (!tutorialFlags.placed) {

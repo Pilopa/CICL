@@ -144,7 +144,7 @@
 	border-radius: 5px;
 	font-size: 18pt;
 	position: absolute;
-	left: 450px;
+	left: 325px;
 	bottom: 10px;
 	width: 200px;
 	height: 64px;
@@ -276,4 +276,29 @@
 
 .to-level-selection-button {
 	right: 170px;
+}
+
+#pointValueContainer {
+	position: absolute;
+	bottom: 10px;
+	left: 550px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	border-radius: 10px;
+}
+
+#pointlValueDisplay {
+	margin-right: 10px;
+	font-size: 24px;
+	color: white;
+}
+
+#pointValueInfoIcon {
+	width: 48px;
+	height: 48px;
+	background-image: url(../images/info.png);
+	background-size: 100% 100%;
 }

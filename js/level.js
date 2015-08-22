@@ -1,7 +1,8 @@
 //=== Level ===
 
-function Level(width, height, title, tools) {
+function Level(width, height, title, tools, optimalPointValue) {
 	if(typeof tools === 'undefined') tools = {};
+	if (optimalPointValue === undefined) optimalPointValue = 0;
 	this.width = width;
 	this.height = height;
 	this.playfield = [];
@@ -9,11 +10,35 @@ function Level(width, height, title, tools) {
 	this.handlers = [];
 	this.destinationsCount = 0;
 	this.destinationsReached = 0;
+	this.optimalPointValue = optimalPointValue;
 	this.title = title;
 	this.score = 0;
 	this.tools = tools;
 	this.walkers = [];
 	this.aborttimer;
+}
+
+
+
+Level.prototype.getMaxPointValue = function () {
+	var result = 0;
+	//
+	for (var tiletypename in this.tools) {
+		var tiletype = TileType.byName(tiletypename);
+		result += tiletype.pointValue * this.tools[tiletypename];
+	}
+	//
+	return result;
+}
+
+Level.prototype.getPlacedPointValue = function () {
+	var result = 0;
+	for(var y = 0; y < this.height; y++) 
+		for(var x = 0; x < this.width; x++) 
+			if(!this.isEmpty(x, y) && this.getTile(x,y).movable) 
+				result += this.getTile(x,y).type.pointValue;
+	
+	return result;
 }
 
 Level.prototype.getTile = function(x, y) {
@@ -45,7 +70,7 @@ Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	tile.rotation = r;
 	this.playfield[y][x] = tile;
 	if (tile.type.name == TILE_NAME['destination']) this.destinationsCount++;
-	if (fireEvents) this.fireEvent(new Event(EVEN_TYPE['placed'], tile));
+	if (fireEvents) this.fireEvent(new Event(EVENT_TYPE['placed'], tile));
 	return this;
 }
 
@@ -73,7 +98,7 @@ Level.prototype.swap = function (x1, y1, x2, y2) {
 	this.playfield[y1][x1] = tileTo;
 
 	//Events
-	this.fireEvent(new Event(EVEN_TYPE['swapped'], {
+	this.fireEvent(new Event(EVENT_TYPE['swapped'], {
 		x1: x1,
 		y1: y1,
 		x2: x2,
@@ -85,14 +110,14 @@ Level.prototype.swap = function (x1, y1, x2, y2) {
 Level.prototype.remove = function (x, y) {
 	var tile = this.getTile(x,y);
 	this.playfield[y][x] = null;
-	this.fireEvent(new Event(EVEN_TYPE['removed'], tile));
+	this.fireEvent(new Event(EVENT_TYPE['removed'], tile));
 	return this;
 }
 
 Level.prototype.rotate = function (x, y) {
 	var tile = this.getTile(x,y);
 	tile.rotate(1);
-	this.fireEvent(new Event(EVEN_TYPE['rotated'], tile));
+	this.fireEvent(new Event(EVENT_TYPE['rotated'], tile));
 	return this;
 }
 
@@ -103,25 +128,25 @@ Level.prototype.getNeighbor = function (tile, dir) {
 		case 0:
 			ny -= 1;
 			if(ny < 0) {
-				this.fireEvent(new Event(EVEN_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
+				this.fireEvent(new Event(EVENT_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
 			}
 			break;
 		case 1:
 			nx += 1;
 			if(nx >= this.width) {
-				this.fireEvent(new Event(EVEN_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
+				this.fireEvent(new Event(EVENT_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
 			}
 			break;
 		case 2:
 			ny += 1;
 			if(ny >= this.height) {
-				this.fireEvent(new Event(EVEN_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
+				this.fireEvent(new Event(EVENT_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
 			}
 			break;
 		case 3:
 			nx -= 1;
 			if(nx < 0) {
-				this.fireEvent(new Event(EVEN_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
+				this.fireEvent(new Event(EVENT_TYPE['testfailed'], tile, 'Spielfeldrand erreicht'));
 			}
 	}
 	return this.getTile(nx, ny);
@@ -129,7 +154,7 @@ Level.prototype.getNeighbor = function (tile, dir) {
 
 Level.prototype.destinationReached = function (tile) {
 	this.destinationsReached++;
-	this.fireEvent(new Event(EVEN_TYPE['destinationreached'], tile));
+	this.fireEvent(new Event(EVENT_TYPE['destinationreached'], tile));
 }
 
 Level.prototype.registerListener = function (handler) {
@@ -163,7 +188,7 @@ Level.prototype.abort = function(obj) {
 			cont = cont || this.walkers[i].running;
 		}
 		if(!cont) {
-			this.fireEvent(new Event(EVEN_TYPE['testfailed'], undefined, 'no more active walkers'));
+			this.fireEvent(new Event(EVENT_TYPE['testfailed'], undefined, 'no more active walkers'));
 		}
 	}
 
