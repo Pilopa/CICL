@@ -29,6 +29,7 @@ Walker.prototype.walk = function() {
 	if(this.running && this.checkElement()) {
 		if(this.where.type.name == TILE_NAME['destination']) {
 			var walker = this;
+			this.stop();
 			this.animateDest(function() {walker.level.destinationReached(this.where);});
 		return;
 		}
@@ -294,5 +295,5 @@ Walker.prototype.animateDest = function(callback) {
 // Wirft Testabbruch-Event
 Walker.prototype.testFailed = function (tile, msg) {
 	this.stop();
-	this.level.fireEvent(new Event(EVEN_TYPE['testfailed'],tile,msg));
+	this.level.fireEvent(new Event(EVENT_TYPE['testfailed'],tile,msg));
 }
