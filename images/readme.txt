@@ -10,3 +10,4 @@ trash-bin.png : http://findicons.com/icon/158288/trash_recyclebin_empty_closed_w
 star_empty.png : http://findicons.com/icon/83792/onebit_46#
 star_half.png : http://findicons.com/icon/83796/onebit_45
 star_full.png : http://findicons.com/icon/83797/onebit_44
+info.png : http://findicons.com/icon/131777/get_info#
