@@ -29,8 +29,7 @@ Walker.prototype.walk = function() {
 	if(this.running && this.checkElement()) {
 		if(this.where.type.name == TILE_NAME['destination']) {
 			var walker = this;
-			this.stop();
-			this.animateDest(function() {walker.level.destinationReached(this.where);});
+			this.animateDest(function() {walker.destinationReached();});
 		return;
 		}
 		if(this.running) {
@@ -296,4 +295,14 @@ Walker.prototype.animateDest = function(callback) {
 Walker.prototype.testFailed = function (tile, msg) {
 	this.stop();
 	this.level.fireEvent(new Event(EVENT_TYPE['testfailed'],tile,msg));
+}
+
+Walker.prototype.destinationReached = function() {
+	this.level.destinationsReached++;
+	if (this.level.destinationsCount <= this.level.destinationsReached) {
+		this.level.fireEvent(new Event(EVENT_TYPE['testcompleted']));
+	} else {
+		console.log('stopping on destination');
+		this.stop();
+	}
 }

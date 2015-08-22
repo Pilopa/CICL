@@ -341,15 +341,9 @@ $(function() {
 			updateTileView(event.tile.x1, event.tile.y1);
 			updateTileView(event.tile.x2, event.tile.y2);
 			
-		} else if (event.type === EVENT_TYPE['destinationreached']) { //Ein Zielfeld wurde erreicht.
-			
-			if (level.destinationsCount <= level.destinationsReached) {
-				level.fireEvent(new Event(EVENT_TYPE['testcompleted']));
-			}
-			
 		} else if (event.type === EVENT_TYPE['testcompleted']) { //Der Test wurde Erfolgreich beendet.
 			// Walker-Prüftimer anhalten
-			clearInterval(level.aborttimer);
+			level.endRun();
 			
 			//Die Punkte berechnen
 			var scoreObject = getScoreObject();
@@ -437,8 +431,7 @@ $(function() {
 			
 		} else if (event.type === EVENT_TYPE['testfailed']) { //Der Test ist fehlgeschlagen.
 			// Walker anhalten
-			for(var i = 0; i < level.walkers.length; i++) level.walkers[i].stop();
-			clearInterval(level.aborttimer);
+			level.endRun();
 			
 			//Button zurücksetzen
 			setStartButtonEnabled(true, "Zurücksetzen");

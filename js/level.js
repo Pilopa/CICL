@@ -152,11 +152,6 @@ Level.prototype.getNeighbor = function (tile, dir) {
 	return this.getTile(nx, ny);
 }
 
-Level.prototype.destinationReached = function (tile) {
-	this.destinationsReached++;
-	this.fireEvent(new Event(EVENT_TYPE['destinationreached'], tile));
-}
-
 Level.prototype.registerListener = function (handler) {
 	this.handlers.push(handler);
 }
@@ -206,4 +201,9 @@ Level.prototype.clearElements = function() {
 			}
 		}
 	}
+}
+
+Level.prototype.endRun = function() {
+	clearInterval(this.aborttimer);
+	for(var i = 0; i < this.walkers.length; i++) this.walkers[i].stop();
 }
