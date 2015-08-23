@@ -1,8 +1,9 @@
 //=== Level ===
 
-function Level(width, height, title, tools, optimalPointValue) {
+function Level(width, height, title, tools, optimalPointValue, divi) {
 	if(typeof tools === 'undefined') tools = {};
 	if (optimalPointValue === undefined) optimalPointValue = 0;
+	if (divi === undefined) divi = 20;
 	this.width = width;
 	this.height = height;
 	this.playfield = [];
@@ -13,6 +14,7 @@ function Level(width, height, title, tools, optimalPointValue) {
 	this.optimalPointValue = optimalPointValue;
 	this.title = title;
 	this.score = 0;
+	this.starDivisor = divi; // Je höher dieser Wert, desto dichter muss man an der Optimallösung sein um viele Sterne zu bekommen
 	this.tools = tools;
 	this.walkers = [];
 	this.aborttimer;

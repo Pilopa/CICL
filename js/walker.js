@@ -17,7 +17,7 @@ function Walker(tile, ele, lvl, cf, run) {
 	// Maße zum Darstellen der Animationen
 	this.tilesize = Math.floor(parseInt($('#field').css('width'))/this.level.width);
 	this.flowwidth = Math.floor((this.tilesize*3)/10)-1;
-	this.flowoffset = Math.floor((this.tilesize - this.flowwidth)/2);
+	this.offset = Math.floor((this.tilesize - this.flowwidth)/2);
 	this.animationTime = 1000;
 	
 	// Eintragen des walkers in das Level
@@ -130,8 +130,8 @@ Walker.prototype.animateFlow = function(walker) {
 	switch(this.where.type.name) {
 		case TILE_NAME['source']:
 			this.makeFlow()
-				.css('height', this.flowwidth + 'px')
-				.css('top', this.flowoffset + 'px')
+				.css('bottom', this.offset + 'px')
+				.css('top', this.offset + 'px')
 				.css('left', this.tilesize/2 + 'px')
 				.animate({width: this.tilesize/2 + 'px'}, this.animationTime/2, 'linear', function() {walker.onward();});
 			break;
@@ -139,14 +139,14 @@ Walker.prototype.animateFlow = function(walker) {
 			switch((4+(this.comingfrom-this.where.rotation))%4) {
 				case 3:
 					this.makeFlow()
-						.css('height', this.flowwidth + 'px')
-						.css('top', this.flowoffset + 'px')
+						.css('bottom', this.offset + 'px')
+						.css('top', this.offset + 'px')
 						.animate({width: this.tilesize + 'px'}, this.animationTime, 'linear', function() {walker.onward();});
 					break;
 				case 1:
 					this.makeFlow()
-						.css('height', this.flowwidth + 'px')
-						.css('top', this.flowoffset + 'px')
+						.css('bottom', this.offset + 'px')
+						.css('top', this.offset + 'px')
 						.css('right', '0')
 						.animate({width: this.tilesize + 'px'}, this.animationTime, 'linear', function() {walker.onward();});
 			}
@@ -156,27 +156,27 @@ Walker.prototype.animateFlow = function(walker) {
 				case 2:
 					this.makeFlow()
 						.css('bottom', '0')
-						.css('right', this.flowoffset + 'px')
-						.css('width', this.flowwidth + 'px')
-						.animate({height: this.tilesize-this.flowoffset + 'px'}, this.animationTime/2, 'linear', function() {
+						.css('right', this.offset + 'px')
+						.css('left', this.offset + 'px')
+						.animate({height: this.tilesize-this.offset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
-								.css('height', walker.flowwidth + 'px')
-								.css('bottom', walker.flowoffset + 'px')
-								.css('right', walker.flowoffset+walker.flowwidth + 'px')
-								.animate({width: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
+								.css('top', walker.offset + 'px')
+								.css('bottom', walker.offset + 'px')
+								.css('right', walker.tilesize-walker.offset + 'px')
+								.animate({width: walker.offset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 				case 3:
 					this.makeFlow()
-						.css('bottom', this.flowoffset)
+						.css('bottom', this.offset)
 						.css('left', '0')
-						.css('height', this.flowwidth + 'px')
-						.animate({width: this.tilesize-this.flowoffset + 'px'}, this.animationTime/2, 'linear', function() {
+						.css('top', this.offset + 'px')
+						.animate({width: this.tilesize-this.offset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
-								.css('width', walker.flowwidth + 'px')
-								.css('top', walker.flowoffset+walker.flowwidth + 'px')
-								.css('left', walker.flowoffset + 'px')
-								.animate({height: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
+								.css('right', walker.offset + 'px')
+								.css('top', walker.tilesize-walker.offset + 'px')
+								.css('left', walker.offset + 'px')
+								.animate({height: walker.offset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 			}
@@ -186,40 +186,40 @@ Walker.prototype.animateFlow = function(walker) {
 				case 0:
 					this.makeFlow()
 						.css('top', '0')
-						.css('left', this.flowoffset + 'px')
-						.css('width', this.flowwidth + 'px')
-						.animate({height: this.flowoffset + 'px'}, this.animationTime/2, 'linear', function() {
+						.css('left', this.offset + 'px')
+						.css('right', this.offset + 'px')
+						.animate({height: this.offset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
-								.css('width', walker.flowwidth + 'px')
-								.css('top', walker.flowoffset+walker.flowwidth + 'px')
-								.css('left', walker.flowoffset + 'px')
-								.animate({height: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
+								.css('right', walker.offset + 'px')
+								.css('top', walker.tilesize-walker.offset + 'px')
+								.css('left', walker.offset + 'px')
+								.animate({height: walker.offset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 				case 1:
 					this.makeFlow()
-						.css('height', this.flowwidth + 'px')
-						.css('top', this.flowoffset + 'px')
+						.css('bottom', this.offset + 'px')
+						.css('top', this.offset + 'px')
 						.css('right', '0')
 						.animate({width: this.tilesize + 'px'}, this.animationTime, 'linear', function() {walker.onward();});
 					break;
 				case 2:
 					this.makeFlow()
 						.css('bottom', '0')
-						.css('left', this.flowoffset + 'px')
-						.css('width', this.flowwidth + 'px')
-						.animate({height: this.flowoffset + 'px'}, this.animationTime/2, 'linear', function() {
+						.css('left', this.offset + 'px')
+						.css('right', this.offset + 'px')
+						.animate({height: this.offset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
-								.css('width', walker.flowwidth + 'px')
-								.css('bottom', walker.flowoffset+walker.flowwidth + 'px')
-								.css('left', walker.flowoffset + 'px')
-								.animate({height: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
+								.css('right', walker.offset + 'px')
+								.css('bottom', walker.tilesize-walker.offset + 'px')
+								.css('left', walker.offset + 'px')
+								.animate({height: walker.offset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 				case 3:
 					this.makeFlow()
-						.css('height', this.flowwidth + 'px')
-						.css('top', this.flowoffset + 'px')
+						.css('bottom', this.offset + 'px')
+						.css('top', this.offset + 'px')
 						.animate({width: this.tilesize + 'px'}, this.animationTime, 'linear', function() {walker.onward();});
 			}
 			break;
@@ -227,56 +227,56 @@ Walker.prototype.animateFlow = function(walker) {
 			switch((4+(this.comingfrom-this.where.rotation))%4) {
 				case 0:
 					this.makeFlow()
-						.css('width', this.flowwidth + 'px')
+						.css('right', this.offset + 'px')
 						.css('top', '0')
-						.css('left', this.flowoffset + 'px')
-						.animate({height: this.flowoffset+this.flowwidth + 'px'}, this.animationTime/2, 'linear', function() {
+						.css('left', this.offset + 'px')
+						.animate({height: this.tilesize-this.offset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
-								.css('width', walker.flowwidth + 'px')
-								.css('left', walker.flowoffset + 'px')
-								.css('top', walker.flowoffset+walker.flowwidth + 'px')
-								.animate({height: walker.flowoffset}, walker.animationTime/2, 'linear', function() {});
+								.css('right', walker.offset + 'px')
+								.css('left', walker.offset + 'px')
+								.css('top', walker.tilesize-walker.offset + 'px')
+								.animate({height: walker.offset}, walker.animationTime/2, 'linear', function() {});
 							walker.makeFlow()
-								.css('height', walker.flowwidth + 'px')
-								.css('top', walker.flowoffset + 'px')
-								.css('right', walker.flowoffset+walker.flowwidth)
-								.animate({width: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
+								.css('bottom', walker.offset + 'px')
+								.css('top', walker.offset + 'px')
+								.css('right', walker.tilesize-walker.offset)
+								.animate({width: walker.offset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 				case 2:
 					this.makeFlow()
-						.css('width', this.flowwidth + 'px')
+						.css('right', this.offset + 'px')
 						.css('bottom', '0')
-						.css('left', this.flowoffset + 'px')
-						.animate({height: this.flowoffset+this.flowwidth + 'px'}, this.animationTime/2, 'linear', function() {
+						.css('left', this.offset + 'px')
+						.animate({height: this.tilesize-this.offset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
-								.css('width', walker.flowwidth + 'px')
-								.css('left', walker.flowoffset + 'px')
-								.css('bottom', walker.flowoffset+walker.flowwidth + 'px')
-								.animate({height: walker.flowoffset}, walker.animationTime/2, 'linear', function() {});
+								.css('right', walker.offset + 'px')
+								.css('left', walker.offset + 'px')
+								.css('bottom', walker.tilesize-walker.offset + 'px')
+								.animate({height: walker.offset}, walker.animationTime/2, 'linear', function() {});
 							walker.makeFlow()
-								.css('height', walker.flowwidth + 'px')
-								.css('top', walker.flowoffset + 'px')
-								.css('right', walker.flowoffset+walker.flowwidth + 'px')
-								.animate({width: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
+								.css('bottom', walker.offset + 'px')
+								.css('top', walker.offset + 'px')
+								.css('right', walker.tilesize-walker.offset + 'px')
+								.animate({width: walker.offset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 					break;
 				case 3:
 					this.makeFlow()
-						.css('height', this.flowwidth + 'px')
-						.css('bottom', this.flowoffset + 'px')
+						.css('top', this.offset + 'px')
+						.css('bottom', this.offset + 'px')
 						.css('left', '0')
-						.animate({width: this.flowoffset+this.flowwidth + 'px'}, this.animationTime/2, 'linear', function() {
+						.animate({width: this.tilesize-this.offset + 'px'}, this.animationTime/2, 'linear', function() {
 							walker.makeFlow()
-								.css('width', walker.flowwidth + 'px')
-								.css('left', walker.flowoffset + 'px')
-								.css('bottom', walker.flowoffset+walker.flowwidth + 'px')
-								.animate({height: walker.flowoffset}, walker.animationTime/2, 'linear', function() {});
+								.css('right', walker.offset + 'px')
+								.css('left', walker.offset + 'px')
+								.css('bottom', walker.tilesize-walker.offset + 'px')
+								.animate({height: walker.offset}, walker.animationTime/2, 'linear', function() {});
 							walker.makeFlow()
-								.css('width', walker.flowwidth + 'px')
-								.css('top', walker.flowoffset+walker.flowwidth + 'px')
-								.css('right', walker.flowoffset)
-								.animate({height: walker.flowoffset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
+								.css('left', walker.offset + 'px')
+								.css('top', walker.tilesize-walker.offset + 'px')
+								.css('right', walker.offset)
+								.animate({height: walker.offset + 'px'}, walker.animationTime/2, 'linear', function() {walker.onward();});
 						});
 			}
 	}
@@ -285,8 +285,8 @@ Walker.prototype.animateFlow = function(walker) {
 // Gesonderte Animation für Destinations
 Walker.prototype.animateDest = function(callback) {
 	this.makeFlow()
-		.css('height', this.flowwidth + 'px')
-		.css('top', this.flowoffset + 'px')
+		.css('bottom', this.offset + 'px')
+		.css('top', this.offset + 'px')
 		.css('left', '0')
 		.animate({width: this.tilesize/2 + 'px'}, this.animationTime/2, 'linear', callback);
 }
