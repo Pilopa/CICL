@@ -16,11 +16,11 @@ $(function() {
 		var pointRange = maxPointValue - level.optimalPointValue;
 		var step = pointRange/level.starDivisor;
 		var excess = level.optimalPointValue - level.getPlacedPointValue();
-		if(excess == 0) return 10;
+		if(excess <= 0) return 10;
 		else {
 			var starsmissed = Math.ceil(excess/step);
 			if(starsmissed > 9) starsmissed = 9; // Eine Bewertung unter 0,5 ist nicht möglich wenn man ein Level abschließt
-			return 10-starsmissed;
+			return (10-starsmissed)/2; 
 		}
 	}
 	
