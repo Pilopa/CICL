@@ -15,7 +15,7 @@ $(function() {
 	function getScoreObject() {
 		
 		return {
-			score: 3
+			score: 3.5
 		};
 		
 	}
@@ -25,7 +25,8 @@ $(function() {
 	}
 	
 	function updateLevelPointValueDisplay() {
-		$("#pointlValueDisplay").text(maxPointValue - level.getPlacedPointValue());
+		var value = maxPointValue - level.getPlacedPointValue();
+		$("#pointlValueDisplay").text(value > 0 ? value : "0");
 	}
 	
 	function setStartButtonEnabled(flag, text) {
@@ -556,6 +557,7 @@ $(function() {
             		 
             	function () { //on
             	    $("#startbutton").hide();
+            	    $("#pointValueContainer").hide();
 		       	 	$(".speech-bubble").addClass("highlighted");
 		       	 	combulix.disablePrevious();
 		        },
@@ -617,10 +619,10 @@ $(function() {
 	         	
 	        ),
 	        
-	        new Speech("", undefined,
+	        new Speech("Weiter unten gibt es die Punkteanzeige.<br><br>Jedes platzierte Werkzeug wird von deinem Punktekonto abgezogen.<br><br>Je näher du am Startwert bleibst, desto besser deine Endwertung ...", undefined,
 	        		
 	        		function () { //on
-	        			$("#pointValueContainer").addClass("highlighted");
+	        			$("#pointValueContainer").fadeIn().addClass("highlighted");
 	        		},
 	        		
 	        		function () { //off
@@ -628,7 +630,7 @@ $(function() {
 	        		}
 	        ),
 		    
-			new Speech("Probieren wir einfach mal aus, was man mit so einem Werkzeug alles anstellen kann.<br><br>Nehmen wir hierzu mal die Gerade ...", undefined,
+			new Speech("Probieren wir einfach mal aus, was man mit so einem Werkzeug alles anstellen kann.<br><br>Nehmen wir hierzu zunächst die Gerade ...", undefined,
 					 
 				function () { //on
 					if (!tutorialFlags.placed) {
@@ -659,7 +661,7 @@ $(function() {
   	         	
   	         ),
 		     
-		    new Speech("Ziehe zunächst die Gerade von der Werkzeugleiste auf das makierte Feld ...", undefined,
+		    new Speech("Ziehe die Gerade von der Werkzeugleiste auf das makierte Feld ...", undefined,
 		    		 
 		    		 function () { //on
 		    	
@@ -725,7 +727,7 @@ $(function() {
 			    	 }
 			    	 
 			    	 //Füge Markup hinzu.
-			    	 $(".tile.x1.y2").addClass("highlighted").css("z-index", 41);
+			    	 $(".tile.x1.y2").addClass("highlighted").addClass("tutorial-rotate").css("z-index", 41);
 			     },
 			     
 			     function () { //off
@@ -742,7 +744,7 @@ $(function() {
 			    	 }
 					 
 					 //Entferne Markup
-					 $(".tile.x1.y2").removeClass("highlighted").css("z-index", "");
+					 $(".tile.x1.y2").removeClass("highlighted").removeClass("tutorial-rotate").css("z-index", "");
 			    	 
 			     }
 			     
@@ -844,7 +846,7 @@ $(function() {
 				     
 			    ),
 		     
-		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.", undefined, 
+		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.<br><br> Klicke auf den \"Test starten\" Button, um deine Bastelei auszuprobieren.", undefined, 
 		     		
 		     		function () { //on
 		    	 		if (!tutorialFlags.added) {
@@ -859,10 +861,12 @@ $(function() {
 		    	 		}
 		    	 		
 		    	 		$("#startbutton").fadeIn().addClass("highlighted");
+		    	 		combulix.disablePrevious();
 		     		},
 		     		
 		     		function () { //off
-		     			//TODO ?
+		     			$("#startbutton").removeClass("highlighted");
+		     			combulix.enablePrevious();
 		     		}
 		     		
 		    )

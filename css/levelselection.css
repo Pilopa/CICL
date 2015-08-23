@@ -1,16 +1,3 @@
-.star-full {
-	
-	background-image: url(../images/star_full.png);
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-}
-
-.star-empty {
-	background-image: url(../images/star_empty.png);
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-}
-
 .rating-display {
 	width: 20%;
 	height: 100%;
@@ -30,7 +17,6 @@
 }
 
 .level-item {
-	height: calc(23.5% - 20px);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -52,8 +38,4 @@
 	bottom: 35px;
 	left: 180px;
 	color: white;
-}
-
-#level-selection #list {
-	height: 525px;
 }

@@ -11,3 +11,4 @@ star_empty.png : http://findicons.com/icon/83792/onebit_46#
 star_half.png : http://findicons.com/icon/83796/onebit_45
 star_full.png : http://findicons.com/icon/83797/onebit_44
 info.png : http://findicons.com/icon/131777/get_info#
+rotate.png : http://findicons.com/icon/175969/sub_blue_rotate_cw?id=176266#

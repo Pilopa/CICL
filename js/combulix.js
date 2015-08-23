@@ -140,7 +140,7 @@ var combulix = {
 	
 	enablePrevious: function() {
 		$(".arrow.left").show();
-		combulix.registerPeviousListeners();
+		combulix.registerPreviousListeners();
 		combulix.disabled.previous = false;
 	},
 

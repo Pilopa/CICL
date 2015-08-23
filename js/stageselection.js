@@ -3,6 +3,9 @@
 $(function() {
 	
 	var playerObject = getCurrentPlayerObject();
+	var totalScore = getPlayerTotalScore(playerObject);
+	
+	$("#total-score").text(totalScore);
 	
 	//Lade die Auswahlliste der einzelnen Stages.
 	for (i = 0; i < getStages().length; i++) {
@@ -34,7 +37,7 @@ $(function() {
 	        	function () {
 	        	 
 	        	 	$(".speech-bubble").addClass("highlighted");
-	        	 	
+	        	 	$("#total-score-container").hide();
 	         	},
 	         	
 	         	function () {
@@ -76,6 +79,22 @@ $(function() {
  	         	}
  	         	
  	         ),
+ 	         
+	         new Speech("In jedem Bereich kannst du Sterne sammeln, die Gesamtzahl wird dir unter der Bereichsauswahl angezeigt ...", undefined,
+	        		 
+	  	 	        function () {
+	  	        	 
+	  	        	 	$("#total-score-container").fadeIn(1000).addClass("highlighted");
+	  	        	 	
+	  	         	},
+	  	         	
+	  	         	function () {
+	  		        	 
+	  	        	 	$("#total-score-container").removeClass("highlighted");
+	  	        	 	
+	  	         	}
+	  	         	
+	  	     ),
 	         
 	         new Speech("Lass uns im ersten Bereich beginnen.<br><br>Klicke dazu auf die hervorgehobene Schaltfläche ...", undefined,
 	        		 

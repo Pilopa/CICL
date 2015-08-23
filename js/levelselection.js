@@ -29,6 +29,9 @@ $(function() {
 		.attr("id", "rating-container-" + i)
 		.appendTo("#" + i);
 		
+		var score = playerObject.scores[stageId][i];
+		var floorScore =  Math.floor(score);
+		
 		for (var n = 0; n < 5; n++) {
 			var ratingDisplay = $(document.createElement('div'))
 			.addClass("rating-display")
@@ -36,8 +39,10 @@ $(function() {
 			.attr("id", "rating-" + i)
 			.appendTo("#rating-container-" + i);
 			
-			if (playerObject.scores[stageId][i] > n) {
-				ratingDisplay.addClass("star-full");
+			if (score > n) {
+				if (n === floorScore && score !== parseInt(score, 10)) {
+					if (0.5 <= score - floorScore) ratingDisplay.addClass("star-half");
+				} else ratingDisplay.addClass("star-full");
 			} else {
 				ratingDisplay.addClass("star-empty");
 			}
@@ -47,6 +52,7 @@ $(function() {
 		audio.soundOnClick(".item");
 	}
 	
+	//Initialisiere Bereichstitel
 	$("#list").after("<div id='stage-id'>" + (stage.title === undefined ? "Bereich " + (i + 1) : stage.title) + "</div>");
 	
 	//Combulix
@@ -60,6 +66,7 @@ $(function() {
 	if (playerObject.showLevelSelectionTutorial) { //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
 		
 		$("#list").hide();
+		$("#stage-id").hide();
 		
 		combulix.speeches = [
 		                     
@@ -85,6 +92,7 @@ $(function() {
 	        	 
  		        	 $(".item").addClass("highlighted");
  		        	 $("#list").fadeIn(1000);
+ 		        	 $("#stage-id").fadeIn(1000);
  		        	 
  		         },
  		         

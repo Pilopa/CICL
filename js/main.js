@@ -29,6 +29,19 @@ function getCurrentPlayerObject() {
 	}
 }
 
+function getPlayerTotalScore(playerObject) {
+	if (playerObject === undefined) playerObject = getCurrentPlayerObject();
+	var result = 0;
+	for (var stageIndex = 0; stageIndex < playerObject.scores.length; stageIndex++) {
+		var stageScores = playerObject.scores[stageIndex];;
+		for (var levelIndex = 0; levelIndex < stageScores.length; levelIndex++) {
+			result += stageScores[levelIndex];
+		}
+	}
+	
+	return result;
+}
+
 function initializeCurrentPlayerObject() {
 	localStorage[localStorage["name"]] = JSON.stringify({
 		scores: [], //Map mit den Punkteständen der einzelnen Levels für jede Stage.

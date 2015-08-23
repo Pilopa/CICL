@@ -268,7 +268,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 					
 	]), // ======================================================================
 			
-	new Stage("Bereich E", [
+	/*new Stage("Bereich E", [
 	            
 			new Level(5, 5, "Level 1", {
 				// ???
@@ -314,7 +314,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 			.put(0, 4, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['lava']))
 			.put(4, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
 		
-	]) // ======================================================================
+	])*/ // ======================================================================
 				
 ]);
 

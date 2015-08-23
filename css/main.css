@@ -31,6 +31,24 @@
 	height: 100%;
 }
 
+.star-full {
+	background-image: url(../images/star_full.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.star-half {
+	background-image: url(../images/star_half.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.star-empty {
+	background-image: url(../images/star_empty.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
 .unselectable {
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -117,13 +135,14 @@
 #list {
 	overflow: auto;
 	width: 500px;
-	height: 600px;
+	height: 525px;
 	left: 10px;
+	border-radius: 15px;
 }
 
 .item {
 	width: calc(100% - 40px);
-	height: calc(19% - 20px);
+	height: calc(23.5% - 20px);
 	font-size: 32px;
 	padding: 20px;
 	margin: 20px 20px 5px 20px;

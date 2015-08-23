@@ -53,6 +53,17 @@
 	position: relative;
 }
 
+.tutorial-rotate:after {
+	content: "";
+	background-image: url(../images/rotate.png);
+	background-size: 100% 100%;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+}
+
 .tile:not(.ui-draggable-dragging) {
 	z-index: 20;
 }
@@ -292,6 +303,7 @@
 
 #pointlValueDisplay {
 	margin-right: 10px;
+	margin-left: 5px;
 	font-size: 24px;
 	color: white;
 }
