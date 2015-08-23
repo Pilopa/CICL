@@ -14,10 +14,6 @@
 	background: -ms-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* IE10+ */
 	background: linear-gradient(to bottom, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b5bdc8', endColorstr='#28343b',GradientType=0); /* IE6-9 */
-	border-radius: 5px;
-	border-style: solid;
-	border-width: 5px;
-	border-color: #362A1D;
 	box-sizing: border-box;
 	height: 700px;
 	width: 1000px;
@@ -29,6 +25,11 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
+	border-radius: 5px;
+	border-style: ridge;
+	border-width: 5px;
+	border-color: #808080;
+	box-sizing: border-box;
 }
 
 .star-full {
@@ -305,7 +306,11 @@
 	height: 64px;
 	width: 225px;
 	left: 10px;
+	padding: 5px;
 	box-sizing: border-box;
+	border-radius: 10px;
+	border-style: outset;
+	background-image: linear-gradient(to bottom, #fff, #909090);
 }
 
 #options-button {
@@ -332,11 +337,12 @@
 	height: 80%;
 	left: 10%;
 	top: 10%;
-	background-color: gray;
+	background-image: linear-gradient(to bottom, #909090, #505050);
 	z-index: 90;
-	border-style: outset;
-	border-width: 2px;
-	border-color: black;
+	border-style: ridge;
+	border-width: 5px;
+	border-color: gray;
+	border-radius: 10px;
 }
 
 .close-button {
@@ -355,4 +361,54 @@
 	box-sizing: border-box;
 	position: absolute;
 	top: 80px;
+}
+
+#options-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.option-container {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin: 15px;
+	border-radius: 10px;
+	border-style: outset;
+	background-image: linear-gradient(to bottom, #fff, #909090);
+	width: 50%;
+}
+
+.option-container:ACTIVE:HOVER, #options-button:ACTIVE:HOVER, #back-button:ACTIVE:HOVER {
+	border-style: inset;
+	background-image: linear-gradient(to bottom, #909090, #fff);
+}
+
+.option-container:HOVER, #options-button:HOVER, #back-button:HOVER {
+	box-shadow: 0 0 20px 10px white inset;
+}
+
+.option-icon {
+	background-size: 100% 100%;
+	width: 48px;
+	height: 48px;
+	margin-right: 10px;
+}
+
+.option-text {
+	font-size: 38px;
+}
+
+.option-container.off .option-text {
+	text-decoration: line-through;
+}
+
+.option-container.off .option-icon {
+	background-image: url(../images/muted.png);
+}
+
+.option-container:not(.off) .option-icon {
+	background-image: url(../images/unmuted.png);
 }

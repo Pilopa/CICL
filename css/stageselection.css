@@ -13,7 +13,7 @@
 	justify-content: center;
 	align-items: center;
 	position: absolute;
-	bottom: 15px;
+	bottom: 7.5px;
 	left: 10px;
 	width: 500px;
 }
@@ -41,5 +41,5 @@ hr {
 	width: 400px;
 	position: absolute;
 	left: 60px;
-	bottom: 90px;
+	bottom: 75px;
 }

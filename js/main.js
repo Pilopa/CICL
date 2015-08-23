@@ -68,7 +68,9 @@ function initializeCurrentPlayerObject() {
 		scores: [], //Map mit den Punkteständen der einzelnen Levels für jede Stage.
 		showStageSelectionTutorial: true,
 		showLevelSelectionTutorial: true,
-		showGameTutorial: true
+		showGameTutorial: true,
+		playSound: true,
+		playMusic: true
 	});
 	return getCurrentPlayerObject();
 }
@@ -86,7 +88,9 @@ function initializeCheatPlayerObject() {
 			
 			showStageSelectionTutorial: false,
 			showLevelSelectionTutorial: false,
-			showGameTutorial: false
+			showGameTutorial: false,
+			playSound: false,
+			playMusic: false
 		});
 }
 

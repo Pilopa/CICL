@@ -28,6 +28,9 @@ $(function() {
 		
 		//Initialisiere Sound
 		audio.soundOnClick("#continue");
+		
+		//Starte Spielmusik
+		audio.playMusic();
 	
 	} 
 	

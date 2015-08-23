@@ -8,6 +8,18 @@ input {
 	top: calc(70% - 50px);
 	width: 200px;
 	height: 100px;
+	border-radius: 10px;
+	border-style: outset;
+	background-image: linear-gradient(to bottom, #fff, #909090);
+}
+
+#continue:ACTIVE:HOVER {
+	border-style: inset;
+	background-image: linear-gradient(to bottom, #909090, #fff);
+}
+
+#continue:HOVER {
+	box-shadow: 0 0 20px 10px white inset;
 }
 
 #playerName_input {

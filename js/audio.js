@@ -1,13 +1,17 @@
 var audio = {
+		
 
 	gameMusic : new Audio("../audio/background-music.mp3"),
 	selectionItemSound : new Audio("../audio/button-click.wav"),
 	menuButtonSound : new Audio("../audio/menu-click.mp3"),
 	combulixNav : new Audio("../audio/combulix-nav.mp3"),
-	errorSound : new Audio("../audio/error.mp3"),
+	errorSound : new Audio("../audio/error.mp3"), 
+	
 	soundOnClick : function (selector) {
 		
 		$(selector).click(function() {
+			
+			if (!getCurrentPlayerObject().playSound) return;
 			
 			if ($(this).is(".item.active")) {
 				audio.selectionItemSound.load();
@@ -25,6 +29,40 @@ var audio = {
 			}
 			
 		});
-	}
+	},
+	
+	setMusicTime : function(value) {
+		sessionStorage['musicTime'] = value;
+	},
+	
+	updateMusicTime : function () {
+		this.setMusicTime(this.gameMusic.currentTime);
+	},
+	
+	getMusicTime : function () {
+		return sessionStorage['musicTime'];
+	},
+	
+	resetGameMusicTime : function () {
+		this.setMusicTime(0);
+	},
+	
+	playMusic : function() {
+		if (sessionStorage['musicTime'] === undefined) this.setMusicTime(0);
+		if (getCurrentPlayerObject().playMusic) {
+			this.gameMusic.loop = true;
+			this.gameMusic.play();
+			this.gameMusic.currentTime = this.getMusicTime();
+		}
+	},
+	
+	stopMusic : function() {
+		if (!getCurrentPlayerObject().playMusic) {
+			this.updateMusicTime();
+			this.gameMusic.pause();
+		}
+	},
+	
+
 
 };

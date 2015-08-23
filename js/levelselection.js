@@ -53,7 +53,7 @@ $(function() {
 	}
 	
 	//Initialisiere Bereichstitel
-	$("#list").after("<div id='stage-id'>" + (stage.title === undefined ? "Bereich " + (i + 1) : stage.title) + "</div>");
+	$("#stage-id").text(stage.title === undefined ? "Bereich " + (i + 1) : stage.title);
 	
 	//Combulix
 	combulix.initialize();
@@ -67,6 +67,7 @@ $(function() {
 		
 		$("#list").hide();
 		$("#stage-id").hide();
+		$("hr").hide();
 		
 		combulix.speeches = [
 		                     
@@ -93,6 +94,7 @@ $(function() {
  		        	 $(".item").addClass("highlighted");
  		        	 $("#list").fadeIn(1000);
  		        	 $("#stage-id").fadeIn(1000);
+ 		        	 $("hr").fadeIn(1000);
  		        	 
  		         },
  		         
@@ -197,5 +199,8 @@ $(function() {
 	$(".item.active").click(function(event) {
 		showLevel(stageId, $(this).attr("id"))
 	});
+	
+	//Starte Spielmusik
+	audio.playMusic();
 	
 });

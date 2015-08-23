@@ -193,4 +193,7 @@ $(function() {
 	
 	//Definiere Ziel für Zurück-Button
 	backButton.setCallback(showSplash);
+	
+	//Starte Spielmusik
+	audio.playMusic();
 });

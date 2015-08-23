@@ -632,7 +632,7 @@ $(function() {
 	         	
 	        ),
 	        
-	        new Speech("Weiter unten gibt es die Punkteanzeige.<br><br>Jedes platzierte Werkzeug wird von deinem Punktekonto abgezogen.<br><br>Je näher du am Startwert bleibst, desto besser deine Endwertung ...", undefined,
+	        new Speech("Oben rechts gibt es die Punkteanzeige.<br><br>Jedes platzierte Werkzeug wird von deinem Punktekonto abgezogen.<br><br>Je näher du am Startwert bleibst, desto besser deine Endwertung ...", undefined,
 	        		
 	        		function () { //on
 	        			$("#pointValueContainer").fadeIn().addClass("highlighted");
@@ -943,7 +943,6 @@ $(function() {
 	backButton.parameters = [stageid];
 	
 	//Starte Spielmusik
-	
-	//TODO
+	audio.playMusic();
 	
 });
