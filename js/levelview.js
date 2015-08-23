@@ -870,6 +870,8 @@ $(function() {
 				    			straight: 2
 							 }
 				    		 
+				    		 maxPointValue = level.getMaxPointValue(); //Muss beim manuellen Setzen der Tools nach Initialisierung
+				    		 
 				    		 updateToolBox();
 		    	 		}
 		    	 		
@@ -896,7 +898,9 @@ $(function() {
 				corner: 2,
 				straight: 2
 			 }
-			 updateToolBox();
+    		
+    		maxPointValue = level.getMaxPointValue();
+			updateToolBox();
 		}
 		combulix.slideOut();
 		
