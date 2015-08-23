@@ -12,6 +12,18 @@ $(function() {
 	
 	//Funktionen
 	
+	function getStarsFromPoints() {
+		var pointRange = maxPointValue - level.optimalPointValue;
+		var step = pointRange/level.starDivisor;
+		var excess = level.optimalPointValue - level.getPlacedPointValue();
+		if(excess == 0) return 10;
+		else {
+			var starsmissed = Math.ceil(excecss/step);
+			if(starsmissed > 9) starsmissed = 9; // Eine bewertung unter 0,5 ist nicht möglich wenn man ein Level abschließt
+			return 10-starsmissed;
+		}
+	}
+	
 	function getScoreObject() {
 		
 		return {
