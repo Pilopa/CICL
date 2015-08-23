@@ -161,8 +161,8 @@
 }
 
 .score-icon {
-	width: 48px;
-	height: 48px;
+	width: 40px;
+	height: 40px;
 }
 
 .rating-display {
@@ -177,8 +177,6 @@
 	justify-content: center;
 	align-items: center;
 	border-radius: 10px;
-	/*height: 75%;
-	width: 50%;*/
 	padding: 5px;
 }
 
@@ -188,6 +186,7 @@
 	align-items: center;
 	margin-right: 10px;
 	height: 100%;
+	font-size: 28px;
 }
 
 .item.active {

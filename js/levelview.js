@@ -97,10 +97,11 @@ $(function() {
 			deactivate: function (event, ui) {
 				//Manchmal werden die top-und left-werte nach dem Drag & Drop nicht automatisch korrekt zurückgesetzt.
 				//Daher wird das hier manuell getan.
-				$(this)
+				/*$(this)
 				.css("top", "")
 				.css("left", "")
-				.removeClass("drop-highlight");
+				.removeClass("drop-highlight");*/
+				$(this).removeClass("drop-highlight");
 			},
 			
 			activate: function (event, ui) {
