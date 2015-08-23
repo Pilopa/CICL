@@ -193,10 +193,6 @@
 	border: inset 1px gray;
 }
 
-.tool-disabled {
-	/* TODO */
-}
-
 .tool-number-disabled {
 	color: #ff6060;
 }

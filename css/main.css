@@ -267,23 +267,25 @@
 
 .menu-button {
 	position: absolute;
-}
-
-#options-icon, #back-icon, #options-button, #back-button {
-	display: inline-block;
-}
-
-#options-icon, #back-icon, .button-text {
-	height: 100%;
-	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	height: 64px;
+	width: 225px;
+	left: 10px;
+	box-sizing: border-box;
+	border-radius: 10px;
+	border-style: outset;
+	background-image: linear-gradient(to bottom, #fff, #909090);
 }
 
 #options-icon, #back-icon {
 	width: 64px;
 	background-repeat: no-repeat;
-	background-size: 100% 100%;
+	background-size: cover;
 	left: 0;
 	top: 0;
+	margin-left: 10px;
 }
 
 .button-text {
@@ -302,15 +304,9 @@
 	background-image: url(../images/back.png);
 }
 
-#options-button, #back-button {
-	height: 64px;
-	width: 225px;
-	left: 10px;
-	padding: 5px;
-	box-sizing: border-box;
-	border-radius: 10px;
-	border-style: outset;
-	background-image: linear-gradient(to bottom, #fff, #909090);
+#options-icon, #back-icon {
+	width: 56px;
+	height: 56px;
 }
 
 #options-button {
@@ -348,7 +344,7 @@
 .close-button {
 	background-image: url(../images/close.png);
 	background-repeat: no-repeat;
-	background-size: 100% 100%;
+	background-size: cover;
 	width: 64px;
 	height: 64px;
 	position: absolute;
