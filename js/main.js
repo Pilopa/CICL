@@ -82,7 +82,6 @@ function initializeCheatPlayerObject() {
 			[3, 3, 3, 3],
 			[3, 3, 3, 3],
 			[3, 3, 3, 3],
-			[3, 3, 3, 3],
 			[3, 3, 3, 3]
 			], //Map mit den Punkteständen der einzelnen Levels für jede Stage.
 			
