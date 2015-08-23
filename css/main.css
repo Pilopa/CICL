@@ -156,6 +156,39 @@
 	align-items: center;
 }
 
+.item-text {
+	display: inline-block;
+}
+
+.score-icon {
+	width: 48px;
+	height: 48px;
+}
+
+.rating-display {
+	width: 20%;
+	height: 100%;
+	float: left;
+	display: inline-block;
+}
+
+.rating-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	height: 75%;
+	width: 50%;
+}
+
+.rating-text {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 10px;
+	height: 100%;
+}
+
 .item.active {
   	background-image: -webkit-linear-gradient(top, #c0c0c0, #8080ff);
   	background-image: -moz-linear-gradient(top, #c0c0c0, #8080ff);

@@ -42,6 +42,27 @@ function getPlayerTotalScore(playerObject) {
 	return result;
 }
 
+function getPlayerStageScore(stageId, playerObject) {
+	if (playerObject === undefined) playerObject = getCurrentPlayerObject();
+	var result = 0;
+	var stageScores = playerObject.scores[stageId];
+	for (var levelIndex = 0; levelIndex < stageScores.length; levelIndex++) {
+		result += stageScores[levelIndex];
+	}
+	
+	return result;
+}
+
+function getStageScoreLimit(stageId) {
+	var result = 0;
+	var stage = getStages()[stageId];
+	for (var levelIndex = 0; levelIndex < stage.length; levelIndex++) {
+		result += 5; //Fünf ist die maximale Anzahl an Sternen, die man in einem Level erreichen kann.
+	}
+	
+	return result;
+}
+
 function initializeCurrentPlayerObject() {
 	localStorage[localStorage["name"]] = JSON.stringify({
 		scores: [], //Map mit den Punkteständen der einzelnen Levels für jede Stage.

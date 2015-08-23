@@ -1,27 +1,3 @@
-.rating-display {
-	width: 20%;
-	height: 100%;
-	float: left;
-	display: inline-block;
-}
-
-.rating-container {
-	display: inline-block;
-	border-radius: 10px;
-	height: 75%;
-	width: 50%;
-}
-
-.level-text {
-    display: inline-block;
-}
-
-.level-item {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
 #level-selection #options-button {
 	top: 10px;
 	left: 265px;

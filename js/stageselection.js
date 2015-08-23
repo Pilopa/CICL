@@ -13,11 +13,34 @@ $(function() {
 		var element = $(document.createElement('div'))
 			.addClass("item")
 			.addClass("unselectable")
-			.addClass("centered-text")
 			.attr("id", i)
-			.html(stage.title === undefined ? "Bereich " + (i + 1) : stage.title)
 			.appendTo("#list");
 		
+		var stageTitle = $(document.createElement('span'))
+		.text(stage.title === undefined ? "Bereich " + (i + 1) : stage.title)
+		.addClass("item-text")
+		.addClass("unselectable")
+		.appendTo("#" + i);
+		
+		var ratingContainer = $(document.createElement('div'))
+		.addClass("rating-container")
+		.addClass("unselectable")
+		.attr("id", "rating-container-" + i)
+		.appendTo("#" + i);
+		
+		var stageScore = getPlayerStageScore(i);
+		var stageOptimalScore = getStageScoreLimit(i);
+		
+		var ratingText = $(document.createElement('div'))
+		.addClass("rating-text")
+		.html(stageScore + " / " + stageOptimalScore)
+		.appendTo("#rating-container-" + i);
+		
+		var starIcon = $(document.createElement('div'))
+		.addClass("star-full")
+		.addClass("score-icon")
+		.appendTo("#rating-container-" + i);
+
 		//Initialisiere Sound
 		audio.soundOnClick(element);
 	}

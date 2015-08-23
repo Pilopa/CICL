@@ -17,9 +17,9 @@ $(function() {
 			.attr("id", i)
 			.appendTo("#list");
 		
-		var ratingText = $(document.createElement('span'))
+		var levelTitle = $(document.createElement('span'))
 		.text(level.title)
-		.addClass("level-text")
+		.addClass("item-text")
 		.addClass("unselectable")
 		.appendTo("#" + i);
 		
