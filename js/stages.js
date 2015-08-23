@@ -176,6 +176,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 			.put(2, 3, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['honey']))
 			.put(3, 2, 3, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['honey']))
 			.put(4, 3, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['honey']))
+			.put(3, 3, 0, new Tile(TILE_TYPE['wall'], 		 TILE_ELEMENT['none']))
 			.put(5, 0, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
 			.put(1, 6, 2, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
 					
