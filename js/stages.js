@@ -24,7 +24,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level( 5, 4, "Level 2", {
+			new Level( 5, 4, "Umweg", {
 				'straight': 6,
 				'corner': 8,
 			}, 60)
@@ -38,7 +38,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level( 5, 4, "Level 3", {
+			new Level( 5, 4, "Im Weg", {
 				'straight': 10,
 				'corner': 6,
 			}, 30)
@@ -50,7 +50,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level(6, 5, "Level 4", {
+			new Level(6, 5, "Auseinander", {
 				'straight': 10,
 				'corner': 10,
 			}, 40)
@@ -111,7 +111,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level(6, 5, "Level 4", {
+			new Level(6, 5, "Wirres Kreuzen", {
 				'corner': 7,
 				'crossroads': 9,
 			}, 0)
@@ -140,7 +140,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level(5, 5, "Level 2", {
+			new Level(5, 5, "Brücke", {
 				'straight': 6,
 				'corner': 8,
 				'crossroads': 1,
@@ -153,7 +153,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level(5, 5, "Level 3", {
+			new Level(5, 5, "Im Winkel", {
 				'straight': 3,
 				'corner': 8,
 				'crossroads': 1,
@@ -166,7 +166,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level(7, 7, "Level 4", {
+			new Level(7, 7, "Löcher stopfen", {
 				'straight': 15,
 				'corner': 15,
 				'crossroads': 5,
@@ -198,7 +198,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level(5, 3, "Level 2", {
+			new Level(5, 3, "Umwandlung", {
 				'straight': 4,
 				'corner': 2,
 				'crossroads': 1,
@@ -214,7 +214,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level(6, 7, "Level 3", {
+			new Level(6, 7, "Hintenrum", {
 				'straight': 15,
 				'corner': 10,
 				'crossroads': 5,
@@ -232,7 +232,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 		
 		, // ======================================================================
 		
-			new Level(10, 10, "Level 4", {
+			new Level(10, 10, "Das große Rund", {
 				'straight': 50,
 				'corner': 25,
 				'crossroads': 10,
@@ -266,7 +266,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 			.put(3, 2, 3, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
 			.put(7, 6, 3, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
 					
-	]), // ======================================================================
+	])/*, // ======================================================================
 			
 	new Stage("Bereich E", [
 	            
@@ -314,7 +314,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 			.put(0, 4, 2, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['lava']))
 			.put(4, 2, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
 		
-	]) // ======================================================================
+	]) // ======================================================================*/
 				
 ]);
 
