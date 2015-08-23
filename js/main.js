@@ -56,7 +56,7 @@ function getPlayerStageScore(stageId, playerObject) {
 function getStageScoreLimit(stageId) {
 	var result = 0;
 	var stage = getStages()[stageId];
-	for (var levelIndex = 0; levelIndex < stage.length; levelIndex++) {
+	for (var levelIndex = 0; levelIndex < stage.levels.length; levelIndex++) {
 		result += 5; //Fünf ist die maximale Anzahl an Sternen, die man in einem Level erreichen kann.
 	}
 	

@@ -33,12 +33,12 @@ $(function() {
 		
 		var ratingText = $(document.createElement('div'))
 		.addClass("rating-text")
-		.html(stageScore + " / " + stageOptimalScore)
+		.html(stageScore + " von " + stageOptimalScore)
 		.appendTo("#rating-container-" + i);
 		
 		var starIcon = $(document.createElement('div'))
-		.addClass("star-full")
 		.addClass("score-icon")
+		.addClass("star-empty")
 		.appendTo("#rating-container-" + i);
 
 		//Initialisiere Sound
@@ -52,15 +52,17 @@ $(function() {
 	if (playerObject.showStageSelectionTutorial) {
 		
 		$("#list").hide();
+		$("#total-score-container").hide();
+		$("hr").hide();
 		
 		//Definiere die Texte von Combulix
 		combulix.speeches = [
 	         new Speech("<br>Oh nein,<br> nicht SCHON WIEDER !!! <br><br><br><br><i>(Klicke auf den grünen Pfeil, oder wische nach Links, um den nächsten Tipp zu lesen.)</i>", undefined,
 	        		 
 	        	function () {
-	        	 
+	  
 	        	 	$(".speech-bubble").addClass("highlighted");
-	        	 	$("#total-score-container").hide();
+	        	 	
 	         	},
 	         	
 	         	function () {
@@ -103,17 +105,20 @@ $(function() {
  	         	
  	         ),
  	         
-	         new Speech("In jedem Bereich kannst du Sterne sammeln, die Gesamtzahl wird dir unter der Bereichsauswahl angezeigt ...", undefined,
+	         new Speech("In jedem Bereich kannst du Sterne sammeln.<br><br> Die Gesamtzahl wird dir unter der Bereichsauswahl angezeigt ...", undefined,
 	        		 
 	  	 	        function () {
 	  	        	 
+	        	 		$("hr").fadeIn(1000);
 	  	        	 	$("#total-score-container").fadeIn(1000).addClass("highlighted");
+	  	        	 	$(".rating-container").addClass("highlighted");
 	  	        	 	
 	  	         	},
 	  	         	
 	  	         	function () {
 	  		        	 
 	  	        	 	$("#total-score-container").removeClass("highlighted");
+	  	        	 	$(".rating-container").removeClass("highlighted");
 	  	        	 	
 	  	         	}
 	  	         	
@@ -126,6 +131,7 @@ $(function() {
 		        	$("#0").addClass("active").addClass("highlighted").click(function(event) {
 		    			showLevelSelection($(this).attr("id"));
 		    		});
+		        	$("#0 .score-icon").removeClass("star-empty").addClass("star-full");
 		        	$(".speech-bubble").removeClass("highlighted");
 		        	
 	         	},
@@ -163,9 +169,13 @@ $(function() {
 				}
 			}
 			
-			if (okay) $("#" + i).addClass("active").addClass("interactable").addClass("highlighted").click(function(event) {
-    			showLevelSelection($(this).attr("id"));
-    		});
+			if (okay){ 
+				$("#" + i).addClass("active").addClass("highlighted").click(function(event) {
+	    			showLevelSelection($(this).attr("id"));
+	    		});
+				
+				$("#" + i + " .score-icon").removeClass("star-empty").addClass("star-full");
+			}
 		}
 		
 		//Definiere die Texte von Combulix

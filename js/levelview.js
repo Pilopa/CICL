@@ -18,8 +18,8 @@ $(function() {
 		var excess = level.optimalPointValue - level.getPlacedPointValue();
 		if(excess == 0) return 10;
 		else {
-			var starsmissed = Math.ceil(excecss/step);
-			if(starsmissed > 9) starsmissed = 9; // Eine bewertung unter 0,5 ist nicht möglich wenn man ein Level abschließt
+			var starsmissed = Math.ceil(excess/step);
+			if(starsmissed > 9) starsmissed = 9; // Eine Bewertung unter 0,5 ist nicht möglich wenn man ein Level abschließt
 			return 10-starsmissed;
 		}
 	}
@@ -27,7 +27,7 @@ $(function() {
 	function getScoreObject() {
 		
 		return {
-			score: 3.5
+			score: getStarsFromPoints()
 		};
 		
 	}
@@ -592,7 +592,7 @@ $(function() {
 		     	
 		    ),
 		     
-	        new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, müssen alle Quellen und Ziele fehlerfrei miteinander verbunden werden.", undefined,
+	        new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, müssen alle Quellen und Ziele fehlerfrei miteinander verbunden werden ...", undefined,
 	        		 
 	        	function () { //on
 		     		level.put(0, 0, 1, new Tile(TILE_TYPE['source'], TILE_ELEMENT['lava']), true);

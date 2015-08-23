@@ -166,8 +166,8 @@
 }
 
 .rating-display {
-	width: 20%;
-	height: 100%;
+	width: 40px;
+	height: 40px;
 	float: left;
 	display: inline-block;
 }
@@ -177,8 +177,9 @@
 	justify-content: center;
 	align-items: center;
 	border-radius: 10px;
-	height: 75%;
-	width: 50%;
+	/*height: 75%;
+	width: 50%;*/
+	padding: 5px;
 }
 
 .rating-text {

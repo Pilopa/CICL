@@ -36,7 +36,7 @@ $(function() {
 			var ratingDisplay = $(document.createElement('div'))
 			.addClass("rating-display")
 			.addClass("unselectable")
-			.attr("id", "rating-" + i)
+			.attr("id", "rating-" + n)
 			.appendTo("#rating-container-" + i);
 			
 			if (score > n) {
