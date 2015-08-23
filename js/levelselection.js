@@ -13,19 +13,16 @@ $(function() {
 		var element = $(document.createElement('div'))
 			.addClass("item")
 			.addClass("level-item")
-			.addClass("unselectable")
 			.attr("id", i)
 			.appendTo("#list");
 		
 		var levelTitle = $(document.createElement('span'))
 		.text(level.title)
 		.addClass("item-text")
-		.addClass("unselectable")
 		.appendTo("#" + i);
 		
 		var ratingContainer = $(document.createElement('div'))
 		.addClass("rating-container")
-		.addClass("unselectable")
 		.attr("id", "rating-container-" + i)
 		.appendTo("#" + i);
 		
@@ -35,7 +32,6 @@ $(function() {
 		for (var n = 0; n < 5; n++) {
 			var ratingDisplay = $(document.createElement('div'))
 			.addClass("rating-display")
-			.addClass("unselectable")
 			.attr("id", "rating-" + n)
 			.appendTo("#rating-container-" + i);
 			

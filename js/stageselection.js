@@ -12,19 +12,16 @@ $(function() {
 		var stage = getStages()[i];
 		var element = $(document.createElement('div'))
 			.addClass("item")
-			.addClass("unselectable")
 			.attr("id", i)
 			.appendTo("#list");
 		
 		var stageTitle = $(document.createElement('span'))
 		.text(stage.title === undefined ? "Bereich " + (i + 1) : stage.title)
 		.addClass("item-text")
-		.addClass("unselectable")
 		.appendTo("#" + i);
 		
 		var ratingContainer = $(document.createElement('div'))
 		.addClass("rating-container")
-		.addClass("unselectable")
 		.attr("id", "rating-container-" + i)
 		.appendTo("#" + i);
 		

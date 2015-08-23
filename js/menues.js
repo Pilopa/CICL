@@ -62,7 +62,6 @@ var optionsMenu = {
 		var soundContainer = $(document.createElement('div'))
 		.addClass("option-container")
 		.addClass("interactable")
-		.addClass("unselectable")
 		.attr("id", "sound-option-container")
 		.appendTo("#options-content");
 		
@@ -96,7 +95,6 @@ var optionsMenu = {
 		var musicContainer = $(document.createElement('div'))
 		.addClass("option-container")
 		.addClass("interactable")
-		.addClass("unselectable")
 		.attr("id", "music-option-container")
 		.appendTo("#options-content");
 		

@@ -299,7 +299,6 @@ $(function() {
 			var toolCount = $(document.createElement('div'))
 			.addClass("toolnumber")
 			.addClass("centered-text")
-			.addClass("unselectable")
 			.attr("id", "toolcount-" + tiletype.name)
 			.appendTo("#toolbox");
 			
@@ -412,7 +411,6 @@ $(function() {
 					.addClass("continue-button")
 					.addClass("centered-text")
 					.addClass("interactable")
-					.addClass("unselectable")
 					.attr("id", "score-display-continue")
 					.click(function () {
 						$("#score-display").fadeOut(function() {
@@ -427,7 +425,6 @@ $(function() {
 					.addClass("to-level-selection-button")
 					.addClass("centered-text")
 					.addClass("interactable")
-					.addClass("unselectable")
 					.attr("id", "score-display-to-level-selection")
 					.click(function () {
 						
@@ -871,6 +868,7 @@ $(function() {
 							 }
 				    		 
 				    		 maxPointValue = level.getMaxPointValue(); //Muss beim manuellen Setzen der Tools nach Initialisierung
+				    		 updateLevelPointValueDisplay();
 				    		 
 				    		 updateToolBox();
 		    	 		}
@@ -900,6 +898,7 @@ $(function() {
 			 }
     		
     		maxPointValue = level.getMaxPointValue();
+    		updateLevelPointValueDisplay();
 			updateToolBox();
 		}
 		combulix.slideOut();
