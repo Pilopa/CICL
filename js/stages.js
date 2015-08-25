@@ -114,7 +114,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 			new Level(6, 5, "Wirres Kreuzen", {
 				'corner': 7,
 				'crossroads': 9,
-			}, 0)
+			}, 70)
 		
 			.put(3, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
 			.put(0, 4, 3, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['lava']))
