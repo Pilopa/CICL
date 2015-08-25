@@ -1,11 +1,11 @@
 var optionsMenu = {
 		
-	optionsButton: {
+	optionsButton : {
 		
 		/**
 		 * Initialisiert den Button, welcher zum Optionsmenü führt.
 		 */
-		initialize: function() {
+		initialize : function() {
 			if (typeof x === 'undefined') x = "0";
 			if (typeof y === 'undefined') y = "0";
 			
@@ -18,18 +18,18 @@ var optionsMenu = {
 			return this;
 		},
 		
-		setVisible(bool) {
+		setVisible : function (bool) {
 			if (bool) $("#options-button").show();
 			else $("#options-button").hide();
 			return this;
 		},
 		
-		fadeIn() {
+		fadeIn : function () {
 			$("#options-button").fadeIn();
 			return this;
 		},
 		
-		fadeOut() {
+		fadeOut : function() {
 			$("#options-button").fadeOut();
 			return this;
 		}

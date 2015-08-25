@@ -13,16 +13,22 @@ $(function() {
 		
 		//Den gewählten Spielernamen für spätere Verwendung zwischenspeichern. (Initialisierung des Spielerobjekts)
 		$("#input").submit(function(event) {
-			localStorage["name"] = $("#playerName_input").val().toLowerCase();
-			if (localStorage[localStorage["name"]] === undefined) {
-				var playerObject = initializeCurrentPlayerObject();
-				for (var i = 0; i < getStages().length; i++) {
-					playerObject.scores[i] = [];
-					for (var n = 0; n < getStages()[i].length; n++) {
-						playerObject.scores[i][n] = 0;
+			var playerName = $("#playerName_input").val().toLowerCase().trim();
+			if (playerName !== "") {
+				localStorage["name"] = playerName;
+				if (localStorage[localStorage["name"]] === undefined) {
+					var playerObject = initializeCurrentPlayerObject();
+					for (var i = 0; i < getStages().length; i++) {
+						playerObject.scores[i] = [];
+						for (var n = 0; n < getStages()[i].length; n++) {
+							playerObject.scores[i][n] = 0;
+						}
 					}
+					saveCurrentPlayerObject(playerObject);
 				}
-				saveCurrentPlayerObject(playerObject);
+			} else {
+				audio.errorSound.load();
+				audio.errorSound.play();
 			}
 		});
 		

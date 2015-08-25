@@ -39,3 +39,11 @@ input {
 	font-weight: bold;
 	width: 100%;
 }
+
+#version {
+	font-size: 14px;
+	position: absolute;
+	right: 10px;
+	bottom: 14px;
+	color: #757575;
+}

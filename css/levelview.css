@@ -322,3 +322,54 @@
 	background-image: url(../images/info.png);
 	background-size: 100% 100%;
 }
+
+#congrats-text {
+	position: absolute;
+    padding: 7px;
+    top: 20px;
+    font-size: 48px;
+    color: black;
+    background-color: #E2D852;
+    box-shadow: 0 0 18px 5px #E2D852;
+    border-radius: 20px;
+	width: 350px;
+	left: calc(50% - 175px);
+}
+
+#score-display-content {
+	box-shadow: 0 0 30px 7px #00aa00;
+}
+
+.rating-text {
+	color: white;
+	font-size: 25px;
+	position: absolute;
+	height: auto;
+	margin-right: 0;
+	left: 100px;
+}
+
+#previous-rating-text {
+	top: 200px;
+}
+
+#your-rating-text {
+	top: 300px;
+}
+
+#levelview .rating-container {
+	position: absolute;
+	border-radius: 15px;
+	border-style: solid;
+	border-color: black;
+	border-width: 2px;
+	left: 310px;
+}
+
+#levelview #previous-rating-container {
+	top: 190px;
+}
+
+#levelview #your-rating-container {
+	top: 290px;
+}

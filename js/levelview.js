@@ -15,7 +15,7 @@ $(function() {
 	function getStarsFromPoints() {
 		var pointRange = maxPointValue - level.optimalPointValue;
 		var step = pointRange/level.starDivisor;
-		var excess = level.optimalPointValue - level.getPlacedPointValue();
+		var excess = level.optimalPointValue - maxPointValue + level.getPlacedPointValue();
 		if(excess <= 0) return 5;
 		else {
 			var starsmissed = Math.ceil(excess/step);
@@ -27,7 +27,8 @@ $(function() {
 	function getScoreObject() {
 		
 		return {
-			score: getStarsFromPoints()
+			previousScore: playerObject.scores[stageid][levelid],
+			newScore: getStarsFromPoints()
 		};
 		
 	}
@@ -95,12 +96,6 @@ $(function() {
 			accept: ".tool, .tile",
 			hoverClass: "drop-hover-highlight",
 			deactivate: function (event, ui) {
-				//Manchmal werden die top-und left-werte nach dem Drag & Drop nicht automatisch korrekt zurückgesetzt.
-				//Daher wird das hier manuell getan.
-				/*$(this)
-				.css("top", "")
-				.css("left", "")
-				.removeClass("drop-highlight");*/
 				$(this).removeClass("drop-highlight");
 			},
 			
@@ -360,15 +355,15 @@ $(function() {
 			
 			//Die Punkte berechnen
 			var scoreObject = getScoreObject();
+			console.log(scoreObject);
 			
 			//Die Punkte vergeben
 			if (playerObject.showGameTutorial) playerObject.showGameTutorial = false;
-			if (playerObject.scores[stageid][levelid] === undefined || playerObject.scores[stageid][levelid] < scoreObject.score) playerObject.scores[stageid][levelid] = scoreObject.score;
+			if (playerObject.scores[stageid][levelid] === undefined || scoreObject.previousScore < scoreObject.newScore) playerObject.scores[stageid][levelid] = scoreObject.newScore;
 			saveCurrentPlayerObject(playerObject);
 			
 			//Start-Button zurücksetzen (hihi)
 			setStartButtonEnabled(true, "Zurücksetzen");
-			$("#startbutton").addClass("highlighted");
 			
 			//Sieges-Feedback
 			$(".game").animate({
@@ -385,13 +380,82 @@ $(function() {
 					$(document.createElement('div'))
 					.addClass("screen-overlay")
 					.attr("id", "score-display")
-					.appendTo("body");
+					.appendTo("#levelview");
 					
 					//Content-Container
 					$(document.createElement('div'))
 					.addClass("popup-content-container")
 					.attr("id", "score-display-content")
 					.appendTo("#score-display");
+					
+					//Glückwunsch-Text
+					$(document.createElement('div'))
+					.text("! Glückwunsch !")
+					.addClass("centered-text")
+					.attr("id", "congrats-text")
+					.appendTo("#score-display-content");
+					
+					//Vorherige Wertung-Text
+					$(document.createElement('div'))
+					.text("Bisherige Wertung:")
+					.addClass("centered-text")
+					.addClass("rating-text")
+					.attr("id", "previous-rating-text")
+					.appendTo("#score-display-content");
+					
+					//Vorherige Wertung
+					var ratingContainer = $(document.createElement('div'))
+					.addClass("rating-container")
+					.attr("id", "previous-rating-container")
+					.appendTo("#score-display-content");
+					
+					//Vorherige Wertung anzeigen
+					var floorScore =  Math.floor(scoreObject.previousScore);
+					for (var n = 0; n < 5; n++) {
+						var ratingDisplay = $(document.createElement('div'))
+						.addClass("rating-display")
+						.attr("id", "rating-" + n)
+						.appendTo("#previous-rating-container");
+						
+						if (scoreObject.previousScore > n) {
+							if (n === floorScore && scoreObject.previousScore !== parseInt(scoreObject.previousScore, 10)) {
+								if (0.5 <= scoreObject.previousScore - floorScore) ratingDisplay.addClass("star-half");
+							} else ratingDisplay.addClass("star-full");
+						} else {
+							ratingDisplay.addClass("star-empty");
+						}
+					}
+					
+					//Deine Wertung-Text
+					$(document.createElement('div'))
+					.text("Deine Wertung:")
+					.addClass("centered-text")
+					.addClass("rating-text")
+					.attr("id", "your-rating-text")
+					.appendTo("#score-display-content");
+					
+					//Deine Wertung
+					var ratingContainer = $(document.createElement('div'))
+					.addClass("rating-container")
+					.attr("id", "your-rating-container")
+					.appendTo("#score-display-content");
+					
+					//Deine Wertung anzeigen
+					floorScore =  Math.floor(scoreObject.newScore);
+					for (var n = 0; n < 5; n++) {
+						var ratingDisplay = $(document.createElement('div'))
+						.addClass("rating-display")
+						.attr("id", "rating-" + n)
+						.appendTo("#your-rating-container");
+						
+						if (scoreObject.newScore > n) {
+							if (n === floorScore && scoreObject.newScore !== parseInt(scoreObject.newScore, 10)) {
+								if (0.5 <= scoreObject.newScore - floorScore) ratingDisplay.addClass("star-half");
+							} else ratingDisplay.addClass("star-full");
+						} else {
+							ratingDisplay.addClass("star-empty");
+						}
+					}
 					
 					//Schließen-Button
 					$(document.createElement('div'))
@@ -444,10 +508,6 @@ $(function() {
 			// Walker anhalten
 			level.endRun();
 			
-			//Button zurücksetzen
-			setStartButtonEnabled(true, "Zurücksetzen");
-			$("#startbutton").addClass("highlighted");
-			
 			//Fail-Feedback
 			$(".game").animate({
 				boxShadow : "0 0 75px 0 rgba(255, 0, 0, 1) inset"
@@ -456,6 +516,8 @@ $(function() {
 					boxShadow : "0 0 5px 0 rgba(255, 0, 0, 1) inset"
 				}, 1000,function () {
 					$(this).addClass("wrong");
+					//Button zurücksetzen
+					setStartButtonEnabled(true, "Zurücksetzen");
 				});
 			});
 			
@@ -921,7 +983,6 @@ $(function() {
 			
 		} else if ($(this).text() === 'Zurücksetzen') {
 			
-			$("#startbutton").removeClass("highlighted");
 			clearRun();
 			$(this).text("Test starten!");
 			$(".game").css({

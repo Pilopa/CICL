@@ -267,7 +267,7 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 			.put(3, 2, 3, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
 			.put(7, 6, 3, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
 					
-	])/*, // ======================================================================
+	]), // ======================================================================
 			
 	/*new Stage("Bereich E", [
 	            
