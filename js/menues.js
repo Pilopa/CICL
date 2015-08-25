@@ -18,30 +18,18 @@ var optionsMenu = {
 			return this;
 		},
 		
-<<<<<<< HEAD
-		setVisible : function (bool) {
-=======
 		setVisible: function(bool) {
->>>>>>> origin/master
 			if (bool) $("#options-button").show();
 			else $("#options-button").hide();
 			return this;
 		},
 		
-<<<<<<< HEAD
-		fadeIn : function () {
-=======
 		fadeIn: function() {
->>>>>>> origin/master
 			$("#options-button").fadeIn();
 			return this;
 		},
 		
-<<<<<<< HEAD
-		fadeOut : function() {
-=======
 		fadeOut: function() {
->>>>>>> origin/master
 			$("#options-button").fadeOut();
 			return this;
 		}
