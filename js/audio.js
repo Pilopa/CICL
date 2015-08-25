@@ -10,9 +10,9 @@ var audio = {
 	soundOnClick : function (selector) {
 		
 		$(selector).click(function() {
-			
-			if (!getCurrentPlayerObject().playSound) return;
-			
+			if(getCurrentPlayerObject() !== null) {
+				if (!getCurrentPlayerObject().playSound) return;
+			}
 			if ($(this).is(".item.active")) {
 				audio.selectionItemSound.load();
 				audio.selectionItemSound.play();
@@ -49,18 +49,29 @@ var audio = {
 	
 	playMusic : function() {
 		if (sessionStorage['musicTime'] === undefined) this.setMusicTime(0);
+<<<<<<< HEAD
 		if (getCurrentPlayerObject().playMusic) {
 			this.gameMusic.volume = 0.25;
 			this.gameMusic.loop = true;
 			this.gameMusic.play();
 			this.gameMusic.currentTime = this.getMusicTime();
+=======
+		if(getCurrentPlayerObject() !== null) {
+			if (getCurrentPlayerObject().playMusic) {
+				this.gameMusic.loop = true;
+				this.gameMusic.play();
+				this.gameMusic.currentTime = this.getMusicTime();
+			}
+>>>>>>> origin/master
 		}
 	},
 	
 	stopMusic : function() {
-		if (!getCurrentPlayerObject().playMusic) {
-			this.updateMusicTime();
-			this.gameMusic.pause();
+		if(getCurrentPlayerObject() !== null) {
+			if (!getCurrentPlayerObject().playMusic) {
+				this.updateMusicTime();
+				this.gameMusic.pause();
+			}
 		}
 	},
 	

@@ -43,7 +43,6 @@ Walker.prototype.walk = function() {
 
 // Überprüfung des aktuellen Tiles auf passendes Element
 Walker.prototype.checkElement = function() {
-	console.log('checkElement');
 	var cf = this.comingfrom;
 	if(this.where.type.name == TILE_NAME['source']) {
 		return true;
@@ -66,13 +65,11 @@ Walker.prototype.stop = function() {
 }
 
 Walker.prototype.setElementEntry = function() {
-	console.log('setElementEntry');
 	this.where.setElement(this.comingfrom, this.element);
 }
 
 // Steuert den Übergang zum nächsten Tile
 Walker.prototype.onward = function() {
-	console.log('onward');
 	switch(this.where.type.name) {
 		case TILE_NAME['crossroads']:
 			var exit = (this.comingfrom+2)%4;
@@ -99,7 +96,6 @@ Walker.prototype.proceed = function(exit) {
 
 // Prüft Ausgang des aktuellen Tiles in angegebene Richtung, ob dort das Weiterfließen möglich ist
 Walker.prototype.assertExit = function(dir) {
-	console.log('assertExit');
 	console.log(this.where + ', ' + dir);
 	var neighbor = this.level.getNeighbor(this.where, dir);
 		if(neighbor === null || neighbor === undefined) {
@@ -126,7 +122,6 @@ Walker.prototype.makeFlow = function() {
 
 // Darstellung der Fluss-Animation
 Walker.prototype.animateFlow = function(walker) {
-	console.log('animateFlow');
 	switch(this.where.type.name) {
 		case TILE_NAME['source']:
 			this.makeFlow()
