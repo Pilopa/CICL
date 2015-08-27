@@ -64,20 +64,8 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 	]), // ======================================================================
 				
 	new Stage("Bereich B", [
-	           
-			new Level(4, 4, "Kreuzungen", {
-				'corner': 2,
-				'crossroads': 2,
-			}, 0) 
 		
-			.put(0, 1, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
-			.put(1, 0, 1, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['lava']))
-			.put(3, 2, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
-			.put(2, 3, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
-		
-		, // ======================================================================
-		
-			new Level(5, 5, "Großes X", {
+			new Level(5, 5, "Kreuzung", {
 				'straight': 5,
 				'corner': 3,
 			}, 30)
@@ -93,6 +81,19 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 			.put(0, 4, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
 			.put(2, 2, 0, new Tile(TILE_TYPE['crossroads'], 	 TILE_ELEMENT['none']))
 			.put(0, 2, 2, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
+		
+		, // ======================================================================
+		
+		new Level(7, 3, "Slalom", {
+				'straight': 3,
+				'corner': 6,
+			}, 45)
+		
+			.put(0, 1, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
+			.put(3, 2, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
+			.put(2, 1, 1, new Tile(TILE_TYPE['corner'], 			 TILE_ELEMENT['none']))
+			.put(4, 1, 0, new Tile(TILE_TYPE['crossroads'], 			 TILE_ELEMENT['none']))
+			.put(6, 1, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
 		
 		, // ======================================================================
 		
@@ -127,20 +128,8 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 	]), // ======================================================================
 			
 	new Stage("Bereich C", [
-	           
+		
 			new Level(5, 5, "Honig", {
-				'straight': 4,
-				'crossroads': 1,
-			}, 0)
-		
-			.put(2, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
-			.put(0, 2, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['honey']))
-			.put(2, 4, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
-			.put(4, 2, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
-		
-		, // ======================================================================
-		
-			new Level(5, 5, "Brücke", {
 				'straight': 6,
 				'corner': 8,
 				'crossroads': 1,
@@ -163,6 +152,30 @@ if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serialize
 			.put(0, 3, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['honey']))
 			.put(4, 3, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
 			.put(3, 0, 3, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
+		
+		, // ======================================================================
+		
+			new Level(8, 7, "Durch die Wand", {
+				'straight': 12,
+				'corner': 10,
+				'crossroads': 1,
+			}, 80)
+		
+			.put(0, 1, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
+			.put(1, 0, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['honey']))
+			.put(0, 0, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
+			.put(4, 0, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
+			.put(4, 2, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
+			.put(4, 3, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
+			.put(4, 5, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
+			.put(4, 1, 0, new Tile(TILE_TYPE['straight'], 			 TILE_ELEMENT['none']))
+			.put(4, 4, 0, new Tile(TILE_TYPE['straight'], 			 TILE_ELEMENT['none']))
+			.put(2, 2, 2, new Tile(TILE_TYPE['corner'], 			 TILE_ELEMENT['none']))
+			.put(2, 4, 0, new Tile(TILE_TYPE['corner'], 			 TILE_ELEMENT['none']))
+			.put(6, 1, 0, new Tile(TILE_TYPE['corner'], 			 TILE_ELEMENT['none']))
+			.put(7, 3, 0, new Tile(TILE_TYPE['corner'], 			 TILE_ELEMENT['none']))
+			.put(6, 6, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
+			.put(7, 6, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
 		
 		, // ======================================================================
 		

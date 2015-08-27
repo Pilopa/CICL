@@ -49,20 +49,11 @@ var audio = {
 	
 	playMusic : function() {
 		if (sessionStorage['musicTime'] === undefined) this.setMusicTime(0);
-<<<<<<< HEAD
 		if (getCurrentPlayerObject().playMusic) {
 			this.gameMusic.volume = 0.25;
 			this.gameMusic.loop = true;
 			this.gameMusic.play();
 			this.gameMusic.currentTime = this.getMusicTime();
-=======
-		if(getCurrentPlayerObject() !== null) {
-			if (getCurrentPlayerObject().playMusic) {
-				this.gameMusic.loop = true;
-				this.gameMusic.play();
-				this.gameMusic.currentTime = this.getMusicTime();
-			}
->>>>>>> origin/master
 		}
 	},
 	
