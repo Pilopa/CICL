@@ -49,8 +49,8 @@ var audio = {
 	
 	playMusic : function() {
 		if (sessionStorage['musicTime'] === undefined) this.setMusicTime(0);
-			
-		if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playMusic) {
+		
+		if (getCurrentPlayerObject() !== null && getCurrentPlayerObject().playMusic) {
 			this.gameMusic.volume = 0.25;
 			this.gameMusic.loop = true;
 			this.gameMusic.play();
