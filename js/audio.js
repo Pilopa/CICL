@@ -32,6 +32,7 @@ var audio = {
 	},
 	
 	setMusicTime : function(value) {
+		if(value == 0 && sessionStorage['musicTime'] == 0) return;
 		sessionStorage['musicTime'] = value;
 	},
 	
@@ -69,7 +70,4 @@ var audio = {
 			}
 		}
 	},
-	
-
-
 };
