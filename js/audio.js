@@ -56,7 +56,8 @@ var audio = {
 				this.gameMusic.volume = 0.25;
 				this.gameMusic.loop = true;
 				this.gameMusic.play();
-				this.gameMusic.currentTime = this.getMusicTime();
+				if(this.game.Music.currentTime == 0 && this.getMusicTime() == 0) return;
+				else this.gameMusic.currentTime = this.getMusicTime();
 			}
 		}
 	},
