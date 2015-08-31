@@ -55,7 +55,7 @@ var audio = {
 			this.gameMusic.volume = 0.25;
 			this.gameMusic.loop = true;
 			this.gameMusic.play();
-			if(this.game.Music.currentTime == 0 && this.getMusicTime() == 0) return; // currentTime auf 0 zu setzen, während es 0 ist, wirft Fehler seitens der Audio-Klasse
+			if(this.gameMusic.currentTime == 0 && this.getMusicTime() == 0) return; // currentTime auf 0 zu setzen, während es 0 ist, wirft Fehler seitens der Audio-Klasse
 			else this.gameMusic.currentTime = this.getMusicTime();
 		}
 		

@@ -1,6 +1,6 @@
 //=== Stages ===
 
-if (sessionStorage["stages"] === undefined) sessionStorage["stages"] = serializer.stringify([
+if (supports_session_storage && sessionStorage["stages"] === undefined) sessionStorage["stages"] = serializer.stringify([
                                                                                              
     // Tiles mit * werden in der levelview.js definiert.
 	                      
