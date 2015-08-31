@@ -112,7 +112,7 @@
 	border-radius: 50px;
 	box-sizing: border-box;
 	padding: 25px 25px 25px 35px;
-	font-size: 26px;
+	font-size: 22px;
 	position: absolute;
 	width: 35%;
 	height: 50%;
@@ -195,7 +195,7 @@
   	background-image: -moz-linear-gradient(top, #c0c0c0, #8080ff);
   	background-image: -ms-linear-gradient(top, #c0c0c0, #8080ff);
   	background-image: -o-linear-gradient(top, #c0c0c0, #8080ff);
-  	background-image: linear-gradient(to bottom, #c0c0c0, #8080ff);
+  	background-image: linear-gradient(to bottom, #bfccff 0%,#a4bcf4 17%,#6a82e2 68%,#7a8bef 71%,#9198ea 82%,#abb6f4 95%,#bac6fc 100%);
 }
 
 .item.active:HOVER {
@@ -203,12 +203,11 @@
   	background-image: -moz-linear-gradient(top, #e6e6e6, #aaaaff);
   	background-image: -ms-linear-gradient(top, #e6e6e6, #aaaaff);
   	background-image: -o-linear-gradient(top, #e6e6e6, #aaaaff);
-  	background-image: linear-gradient(to bottom, #e6e6e6, #aaaaff);	
+  	background-image: linear-gradient(to bottom, #d4dbfa 0%,#ccd2f4 5%,#babeec 18%,#acb6ee 31%,#a1aee5 32%,#c6d4f4 83%,#d8dffc 100%);
 }
 
 .item.active:ACTIVE:HOVER {
 	border-style: inset;
-	background-image: linear-gradient(to bottom, #8080ff, #c0c0c0);
 }
 
 .highlighted {
@@ -234,7 +233,7 @@
 	background: #c0c0c0;
 	border-style: outset;
 	border-width: 2px;
-	border-color: black;
+	border-color: darkgrey;
 	color: black;
 	
 }
@@ -252,7 +251,7 @@
 	color: #808080;
 	border-style: inset;
 	border-width: 1px;
-	border-color: black;
+	border-color: darkgrey;
 }
 
 .item:not(.active), .item:not(.active) * {
@@ -292,8 +291,9 @@
 	font-size: 24px;
 	margin-left: 20px;
 	margin-right: 20px;
-	top: 0;
+	position: absolute;
 	right: 20px;
+	top: 15px;
 }
 
 #options-icon {
@@ -407,4 +407,10 @@
 
 .option-container:not(.off) .option-icon {
 	background-image: url(../images/unmuted.png);
+}
+
+hr {
+	height: 2px;
+	border: 0;
+	background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.75) 30%, rgba(255,255,255,0.75) 70%, rgba(0,0,0,0));
 }

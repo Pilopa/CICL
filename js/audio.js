@@ -40,7 +40,9 @@ var audio = {
 	},
 	
 	getMusicTime : function () {
-		return sessionStorage['musicTime'];
+		if(sessionStorage['musicTime'] !== null && sessionStorage['musicTime'] !== 'undefined') {
+			return sessionStorage['musicTime'];
+		} else return 0;
 	},
 	
 	resetGameMusicTime : function () {
@@ -49,12 +51,12 @@ var audio = {
 	
 	playMusic : function() {
 		if (sessionStorage['musicTime'] === undefined) this.setMusicTime(0);
-		
-		if (getCurrentPlayerObject() !== null && getCurrentPlayerObject().playMusic) {
+		if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playMusic) {
 			this.gameMusic.volume = 0.25;
 			this.gameMusic.loop = true;
 			this.gameMusic.play();
-			this.gameMusic.currentTime = this.getMusicTime();
+			if(this.game.Music.currentTime == 0 && this.getMusicTime() == 0) return; // currentTime auf 0 zu setzen, während es 0 ist, wirft Fehler seitens der Audio-Klasse
+			else this.gameMusic.currentTime = this.getMusicTime();
 		}
 		
 	},
