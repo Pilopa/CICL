@@ -70,7 +70,7 @@ $(function() {
 	         
 	         ),
 	         
-	         new Speech("Gut gemacht! <br><br>Wie du sicherlich mitbekommen hast, ist leider gerade meine Apparatur kaputt gegangen. <br><br>Du musst mir unbedingt helfen, Sie zu reparieren!", undefined,
+	         new Speech("Gut gemacht! <br><br>Wie du sicherlich mitbekommen hast, ist leider gerade meine Apparatur kaputt gegangen. <br><br>Du musst mir unbedingt helfen, sie zu reparieren!", undefined,
 	        		 
 	 	        function () {
 	        	 
@@ -86,7 +86,7 @@ $(function() {
 	         	
 	         ),
 	         
-	         new Speech("Mein wertvoller Schatz ist in mehrere Bereiche eingeteilt.<br><br>Wir sollten Sie uns nacheinander vornehmen.<br><br>...", undefined,
+	         new Speech("Ich habe meine Apparatur in mehrere Bereiche eingeteilt.<br><br>Wir sollten sie uns nacheinander vornehmen.<br><br>...", undefined,
 	        		 
  	 	        function () {
  	        	 

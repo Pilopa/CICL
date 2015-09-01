@@ -221,11 +221,11 @@ if (supports_session_storage && sessionStorage["stages"] === undefined) sessionS
 			}, 320)
 		
 			.put(1, 1, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
-			.put(1, 3, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['honey']))
-			.put(1, 5, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['lava']))
-			.put(1, 0, 0, new Tile(TILE_TYPE['wall'], 		 TILE_ELEMENT['none']))
-			.put(2, 2, 0, new Tile(TILE_TYPE['wall'], 		 TILE_ELEMENT['none']))
-			.put(2, 4, 0, new Tile(TILE_TYPE['wall'], 		 TILE_ELEMENT['none']))
+			.put(1, 3, 0, new Tile(TILE_TYPE['source'],		 	 TILE_ELEMENT['honey']))
+			.put(1, 5, 0, new Tile(TILE_TYPE['source'],			 TILE_ELEMENT['lava']))
+			.put(1, 0, 0, new Tile(TILE_TYPE['wall'], 		 	 TILE_ELEMENT['none']))
+			.put(2, 2, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
+			.put(2, 4, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
 			.put(1, 2, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
 			.put(1, 4, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
 		
@@ -240,8 +240,8 @@ if (supports_session_storage && sessionStorage["stages"] === undefined) sessionS
 		
 			.put(3, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
 			.put(5, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
-			.put(0, 3, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['honey']))
-			.put(0, 4, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['honey']))
+			.put(0, 3, 0, new Tile(TILE_TYPE['source'],		 	 TILE_ELEMENT['honey']))
+			.put(0, 4, 0, new Tile(TILE_TYPE['source'],		 	 TILE_ELEMENT['honey']))
 			.put(5, 3, 0, new Tile(TILE_TYPE['straight'], 		 TILE_ELEMENT['none']))
 			.put(4, 6, 0, new Tile(TILE_TYPE['straight'], 		 TILE_ELEMENT['none']))
 			.put(5, 6, 0, new Tile(TILE_TYPE['straight'], 		 TILE_ELEMENT['none']))

@@ -652,7 +652,7 @@ $(function() {
 		     	
 		    ),
 		     
-	        new Speech("Auf diesem Spielfeld sind Quellen und Ziele platziert. <br><br>Um das Spiel zu gewinnen, müssen alle Quellen und Ziele fehlerfrei miteinander verbunden werden ...", undefined,
+	        new Speech("Um das Spiel zu gewinnen, müssen alle Ziele erreicht werden, außerdem darf keiner der folgenden Fehler auftreten ...", undefined,
 	        		 
 	        	function () { //on
 		     		level.put(0, 0, 1, new Tile(TILE_TYPE['source'], TILE_ELEMENT['lava']), true);
