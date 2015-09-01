@@ -194,23 +194,8 @@ if (supports_session_storage && sessionStorage["stages"] === undefined) sessionS
 			.put(1, 6, 2, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
 					
 	]), // ======================================================================
-
+	
 	new Stage("Bereich D", [
-	           
-			new Level(5, 3, "T-Stücke", {
-				'straight': 3,
-				'corner': 2,
-				'tjunction': 1,
-			}, 0)
-		
-			.put(0, 0, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
-			.put(0, 2, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['lava']))
-			.put(3, 0, 0, new Tile(TILE_TYPE['wall'], 		 TILE_ELEMENT['none']))
-			.put(1, 1, 0, new Tile(TILE_TYPE['wall'], 		 TILE_ELEMENT['none']))
-			.put(3, 2, 0, new Tile(TILE_TYPE['wall'], 		 TILE_ELEMENT['none']))
-			.put(4, 1, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
-		
-		, // ======================================================================
 		
 			new Level(5, 3, "Umwandlung", {
 				'straight': 4,
@@ -243,6 +228,31 @@ if (supports_session_storage && sessionStorage["stages"] === undefined) sessionS
 			.put(2, 4, 0, new Tile(TILE_TYPE['wall'], 		 TILE_ELEMENT['none']))
 			.put(1, 2, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
 			.put(1, 4, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
+		
+		, // ======================================================================
+		
+			new Level(8, 8, "Trümmerbau", {
+				'straight': 15,
+				'corner': 15,
+				'crossroads': 5,
+				'tjunction': 5,
+			}, 400)
+		
+			.put(3, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
+			.put(5, 0, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
+			.put(0, 3, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['honey']))
+			.put(0, 4, 0, new Tile(TILE_TYPE['source'],		 TILE_ELEMENT['honey']))
+			.put(5, 3, 0, new Tile(TILE_TYPE['straight'], 		 TILE_ELEMENT['none']))
+			.put(4, 6, 0, new Tile(TILE_TYPE['straight'], 		 TILE_ELEMENT['none']))
+			.put(5, 6, 0, new Tile(TILE_TYPE['straight'], 		 TILE_ELEMENT['none']))
+			.put(2, 2, 3, new Tile(TILE_TYPE['corner'], 		 TILE_ELEMENT['none']))
+			.put(4, 3, 3, new Tile(TILE_TYPE['tjunction'], 		 TILE_ELEMENT['none']))
+			.put(3, 4, 2, new Tile(TILE_TYPE['tjunction'], 		 TILE_ELEMENT['none']))
+			.put(3, 6, 3, new Tile(TILE_TYPE['tjunction'], 		 TILE_ELEMENT['none']))
+			.put(2, 7, 1, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['lava']))
+			.put(7, 2, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
+			.put(7, 5, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
+			.put(7, 7, 0, new Tile(TILE_TYPE['destination'],	 TILE_ELEMENT['honey']))
 		
 		, // ======================================================================
 		
