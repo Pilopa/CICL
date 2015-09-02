@@ -161,8 +161,8 @@ if (supports_session_storage && sessionStorage["stages"] === undefined) sessionS
 				'crossroads': 1,
 			}, 80)
 		
-			.put(0, 1, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
-			.put(1, 0, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['honey']))
+			.put(0, 1, 1, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['honey']))
+			.put(1, 0, 0, new Tile(TILE_TYPE['source'], 		 TILE_ELEMENT['lava']))
 			.put(0, 0, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
 			.put(4, 0, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
 			.put(4, 2, 0, new Tile(TILE_TYPE['wall'], 			 TILE_ELEMENT['none']))
