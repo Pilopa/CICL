@@ -43,3 +43,12 @@ hr {
 	left: 60px;
 	bottom: 75px;
 }
+
+.game#stage-selection {
+	background: linear-gradient(
+      rgba(0, 0, 0, 0.5), 
+      rgba(0, 0, 0, 0.5)
+    ), url(../images/splash.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
