@@ -76,6 +76,6 @@ var audio = {
 				this.gameMusic.pause();
 			}
 		}
-	},
+	}
 
 };

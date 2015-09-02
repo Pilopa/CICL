@@ -7,7 +7,7 @@ var TILE_POINT_VALUE = {
 	'straight': 10,
 	'corner': 15,
 	'crossroads': 40,
-	'tjunction': 25,
+	'tjunction': 25
 }
 
 var TILE_NAME = {
@@ -17,7 +17,7 @@ var TILE_NAME = {
 	'straight': 'straight',
 	'corner': 'corner',
 	'crossroads': 'crossroads',
-	'tjunction': 'tjunction',
+	'tjunction': 'tjunction'
 }
 
 var TILE_AMOUNT_ENDLESS = -1;
