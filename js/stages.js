@@ -1,4 +1,6 @@
-//=== Stages ===
+/*
+ * Definiert alle Bereiche und Levels, welche der Spieler durchspielen kann.
+ */
 
 if (supports_session_storage && sessionStorage["stages"] === undefined) sessionStorage["stages"] = serializer.stringify([
                                                                                              

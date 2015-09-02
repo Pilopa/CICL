@@ -1,4 +1,6 @@
-//=== Tile ===
+/*
+ * Datenmodell einer Kachel in einem Level (siehe 'level.js').
+ */
 
 var TILE_ELEMENT = {
 	'none': 'none',
@@ -13,12 +15,6 @@ var DIRECTION = {
 	'down': 2,
 	'left': 3,
 }
-
-/**
- * 
- * 
- * @author Konstantin Schaper, Steffen Müller
- */
 
 function Tile(type, element, movable, rotatable) {
 	if (typeof movable === 'undefined') movable = false;

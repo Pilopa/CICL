@@ -1,4 +1,7 @@
-//=== Stage ===
+/*
+ * Datenmodell eines Bereiches. 
+ * Enthält mehrere Levels.
+ */
 
 function Stage(title, levels) {
 	if (typeof levels === undefined) this.levels = [];

@@ -1,4 +1,7 @@
-//=== Stageselection ===
+/*
+ * siehe stageselection.html
+ * siehe stageselection.css
+ */
 
 $(function() {
 	

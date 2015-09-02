@@ -1,3 +1,12 @@
+/*
+ * Ermöglichst das Spielen des Spiels.
+ * Interagiert mit dem Datenmodell ('level.js') und zeigt es dynamisch an.
+ * Beim ersten Spielen wird ein Tutorial angezeigt.
+ * 
+ * siehe levelview.html
+ * siehe levelview.css
+ */
+
 $(function() {
 	
 	//Globale Variablen
@@ -34,7 +43,7 @@ $(function() {
 	}
 	
 	function pointValueClickHandler(event) {
-		
+		//TODO: Anzeige der Wertigkeiten von Werkzeugen
 	}
 	
 	function updateLevelPointValueDisplay() {

@@ -1,3 +1,7 @@
+/*
+ * Ist zuständig für die Logik sowohl von dem 'Optionen'-Button als auch vom dem 'Zurück'-Button.
+ */
+
 var optionsMenu = {
 		
 	optionsButton : {
@@ -197,6 +201,11 @@ var backButton = {
 	}
 		
 }
+
+/*
+ * Initialisiert die Anzeige des Optionsmenüs, sodass dieses wie ein Plugin verwendet werden kann.
+ * (Das Menü ist praktisch gesehen nicht initial Teil der HTML-Seite)
+ */
 
 $(function() {
 	

@@ -1,6 +1,9 @@
-//=== Combulix ===
-/**
- * @requires speech.js
+/*
+ * Für das Spiel ist Combulix der Mentor unseres Spielers.
+ * Im Bezug auf unser Programm ist er ein Plugin, welches in jeder Seite eingebunden werden kann (Mit Hilfe der 'initialize'-Methode).
+ * Einmal hinzugefügt, können die Hilfetexte definiert werden, indem der 'speeches'-Array überschrieben wird.
+ * Dieser Array besteht aus Speech-Objekten (siehe speech.js).
+ * Durch diese kann der Spieler dann durchwechseln, falls vom Entwickler nicht anders gewünscht (siehe 'disableNext/Previous').
  */
 
 var combulix = {

@@ -1,4 +1,6 @@
-//=== TileType ===
+/*
+ * siehe 'tile.js'
+ */
 
 var TILE_POINT_VALUE = {
 	'basic': 10, //Gibt den Standardpunktwert für ein Tile an. Dieser wird verwendet, wenn sonst kein Punktewert angegeben wird.

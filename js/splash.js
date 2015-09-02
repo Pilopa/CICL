@@ -1,4 +1,9 @@
-//=== Splashscreen ===
+/*
+ * Logik zum Startpunkt der Anwendung.
+ * 
+ * siehe splash.html
+ * siehe splash.css
+ */
 
 $(function() {
 	var sessionStorageSupported = supports_session_storage();
@@ -7,7 +12,7 @@ $(function() {
 	if (sessionStorageSupported && localStorageSupported) {
 		
 		//Testspieler laden, falls nötig.
-		initializeCheatPlayerObject();
+		initializeTestPlayerObject();
 		
 		//Den bisherigen Spielernamen laden, falls bereits einer existiert.
 		if (!(localStorage.getItem("name") === null)) $("#playerName_input").val(localStorage.getItem("name"));

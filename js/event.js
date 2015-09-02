@@ -1,4 +1,7 @@
-//=== Event ===
+/*
+ * Definiert alle Ingame-Eventtypen, die auftreten können.
+ * Diese Eventtypen haben besonders für 'level.js' und 'levelview.js' relevanz.
+ */
 	
 var EVENT_TYPE = {
 	'placed': "PLACED",
@@ -10,7 +13,7 @@ var EVENT_TYPE = {
 	'testfailed': "TEST_FAILED",
 }
 
-//Der Parameter tile ist optional.
+//Die Parameter tile und msg sind optional.
 function Event (type, tile, msg) {
 	this.type = type;
 	this.tile = tile;

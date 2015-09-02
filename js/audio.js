@@ -1,6 +1,11 @@
+/*
+ * Verwaltet alle Audioelemente im Spiel und stellt Methoden bereit,
+ * diese auszuführen oder an Events zu binden.
+ * 
+ * Die Inhalte sollten sonst selbsterklärend sein.
+ */
 var audio = {
 		
-
 	gameMusic : new Audio("../audio/background-music.wav"),
 	selectionItemSound : new Audio("../audio/button-click.wav"),
 	menuButtonSound : new Audio("../audio/menu-click.wav"),
@@ -52,9 +57,12 @@ var audio = {
 	playMusic : function() {
 		if (sessionStorage['musicTime'] === undefined) this.setMusicTime(0);
 		if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playMusic) {
+			
+			//Initialisieren der GameMusic-Werte, falls noch nicht getan
 			this.gameMusic.volume = 0.25;
 			this.gameMusic.loop = true;
 			this.gameMusic.play();
+			
 			if(this.gameMusic.currentTime == 0 && this.getMusicTime() == 0) return; // currentTime auf 0 zu setzen, während es 0 ist, wirft Fehler seitens der Audio-Klasse
 			else this.gameMusic.currentTime = this.getMusicTime();
 		}
@@ -69,7 +77,5 @@ var audio = {
 			}
 		}
 	},
-	
-
 
 };

@@ -1,4 +1,11 @@
-//=== Levelselection ===
+/*
+ * Die Oberfläche, welche es dem Spieler erlaubt, ein Level eines Bereiches auszuwählen und zu spielen.
+ * Bei dem erstmaligen Betreten wird ein Tutorial angezeigt.
+ * Die Darstellung wird dynamisch erstellt und jedes Level hat seine eigene Wertungsanzeige.
+ * 
+ * siehe levelselection.html
+ * siehe levelselection.css
+ */
 
 $(function() {
 	

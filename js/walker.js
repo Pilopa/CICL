@@ -1,6 +1,4 @@
-//=== Walker ===
-
-/**
+/*
  * Diese Klasse ist zuständig für das Abarbeiten der einzelnen Startpunkte und den Fluss der Elemente.<br>
  * Außerdem löst sie die entsprechenden Events aus, die währenddessen auftreten.
  * 

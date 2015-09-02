@@ -1,3 +1,9 @@
+/*
+ * Definiert allgemeine Methoden und wird von jeder HTML-Datei eingebunden.
+ * 
+ * siehe main.css
+ */
+
 //Benutze serializer.stringify(object) (Schreiben) und serializer.resurrect() (Lesen) zur Serialisierung von Objekten.
 var serializer = new Resurrect();
 
@@ -75,7 +81,10 @@ function initializeCurrentPlayerObject() {
 	return getCurrentPlayerObject();
 }
 
-function initializeCheatPlayerObject() {
+/* Der Testspieler heißt 'stefko' und besitzt eine Wertung von 3 Sternen in jedem Level.
+ * Viel spaß beim Testen! :)
+ */
+function initializeTestPlayerObject() {
 	if (localStorage["stefko"] === undefined)
 		localStorage["stefko"] = JSON.stringify({
 			scores: [
@@ -93,15 +102,16 @@ function initializeCheatPlayerObject() {
 		});
 }
 
-/**
+/*
  * Nach einem Satz von Änderungen an dem aktuellen Spielerobjekt, muss dieses wieder gespeichert werden.
- * 
- * @param object Das zu speichernde Spielerobjekt. Meist eine modifizierte Version von getPlayerObject().
  */
 function saveCurrentPlayerObject(object) {
 	localStorage[localStorage["name"]] = JSON.stringify(object);
 }
 
+/*
+ * Wird derzeit (v0.8.5) nicht genutzt, aber der Vollständigkeit halber definiert.
+ */
 function resetCurrentPlayerObject() {
 	localStorage[localStorage["name"]] = undefined;
 }

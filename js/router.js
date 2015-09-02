@@ -1,4 +1,6 @@
-//=== Router ===
+/*
+ * Schnittstelle zwischen den einzelnen HTML-Elementen unseres Projekts.
+ */
 
 function showStageSelection() {
 	if (getCurrentPlayerObject() !== null) {

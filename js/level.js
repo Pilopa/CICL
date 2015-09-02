@@ -1,4 +1,9 @@
-//=== Level ===
+/*
+ * Das Level ist das Hauptdatenmodell unseres Spiels.
+ * In 'levelview.js' wird dieses Modell dargestellt und der Spieler kann damit interagieren.
+ * Das Datenmodell feuert Events, auf welche per 'registerListener' gehorcht werden kann.
+ * Ansonsten sind die meisten Methoden auch für die Leveldefinition ('stages.js') wichtig.
+ */
 
 function Level(width, height, title, tools, optimalPointValue, divi) {
 	if(typeof tools === 'undefined') tools = {};
