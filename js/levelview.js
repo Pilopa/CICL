@@ -71,6 +71,7 @@ $(function() {
 		if (!$(".x" + x + ".y" + y).is(':data(ui-draggable)'))
 			$(".x" + x + ".y" + y).draggable({
 				scroll: false,
+				delay: 120,
 				revert: function (droppable) {
 					
 					if (!droppable) $(this).draggable("option", "revertDuration", 500);
