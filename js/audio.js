@@ -1,11 +1,11 @@
 var audio = {
 		
 
-	gameMusic : new Audio("../audio/background-music.mp3"),
+	gameMusic : new Audio("../audio/background-music.wav"),
 	selectionItemSound : new Audio("../audio/button-click.wav"),
-	menuButtonSound : new Audio("../audio/menu-click.mp3"),
-	combulixNav : new Audio("../audio/combulix-nav.mp3"),
-	errorSound : new Audio("../audio/error.mp3"), 
+	menuButtonSound : new Audio("../audio/menu-click.wav"),
+	combulixNav : new Audio("../audio/combulix-nav.wav"),
+	errorSound : new Audio("../audio/error.wav"), 
 	
 	soundOnClick : function (selector) {
 		
