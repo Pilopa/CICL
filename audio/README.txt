@@ -5,3 +5,7 @@ menu-click.wav : http://www.soundjay.com/button/sounds/button-37.mp3
 background-music.wav : http://www.orangefreesounds.com/groovy-funky-music-clip/ lizenziert unter Attribution-NonCommercial 4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
 combulix-nav.wav : http://www.soundjay.com/button/sounds/button-46.mp3
 error.wav : http://www.soundjay.com/button/sounds/button-10.mp3
+Verwendet für crash1.wav:
+http://soundbible.com/1348-Large-Fireball.html lizenziert unter Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
+http://soundbible.com/105-Light-Bulb-Breaking.html lizenziert unter Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
+http://soundbible.com/947-Metal-Bang.html lizenziert unter Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
