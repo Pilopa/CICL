@@ -11,6 +11,7 @@ var audio = {
 	menuButtonSound : new Audio("../audio/menu-click.wav"),
 	combulixNav : new Audio("../audio/combulix-nav.wav"),
 	errorSound : new Audio("../audio/error.wav"), 
+	crashSound: new Audio("../audio/crash1.wav"),
 	
 	soundOnClick : function (selector) {
 		
