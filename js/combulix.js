@@ -45,6 +45,7 @@ var combulix = {
 	
 	slideIn: function() {
 		$(".arrow.left").css("right", "calc(40% - 32px)").css("top", "calc(35% - 32px)").hide();
+		
 		$(".combulix")
 		.show()
 		.animate({

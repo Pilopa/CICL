@@ -7,7 +7,7 @@
 var audio = {
 		
 	gameMusic : new Audio("../audio/background-music.wav"),
-	selectionItemSound : new Audio("../audio/button-click.wav"),
+	selectionItemSound : new Audio("../audio/button-click2.wav"),
 	menuButtonSound : new Audio("../audio/menu-click.wav"),
 	combulixNav : new Audio("../audio/combulix-nav.wav"),
 	errorSound : new Audio("../audio/error.wav"), 
