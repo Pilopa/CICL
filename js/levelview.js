@@ -1042,6 +1042,9 @@ $(function() {
 	backButton.setCallback(showLevelSelection);
 	backButton.parameters = [stageid];
 	
+	//Initialisiere Sound für Back-Button
+	audio.soundOnClick("#back-button");
+	
 	//Starte Spielmusik
 	audio.playMusic();
 	

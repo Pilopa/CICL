@@ -52,7 +52,7 @@ if (supports_session_storage && sessionStorage["stages"] === undefined) sessionS
 		
 		, // ======================================================================
 		
-			new Level(6, 5, "Auseinander", {
+			new Level(6, 5, "Doppelschleife", {
 				'straight': 10,
 				'corner': 10,
 			}, 40)
@@ -181,7 +181,7 @@ if (supports_session_storage && sessionStorage["stages"] === undefined) sessionS
 		
 		, // ======================================================================
 		
-			new Level(7, 7, "Auseinandersortieren", {
+			new Level(7, 7, "Auseinander-sortieren", {
 				'straight': 15,
 				'corner': 15,
 				'crossroads': 5,

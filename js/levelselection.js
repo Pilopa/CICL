@@ -203,6 +203,9 @@ $(function() {
 		showLevel(stageId, $(this).attr("id"))
 	});
 	
+	//Initialisiere Sound für Back-Button
+	audio.soundOnClick("#back-button");
+	
 	//Starte Spielmusik
 	audio.playMusic();
 	

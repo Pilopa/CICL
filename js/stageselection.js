@@ -200,6 +200,9 @@ $(function() {
 	//Definiere Ziel für Zurück-Button
 	backButton.setCallback(showSplash);
 	
+	//Initialisiere Sound für Back-Button
+	audio.soundOnClick("#back-button");
+	
 	//Starte Spielmusik
 	audio.playMusic();
 });
