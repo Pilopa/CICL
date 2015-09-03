@@ -317,6 +317,11 @@ $(function() {
 		level.destinationsReached = 0;
 	}
 	
+	function playDragdropSound() {
+		audio.dragdropSound.load();
+		audio.dragdropSound.play();
+	}
+	
 	//Eventhandler initialisieren
 	level.registerListener(function (event) {
 		
@@ -333,9 +338,15 @@ $(function() {
 			//Aktualisiere die Punkteanzeige
 			updateLevelPointValueDisplay();
 			
+			//Abspielen des Sounds
+			playDragdropSound();
+			
 		} else if (event.type === EVENT_TYPE['rotated']) { //Ein Tile wurde gedreht.
 			
 			updateTileView(event.tile.x, event.tile.y);
+			
+			//Abspielen des Sounds
+			playDragdropSound();
 			
 		} else if (event.type === EVENT_TYPE['removed']) { //Ein Tile wurde entfernt
 
@@ -353,11 +364,17 @@ $(function() {
 			//Aktualisiere die Punkteanzeige
 			updateLevelPointValueDisplay();
 			
+			//Abspielen des Sounds
+			playDragdropSound();
+			
 		} else if (event.type === EVENT_TYPE['swapped']) { //Zwei Tiles wurden vertauscht
 			
 			//Aktualisiere die Anzeige
 			updateTileView(event.tile.x1, event.tile.y1);
 			updateTileView(event.tile.x2, event.tile.y2);
+			
+			//Abspielen des Sounds
+			playDragdropSound();
 			
 		} else if (event.type === EVENT_TYPE['testcompleted']) { //Der Test wurde Erfolgreich beendet.
 			// Walker-Prüftimer anhalten
@@ -928,9 +945,22 @@ $(function() {
 				     
 			    ),
 		     
-		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.<br><br> Klicke auf den \"Test starten\" Button, um deine Bastelei auszuprobieren.", undefined, 
+		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.<br><br> Wenn du glaubst, du hast eine gute Lösung gebaut, und möchtest sie ausprobieren, klicke auf den \"Test starten\" Button.", undefined, 
 		     		
-		     		function () { //on
+		     		function () {
+		    	 		$("#startbutton").fadeIn().addClass("highlighted");
+		    	 		combulix.disablePrevious();
+					}, //on
+		     		
+		     		function () {
+						combulix.enablePrevious();
+					} //off
+		     		
+		    ),
+			
+			new Speech("Wenn der Test vollständig durchgelaufen ist, fehlerfrei oder nicht, wird unten der \"Zurücksetzen\"-Button aktiv.<br>Mit ihm entfernst du die Flüssigkeit aus dem System, so dass du weiterarbeiten kannst.", undefined,
+	        		
+	        		function () { //on
 		    	 		if (!tutorialFlags.added) {
 		    	 			tutorialFlags.added = true;
 		    	 			
@@ -944,17 +974,13 @@ $(function() {
 				    		 
 				    		 updateToolBox();
 		    	 		}
-		    	 		
-		    	 		$("#startbutton").fadeIn().addClass("highlighted");
-		    	 		combulix.disablePrevious();
+
 		     		},
 		     		
 		     		function () { //off
 		     			$("#startbutton").removeClass("highlighted");
-		     			combulix.enablePrevious();
 		     		}
-		     		
-		    )
+	        ),
              
 		];
 		combulix.slideIn();

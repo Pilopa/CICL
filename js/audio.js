@@ -12,6 +12,7 @@ var audio = {
 	combulixNav : new Audio("../audio/combulix-nav.wav"),
 	errorSound : new Audio("../audio/error.wav"), 
 	crashSound: new Audio("../audio/crash1.wav"),
+	dragdropSound: new Audio("../audio/dragdrop.wav"),
 	
 	soundOnClick : function (selector) {
 		
