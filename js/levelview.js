@@ -380,6 +380,10 @@ $(function() {
 			// Walker-Prüftimer anhalten
 			level.endRun();
 			
+			//Sound abspielen
+			audio.tadaSound.load();
+			audio.tadaSound.play();
+			
 			//Die Punkte berechnen
 			var scoreObject = getScoreObject();
 			console.log(scoreObject);
@@ -534,6 +538,10 @@ $(function() {
 		} else if (event.type === EVENT_TYPE['testfailed']) { //Der Test ist fehlgeschlagen.
 			// Walker anhalten
 			level.endRun();
+			
+			// Sound abspielen
+			audio.splashSound.load();
+			audio.splashSound.play();
 			
 			//Fail-Feedback
 			$(".game").animate({
@@ -1016,6 +1024,10 @@ $(function() {
 			
 			//Verhindere die Modifikation des Spielfelds
 			$(".event-blocker").show(); 
+			
+			//Sound abspielen
+			audio.bubbleSound.load();
+			audio.bubbleSound.play();
 			
 		} else if ($(this).text() === 'Zurücksetzen') {
 			

@@ -13,6 +13,9 @@ var audio = {
 	errorSound : new Audio("../audio/error.wav"), 
 	crashSound: new Audio("../audio/crash1.wav"),
 	dragdropSound: new Audio("../audio/dragdrop.wav"),
+	bubbleSound: new Audio("../audio/bubble.wav"),
+	splashSound: new Audio("../audio/splash.wav"),
+	tadaSound: new Audio("../audio/tada.wav"),
 	
 	soundOnClick : function (selector) {
 		
@@ -33,6 +36,9 @@ var audio = {
 			} else if ($(this).is(".arrow")) {
 				audio.combulixNav.load();
 				audio.combulixNav.play();
+			} else if ($(this).is("#startbutton")) {
+				audio.bubbleSound.load();
+				audio.bubbleSound.play();
 			}
 			
 		});
