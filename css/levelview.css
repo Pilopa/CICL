@@ -278,6 +278,7 @@
 	position: absolute;
 	font-size: 25px;
 	top: 400px;
+	padding: 10px;
 }
 
 .to-level-selection-button:hover, .continue-button:hover {
@@ -363,7 +364,7 @@
 	border-style: solid;
 	border-color: black;
 	border-width: 2px;
-	left: 310px;
+	left: 330px;
 }
 
 #levelview #previous-rating-container {

@@ -31,8 +31,7 @@ input {
 	text-align: center;
 	cursor: auto;
 	background-color: #fff;
-	outline: medium none;
-	box-shadow: 0px 0px 0px 0px #F80 inset;
+	border: solid 2px black;
 }
 
 #title {

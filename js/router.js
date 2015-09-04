@@ -18,11 +18,11 @@ function showStageSelection() {
 		document.getElementById("continue").disabled = true;
 
 		$("#playerName_input").animate({
-			boxShadow : "0 0 75px 0 rgba(255, 0, 0, 1) inset"
+			"border-color" : "red"
 		}, 400, function () {
 			$(this).animate({
-				boxShadow : "0 0 75px 0 rgba(255, 0, 0, 1) inset"
-			}, function () {
+				"border-color" : "black"
+			}, 400, function () {
 				document.getElementById("continue").disabled = false;
 			});
 		});
