@@ -12,8 +12,7 @@ function showStageSelection() {
 		
 	} else {
 		
-		audio.errorSound.load();
-		audio.errorSound.play();
+		audio.playSound("errorSound");
 
 		$("#playerName_input").css({"box-shadow": "0px 0px 10px 2px #F00"});
 		

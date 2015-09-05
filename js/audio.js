@@ -5,50 +5,64 @@
  * Die Inhalte sollten sonst selbsterklärend sein.
  */
 var audio = {
-		
-	gameMusic : new Audio("../audio/background-music.wav"),
-	menuButtonSound : new Audio("../audio/button-click2.wav"),
-	selectionItemSound : new Audio("../audio/menu-click.wav"),
-	combulixNav : new Audio("../audio/combulix-nav.wav"),
-	errorSound : new Audio("../audio/error.wav"), 
-	crashSound: new Audio("../audio/crash1.wav"),
-	dragdropSound: new Audio("../audio/dragdrop.wav"),
-	bubbleSound: new Audio("../audio/bubble.wav"),
-	splashSound: new Audio("../audio/splash.wav"),
-	tadaSound: new Audio("../audio/tada.wav"),
-	failSound: new Audio("../audio/fail.wav"),
-	removeSound: new Audio("../audio/dragdrop.wav"),
-	combulixSound: new Audio("../audio/combulix-nav.wav"),
+
+	getSound : function (name) {
+		if (audio[name] === undefined) {
+			if (name === 'menuButtonSound') audio[name] = new Audio("../audio/button-click2.wav");
+			else if (name === 'selectionItemSound') audio[name] = new Audio("../audio/menu-click.wav");
+			else if (name === 'combulixNav') audio[name] = new Audio("../audio/combulix-nav.wav");
+			else if (name === 'errorSound') audio[name] = new Audio("../audio/error.wav");
+			else if (name === 'crashSound') audio[name] = new Audio("../audio/crash1.wav");
+			else if (name === 'dragdropSound') audio[name] = new Audio("../audio/dragdrop.wav");
+			else if (name === 'bubbleSound') audio[name] = new Audio("../audio/bubble.wav");
+			else if (name === 'splashSound') audio[name] = new Audio("../audio/splash.wav");
+			else if (name === 'tadaSound') audio[name] = new Audio("../audio/tada.wav");
+			else if (name === 'failSound') audio[name] = new Audio("../audio/fail.wav");
+			else if (name === 'removeSound') audio[name] = new Audio("../audio/dragdrop.wav");
+			else if (name === 'combulixSound') audio[name] = new Audio("../audio/combulix-nav.wav");
+		}
+		return audio[name];
+	},
+	
+	playSound : function (name) {
+		if(getCurrentPlayerObject() !== null && !getCurrentPlayerObject().playSound) return false;
+		else {
+			var sound = audio.getSound(name);
+			sound.load();
+			sound.play();
+			return true;
+		}
+	},
 	
 	soundOnClick : function (selector) {
 		
 		$(selector).click(function() {
+			
+			var sound;
+			
 			if(getCurrentPlayerObject() !== null) {
 				if (!getCurrentPlayerObject().playSound) return;
 			}
 			if ($(this).is(".item.active")) {
-				audio.selectionItemSound.load();
-				audio.selectionItemSound.play();
+				audio.playSound("selectionItemSound");
 			} else if ($(this).is(".item:not(.active)")) {
-				audio.errorSound.volume = 0.15; //Der Ton ist initial sehr laut und wird nur mit extrem niedrigen %-Werten wirklich leiser.
-				audio.errorSound.load();
-				audio.errorSound.play();
+				sound = audio.getSound("errorSound");
+				sound.volume = 0.15; //Der Ton ist initial sehr laut und wird nur mit extrem niedrigen %-Werten wirklich leiser.
+				sound.load();
+				sound.play();
 			} else if ($(this).is(".menu-button, #continue, .close-button")) {
-				audio.menuButtonSound.load();
-				audio.menuButtonSound.play();
+				audio.playSound("menuButtonSound");
 			} else if ($(this).is("#startbutton")) {
-				audio.bubbleSound.load();
-				audio.bubbleSound.play();
+				audio.playSound("bubbleSound");
 			} else if ($(this).is(".event-blocker")) {
-				audio.errorSound.volume = 0.15; //Der Ton ist initial sehr laut und wird nur mit extrem niedrigen %-Werten wirklich leiser.
-				audio.errorSound.load();
-				audio.errorSound.play();
+				sound = audio.getSound("errorSound");
+				sound.volume = 0.15; //Der Ton ist initial sehr laut und wird nur mit extrem niedrigen %-Werten wirklich leiser.
+				sound.load();
+				sound.play();
 			} else if ($(this).is(".to-level-selection-button")) {
-				audio.menuButtonSound.load();
-				audio.menuButtonSound.play();
+				audio.playSound("menuButtonSound");
 			} else if ($(this).is(".continue-button")) {
-				audio.menuButtonSound.load();
-				audio.menuButtonSound.play();
+				audio.playSound("menuButtonSound");
 			}
 			
 		});
@@ -59,7 +73,7 @@ var audio = {
 	},
 	
 	updateMusicTime : function () {
-		this.setMusicTime(this.gameMusic.currentTime);
+		if (audio.gameMusic !== undefined) this.setMusicTime(this.gameMusic.currentTime);
 	},
 	
 	getMusicTime : function () {
@@ -75,6 +89,8 @@ var audio = {
 	playMusic : function() {
 		if (sessionStorage['musicTime'] === undefined) this.setMusicTime(0);
 		if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playMusic) {
+			
+			if (audio.gameMusic === undefined) audio.gameMusic = new Audio("../audio/background-music.wav");
 			
 			//Initialisieren der GameMusic-Werte, falls noch nicht getan
 			this.gameMusic.volume = 0.25;

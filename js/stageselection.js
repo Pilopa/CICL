@@ -172,9 +172,9 @@ $(function() {
 		
 		// Crash-Sound spielen, auf den sich bei SlideIn() beim Abspielen der Speeches bezogen wird.
 		
-		audio.crashSound.volume = 0.5;
-		audio.crashSound.load();
-		audio.crashSound.play();
+		sound = audio.getSound("crashSound");
+		sound.volume = 0.5;
+		sound.play();
 		
 	} else {
 		

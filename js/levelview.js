@@ -418,10 +418,7 @@ $(function() {
 	 * Spielt den Sound ab, welcher das Platzieren eines Tiles repräsentiert.
 	 */
 	function playDragdropSound() {
-		if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
-			audio.dragdropSound.load();
-			audio.dragdropSound.play();
-		}
+		audio.playSound("dragdropSound");
 	}
 	
 	//Eventhandler initialisieren
@@ -467,10 +464,7 @@ $(function() {
 			updateLevelPointValueDisplay();
 			
 			//Abspielen des Sounds
-			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
-				audio.removeSound.load();
-				audio.removeSound.play();
-			}
+			audio.playSound("removeSound");
 			
 		} else if (event.type === EVENT_TYPE['swapped']) { //Zwei Tiles wurden vertauscht
 			
@@ -486,10 +480,7 @@ $(function() {
 			level.endRun();
 			
 			//Sound abspielen
-			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
-				audio.tadaSound.load();
-				audio.tadaSound.play();
-			}
+			audio.playSound("tadaSound");
 			
 			//Die Punkte berechnen
 			var scoreObject = getScoreObject();
@@ -652,10 +643,7 @@ $(function() {
 			level.endRun();
 			
 			// Sound abspielen
-			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
-				audio.failSound.load();
-				audio.failSound.play();
-			}
+			audio.playSound("failSound");
 			
 			//Fail-Feedback
 			$(".game").animate({
@@ -1142,10 +1130,7 @@ $(function() {
 			$(".event-blocker").show(); 
 			
 			//Sound abspielen
-			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
-				audio.bubbleSound.load();
-				audio.bubbleSound.play();
-			}
+			audio.playSound("bubbleSound");
 			
 		} else if ($(this).text() === 'Weiterbasteln') {
 			

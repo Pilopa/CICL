@@ -71,20 +71,14 @@ var combulix = {
 			this.set(this.current + 1);
 			
 			//Spiele Sound
-			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
-				audio.combulixNav.load();
-				audio.combulixNav.play();
-			}
+			audio.playSound("combulixNav");
 		} else {
 			if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.pause();
 			if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback.call(this.speeches[this.current]);
 			this.slideOut();
 			
 			//Spiele Sound
-			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
-				audio.combulixSound.load();
-				audio.combulixSound.play();
-			}
+			audio.playSound("combulixSound");
 		}
 	},
 	
@@ -93,10 +87,7 @@ var combulix = {
 			combulix.set(this.current - 1);
 			
 			//Spiele Sound
-			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
-				audio.combulixNav.load();
-				audio.combulixNav.play();
-			}
+			audio.playSound("combulixNav");
 		}
 	},
 	
@@ -124,10 +115,7 @@ var combulix = {
 					combulix.slideIn();
 					
 					//Spiele Sound
-					if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
-						audio.combulixSound.load();
-						audio.combulixSound.play();
-					}
+					audio.playSound("combulixSound");
 					
 				} else combulix.previous();
 			});
