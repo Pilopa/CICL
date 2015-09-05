@@ -1,10 +1,27 @@
-/*
+/**
  * Das Level ist das Hauptdatenmodell unseres Spiels.
  * In 'levelview.js' wird dieses Modell dargestellt und der Spieler kann damit interagieren.
  * Das Datenmodell feuert Events, auf welche per 'registerListener' gehorcht werden kann.
  * Ansonsten sind die meisten Methoden auch für die Leveldefinition ('stages.js') wichtig.
+ *
+ * @classdesc
+ * @requires 'event.js'
+ * @requires 'tile.js'
  */
+ 
+ //=========================================================================================
 
+ /**
+  * Erstellt ein Level-Objekt.
+  *
+  * @param {number} width Die Breite des Levels.
+  * @param {number} height Die Höhe des Levels.
+  * @param {object} tools Das Objekt enhält für jeden TileType-Namen (z.b. 'straight') eine Anzahl der platzierbaren Objekte. 
+  * 	@see TILE_AMOUNT_ENDLESS (in TileType)
+  *		Wenn ein TileType nicht angegeben wird, ist er nicht verfügbar.
+  * @param {array} tools Die breite des Levels.
+  * @constructor
+  */
 function Level(width, height, title, tools, optimalPointValue, divi) {
 	if(typeof tools === 'undefined') tools = {};
 	if (optimalPointValue === undefined) optimalPointValue = 0;
@@ -25,8 +42,10 @@ function Level(width, height, title, tools, optimalPointValue, divi) {
 	this.aborttimer;
 }
 
-
-
+/**
+ * @return {number} Die Summe der Punktewerte aller verfügbaren Werkzeuge.
+ * @see tools
+ */
 Level.prototype.getMaxPointValue = function () {
 	var result = 0;
 	//
@@ -38,6 +57,9 @@ Level.prototype.getMaxPointValue = function () {
 	return result;
 }
 
+/**
+ * @return {number} Summe der Punktewerte aller platzierten Tiles.
+ */
 Level.prototype.getPlacedPointValue = function () {
 	var result = 0;
 	for(var y = 0; y < this.height; y++) 
@@ -48,6 +70,12 @@ Level.prototype.getPlacedPointValue = function () {
 	return result;
 }
 
+/**
+ * 
+ * @param {number} y Die y-Koordinate des gewünschten Feldes.
+ * @param {number} x Die x-Koordinate des gewünschten Feldes.
+ * @return {Tile} Das Tile an der bestimmten Position.
+ */
 Level.prototype.getTile = function(x, y) {
 	if (typeof x !== 'number') /*throw "x not a number: " + x + ' in getTile()'*/ console.log("x not a number: " + x + ' in getTile()');
 	if (typeof y !== 'number') /*throw "y not a number: " + y + ' in getTile()'*/ console.log("y not a number: " + y + ' in getTile()');
@@ -55,12 +83,19 @@ Level.prototype.getTile = function(x, y) {
 	return this.playfield[y][x];
 }
 
+/**
+ * @return {boolean} Feld ist leer.
+ */
 Level.prototype.isEmpty = function (x, y) {
 	if (typeof x === 'undefined') throw "x has to be set in Levels isEmpty method";
 	if (typeof y === 'undefined') throw "y has to be set in Levels isEmpty method";
 	return (this.getTile(x,y) === null || this.getTile(x,y) === undefined);
 }
 
+/**
+ * @param {TileType} tiletype Der zu überprüfende Typ.
+ * @return {number} Anzahl der platzierten Tiles eines TileTypes.
+ */
 Level.prototype.getAmountPlaced = function (tiletype) {
 	var counter = 0;
 	for (var y = 0; y < this.height; y++)
@@ -69,6 +104,19 @@ Level.prototype.getAmountPlaced = function (tiletype) {
 	return counter;
 }
 
+/**
+ * Platziert ein neues Tile an der gewünschten Position.
+ * Überschreibt eventuell platzierte Tiles.
+ *
+ * @param {number} x Die x-Koordinate, an welcher eingefügt werden soll.
+ * @param {number} y Die y-Koordinate, an welcher eingefügt werden soll.
+ * @param {number} r Die initiale Rotation des Tiles.
+ * @param {Tile} tile Das einzufügende Tile.
+ * @param {boolean} fireEvents Sollen Events ausgelöst werden ?
+ * 		@see 'stages.js' oder 'levelview.js' für entsprechende Beispiele.
+ * @return Das Level-Objekt (für Method-Chaining)
+ * @fires EVENT_TYPE.placed
+ */
 Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	if (typeof fireEvents === 'undefined') fireEvents = false;
 	if (this.getTile(x,y) !== null && this.getTile(x,y) !== undefined) this.remove(x, y);
@@ -81,6 +129,15 @@ Level.prototype.put = function (x, y, r, tile, fireEvents) {
 	return this;
 }
 
+/**
+ * Lässt die Tiles an den zwei Positionen die Plätze tauschen.
+ * @param {number} x1 Die x-Koordinate des ersten Tiles.
+ * @param {number} y1 Die y-Koordinate des ersten Tiles.
+ * @param {number} x2 Die x-Koordinate des zweiten Tiles.
+ * @param {number} y2 Die y-Koordinate des zweiten Tiles.
+ * @fires EVENT_TYPE.swapped
+ * @return Das Level-Objekt
+ */
 Level.prototype.swap = function (x1, y1, x2, y2) {
 	if (x1 === undefined) console.log("error in swap in level.fs eventHandler: x1 is undefined");
 	if (x2 === undefined) console.log("error in swap in level.fs eventHandler: x2 is undefined");
@@ -114,6 +171,12 @@ Level.prototype.swap = function (x1, y1, x2, y2) {
 	return this;
 }
 
+/**
+ * Löscht das Tile an der angegebenen Position.
+ *
+ * @fires EVENT_TYPE.removed
+ * @return Das Level-Objekt
+ */
 Level.prototype.remove = function (x, y) {
 	var tile = this.getTile(x,y);
 	this.playfield[y][x] = null;
@@ -121,6 +184,11 @@ Level.prototype.remove = function (x, y) {
 	return this;
 }
 
+/**
+ * Dreht das Tile an der angegebenen Position um 90° nach rechts.
+ * @param {number} y Die y-Koordinate des gewünschten Feldes.
+ * @param {number} x Die x-Koordinate des gewünschten Feldes.
+ */
 Level.prototype.rotate = function (x, y) {
 	var tile = this.getTile(x,y);
 	tile.rotate(1);
@@ -128,6 +196,12 @@ Level.prototype.rotate = function (x, y) {
 	return this;
 }
 
+/**
+ * @param {Tile} tile Das Zieltile
+ * @param {DIRECTION} dir Die Richtung, in welcher nach einem Nachbarn gesucht werden soll.
+ * @return {Tile} Der Nachbar des Tiles in der angegebenen Richtung
+ * @fires EVENT_TYPE.testfailed
+ */
 Level.prototype.getNeighbor = function (tile, dir) {
 	var nx = tile.x;
 	var ny = tile.y;
@@ -174,6 +248,9 @@ Level.prototype.fireEvent = function (evt) {
 	});
 }
 
+/**
+ * Startet einen Testlauf.
+ */
 Level.prototype.startRun = function() {
 	for(var y = 0; y < this.height; y++) 
 		for(var x = 0; x < this.width; x++) 
@@ -184,6 +261,10 @@ Level.prototype.startRun = function() {
 	this.aborttimer = setInterval(function(){temp.abort();}, 1000);
 }
 
+/**
+ * Wird periodisch durch den aborttimer aufgerufen.
+ * Überprüft, ob während des Tests ein Fehler aufgetreten ist und bricht diesen ggf. ab.
+ */
 Level.prototype.abort = function(obj) {
 		var cont = false;
 		for(var i = 0; i < this.walkers.length; i++) {
@@ -192,8 +273,11 @@ Level.prototype.abort = function(obj) {
 		if(!cont) {
 			this.fireEvent(new Event(EVENT_TYPE['testfailed'], undefined, 'no more active walkers'));
 		}
-	}
+}
 
+/**
+ * Löscht die Fließ-Animation auf allen Tiles.
+ */
 Level.prototype.clearElements = function() {
 	for(var y = 0; y < this.height; y++) {
 		for(var x = 0; x < this.width; x++) {
@@ -210,6 +294,9 @@ Level.prototype.clearElements = function() {
 	}
 }
 
+/**
+ * Beendet einen Testlauf manuell.
+ */
 Level.prototype.endRun = function() {
 	clearInterval(this.aborttimer);
 	for(var i = 0; i < this.walkers.length; i++) this.walkers[i].stop();

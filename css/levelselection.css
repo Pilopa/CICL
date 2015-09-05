@@ -1,3 +1,4 @@
+/* Platzierung der Menübuttons */
 #level-selection #options-button {
 	top: 10px;
 	left: 265px;
@@ -8,6 +9,7 @@
 	left: 30px;
 }
 
+/* Bereichs-Name */
 #stage-id {
 	font-size: 30px;
 	position: absolute;
@@ -18,6 +20,7 @@
 	width: 500px;
 }
 
+/* Trennlinie unter der Liste */
 hr {
 	width: 400px;
 	position: absolute;

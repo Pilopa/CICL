@@ -1,12 +1,17 @@
-/*
+/**
  * Definiert allgemeine Methoden und wird von jeder HTML-Datei eingebunden.
  * 
- * siehe main.css
+ * @see main.css
  */
+ 
+//================================================================================================
 
 //Benutze serializer.stringify(object) (Schreiben) und serializer.resurrect() (Lesen) zur Serialisierung von Objekten.
 var serializer = new Resurrect();
 
+/**
+ * @return {boolean} Der Browser unterstützt LocalStorage.
+ */
 function supports_local_storage() {
   try {
 	  return typeof(localStorage) !== 'undefined';
@@ -15,6 +20,9 @@ function supports_local_storage() {
   }
 }
 
+/**
+ * @return {boolean} Der Browser unterstützt SessionStorage.
+ */
 function supports_session_storage() {
   try {
 	  return typeof(sessionStorage) !== 'undefined';
@@ -81,7 +89,8 @@ function initializeCurrentPlayerObject() {
 	return getCurrentPlayerObject();
 }
 
-/* Der Testspieler heißt 'stefko' und besitzt eine Wertung von 3 Sternen in jedem Level.
+/**
+ * Der Testspieler heißt 'stefko' und besitzt eine Wertung von 3 Sternen in jedem Level.
  * Viel spaß beim Testen! :)
  */
 function initializeTestPlayerObject() {
@@ -102,29 +111,38 @@ function initializeTestPlayerObject() {
 		});
 }
 
-/*
+/**
  * Nach einem Satz von Änderungen an dem aktuellen Spielerobjekt, muss dieses wieder gespeichert werden.
  */
 function saveCurrentPlayerObject(object) {
 	localStorage[localStorage["name"]] = JSON.stringify(object);
 }
 
-/*
- * Wird derzeit (v0.8.5) nicht genutzt, aber der Vollständigkeit halber definiert.
+/**
+ * Wird derzeit (v0.8.5) nicht genutzt, ist aber der Vollständigkeit halber definiert.
  */
 function resetCurrentPlayerObject() {
 	localStorage[localStorage["name"]] = undefined;
 }
 
+/**
+ * Wird derzeit (v0.8.5) nicht genutzt, ist aber der Vollständigkeit halber definiert.
+ */
 function resetCompleteGame() {
 	localStorage.clear();
 	reloadGame();
 }
 
+/**
+ * Wird derzeit (v0.8.5) nicht genutzt, ist aber der Vollständigkeit halber definiert.
+ */
 function reloadGame() {
 	location.reload();
 }
 
+/**
+ * @deprecated
+ */
 function hasEventHandler(classes, event) {
 	var events = $._data(document.getElementsByClassName(classes)[0], "events");
 	if (events !== undefined && events.hasOwnProperty(event)) {

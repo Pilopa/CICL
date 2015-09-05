@@ -1,10 +1,21 @@
-/*
+/**
  * Die Oberfläche, welche es dem Spieler erlaubt, ein Level eines Bereiches auszuwählen und zu spielen.
  * Bei dem erstmaligen Betreten wird ein Tutorial angezeigt.
  * Die Darstellung wird dynamisch erstellt und jedes Level hat seine eigene Wertungsanzeige.
  * 
- * siehe levelselection.html
- * siehe levelselection.css
+ * @requires 'jquery-1.11.2.min.js'
+ * @requires 'jquery.mobile-1.4.5.min.js'
+ * @requires 'resurrect.js'
+ * @requires 'main.js'
+ * @requires 'audio.js'
+ * @requires 'tile.js'
+ * @requires 'stages.js'
+ * @requires 'router.js'
+ * @requires 'menues.js'
+ * @requires 'combulix.js'
+ *
+ * @see levelselection.html
+ * @see levelselection.css
  */
 
 $(function() {
@@ -66,7 +77,8 @@ $(function() {
 		saveCurrentPlayerObject(playerObject);
 	}
 	
-	if (playerObject.showLevelSelectionTutorial) { //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
+	 //Zeige das Tutorial, wenn es der Spieler das erste Mal in diesem Menü ist.
+	if (playerObject.showLevelSelectionTutorial) {
 		
 		$("#list").hide();
 		$("#stage-id").hide();

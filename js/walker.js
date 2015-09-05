@@ -1,10 +1,24 @@
-/*
+/**
  * Diese Klasse ist zuständig für das Abarbeiten der einzelnen Startpunkte und den Fluss der Elemente.<br>
  * Außerdem löst sie die entsprechenden Events aus, die währenddessen auftreten.
  * 
  * @author Steffen Müller
+ * @classdesc
  */
  
+//=========================================================================================
+ 
+/**
+ * Erstellt ein Walker-Objekt, welches ein bestimmtes Tile analysiert und dann rekursiv weitere Walker-Objekte erzeugen kann,
+ * um das gesamte Level durchzugehen.
+ *
+ * @param {Tile} tile Das Starttile des Walkers.
+ * @param {string} ele Das Startelement des Walkers.
+ * @param {Level} lvl Das Level, für welches der Walker zuständig ist.
+ * @param {Direction} cf Aus welcher Richtung kommt der Walker ?
+ * @param {boolean} run Soll der Walker aktiv weiterlaufen ?
+ * @constructor
+ */
 function Walker(tile, ele, lvl, cf, run) {
 	this.where = tile;		// aktuelles Tile
 	this.element = ele;		// fließendes Element

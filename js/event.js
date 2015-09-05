@@ -1,8 +1,7 @@
-/*
- * Definiert alle Ingame-Eventtypen, die auftreten können.
+/**
+ * Definiert eine Map mit allen Ingame-Eventtypen, die auftreten können.
  * Diese Eventtypen haben besonders für 'level.js' und 'levelview.js' relevanz.
  */
-	
 var EVENT_TYPE = {
 	'placed': "PLACED",
 	'swapped': "SWAPPED",
@@ -13,7 +12,15 @@ var EVENT_TYPE = {
 	'testfailed': "TEST_FAILED",
 }
 
-//Die Parameter tile und msg sind optional.
+/**
+ * Erstellt ein neues Event-Objekt.
+ * Wird primär in 'level.js' verwendet.
+ *
+ * @param {EVENT_TYPE} type Der Typ des Events.
+ * @param @optional {Tile} tile Das Tile, welches das Event ausgelöst hat.
+ * @param @optional {string} msg Der Beschreibungstext des Events.
+ * @constructor
+ */
 function Event (type, tile, msg) {
 	this.type = type;
 	this.tile = tile;

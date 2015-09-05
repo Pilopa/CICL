@@ -1,7 +1,17 @@
-/*
- * Datenmodell einer Kachel in einem Level (siehe 'level.js').
+/**
+ * Datenmodell einer Kachel in einem Level.
+ *
+ * @see 'level.js'
+ * @requires 'tiletype.js'
  */
+ 
+ //================================================================================================
 
+ /**
+  * Eine Map, welche die einzelnen Elemente definiert und mit einer String-Repräsentation assoziiert.
+  *
+  * @constant
+  */
 var TILE_ELEMENT = {
 	'none': 'none',
 	'acid': 'acid',
@@ -9,6 +19,11 @@ var TILE_ELEMENT = {
 	'honey': 'honey'
 }
 
+/**
+ * Objekt, welches Konstanten für die einzelnen Himmelsrichtungen definiert.
+ *
+ * @constant
+ */
 var DIRECTION = {
 	'up': 0,
 	'right': 1,
@@ -16,6 +31,15 @@ var DIRECTION = {
 	'left': 3
 }
 
+/**
+ * Erstellt ein Tile-Objekt.
+ *
+ * @param {TileType} type Der Typ des Tiles (z.b. TILE_TYPE.straight für eine Gerade).
+ * @param {string} element Das initiale Element des Tiles. Fast immer TILE_ELEMENT.none, außer bei Quellen/Zielen. (siehe TILE_ELEMENT)
+ * @param {boolean} movable Ist das Tile bewegbar ?
+ * @param {boolean} rotatable Ist das Tile drehbar ?
+ * @constructor
+ */
 function Tile(type, element, movable, rotatable) {
 	if (typeof movable === 'undefined') movable = false;
 	if (typeof rotatable === 'undefined') rotatable = false;

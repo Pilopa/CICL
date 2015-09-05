@@ -1,8 +1,15 @@
-/*
+/**
  * Logik zum Startpunkt der Anwendung.
  * 
- * siehe splash.html
- * siehe splash.css
+ * @requires 'jquery-1.11.2.min.js'
+ * @requires 'resurrect.js'
+ * @requires 'main.js'
+ * @requires 'audio.js'
+ * @requires 'stages.js'
+ * @requires 'router.js'
+ *
+ * @see splash.html
+ * @see splash.css
  */
 
 $(function() {
@@ -33,6 +40,10 @@ $(function() {
 					saveCurrentPlayerObject(playerObject);
 				}
 			}
+		});
+		
+		$("#playerName_input").keyup(function (event) {
+			$("#playerName_input").css({"box-shadow": "0px 0px 0px 0px #000"});
 		});
 		
 		//Initialisiere Sound

@@ -1,10 +1,23 @@
-/*
+/**
  * Ermöglichst das Spielen des Spiels.
  * Interagiert mit dem Datenmodell ('level.js') und zeigt es dynamisch an.
  * Beim ersten Spielen wird ein Tutorial angezeigt.
- * 
- * siehe levelview.html
- * siehe levelview.css
+ *
+ * @requires 'jquery-1.11.2.min.js'
+ * @requires 'jquery.animate-shadow-min.js'
+ * @requires 'jquery.mobile-1.4.5.min.js'
+ * @requires 'jquery-ui.min.js'
+ * @requires 'jquery.ui.touch-punch.min.js'
+ * @requires 'resurrect.js'
+ * @requires 'main.js'
+ * @requires 'audio.js'
+ * @requires 'stages.js'
+ * @requires 'walker.js'
+ * @requires 'menues.js'
+ * @requires 'router.js'
+ * @requires 'combulix.js'
+ * @see levelview.html
+ * @see levelview.css
  */
 
 $(function() {
@@ -21,6 +34,11 @@ $(function() {
 	
 	//Funktionen
 	
+	/**
+	 * Wird benötigt, um das Score-Objekt am Ende des Spiels zu generieren.
+	 * 
+	 * @returns die Anzahl der Sterne anhand der errechneten Punktzahl.
+	 */
 	function getStarsFromPoints() {
 		var pointRange = maxPointValue - level.optimalPointValue;
 		var step = pointRange/level.starDivisor;
@@ -33,6 +51,11 @@ $(function() {
 		}
 	}
 	
+	/**
+	 * Wird beim erfolgreichen Beenden des Levels durch den Post-Game-Screen aufgerufen.
+	 * 
+	 * @returns Ein Objekt, welches die Bewertungen für den Spieler enthält.
+	 */
 	function getScoreObject() {
 		
 		return {
@@ -42,15 +65,30 @@ $(function() {
 		
 	}
 	
+	/**
+	 * Zeigt eine Tabelle zu den Wertigkeiten der einzelnen Werkzeuge an.
+	 *
+	 * @deprecated Derzeit nicht implementiert!
+	 * @param {event} Das ausgelöste Event.
+	 */
 	function pointValueClickHandler(event) {
 		//TODO: Anzeige der Wertigkeiten von Werkzeugen
 	}
 	
+	/**
+	 * Aktualisiert die Punkteanzeige anhand des bestehenden Datenmodells.
+	 */
 	function updateLevelPointValueDisplay() {
 		var value = maxPointValue - level.getPlacedPointValue();
 		$("#pointlValueDisplay").text(value > 0 ? value : "0");
 	}
 	
+	/**
+	 * Aktualisiert den Status der Schaltfläche unten in der Mitte des Spielfelds.
+	 *
+	 * @param {bool} flag Ob der Button aktiv sein soll.
+	 * @param {string} text Der neue Text der Schaltfläche.
+	 */
 	function setStartButtonEnabled(flag, text) {
 		if (flag) {
 			$("#startbutton").addClass("interactable");
@@ -61,6 +99,11 @@ $(function() {
 		if (typeof text !== 'undefined') $("#startbutton").text(text)
 	}
 	
+	/**
+	 * Was passiert, wenn ein Tile gedreht wird (Linksklick) ?
+	 * 
+	 * @param {event} event Das ausgelöste JQuery-Event
+	 */
 	function rotateEventHandler(event) {
 		var classes = $(this).attr('class').split(" ");
 		var x = parseInt(classes[1].replace("x", ""));
@@ -69,6 +112,12 @@ $(function() {
 		else console.log("click but no rotate on [" + x + "|" + y + "]");
 	}
 	
+	/**
+	 * Initialisiert Handler auf einem Tile, sodass es gedreht werden kann.
+	 * 
+	 * @param {number} x Die x-Koordinate (view).
+	 * @param {number} y Die y-Koordinate (view).
+	 */
 	function initializeTileViewRotateHandler(x, y) {
 		if (!$(".x" + x + ".y" + y).is(".rotatable")) {
 			$(".x" + x + ".y" + y).on("click", rotateEventHandler);
@@ -76,6 +125,12 @@ $(function() {
 		}
 	}
 	
+	/**
+	 * Initialisiert Handler auf einem Tile, sodass es bewegt/gelöscht werden kann.
+	 * 
+	 * @param {number} x Die x-Koordinate (view).
+	 * @param {number} y Die y-Koordinate (view).
+	 */
 	function initializeTileViewDragHandler(x, y) {
 		if (!$(".x" + x + ".y" + y).is(':data(ui-draggable)'))
 			$(".x" + x + ".y" + y).draggable({
@@ -101,6 +156,12 @@ $(function() {
 		});
 	}
 	
+	/**
+	 * Ermöglicht es, dass ein anderes Tile mit diesem seinen Platz tauschen kann
+	 * UND dass der Spieler Tools aus der Werkzeugleiste auf diesem Tile platzieren kann.
+	 * 
+	 * @param {jquery-selector} jquery Das JQuery-Objekt, dem der Handler hinzugefügt werden soll.
+	 */
 	function initializeTileViewDropHandler(jquery) {
 		if (!$(jquery).is('.ui-droppable')) $(jquery).droppable({
 			accept: ".tool, .tile",
@@ -144,9 +205,16 @@ $(function() {
 		});
 	}
 	
+	/**
+	 * Überprüft, welche Interaktionen das angegebene Tile zulässt und aktualisiert die Handler entsprechend.
+	 * 
+	 * @param {number} x Die x-Koordinate des Tiles (view & model).
+	 * @param {number} y Die y-Koordinate des Tiles (view & model).
+	 *
+	 * @return Die grafische Repräsentation des Tiles.
+	 */
 	function updateTileViewHandlers(x, y) {
 		var tileview = $(".x" + x + ".y" + y);
-		
 		
 		if (!level.isEmpty(x, y)) {
 			
@@ -190,6 +258,14 @@ $(function() {
 		return tileview;
 	}
 	
+	/**
+	 * Bestimmt die Änderungen an dem Datenmodell eines Tiles und aktualisiert dessen Anzeige entsprechend.
+	 * 
+	 * @param {number} x Die x-Koordinate des Tiles (view & model).
+	 * @param {number} y Die y-Koordinate des Tiles (view & model).
+	 *
+	 * @return Die grafische Repräsentation des Tiles.
+	 */
 	function updateTileView(x, y) {
 		if (x === undefined) console.log("error in updateTileView in levelview.fs: x is undefined");
 		if (y === undefined) console.log("error in updateTileView in levelview.fs: y is undefined");
@@ -229,6 +305,12 @@ $(function() {
 		return tileview;
 	}
 	
+	/**
+	 * Aktualisiert die Anzahl-Anzeige für ein Werkzeug innerhalb des Werkzeugkastens.
+	 *
+	 * @param {TileType} tiletype Der zu aktualisierende TileType (z.b. TILE_TYPE.straight).
+	 * @return {JQuery-Object} Die grafische Repräsentation der Anzahlanzeige. 
+	 */
 	function updateToolNumber(tiletype) {
 		var toolNumberView = $('#toolcount-' + tiletype.name);
 		toolNumberView.text((level.tools[tiletype.name] === undefined) ? ""
@@ -253,6 +335,11 @@ $(function() {
 		return toolNumberView;
 	}
 	
+	/**
+	 * Aktualisiert die Anzeige eines Werkzeuges anhand des dem Level zugrundeliegenden Datenmodell.
+	 *
+	 * @param {TileType} tiletype Der TileType des zu aktualisierenden Werkzeuges.
+	 */
 	function updateToolView(tiletype) {
 		var tool = $("#" + tiletype.name);
 		if (tiletype.name in level.tools) {
@@ -281,6 +368,9 @@ $(function() {
 		}
 	}
 	
+	/**
+	 * Aktualisiert die Werkzeugleiste.
+	 */
 	function updateToolBox() {
 		PLACEABLE_TILE_TYPES.forEach(function(tiletype, index) {
 			updateToolView(tiletype);
@@ -288,6 +378,10 @@ $(function() {
 		});
 	}
 	
+	/**
+	 * Initialisiert die Werkzeugleiste anhand der im Datenmodell des Levels, sowie den als global verfügbar
+	 * definierten verfügbaren Werkzeuge.
+	 */
 	function initializeToolBox() {
 		PLACEABLE_TILE_TYPES.forEach(function(tiletype, index) {
 			
@@ -311,12 +405,18 @@ $(function() {
 		});
 	}
 	
+	/**
+	 * Nach dem Starten eines Tests kann dieser mit Hilfe von 'clearRun' zurückgesetzt werden.
+	 */
 	function clearRun() {
 		$('.flow').remove();
 		level.clearElements();
 		level.destinationsReached = 0;
 	}
 	
+	/**
+	 * Spielt den Sound ab, welcher das Platzieren eines Tiles repräsentiert.
+	 */
 	function playDragdropSound() {
 		audio.dragdropSound.load();
 		audio.dragdropSound.play();
@@ -325,7 +425,7 @@ $(function() {
 	//Eventhandler initialisieren
 	level.registerListener(function (event) {
 		
-		console.log(event.toString()); //DEBUG
+		//console.log(event.toString()); //Kann zu Testzwecken einkommentiert werden.
 		
 		if (event.type === EVENT_TYPE['placed']) { //Ein Tile wurde platziert.
 			
@@ -540,8 +640,8 @@ $(function() {
 			level.endRun();
 			
 			// Sound abspielen
-			audio.splashSound.load();
-			audio.splashSound.play();
+			audio.errorSound.load();
+			audio.errorSound.play();
 			
 			//Fail-Feedback
 			$(".game").animate({
@@ -992,7 +1092,10 @@ $(function() {
              
 		];
 		combulix.slideIn();
+		
 	} else {
+		
+		//Alternative Definition von Combulix' Sprüchen, wenn kein Tutorial angezeigt wird.
 		
 		combulix.speeches = [new Speech("Ich weiß doch auch nicht weiter . . .")];
 		if (stageid == 0 && levelid == 0) {

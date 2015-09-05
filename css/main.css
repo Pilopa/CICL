@@ -1,3 +1,4 @@
+/* Generelle Einstellungen des Spielfensters */
 * {
 	margin: 0;
 	padding: 0;
@@ -25,6 +26,7 @@
 	box-sizing: border-box;
 }
 
+/* Sterne für die Bewertungsanzeige */
 .star-full {
 	background-image: url(../images/star_full.png);
 	background-repeat: no-repeat;
@@ -43,6 +45,7 @@
 	background-size: 100% 100%;
 }
 
+/* Verhindert das Markieren innerhalb des Spielfelds */
 .unselectable {
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -52,6 +55,7 @@
 	user-select: none;
 }
 
+/* Pfeile für Combulix' Dialoge */
 .arrow {
 	background-image: url(../images/arrow.png);
 	background-repeat: no-repeat;
@@ -62,16 +66,7 @@
 	position: absolute;
 	top: calc(35% - 32px);
 	right: 16px;
-	z-index: 99;
-	
-	
-	/* CSS - Styled Arrow *//*
-	width: 0;
-	height: 0;
-	border-style: solid;
-	border-width: 25px 0 25px 45px;
-	border-color: transparent transparent transparent #007bff;*/
-	
+	z-index: 99;	
 }
 
 .arrow.left {
@@ -84,6 +79,7 @@
 	z-index: 99;
 }
 
+/* Combulix' Porträt */
 .combulix {
 	background-image: url(../images/combulix.png);
 	background-repeat: no-repeat;
@@ -96,6 +92,7 @@
 	z-index: 99;
 }
 
+/* Combulix' Sprechblase */
 .speech-bubble {
 	background: #c0c0c0;
   	background-image: linear-gradient(to bottom, #c0c0c0, #8080ff);
@@ -126,6 +123,7 @@
   border-color: #8080ff transparent;
 }
 
+/* Bereichs- und Levelauswahl */
 #list {
 	overflow: auto;
 	width: 500px;
@@ -134,6 +132,7 @@
 	border-radius: 15px;
 }
 
+/* Einzelnes Bereichs- oder Level-Element */
 .item {
 	width: calc(100% - 40px);
 	height: calc(23.5% - 20px);
@@ -154,11 +153,13 @@
 	display: inline-block;
 }
 
+/* Stern für die Gesamtanzahl im Bereich/Spiel */
 .score-icon {
 	width: 40px;
 	height: 40px;
 }
 
+/* Anzeige der 5-Sterne-Skala */
 .rating-display {
 	width: 40px;
 	height: 40px;
@@ -183,6 +184,7 @@
 	font-size: 28px;
 }
 
+/* Interaktions-Designs für Bereichs- / Level-Elemente */
 .item.active {
   	background-image: -webkit-linear-gradient(top, #c0c0c0, #8080ff);
   	background-image: -moz-linear-gradient(top, #c0c0c0, #8080ff);
@@ -203,6 +205,7 @@
 	border-style: inset;
 }
 
+/* Glow für Highlight des Tutorials */
 .highlighted {
 	animation: highlight-glow 1.5s ease-in-out infinite;
 }
@@ -213,7 +216,7 @@
 	100% { box-shadow: 0 0 10px #ffff00 }
 }
 
-
+/* Cursor-Modifikationen */
 .interactable:not(.ui-draggable-dragging), .interactable:not(.ui-draggable-draggin) * {
 	cursor: pointer;
 }
@@ -222,13 +225,13 @@
 	cursor: not-allowed;
 }
 
+/* Generelle Settings für Listen-Items (Verfügbar/Nicht verfügbar) */
 .active {
 	background: #c0c0c0;
 	border-style: outset;
 	border-width: 2px;
 	border-color: darkgrey;
 	color: black;
-	
 }
 
 .active, .active * {
@@ -257,6 +260,7 @@
 	align-items: center;
 }
 
+/* Buttons "Zurück" und "optionen" */
 .menu-button {
 	position: absolute;
 	display: flex;
@@ -310,6 +314,7 @@
 	top: 10px;
 }
 
+/* Overlay bei Popups */
 .screen-overlay {
 	position: absolute;
 	width: 100%;
@@ -320,6 +325,7 @@
 	z-index: 100;
 }
 
+/* Popup-Fenster an sich */
 .popup-content-container {
 	position: absolute;
 	width: 80%;
@@ -334,6 +340,7 @@
 	border-radius: 10px;
 }
 
+/* Popup-Schließen-Button */
 .close-button {
 	background-image: url(../images/close.png);
 	background-repeat: no-repeat;
@@ -352,6 +359,7 @@
 	top: 80px;
 }
 
+/* Optionsmenü */
 #options-content {
 	display: flex;
 	flex-direction: column;
@@ -402,6 +410,7 @@
 	background-image: url(../images/unmuted.png);
 }
 
+/* Linie zwischen Bereichs-/Levelliste und Bewertungsstern */
 hr {
 	height: 2px;
 	border: 0;

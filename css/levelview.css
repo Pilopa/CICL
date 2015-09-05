@@ -1,7 +1,9 @@
+/* Spielfeld */
 .game {
 	box-shadow: 0px 0px 0px 0px #F80 inset;
 }
 
+/* Drag & Drop */
 .ui-draggable-dragging {
 	cursor: grabbing;
 	cursor: -webkit-grabbing;
@@ -47,12 +49,22 @@
 	100% {box-shadow: 0 0 20px #80ff80 inset;}
 }
 
+.tile:not(.ui-draggable-dragging) {
+	z-index: 20;
+}
+
+.tile.ui-draggable-dragging {
+	z-index: 35;
+}
+
+/* Kacheln auf dem Spielfeld */
 .tile {
 	display: inline-block;
 	background-size: 100% 100%;
 	position: relative;
 }
 
+/* Rotier-Pfeil des Tutorials */
 .tutorial-rotate:after {
 	content: "";
 	background: url(../images/rotate.png) no-repeat;
@@ -75,14 +87,7 @@
 	100% {transform: rotate(360deg)}
 }
 
-.tile:not(.ui-draggable-dragging) {
-	z-index: 20;
-}
-
-.tile.ui-draggable-dragging {
-	z-index: 35;
-}
-
+/* Highlight beim Draggen */
 .tile:not(.highlighted):not(.ui-draggable-dragging):not(.drop-hover-highlight):HOVER {
 	animation: tile-hover-highlight 2s ease-in-out infinite;
 }
@@ -93,6 +98,7 @@
 	100% {box-shadow: 0 0 15px #ffff80 inset;}
 }
 
+/* Kachelbereich */
 #field {
 	position: absolute;
 	background-color: #262626;
@@ -108,6 +114,7 @@
 	font-size: 0;
 }
 
+/* Überschrift */
 #levelheader {
 	font-size: 24pt;
 	color: white;
@@ -119,6 +126,7 @@
 	margin-top: 8px;
 }
 
+/* Werkzeugkasten */
 #toolbox {
 	padding: 5px 15px 0px 5px;
 	background-color: grey;
@@ -163,6 +171,11 @@
 	animation: tile-hover-highlight 2s ease-in-out infinite;
 }
 
+.tool-number-disabled {
+	color: #ff6060;
+}
+
+/* Testen-Button */
 #startbutton {
 	border-radius: 5px;
 	font-size: 18pt;
@@ -193,10 +206,7 @@
 	border: inset 1px gray;
 }
 
-.tool-number-disabled {
-	color: #ff6060;
-}
-
+/* Markierung nicht beweglicher Kacheln */
 .immovable::after {
 	content: "";
 	background-image: url(../images/immovable-overlay.png);
@@ -208,9 +218,8 @@
 	left: 0;
 }
 
+/* Overlay für's Löschen von Kacheln über der Toolbox */
 #tboverlay {
-	/*height: 630px;
-	width: 180px;*/
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -222,6 +231,7 @@
 	border-radius: 15px;
 }
 
+/* Flüssigkeiten beim Test */
 .acid {
 	background: #00C800;
 }
@@ -239,6 +249,7 @@
 	z-index: 30;
 }
 
+/* Test erfolgreich */
 .game.right {
 	animation: right-animation 2s ease-in-out infinite;
 }
@@ -249,6 +260,7 @@
 	100% {box-shadow: 0 0 5px #00ff00 inset;}
 }
 
+/* Test fehlgeschlagen */
 .game.wrong {
 	animation: wrong-animation 2s ease-in-out infinite;
 }
@@ -259,6 +271,7 @@
 	100% {box-shadow: 0 0 5px #ff0000 inset;}
 }
 
+/* Fängt interaktionen ab während des Tests */
 .event-blocker {
 	opacity: 0;
 	width: 100%;
@@ -269,6 +282,7 @@
 	z-index: 100;
 }
 
+/* Buttons des Score-Screens */
 .to-level-selection-button, .continue-button {
 	width: 200px;
 	height: 120px;
@@ -297,6 +311,7 @@
 	right: 170px;
 }
 
+/* Punkteanzeige */
 #pointValueContainer {
 	position: absolute;
 	top: 10px;
@@ -323,6 +338,7 @@
 	background-size: 100% 100%;
 }
 
+/* Überschrift */
 #congrats-text {
 	position: absolute;
     padding: 7px;
@@ -340,6 +356,7 @@
 	box-shadow: 0 0 30px 7px #00aa00;
 }
 
+/* Bewertungsanzeigen */
 .rating-text {
 	color: white;
 	font-size: 25px;

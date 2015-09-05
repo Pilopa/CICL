@@ -1,6 +1,19 @@
-/*
- * siehe stageselection.html
- * siehe stageselection.css
+/**
+ * Lässt den Spieler einen verfügbaren Bereich auswählen.
+ * Erklärt ihm dieses Menü ggf. in einem Tutorial.
+ *
+ * @requires 'jquery-1.11.2.min.js'
+ * @requires 'jquery.mobile-1.4.5.min.js'
+ * @requires 'resurrect.js'
+ * @requires 'main.js'
+ * @requires 'audio.js'
+ * @requires 'stages.js'
+ * @requires 'router.js'
+ * @requires 'combulix.js'
+ * @requires 'menues.js'
+ *
+ * @see stageselection.html
+ * @see stageselection.css
  */
 
 $(function() {

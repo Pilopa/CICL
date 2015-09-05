@@ -1,9 +1,12 @@
-/*
+/**
  * Ist zuständig für die Logik sowohl von dem 'Optionen'-Button als auch vom dem 'Zurück'-Button.
  */
 
 var optionsMenu = {
 		
+	/**
+	 * Der Button, mithilfe welchem man in das Optionsmenü gelangt.
+	 */
 	optionsButton : {
 		
 		/**
@@ -179,10 +182,21 @@ var optionsMenu = {
 			
 }
 
+/**
+ * Lässt den Benutzer zurück navigieren. 
+ * (Level -> Levelselection -> Stageselection -> Splash)
+ */
 var backButton = {
 			
+	/**
+	 * Die Parameter, welche an die Callbackfunktion übergeben werden.
+	 */
 	parameters: [],
 	
+	/**
+	 * Definiert eine Methode welche aufgerufen wird, wenn der zurück-Button geklickt wird.
+	 * Diese Methode sollte die entsprechende Methode in 'router.js' aufrufen, um zu navigieren.
+	 */
 	setCallback: function(callback) {
 		
 		if (typeof callback === 'undefined') return this;
@@ -202,7 +216,7 @@ var backButton = {
 		
 }
 
-/*
+/**
  * Initialisiert die Anzeige des Optionsmenüs, sodass dieses wie ein Plugin verwendet werden kann.
  * (Das Menü ist praktisch gesehen nicht initial Teil der HTML-Seite)
  */

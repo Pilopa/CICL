@@ -1,4 +1,4 @@
-/*
+/**
  * Verwaltet alle Audioelemente im Spiel und stellt Methoden bereit,
  * diese auszuführen oder an Events zu binden.
  * 

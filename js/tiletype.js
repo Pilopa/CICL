@@ -1,7 +1,17 @@
-/*
- * siehe 'tile.js'
+/**
+ * Kümmert sich um alles, was mit TileTypes zu tun hat.
+ *
+ * @see 'tile.js'
  */
+ 
+//================================================================================================
 
+/**
+ * Definiert die Punktewerte der einzelnen TileTypes.
+ * Diese Punkte werden zur Bewertung des Spielers benötigt.
+ * 
+ * @constant
+ */
 var TILE_POINT_VALUE = {
 	'basic': 10, //Gibt den Standardpunktwert für ein Tile an. Dieser wird verwendet, wenn sonst kein Punktewert angegeben wird.
 	'straight': 10,
@@ -10,6 +20,12 @@ var TILE_POINT_VALUE = {
 	'tjunction': 25
 }
 
+/**
+ * TileType-Objekte können im Kontext von HTML nicht verwendet werden (als Klassen oder IDs).
+ * Zu diesem Zweck ist diese Map definiert.
+ *
+ * @constant
+ */
 var TILE_NAME = {
 	'wall': 'wall',
 	'source': 'source',
@@ -20,6 +36,9 @@ var TILE_NAME = {
 	'tjunction': 'tjunction'
 }
 
+/**
+ * Dem Spieler stehen endlos viele Werkzeuge eines Types zur Verfügung, wenn diese Konstante angegeben wird.
+ */
 var TILE_AMOUNT_ENDLESS = -1;
 
 function TileType(exits, name, pointValue) {
@@ -30,6 +49,12 @@ function TileType(exits, name, pointValue) {
 	this.name = name;
 }
 
+/**
+ * Wandelt, ähnlich wie bei einer Enumeration, einen String in ein TileType-Objekt um.
+ *
+ * @param {string} name Stringrepräsentation des gesuchten Typen.
+ * @return Den dem angegebenen namen entsprechenden TileType oder null, falls keine Übereinstimmung gefunden wurde.
+ */
 TileType.byName = function(name) {
 	if (name === TILE_NAME['wall']) return TILE_TYPE['wall'];
 	else if (name === TILE_NAME['source']) return TILE_TYPE['source'];
@@ -45,6 +70,13 @@ TileType.prototype.toString = function() {
 	return this.name;
 }
 
+/**
+ * Der Konstruktor von TileType kann zwar überall aufgerufen werden,
+ * im Kontext unserer Anwendung ist diese 'Klasse' jedoch ein Enumeration Type.
+ *
+ * @enum
+ * @constant
+ */
 var TILE_TYPE = {
 	'wall': new TileType([], TILE_NAME['wall'], 0),
 	'source': new TileType([DIRECTION['right']], TILE_NAME['source'], 0),
@@ -55,6 +87,12 @@ var TILE_TYPE = {
 	'tjunction': new TileType([DIRECTION['left'], DIRECTION['up'], DIRECTION['down']], TILE_NAME['tjunction'], TILE_POINT_VALUE['tjunction']),
 }
 
+/**
+ * Definiert alle GRUNDSÄTZLICH vom Spieler verwendbaren TileTypes.
+ *
+ * @see ToolBox in 'levelview.js'
+ * @constant
+ */
 var PLACEABLE_TILE_TYPES = [TILE_TYPE['straight'],
                             TILE_TYPE['corner'],
                             TILE_TYPE['crossroads'],

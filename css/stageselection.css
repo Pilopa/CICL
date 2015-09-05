@@ -1,3 +1,4 @@
+/* Platzierung der Menübuttons */
 #stage-selection #options-button {
 	top: 10px;
 	left: 265px;
@@ -8,6 +9,7 @@
 	left: 30px;
 }
 
+/* Anzeige der Gesamtbewertung */
 #total-score-positioner {
 	display: flex;
 	justify-content: center;
@@ -37,6 +39,7 @@
 	height: 48px;
 }
 
+/* Trennlinie unter der Liste */
 hr {
 	width: 400px;
 	position: absolute;

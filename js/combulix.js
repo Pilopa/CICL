@@ -1,20 +1,26 @@
-/*
+/**
  * Für das Spiel ist Combulix der Mentor unseres Spielers.
  * Im Bezug auf unser Programm ist er ein Plugin, welches in jeder Seite eingebunden werden kann (Mit Hilfe der 'initialize'-Methode).
  * Einmal hinzugefügt, können die Hilfetexte definiert werden, indem der 'speeches'-Array überschrieben wird.
  * Dieser Array besteht aus Speech-Objekten (siehe speech.js).
  * Durch diese kann der Spieler dann durchwechseln, falls vom Entwickler nicht anders gewünscht (siehe 'disableNext/Previous').
+ *
+ * @requires 'speech.js'
  */
 
 var combulix = {
 		
 	current: 0,
-	speeches: [],
+	speeches: [], //Sollte überschrieben/gefüllt werden, bevor Combulix angezeigt wird.
 	disabled: {
 		next : false,
 		previous : false
 	},
 	
+	/**
+	 * Navigiert auf die Speech an dem gewünschten index.
+	 * @param {int} index Wo soll hinnavigiert werden ?
+	 */
 	set: function(index) {
 		if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.pause();
 		if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback.call(this.speeches[this.current]);
@@ -100,13 +106,16 @@ var combulix = {
 				else combulix.previous();
 			});
 		
-		/**
-		 * Scheint in dieser Form nicht zu funktionieren und wir wollen keine Fehler in 'disablePreviousListeners' riskieren, wenn diese Zeilen einkommentiert bleiben.
-		 * Sie sollen uns lediglich daran erinner, dass dieses Feature in Zukunft vorteilhaft sein könnte.
-		 */
-		/*$("arrow.left").on("swipeleft", function (event) {
+		/*
+		
+		 ## Scheint in dieser Form nicht zu funktionieren und wir wollen keine Fehler in 'disablePreviousListeners' riskieren, wenn diese Zeilen einkommentiert bleiben.
+		 ## Sie sollen uns lediglich daran erinner, dass dieses Feature in Zukunft vorteilhaft sein könnte.
+
+		$("arrow.left").on("swipeleft", function (event) {
 			if ($(".combulix").is(":hidden")) combulix.slideIn();
-		});*/
+		});
+		
+		*/
 	},
 	
 	disableNextListeners: function () {

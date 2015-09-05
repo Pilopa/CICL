@@ -1,5 +1,5 @@
-/*
- * Schnittstelle zwischen den einzelnen HTML-Elementen unseres Projekts.
+/**
+ * Schnittstelle zwischen den einzelnen HTML-Elementen (Menüs) unseres Projekts.
  */
 
 function showStageSelection() {
@@ -14,18 +14,8 @@ function showStageSelection() {
 		
 		audio.errorSound.load();
 		audio.errorSound.play();
-		
-		document.getElementById("continue").disabled = true;
 
-		$("#playerName_input").animate({
-			boxShadow : "0 0 75px 0 rgba(255, 0, 0, 1) inset"
-		}, 400, function () {
-			$(this).animate({
-				boxShadow : "0 0 75px 0 rgba(255, 0, 0, 1) inset"
-			}, function () {
-				document.getElementById("continue").disabled = false;
-			});
-		});
+		$("#playerName_input").css({"box-shadow": "0px 0px 10px 2px #F00"});
 		
 	}
 }

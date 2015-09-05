@@ -1,8 +1,24 @@
+/* Eingabe des Spielernamens */
 input {
 	position: absolute;
 	font-size: 48px;
 }
 
+#playerName_input {
+	left: calc(50% - 200px);
+	top: calc(50% - 20px);
+	width: 400px;
+	height: 40px;
+	font-size: 16px;
+	text-align: center;
+	cursor: auto;
+	background-color: #fff;
+	box-shadow: 0px 0px 0px 0px #F80 inset;
+	border: solid 1px black;
+	border-radius: 2px;
+}
+
+/* Button zum Betreten des Spiels */
 #continue {
 	left: calc(50% - 100px);
 	top: calc(70% - 50px);
@@ -22,19 +38,7 @@ input {
 	box-shadow: 0 0 20px 10px white inset;
 }
 
-#playerName_input {
-	left: calc(50% - 200px);
-	top: calc(50% - 20px);
-	width: 400px;
-	height: 40px;
-	font-size: 16px;
-	text-align: center;
-	cursor: auto;
-	background-color: #fff;
-	outline: medium none;
-	box-shadow: 0px 0px 0px 0px #F80 inset;
-}
-
+/* Überschrift */
 #title {
 	position: absolute;
 	top: 25%;
@@ -45,6 +49,7 @@ input {
 	text-shadow: 3px 3px 3px #555;
 }
 
+/* Versionsnummer */
 #version {
 	font-size: 14px;
 	position: absolute;

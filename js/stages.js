@@ -1,7 +1,8 @@
-/*
+/**
  * Definiert alle Bereiche und Levels, welche der Spieler durchspielen kann.
+ * Bereich E wird zu einem späteren Zeitpunkt zur Verfügung gestellt.
+ * @requires 'stage.js'
  */
-
 if (supports_session_storage && sessionStorage["stages"] === undefined) sessionStorage["stages"] = serializer.stringify([
                                                                                              
     // Tiles mit * werden in der levelview.js definiert.
@@ -346,6 +347,11 @@ if (supports_session_storage && sessionStorage["stages"] === undefined) sessionS
 				
 ]);
 
+/**
+ * Getter des Stages-Arrays.
+ *
+ * @return {array} Die oben definierten Stages.
+ */
 function getStages() {
 	return serializer.resurrect(sessionStorage["stages"]);
 }
