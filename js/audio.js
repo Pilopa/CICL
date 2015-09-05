@@ -16,6 +16,9 @@ var audio = {
 	bubbleSound: new Audio("../audio/bubble.wav"),
 	splashSound: new Audio("../audio/splash.wav"),
 	tadaSound: new Audio("../audio/tada.wav"),
+	failSound: new Audio("../audio/fail.wav"),
+	removeSound: new Audio("../audio/dragdrop.wav"),
+	combulixSound: new Audio("../audio/combulix-nav.wav"),
 	
 	soundOnClick : function (selector) {
 		
@@ -33,12 +36,19 @@ var audio = {
 			} else if ($(this).is(".menu-button, #continue, .close-button")) {
 				audio.menuButtonSound.load();
 				audio.menuButtonSound.play();
-			} else if ($(this).is(".arrow")) {
-				audio.combulixNav.load();
-				audio.combulixNav.play();
 			} else if ($(this).is("#startbutton")) {
 				audio.bubbleSound.load();
 				audio.bubbleSound.play();
+			} else if ($(this).is(".event-blocker")) {
+				audio.errorSound.volume = 0.15; //Der Ton ist initial sehr laut und wird nur mit extrem niedrigen %-Werten wirklich leiser.
+				audio.errorSound.load();
+				audio.errorSound.play();
+			} else if ($(this).is(".to-level-selection-button")) {
+				audio.menuButtonSound.load();
+				audio.menuButtonSound.play();
+			} else if ($(this).is(".continue-button")) {
+				audio.menuButtonSound.load();
+				audio.menuButtonSound.play();
 			}
 			
 		});

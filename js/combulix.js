@@ -69,16 +69,34 @@ var combulix = {
 	next: function() {
 		if (this.current + 1 < this.speeches.length) {
 			this.set(this.current + 1);
+			
+			//Spiele Sound
+			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
+				audio.combulixNav.load();
+				audio.combulixNav.play();
+			}
 		} else {
 			if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.pause();
 			if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback.call(this.speeches[this.current]);
 			this.slideOut();
+			
+			//Spiele Sound
+			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
+				audio.combulixSound.load();
+				audio.combulixSound.play();
+			}
 		}
 	},
 	
 	previous: function() {
 		if (this.current - 1 >= 0) {
 			combulix.set(this.current - 1);
+			
+			//Spiele Sound
+			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
+				audio.combulixNav.load();
+				audio.combulixNav.play();
+			}
 		}
 	},
 	
@@ -102,8 +120,16 @@ var combulix = {
 		
 		if (!hasEventHandler("arrow left", "click"))
 			$(".arrow.left").click(function(event) {
-				if ($(".combulix").is(":hidden")) combulix.slideIn();
-				else combulix.previous();
+				if ($(".combulix").is(":hidden")) {
+					combulix.slideIn();
+					
+					//Spiele Sound
+					if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
+						audio.combulixSound.load();
+						audio.combulixSound.play();
+					}
+					
+				} else combulix.previous();
 			});
 		
 		/*

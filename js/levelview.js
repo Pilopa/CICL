@@ -418,8 +418,10 @@ $(function() {
 	 * Spielt den Sound ab, welcher das Platzieren eines Tiles repräsentiert.
 	 */
 	function playDragdropSound() {
-		audio.dragdropSound.load();
-		audio.dragdropSound.play();
+		if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
+			audio.dragdropSound.load();
+			audio.dragdropSound.play();
+		}
 	}
 	
 	//Eventhandler initialisieren
@@ -465,7 +467,10 @@ $(function() {
 			updateLevelPointValueDisplay();
 			
 			//Abspielen des Sounds
-			playDragdropSound();
+			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
+				audio.removeSound.load();
+				audio.removeSound.play();
+			}
 			
 		} else if (event.type === EVENT_TYPE['swapped']) { //Zwei Tiles wurden vertauscht
 			
@@ -481,8 +486,10 @@ $(function() {
 			level.endRun();
 			
 			//Sound abspielen
-			audio.tadaSound.load();
-			audio.tadaSound.play();
+			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
+				audio.tadaSound.load();
+				audio.tadaSound.play();
+			}
 			
 			//Die Punkte berechnen
 			var scoreObject = getScoreObject();
@@ -630,6 +637,11 @@ $(function() {
 					})
 					.appendTo("#score-display-content");
 					
+					if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
+						audio.soundOnClick(".to-level-selection-button");
+						audio.soundOnClick(".continue-button");
+					}
+					
 					$("#score-display").hide().fadeIn(800);
 					
 				});
@@ -640,8 +652,10 @@ $(function() {
 			level.endRun();
 			
 			// Sound abspielen
-			audio.errorSound.load();
-			audio.errorSound.play();
+			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
+				audio.failSound.load();
+				audio.failSound.play();
+			}
 			
 			//Fail-Feedback
 			$(".game").animate({
@@ -1053,9 +1067,23 @@ $(function() {
 				     
 			    ),
 		     
-		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.<br><br> Wenn du glaubst, du hast eine gute Lösung gebaut, und möchtest sie ausprobieren, klicke auf den \"Testen\" Button.", undefined, 
+		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.<br><br> Wenn du glaubst, eine gute Lösung gebaut zu haben und möchtest sie ausprobieren, klicke auf den \"Testen\"-Button.", undefined, 
 		     		
 		     		function () {
+	    	 		if (!tutorialFlags.added) {
+	    	 			tutorialFlags.added = true;
+	    	 			
+			    		 level.tools = {
+			    			corner: 2,
+			    			straight: 2
+						 }
+			    		 
+			    		 maxPointValue = level.getMaxPointValue(); //Muss beim manuellen Setzen der Tools nach Initialisierung
+			    		 updateLevelPointValueDisplay();
+			    		 
+			    		 updateToolBox();
+	    	 		}
+		    	
 		    	 		$("#startbutton").fadeIn().addClass("highlighted");
 		    	 		combulix.disablePrevious();
 					}, //on
@@ -1066,24 +1094,9 @@ $(function() {
 		     		
 		    ),
 			
-			new Speech("Wenn der Test vollständig durchgelaufen ist, fehlerfrei oder nicht, wird unten der \"Weiterbasteln\"-Button aktiv.<br>Mit ihm entfernst du die Flüssigkeit aus dem System, so dass du weiterarbeiten kannst.", undefined,
+			new Speech("Wenn der Test vollständig durchgelaufen ist, fehlerfrei oder nicht, wird unten der \"Weiterbasteln\"-Button aktiv.<br><br>Mit ihm entfernst du die Flüssigkeit aus dem System, so dass du weiterarbeiten kannst.<br><br>Viel Spaß!", undefined,
 	        		
-	        		function () { //on
-		    	 		if (!tutorialFlags.added) {
-		    	 			tutorialFlags.added = true;
-		    	 			
-				    		 level.tools = {
-				    			corner: 2,
-				    			straight: 2
-							 }
-				    		 
-				    		 maxPointValue = level.getMaxPointValue(); //Muss beim manuellen Setzen der Tools nach Initialisierung
-				    		 updateLevelPointValueDisplay();
-				    		 
-				    		 updateToolBox();
-		    	 		}
-
-		     		},
+	        		function () {}, //on
 		     		
 		     		function () { //off
 		     			$("#startbutton").removeClass("highlighted");
@@ -1116,7 +1129,7 @@ $(function() {
 	
 	$('#startbutton').click(function() {
 		
-		if (playerObject.showGameTutorial) $("#startbutton").removeClass("highlighted"); //Falls das Tutorial diesen gehighlighted hat!
+		$("#startbutton").removeClass("highlighted"); //z.b. Falls das Tutorial diesen gehighlighted hat!
 		if ($(this).text() === 'Testen') {
 			
 			//Starte den Test
@@ -1129,8 +1142,10 @@ $(function() {
 			$(".event-blocker").show(); 
 			
 			//Sound abspielen
-			audio.bubbleSound.load();
-			audio.bubbleSound.play();
+			if(getCurrentPlayerObject() !== null && getCurrentPlayerObject().playSound) {
+				audio.bubbleSound.load();
+				audio.bubbleSound.play();
+			}
 			
 		} else if ($(this).text() === 'Weiterbasteln') {
 			
@@ -1145,6 +1160,12 @@ $(function() {
 		} 
 		
 	});
+	
+	$(".event-blocker").click(function () {
+		if ($("#startbutton").text() === 'Weiterbasteln') $("#startbutton").addClass("highlighted");
+	});
+	
+	audio.soundOnClick(".event-blocker");
 	
 	//Aktiviere Start Button
 	

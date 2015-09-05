@@ -14,3 +14,6 @@ error.wav : http://www.soundjay.com/button/sounds/button-10.mp3
 button-click.wav : http://soundbible.com/1280-Click-On.html lizenziert unter Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
 splash.wav : http://soundbible.com/1097-Slime-Splash.html lizenziert unter Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
 tada.wav : http://soundbible.com/1003-Ta-Da.html lizenziert unter Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
+fail.wav : http://soundbible.com/1623-Dun-Dun-Dun.html lizenziert unter Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
+remove_tile.wav : http://soundbible.com/2067-Blop.html lizenziert unter Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
+combulix-in-out.wav : http://soundbible.com/2068-Woosh.html lizenziert unter Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
