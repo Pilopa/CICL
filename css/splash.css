@@ -4,6 +4,7 @@ input {
 	font-size: 48px;
 }
 
+/* Überschrift */
 #playerName_input {
 	left: calc(50% - 200px);
 	top: calc(50% - 20px);
@@ -38,7 +39,6 @@ input {
 	box-shadow: 0 0 20px 10px white inset;
 }
 
-/* Ãœberschrift */
 #title {
 	position: absolute;
 	top: 25%;

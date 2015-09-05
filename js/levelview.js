@@ -494,7 +494,7 @@ $(function() {
 			saveCurrentPlayerObject(playerObject);
 			
 			//Start-Button zurücksetzen (hihi)
-			setStartButtonEnabled(true, "Zurücksetzen");
+			setStartButtonEnabled(true, "Weiterbasteln");
 			
 			//Sieges-Feedback
 			$(".game").animate({
@@ -652,7 +652,7 @@ $(function() {
 				}, 1000,function () {
 					$(this).addClass("wrong");
 					//Button zurücksetzen
-					setStartButtonEnabled(true, "Zurücksetzen");
+					setStartButtonEnabled(true, "Weiterbasteln");
 				});
 			});
 			
@@ -1053,7 +1053,7 @@ $(function() {
 				     
 			    ),
 		     
-		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.<br><br> Wenn du glaubst, du hast eine gute Lösung gebaut, und möchtest sie ausprobieren, klicke auf den \"Test starten\" Button.", undefined, 
+		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.<br><br> Wenn du glaubst, du hast eine gute Lösung gebaut, und möchtest sie ausprobieren, klicke auf den \"Testen\" Button.", undefined, 
 		     		
 		     		function () {
 		    	 		$("#startbutton").fadeIn().addClass("highlighted");
@@ -1066,7 +1066,7 @@ $(function() {
 		     		
 		    ),
 			
-			new Speech("Wenn der Test vollständig durchgelaufen ist, fehlerfrei oder nicht, wird unten der \"Zurücksetzen\"-Button aktiv.<br>Mit ihm entfernst du die Flüssigkeit aus dem System, so dass du weiterarbeiten kannst.", undefined,
+			new Speech("Wenn der Test vollständig durchgelaufen ist, fehlerfrei oder nicht, wird unten der \"Weiterbasteln\"-Button aktiv.<br>Mit ihm entfernst du die Flüssigkeit aus dem System, so dass du weiterarbeiten kannst.", undefined,
 	        		
 	        		function () { //on
 		    	 		if (!tutorialFlags.added) {
@@ -1117,7 +1117,7 @@ $(function() {
 	$('#startbutton').click(function() {
 		
 		if (playerObject.showGameTutorial) $("#startbutton").removeClass("highlighted"); //Falls das Tutorial diesen gehighlighted hat!
-		if ($(this).text() === 'Test starten!') {
+		if ($(this).text() === 'Testen') {
 			
 			//Starte den Test
 			level.startRun();
@@ -1132,10 +1132,10 @@ $(function() {
 			audio.bubbleSound.load();
 			audio.bubbleSound.play();
 			
-		} else if ($(this).text() === 'Zurücksetzen') {
+		} else if ($(this).text() === 'Weiterbasteln') {
 			
 			clearRun();
-			$(this).text("Test starten!");
+			$(this).text("Testen");
 			$(".game").css({
 				boxShadow: "0px 0px 0px 0px #F80 inset"
 			});
