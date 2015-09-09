@@ -121,7 +121,7 @@ $(function() {
  	         
  	         ),
 	         
-	         new Speech("Wenn du ein Level erfolgreich abschließt, wirst du mit minimal einem und maximal fünf Sternen dafür belohnt ...", undefined,
+	         new Speech("Wenn du ein Level erfolgreich abschließt, wirst du mit minimal einem halben und maximal fünf Sternen dafür belohnt ...", undefined,
 	        		 
 	        	function () {
 	        	 
