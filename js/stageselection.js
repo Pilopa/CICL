@@ -70,7 +70,7 @@ $(function() {
 		
 		//Definiere die Texte von Combulix
 		combulix.speeches = [
-	         new Speech("<br>Oh nein,<br> nicht SCHON WIEDER !!! <br><br><br><br><i>(Klicke auf den grünen Pfeil, oder wische nach Links, um den nächsten Tipp zu lesen.)</i>", undefined,
+	         new Speech("<br>Oh nein,<br> nicht SCHON WIEDER !!! <br><br><br><br><i>(Klicke auf den grünen Pfeil, oder wische nach links, um den nächsten Tipp zu lesen.)</i>", undefined,
 	        		 
 	        	function () {
 	  
@@ -157,7 +157,7 @@ $(function() {
 	         	
 	         ),
 	         
-	         new Speech("Klicke weiter oder wische nach Links, um mich auszublenden." +
+	         new Speech("Klicke weiter oder wische nach links, um mich auszublenden." +
 		     		"<br><br>Du kannst mich jederzeit mit einem Klick auf den grünen Pfeil zurückholen.<br><br><i>(Es ändert nichts am Spielgeschehen!)</i>", undefined, 
 		     		
 	     		function () {
