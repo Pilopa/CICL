@@ -828,7 +828,7 @@ $(function() {
 	         	
 	        ),
 	        
-	        new Speech("Oben rechts gibt es die Punkteanzeige.<br><br>Jedes platzierte Werkzeug wird von deinem Punktekonto abgezogen.<br><br>Je näher du am Startwert bleibst, desto besser deine Endwertung ...", undefined,
+	        new Speech("Oben rechts gibt es die Punkteanzeige.<br><br>Jedes platzierte Werkzeug wird von deinem Punktekonto abgezogen.<br><br>Je mehr Punkte übrig bleiben, desto besser deine Endwertung ...", undefined,
 	        		
 	        		function () { //on
 	        			$("#pointValueContainer").fadeIn().addClass("highlighted");
@@ -870,7 +870,7 @@ $(function() {
   	         	
   	         ),
 		     
-		    new Speech("Ziehe die Gerade von der Werkzeugleiste auf das makierte Feld ...", undefined,
+		    new Speech("Ziehe die Gerade von der Werkzeugleiste auf das markierte Feld ...", undefined,
 		    		 
 		    		 function () { //on
 		    	
@@ -1055,7 +1055,7 @@ $(function() {
 				     
 			    ),
 		     
-		    new Speech("Das wars für den Anfang. Du solltest jetzt alleine klarkommen.<br><br> Wenn du glaubst, eine gute Lösung gebaut zu haben und möchtest sie ausprobieren, klicke auf den \"Testen\"-Button.", undefined, 
+		    new Speech("Das war's für den Anfang. Du solltest jetzt alleine klarkommen.<br><br> Wenn du glaubst, eine gute Lösung gebaut zu haben und möchtest sie ausprobieren, klicke auf den \"Testen\"-Button.", undefined, 
 		     		
 		     		function () {
 	    	 		if (!tutorialFlags.added) {
