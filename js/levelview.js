@@ -138,7 +138,7 @@ $(function() {
 				delay: 120,
 				revert: function (droppable) {
 					
-					if (!droppable) $(this).draggable("option", "revertDuration", 500);
+					if (!droppable) {$(this).draggable("option", "revertDuration", 500); audio.playSound("errorSound", 0.25);}
 					else if ($(this).is(":data(ui-draggable)")) $(this).draggable("option", "revertDuration", 0);
 					else  $(this).removeClass("ui-draggable-dragging");
 					
@@ -348,7 +348,9 @@ $(function() {
 			.addClass('interactable');
 			if (!tool.is(":data(ui-draggable)")) tool.draggable({
 								helper: "clone",
-								revert: true,
+								revert: function (droppable) {
+					
+										if (!droppable) audio.playSound("errorSound", 0.25); return true;},
 								scroll: false,
 								cursorAt: {
 								    left: Math.floor(tilesize / 2),
@@ -480,11 +482,10 @@ $(function() {
 			level.endRun();
 			
 			//Sound abspielen
-			audio.playSound("tadaSound");
+			audio.playSound("tadaSound", 0.2);
 			
 			//Die Punkte berechnen
 			var scoreObject = getScoreObject();
-			console.log(scoreObject);
 			
 			//Die Punkte vergeben
 			if (playerObject.showGameTutorial) playerObject.showGameTutorial = false;
@@ -614,7 +615,7 @@ $(function() {
 					
 					//Zur Levelauswahl-Button
 					$(document.createElement('div'))
-					.text("Zur Levelauswahl")
+					.text(levelid != stage.levels.length-1 ? "Zur Levelauswahl" : "Zur Bereichsauswahl")
 					.addClass("to-level-selection-button")
 					.addClass("centered-text")
 					.addClass("interactable")
@@ -622,7 +623,7 @@ $(function() {
 					.click(function () {
 						
 						$("#score-display").fadeOut(function() {
-							showLevelSelection(stageid);
+							levelid != stage.levels.length-1 ? showLevelSelection(stageid) : showStageSelection();
 						});
 						
 					})
@@ -643,7 +644,7 @@ $(function() {
 			level.endRun();
 			
 			// Sound abspielen
-			audio.playSound("failSound");
+			audio.playSound("failSound", 0.2);
 			
 			//Fail-Feedback
 			$(".game").animate({
@@ -663,7 +664,7 @@ $(function() {
 	});
 	
 	// Initialisiere das Spielfeld
-	$('#levelheader').text((stage.title === undefined ? "Bereich " + (i + 1) : stage.title) + " : " + (level.title === undefined ? "Bereich " + (i + 1) : level.title));
+	$('#levelheader').text((stage.title === undefined ? "Bereich " + (i + 1) : stage.title) + " : " + (level.title === undefined ? "Level " + (i + 1) : level.title));
 	
 	var tilesize = 0;
 	if(level.width >= level.height) {

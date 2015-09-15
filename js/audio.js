@@ -24,11 +24,13 @@ var audio = {
 		return audio[name];
 	},
 	
-	playSound : function (name) {
+	playSound : function (name, vol) {
+		if(vol === null || vol === undefined) vol = 1;
 		if(getCurrentPlayerObject() !== null && !getCurrentPlayerObject().playSound) return false;
 		else {
 			var sound = audio.getSound(name);
 			sound.load();
+			sound.volume = vol;
 			sound.play();
 			return true;
 		}
@@ -46,10 +48,7 @@ var audio = {
 			if ($(this).is(".item.active")) {
 				audio.playSound("selectionItemSound");
 			} else if ($(this).is(".item:not(.active)")) {
-				sound = audio.getSound("errorSound");
-				sound.volume = 0.15; //Der Ton ist initial sehr laut und wird nur mit extrem niedrigen %-Werten wirklich leiser.
-				sound.load();
-				sound.play();
+				audio.playSound("errorSound", 0.25);
 			} else if ($(this).is(".menu-button, #continue, .close-button")) {
 				audio.playSound("menuButtonSound");
 			} else if ($(this).is("#startbutton")) {

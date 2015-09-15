@@ -108,7 +108,6 @@ Walker.prototype.proceed = function(exit) {
 
 // Prüft Ausgang des aktuellen Tiles in angegebene Richtung, ob dort das Weiterfließen möglich ist
 Walker.prototype.assertExit = function(dir) {
-	console.log(this.where + ', ' + dir);
 	var neighbor = this.level.getNeighbor(this.where, dir);
 		if(neighbor === null || neighbor === undefined) {
 			this.testFailed(this.where, 'empty neighbor from ' + this.where + ' to ' + dir); // Nachbarfeld ist leer!
@@ -309,7 +308,6 @@ Walker.prototype.destinationReached = function() {
 	if (this.level.destinationsCount <= this.level.destinationsReached) {
 		this.level.fireEvent(new Event(EVENT_TYPE['testcompleted']));
 	} else {
-		console.log('stopping on destination');
 		this.stop();
 	}
 }

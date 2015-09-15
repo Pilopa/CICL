@@ -71,14 +71,14 @@ var combulix = {
 			this.set(this.current + 1);
 			
 			//Spiele Sound
-			audio.playSound("combulixNav");
+			audio.playSound("combulixNav", 0.2);
 		} else {
 			if (typeof this.speeches[this.current].audio !== 'undefined') this.speeches[this.current].audio.pause();
 			if (typeof this.speeches[this.current].offCallback !== 'undefined') this.speeches[this.current].offCallback.call(this.speeches[this.current]);
 			this.slideOut();
 			
 			//Spiele Sound
-			audio.playSound("combulixSound");
+			audio.playSound("combulixSound", 0.2);
 		}
 	},
 	
@@ -87,7 +87,7 @@ var combulix = {
 			combulix.set(this.current - 1);
 			
 			//Spiele Sound
-			audio.playSound("combulixNav");
+			audio.playSound("combulixNav", 0.2);
 		}
 	},
 	
@@ -115,7 +115,7 @@ var combulix = {
 					combulix.slideIn();
 					
 					//Spiele Sound
-					audio.playSound("combulixSound");
+					audio.playSound("combulixSound", 0.2);
 					
 				} else combulix.previous();
 			});
